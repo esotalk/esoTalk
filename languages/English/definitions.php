@@ -1,4 +1,5 @@
 <?php
+
 // Copyright 2011 Toby Zerner, Simon Zerner
 // This file is part of esoTalk. Please see the included license file for usage information.
 
@@ -354,7 +355,7 @@ $definitions["message.connectionError"] = "esoTalk could not connect to the MySQ
 $definitions["message.conversationDeleted"] = "The conversation was deletwed. Didn't that feel good?";
 $definitions["message.conversationNotFound"] = "For some reason this conversation cannot be viewed. Maybe it's been deleted? Or maybe it's a private conversation, in which case you might not be logged in or you might not be invited. Oh man, I hope they're not talking about you behind your back!";
 $definitions["message.deleteChannelHelp"] = "Woah, hold up there! If you delete this channel, there'll be no way to get it back. Unless you build a time machine. But, uh, there'll be no <em>easy</em> way to get it back. All of the conversations in this channel can be moved to another of your choice.";
-$definitions["message.emailConfirmed"] = "Cool! Your account has been validated and you can now start participating in conversations. Why not <a href='".URL("conversation/start")."'>start one</a> yourself?";
+$definitions["message.emailConfirmed"] = "Cool! Your account has been validated and you can now start participating in conversations. Why not <a href='" . URL("conversation/start") . "'>start one</a> yourself?";
 $definitions["message.emailDoesntExist"] = "That email address doesn't match any members in the database. Did you make a typo?";
 $definitions["message.emailNotYetConfirmed"] = "You need to confirm your email before you can log in with it! If you didn't receive the confirmation email, <a href='%s'>click here to get it sent again</a>.";
 $definitions["message.emailTaken"] = "Curses, there is already a member with this email!";
@@ -393,7 +394,7 @@ $definitions["message.languageUninstalled"] = "The language was uninstalled.";
 $definitions["message.locked"] = "Hm, looks like this conversation is <strong>locked</strong>, so you can't reply to it.";
 $definitions["message.loginToParticipate"] = "To start conversations or reply to posts, please log in.";
 $definitions["message.logInToReply"] = "<a href='%1\$s' class='link-login'>Log In</a> or <a href='%2\$s' class='link-join'>Sign Up</a> to reply!";
-$definitions["message.logInToSeeAllConversations"] = "<a href='".URL("user/login")."' class='link-login'>Log in</a> to expose some channels/conversations that may be hidden to guests.";
+$definitions["message.logInToSeeAllConversations"] = "<a href='" . URL("user/login") . "' class='link-login'>Log in</a> to expose some channels/conversations that may be hidden to guests.";
 $definitions["message.memberNotFound"] = "Hm, there doesn't seem to be a member with that name.";
 $definitions["message.memberNoPermissionView"] = "That member can't be added because they don't have permission to view the channel that this conversation is in.";
 $definitions["message.nameTaken"] = "The name you have entered is taken or is a reserved word.";
@@ -454,7 +455,7 @@ $definitions["email.replyToStarred.subject"] = "There is a new reply to '%1\$s'"
 
 
 // Translating the gambit system can be quite complex, but we'll do our best to get you through it. :)
-// Note: Don't use any html entities in these definitions, except for: &lt; &gt; &amp; &#39; 
+// Note: Don't use any html entities in these definitions, except for: &lt; &gt; &amp; &#39;
 
 // Simple gambits
 // These gambits are pretty much evaluated as-they-are.
@@ -508,7 +509,6 @@ $definitions["gambit.month"] = "month";
 $definitions["gambit.year"] = "year";
 $definitions["gambit.last"] = "last"; // as in "active last 180 days"
 $definitions["gambit.active"] = "active"; // as in "active last 180 days"
-
 // Now the hard bit. This is a regular expression to test for the "active" gambit.
 // The group (?<a> ... ) is the comparison operator (>, <, >=, <=, or last).
 // The group (?<b> ... ) is the number (ex. 24).
@@ -525,5 +525,3 @@ $definitions["gambit.active last ? days"] = "{$definitions["gambit.active"]} {$d
 // This is similar to the regular expression for the active gambit, but for the "has n reply(s)" gambit.
 // Usually you just need to change the "has" and "repl".
 $definitions["gambit.gambitHasNReplies"] = "/^has *(?<a>>|<|>=|<=)? *(?<b>\d+) *repl/";
-
-?>

@@ -1,4 +1,5 @@
 <?php
+
 // OMG FIRST COMMENT!!!11!
 // Copyright 2011 Toby Zerner, Simon Zerner
 // This file is part of esoTalk. Please see the included license file for usage information.
@@ -17,15 +18,13 @@
  * 8. Sets up the language.
  * 9. Sets up the appropriate controller.
  * 10. Dispatches to the controller, which will in turn render the page.
- * 
+ *
  * @package esoTalk
  */
-
 define("IN_ESOTALK", 1);
 
 
 //***** 1. SET UP ENVIRONMENT
-
 // Start a page load timer. We don't make use of it by default, but a plugin can if it needs to.
 define("PAGE_START_TIME", microtime(true));
 
@@ -34,33 +33,81 @@ ini_set("display_errors", "On");
 error_reporting(E_ERROR | E_PARSE | E_CORE_ERROR | E_COMPILE_ERROR | E_USER_ERROR | E_RECOVERABLE_ERROR);
 
 // Make sure a default timezone is set... silly PHP 5.
-if (ini_get("date.timezone") == "") date_default_timezone_set("GMT");
+if (ini_get("date.timezone") == "")
+	date_default_timezone_set("GMT");
 
 // Define directory constants.
-if (!defined("PATH_ROOT")) define("PATH_ROOT", dirname(__FILE__));
-if (!defined("PATH_CACHE")) define("PATH_CACHE", PATH_ROOT."/cache");
-if (!defined("PATH_CONFIG")) define("PATH_CONFIG", PATH_ROOT."/config");
-if (!defined("PATH_CONTROLLERS")) define("PATH_CONTROLLERS", PATH_ROOT."/controllers");
-if (!defined("PATH_LANGUAGES")) define("PATH_LANGUAGES", PATH_ROOT."/languages");
-if (!defined("PATH_LIBRARY")) define("PATH_LIBRARY", PATH_ROOT."/lib");
-if (!defined("PATH_MODELS")) define("PATH_MODELS", PATH_ROOT."/models");
-if (!defined("PATH_PLUGINS")) define("PATH_PLUGINS", PATH_ROOT."/plugins");
-if (!defined("PATH_SKINS")) define("PATH_SKINS", PATH_ROOT."/skins");
-if (!defined("PATH_UPLOADS")) define("PATH_UPLOADS", PATH_ROOT."/uploads");
-if (!defined("PATH_VIEWS")) define("PATH_VIEWS", PATH_ROOT."/views");
+if (!defined("PATH_ROOT"))
+{
+	define("PATH_ROOT", dirname(__FILE__));
+}
+
+if (!defined("PATH_CACHE"))
+{
+	define("PATH_CACHE", PATH_ROOT."/cache");
+}
+
+if (!defined("PATH_CONFIG"))
+{
+	define("PATH_CONFIG", PATH_ROOT."/config");
+}
+
+if (!defined("PATH_CONTROLLERS"))
+{
+	define("PATH_CONTROLLERS", PATH_ROOT."/controllers");
+}
+
+if (!defined("PATH_LANGUAGES"))
+{
+	define("PATH_LANGUAGES", PATH_ROOT."/languages");
+}
+
+if (!defined("PATH_LIBRARY"))
+{
+	define("PATH_LIBRARY", PATH_ROOT."/lib");
+}
+
+if (!defined("PATH_MODELS"))
+{
+	define("PATH_MODELS", PATH_ROOT."/models");
+}
+
+if (!defined("PATH_PLUGINS"))
+{
+	define("PATH_PLUGINS", PATH_ROOT."/plugins");
+}
+
+if (!defined("PATH_SKINS"))
+{
+	define("PATH_SKINS", PATH_ROOT."/skins");
+}
+
+if (!defined("PATH_UPLOADS"))
+{
+	define("PATH_UPLOADS", PATH_ROOT."/uploads");
+}
+
+if (!defined("PATH_VIEWS"))
+{
+	define("PATH_VIEWS", PATH_ROOT."/views");
+}
 
 // Include some essential files.
 require PATH_LIBRARY."/functions.general.php";
 require PATH_LIBRARY."/ET.class.php"; // phone home!
-
 // Set up error and exception handling.
+
 function errorHandler($code, $message, $file, $line)
 {
 	// Make sure this error code is included in error_reporting.
-	if ((error_reporting() & $code) != $code) return false;
+	if ((error_reporting() & $code) != $code)
+	{
+		return false;
+	}
 
 	ET::fatalError(new ErrorException($message, $code, 1, $file, $line));
 }
+
 set_error_handler("errorHandler", E_USER_ERROR);
 set_exception_handler(array("ET", "fatalError"));
 
@@ -68,13 +115,17 @@ set_exception_handler(array("ET", "fatalError"));
 // the web path should be /test/forum.
 $parts = explode("/", $_SERVER["PHP_SELF"]);
 $key = array_search("index.php", $parts);
-if ($key !== false) ET::$webPath = implode("/", array_slice($parts, 0, $key));
+if ($key !== false)
+{
+	ET::$webPath = implode("/", array_slice($parts, 0, $key));
+}
 
 // Undo register_globals.
 undoRegisterGlobals();
 
 // If magic quotes is on, strip the slashes that it added.
-if (get_magic_quotes_gpc()) {
+if (get_magic_quotes_gpc())
+{
 	$_REQUEST = array_map("undoMagicQuotes", $_REQUEST);
 	$_GET = array_map("undoMagicQuotes", $_GET);
 	$_POST = array_map("undoMagicQuotes", $_POST);
@@ -83,23 +134,30 @@ if (get_magic_quotes_gpc()) {
 
 
 //***** 2. INCLUDE CONFIGURATION
-
 // Include our config files.
 ET::loadConfig(PATH_ROOT."/config.defaults.php");
 
 // If the config path is different from the default, but there's still a config file at the default location, include it.
-if (PATH_CONFIG != PATH_ROOT."/config" and file_exists($file = PATH_ROOT."/config/config.php")) ET::loadConfig($file);
+if (PATH_CONFIG != PATH_ROOT."/config" and file_exists($file = PATH_ROOT."/config/config.php"))
+{
+	ET::loadConfig($file);
+}
 
 // Include the real config file.
-if (file_exists($file = PATH_CONFIG."/config.php")) ET::loadConfig($file);
+if (file_exists($file = PATH_CONFIG."/config.php"))
+{
+	ET::loadConfig($file);
+}
 
 // In debug mode, show all errors.
-if (C("esoTalk.debug")) error_reporting(E_ALL);
+if (C("esoTalk.debug"))
+{
+	error_reporting(E_ALL);
+}
 
 
 
 //***** 3. REQUIRE AND REGISTER ESSENTIAL CLASSES
-
 // Require base classes that may be extended.
 require PATH_LIBRARY."/ETFactory.class.php";
 require PATH_LIBRARY."/ETPluggable.class.php";
@@ -132,17 +190,19 @@ ETFactory::register("activityModel", "ETActivityModel", PATH_MODELS."/ETActivity
 ETFactory::register("upgradeModel", "ETUpgradeModel", PATH_MODELS."/ETUpgradeModel.class.php");
 
 // If esoTalk hasn't been installed, register the install controller and set it as the default route.
-if (!C("esoTalk.installed")) {
+if (!C("esoTalk.installed"))
+{
 	ETFactory::registerController("install", "ETInstallController", PATH_CONTROLLERS."/ETInstallController.class.php");
 	ET::$config["esoTalk.defaultRoute"] = "install";
 }
-
-elseif (C("esoTalk.version") != ESOTALK_VERSION) {
+elseif (C("esoTalk.version") != ESOTALK_VERSION)
+{
 	ETFactory::registerController("upgrade", "ETUpgradeController", PATH_CONTROLLERS."/ETUpgradeController.class.php");
 }
 
 // Otherwise, register all the default controllers and admin controllers.
-else {
+else
+{
 	ETFactory::registerController("conversations", "ETConversationsController", PATH_CONTROLLERS."/ETConversationsController.class.php");
 	ETFactory::registerController("conversation", "ETConversationController", PATH_CONTROLLERS."/ETConversationController.class.php");
 	ETFactory::registerController("post", "ETPostController", PATH_CONTROLLERS."/ETPostController.class.php");
@@ -166,19 +226,25 @@ else {
 
 //***** 5. SET UP PLUGINS
 
-if (C("esoTalk.installed")) {
+if (C("esoTalk.installed"))
+{
 
-	foreach (C("esoTalk.enabledPlugins") as $v) {
-		if (file_exists($file = PATH_PLUGINS."/".sanitizeFileName($v)."/plugin.php")) include_once $file;
+	foreach (C("esoTalk.enabledPlugins") as $v)
+	{
+		if (file_exists($file = PATH_PLUGINS."/".sanitizeFileName($v)."/plugin.php"))
+		{
+			include_once $file;
+		}
 		$className = "ETPlugin_$v";
-		if (class_exists($className)) ET::$plugins[$v] = new $className("plugins/".$v);
+		if (class_exists($className))
+		{
+			ET::$plugins[$v] = new $className("plugins/".$v);
+		}
 	}
-
 }
- 
+
 
 //***** 6. INITIALIZE SESSION AND DATABASE, AND CACHE
-
 // Initialize the cache.
 $cacheClass = C("esoTalk.cache");
 ET::$cache = ETFactory::make($cacheClass ? $cacheClass : "cache");
@@ -192,49 +258,67 @@ ET::$session = ETFactory::make("session");
 
 // Check if any plugins need upgrading by comparing the versions in ET::$pluginInfo with the versions in
 // ET::$config.
-foreach (ET::$plugins as $k => $v) {
-	if (C("$k.version") != ET::$pluginInfo[$k]["version"]) {
-		if ($v->setup(C("$k.version"))) ET::writeConfig(array("$k.version" => ET::$pluginInfo[$k]["version"]));
+foreach (ET::$plugins as $k => $v)
+{
+	if (C("$k.version") != ET::$pluginInfo[$k]["version"])
+	{
+		if ($v->setup(C("$k.version")))
+		{
+			ET::writeConfig(array("$k.version" => ET::$pluginInfo[$k]["version"]));
+		}
 	}
 }
 
 
 
 //***** 7. PARSE REQUEST
-
 // If $_GET["p"] was explicitly specified, use that.
-if (!empty($_GET["p"])) {
+if (!empty($_GET["p"]))
+{
 	$request = $_GET["p"];
 	unset($_GET["p"]);
 }
 
 // If friendly URLs are turned on, process the REQUEST_URI into what the value of $_GET["p"] would normally be.
-elseif (C("esoTalk.urls.friendly") and isset($_SERVER["REQUEST_URI"])) {
+elseif (C("esoTalk.urls.friendly") and isset($_SERVER["REQUEST_URI"]))
+{
 
 	// Remove the base path from the request URI.
 	$request = preg_replace("|^".preg_quote(ET::$webPath)."|", "", $_SERVER["REQUEST_URI"]);
 
 	// If there is a querystring, remove it.
 	$selfURL = $request;
-	if (($pos = strpos($request, "?")) !== false) $request = substr_replace($request, "", $pos);
+	if (($pos = strpos($request, "?")) !== false)
+		$request = substr_replace($request, "", $pos);
 
 	// Explode the request string. Make sure index.php is not the first item.
 	$parts = explode("/", trim(urldecode($request), "/"));
-	if ($parts[0] == "index.php") array_shift($parts);
+	if ($parts[0] == "index.php")
+		array_shift($parts);
 	$request = implode("/", $parts);
 }
 
 // If we have no request information, use the default route.
-if (empty($request)) $request = C("esoTalk.defaultRoute");
+if (empty($request))
+{
+	$request = C("esoTalk.defaultRoute");
+}
 
 // We need to work out what the URL to this exact page is and set it to the controller later.
 // If we didn't work it out above, set it to $request and append any GET variables.
-if (empty($selfURL)) {
+if (empty($selfURL))
+{
 	$selfURL = $request;
 	$get = array();
-	foreach ($_GET as $k => $v) $get[] = "$k=".urlencode($v);
+	foreach ($_GET as $k => $v)
+	{
+		$get[] = "$k=".urlencode($v);
+	}
 	$get = implode("&", $get);
-	if ($get) $selfURL .= "?$get";
+	if ($get)
+	{
+		$selfURL .= "?$get";
+	}
 }
 
 $requestParts = explode("/", $request);
@@ -242,24 +326,41 @@ $requestParts = explode("/", $request);
 
 
 //***** 8. SET UP SKIN
-
 // If the user is an administrator and we're in the admin section, use the admin skin.
-if (ET::$session->isAdmin() and $requestParts[0] == "admin") $skinName = C("esoTalk.adminSkin");
+if (ET::$session->isAdmin() and $requestParts[0] == "admin")
+{
+	$skinName = C("esoTalk.adminSkin");
+}
 
 // If it's a mobile browser, use the mobile skin.
-elseif (isMobileBrowser()) $skinName = C("esoTalk.mobileSkin");
+elseif (isMobileBrowser())
+{
+	$skinName = C("esoTalk.mobileSkin");
+}
 
 // Otherwise, use the default skin.
-else $skinName = C("esoTalk.skin");
+else
+{
+	$skinName = C("esoTalk.skin");
+}
 
-// Include the skin file and instantiate its class. 
+// Include the skin file and instantiate its class.
 ET::$skinName = $skinName;
-if (file_exists($file = PATH_SKINS."/$skinName/skin.php")) include_once $file;
+if (file_exists($file = PATH_SKINS."/$skinName/skin.php"))
+{
+	include_once $file;
+}
 $skinClass = "ETSkin_".$skinName;
-if (class_exists($skinClass)) ET::$skin = new $skinClass("skins/".$skinName);
+if (class_exists($skinClass))
+{
+	ET::$skin = new $skinClass("skins/".$skinName);
+}
 
 // If we haven't got a working skin, just use the base class. It'll be ugly, but it'll do.
-if (empty(ET::$skin)) ET::$skin = new ETSkin("");
+if (empty(ET::$skin))
+{
+	ET::$skin = new ETSkin("");
+}
 
 // Add the class as a plugin as well so that its event handlers are called through the normal process.
 array_unshift(ET::$plugins, ET::$skin);
@@ -277,18 +378,26 @@ ET::loadLanguage(ET::$session->preference("language"));
 require PATH_LIBRARY."/functions.render.php";
 
 // If the first part of the request is "admin", presume we're in the admin section.
-if ($requestParts[0] == "admin") {
+if ($requestParts[0] == "admin")
+{
 	$controllers = ETFactory::$adminControllers;
 	array_shift($requestParts);
-	if (empty($requestParts[0])) $requestParts[0] = "dashboard";
+	if (empty($requestParts[0]))
+	{
+		$requestParts[0] = "dashboard";
+	}
 }
 
 // Otherwise, use normal public controllers.
-else {
+else
+{
 	$controllers = ETFactory::$controllers;
 
 	// If the first character of the URL parameter is numeric, assume the conversation controller.
-	if ($requestParts[0] and is_numeric($requestParts[0][0])) array_unshift($requestParts, "conversation");
+	if ($requestParts[0] and is_numeric($requestParts[0][0]))
+	{
+		array_unshift($requestParts, "conversation");
+	}
 }
 
 // Parse the request store all of the request information.
@@ -301,14 +410,19 @@ ET::$controller->responseType = $responseType;
 
 
 //***** 11. SHOW THE PAGE
-
 // Initialize plugins.
-foreach (ET::$plugins as $plugin) $plugin->init();
+foreach (ET::$plugins as $plugin)
+{
+	$plugin->init();
+}
 
 // Initialize the controller.
 ET::$controller->init();
 
-if (!C("esoTalk.gzipOutput") or C("esoTalk.debug") or !ob_start("ob_gzhandler")) ob_start();
+if (!C("esoTalk.gzipOutput") or C("esoTalk.debug") or !ob_start("ob_gzhandler"))
+{
+	ob_start();
+}
 
 // Dispatch request information to the controller. The controller will then call the appropriate function which
 // will in turn render the page.
@@ -321,5 +435,3 @@ ob_end_flush();
 //***** 12. CLEANUP
 
 ET::$database->close();
-
-?>
