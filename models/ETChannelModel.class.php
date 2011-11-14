@@ -199,7 +199,7 @@ public function addPermissionPredicate(&$sql, $field = "view", $member = false, 
 	if (!$member) $member = ET::$session->user;
 
 	// Get an array of group IDs for this member.
-	$groups = ET::groupModel()->getGroupIds($member["account"], $member["groups"]);
+	$groups = ET::groupModel()->getGroupIds($member["account"], array_keys($member["groups"]));
 
 	// If the user is an administrator, don't add any SQL, as admins can do anything!
 	if (in_array(GROUP_ID_ADMINISTRATOR, $groups)) return;

@@ -116,7 +116,7 @@ public function addAllowedPredicate(&$sql, $member = false, $table = "c")
 		// They must be the start member, or the conversation mustn't be a draft or private. If it is private, they must be allowed, using the query above.
 		$sql->where("($table.startMemberId=:startMemberId OR ($table.countPosts>0 AND ($table.private=0 OR $table.conversationId IN ($allowedQuery))))")
 			->bind(":allowedMemberId", $member["memberId"])
-			->bind(":allowedGroupIds", ET::groupModel()->getGroupIds($member["account"], $member["groups"]))
+			->bind(":allowedGroupIds", ET::groupModel()->getGroupIds($member["account"], array_keys($member["groups"])))
 			->bind(":startMemberId", $member["memberId"]);
 
 	}

@@ -150,6 +150,7 @@ public function getGroupIds($account, $groupIds)
 	// Add the member and guest groups, and return all of them.
 	$groupIds[] = GROUP_ID_MEMBER;
 	$groupIds[] = GROUP_ID_GUEST;
+
 	return $groupIds;
 }
 
