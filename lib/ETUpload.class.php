@@ -8,7 +8,7 @@ if (!defined("IN_ESOTALK")) exit;
  * The ETUpload class provides a way to easily validate and manage uploaded files. Typically, an upload should
  * be validated using the getUploadedFile() function, which will return the temporary filename of the uploaded
  * file. This can then be saved with saveAs() or saveAsImage().
- * 
+ *
  * @package esoTalk
  */
 class ETUpload extends ETPluggable {
@@ -16,7 +16,7 @@ class ETUpload extends ETPluggable {
 
 /**
  * Get the maximum file upload size in bytes.
- * 
+ *
  * @return int
  */
 public function maxUploadSize()
@@ -27,7 +27,7 @@ public function maxUploadSize()
 
 /**
  * Validate an uploaded file and return its temporary file name.
- * 
+ *
  * @param string $key The name of the key in the $_FILES array.
  * @param array $allowedTypes An array of allowed mime-types. If empty, any mime-type is allowed.
  * @return string The temporary filepath of the uploaded file.
@@ -39,7 +39,7 @@ public function getUploadedFile($key, $allowedTypes = array())
 	// If the uploaded file doesn't exist, then we have to fail.
 	if (!isset($_FILES[$key]) or !is_uploaded_file($_FILES[$key]["tmp_name"]))
 		$error = T("message.fileUploadFailed");
-	
+
 	// Otherwise, check for an error.
 	else {
 		$file = $_FILES[$key];
@@ -67,7 +67,7 @@ public function getUploadedFile($key, $allowedTypes = array())
 
 /**
  * Save an uploaded file to the specified destination.
- * 
+ *
  * @param string $source The source file (typically what is returned by getUploadedFile())
  * @param string $destination The destination file to save as.
  * @return string The destination file that was saved.
@@ -84,10 +84,10 @@ public function saveAs($source, $destination)
 
 /**
  * Save an uploaded file to the specified destination, and convert it to a safe image with size restraints.
- * 
+ *
  * @param string $source The source file (typically what is returned by getUploadedFile())
  * @param string $destination The destination file to save as. If this includes an extension (eg. .jpg) then
- * 		the image will be saved as that type. Otherwise, the same type as the source file will be used and 
+ * 		the image will be saved as that type. Otherwise, the same type as the source file will be used and
  * 		the extension will be appended.
  * @param int $width The width to resize the image to.
  * @param int $height The height to resize the image to.
@@ -113,7 +113,7 @@ public function saveAsImage($source, $destination, $width, $height, $sizeMode = 
 			$image = @imagecreatefromjpeg($source);
 			break;
 		case 3:
-			$image = @imagecreatefrompng($source);	
+			$image = @imagecreatefrompng($source);
 	}
 
 	// If we weren't able to create a GD image from the source, throw an exception.
@@ -123,7 +123,7 @@ public function saveAsImage($source, $destination, $width, $height, $sizeMode = 
 	$outputType = pathinfo($destination, PATHINFO_EXTENSION);
 	$types = array(1 => "gif", 2 => "jpg", 3 => "png");
 
-	// If an extension was specified in the destination, we'll use that and strip the it off of the 
+	// If an extension was specified in the destination, we'll use that and strip the it off of the
 	// destination; otherwise, use the type from getimagesize().
 	if (!$outputType or !in_array($outputType, $types)) {
 		$outputType = $types[$type];
@@ -139,7 +139,7 @@ public function saveAsImage($source, $destination, $width, $height, $sizeMode = 
 
 	// If we're cropping, use the larger of the two ratios so we fill the whole image area.
 	if ($sizeMode == "crop") $ratio = max($widthRatio, $heightRatio);
-	
+
 	// If not, use the smaller of the two so we get the whole image in the area.
 	else $ratio = min($widthRatio, $heightRatio);
 
@@ -173,7 +173,7 @@ public function saveAsImage($source, $destination, $width, $height, $sizeMode = 
 
 	// Copy the source image onto our new canvas.
 	imagecopyresampled($newImage, $image, -$x, -$y, 0, 0, $newWidth, $newHeight, $sourceWidth, $sourceHeight);
-	
+
 	// Save the image to the correct destination and format.
 	switch ($outputType) {
 		case "png":
@@ -185,7 +185,7 @@ public function saveAsImage($source, $destination, $width, $height, $sizeMode = 
 			break;
 
 		default:
-			imagejpeg($newImage, $outputFile = "$destination.jpg");		
+			imagejpeg($newImage, $outputFile = "$destination.jpg");
 	}
 
 	// Clean up.
@@ -196,5 +196,3 @@ public function saveAsImage($source, $destination, $width, $height, $sizeMode = 
 }
 
 }
-
-?>

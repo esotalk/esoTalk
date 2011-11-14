@@ -6,9 +6,9 @@ if (!defined("IN_ESOTALK")) exit;
 
 /**
  * The ETModel class provides basic functions to get, insert, update, and delete data from the database for
- * a given type of record. It can be extended so that functionality can be altered and made more specfic to a 
+ * a given type of record. It can be extended so that functionality can be altered and made more specfic to a
  * type of record.
- * 
+ *
  * @package esoTalk
  */
 class ETModel extends ETPluggable {
@@ -38,7 +38,7 @@ protected $primaryKey;
 /**
  * Class constructor: sets up the model to be associated with a particular table, and to use a specific column
  * as the primary key when managing data.
- * 
+ *
  * @param string $table The name of the table to associate the model with.
  * @param string $primaryKey The name of the column that is the primary key of the table. [tablename]Id will
  * 		be used if this is not provided.
@@ -53,7 +53,7 @@ public function __construct($table = "", $primaryKey = "")
 
 /**
  * Create a new record in the model's table.
- * 
+ *
  * @param array $values An array of data to insert into the table.
  * @return int The new record's ID.
  */
@@ -69,7 +69,7 @@ public function create($values)
 
 /**
  * Update existing record(s) in the model's table.
- * 
+ *
  * @param array $values An array of data to update.
  * @param array $wheres An array of where conditions to match.
  * @return ETSQLResult
@@ -85,7 +85,7 @@ public function update($values, $wheres = array())
 
 /**
  * Update an existing record in the model's table with a particular ID.
- * 
+ *
  * @param mixed $id The ID of the record to update.
  * @param array $values An array of data to update.
  * @return ETSQLResult
@@ -98,7 +98,7 @@ public function updateById($id, $values)
 
 /**
  * Delete existing record(s) in the model's table.
- * 
+ *
  * @param array $wheres An array of where conditions to match.
  * @return ETSQLResult
  */
@@ -114,7 +114,7 @@ public function delete($wheres = array())
 
 /**
  * Delete an existing record in the model's table with a particular ID.
- * 
+ *
  * @param mixed $id The ID of the record to delete.
  * @return ETSQLResult
  */
@@ -126,7 +126,7 @@ public function deleteById($id)
 
 /**
  * Get the number of record(s) in the model's table.
- * 
+ *
  * @param array $wheres An array of where conditions to match.
  * @return int
  */
@@ -143,7 +143,7 @@ public function count($wheres = array())
 
 /**
  * Fetch record(s) from the model's table.
- * 
+ *
  * @param array $wheres An array of where conditions to match.
  * @return array A multi-dimensional array of matching rows.
  */
@@ -160,7 +160,7 @@ public function get($wheres = array())
 
 /**
  * Fetch a record from the model's table with a particular ID.
- * 
+ *
  * @param mixed $id The ID of the record to fetch.
  * @return array An array containing the row's data.
  */
@@ -185,7 +185,7 @@ public function errors()
 
 /**
  * Get the number of errors that occurred in the last action.
- * 
+ *
  * @return int
  */
 public function errorCount()
@@ -196,7 +196,7 @@ public function errorCount()
 
 /**
  * Set an error on a particular field in the model.
- * 
+ *
  * @param string $field The name of the field to set the error for.
  * @param string $code The error code.
  * @return void
@@ -211,7 +211,7 @@ protected function error($field, $code = null)
 /**
  * Run a value against a validation callback function, and set an error on a particular field in the model
  * if validation fails.
- * 
+ *
  * @param string $field The name of the field to set the error on if validation fails.
  * @param mixed $value The value to validate.
  * @param mixed $callback The validation callback function to run.
@@ -224,5 +224,3 @@ protected function validate($field, $value, $callback)
 }
 
 }
-
-?>

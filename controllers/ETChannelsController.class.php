@@ -6,7 +6,7 @@ if (!defined("IN_ESOTALK")) exit;
 
 /**
  * The channels controller handles the channel list page, and subscribing/unsubscribing to channels.
- * 
+ *
  * @package esoTalk
  */
 class ETChannelsController extends ETController {
@@ -14,7 +14,7 @@ class ETChannelsController extends ETController {
 
 /**
  * Show the channel list page.
- * 
+ *
  * @return void
  */
 public function index()
@@ -44,7 +44,7 @@ public function index()
 
 /**
  * Toggle the user's subscription to a channel.
- * 
+ *
  * @param int $channelId The ID of the channel to toggle subscription to.
  * @return void
  */
@@ -76,5 +76,3 @@ public function subscribe($channelId = "")
 }
 
 }
-
-?>

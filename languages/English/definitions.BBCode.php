@@ -11,6 +11,3 @@ $definitions["Strike"] = "Strike";
 $definitions["Header"] = "Header";
 $definitions["Italic"] = "Italic";
 $definitions["Bold"] = "Bold";
-$definitions["Image"] = "Image";
-
-?>

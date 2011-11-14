@@ -6,7 +6,7 @@ if (!defined("IN_ESOTALK")) exit;
 
 /**
  * Member profile view. Displays the header area on a member's profile, pane tabs, and the current pane.
- * 
+ *
  * @package esoTalk
  */
 

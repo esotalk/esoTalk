@@ -9,33 +9,33 @@
  * to offer multiple easing options
  *
  * TERMS OF USE - jQuery Easing
- * 
- * Open source under the BSD License. 
- * 
+ *
+ * Open source under the BSD License.
+ *
  * Copyright © 2008 George McGinley Smith
  * All rights reserved.
- * 
- * Redistribution and use in source and binary forms, with or without modification, 
+ *
+ * Redistribution and use in source and binary forms, with or without modification,
  * are permitted provided that the following conditions are met:
- * 
- * Redistributions of source code must retain the above copyright notice, this list of 
+ *
+ * Redistributions of source code must retain the above copyright notice, this list of
  * conditions and the following disclaimer.
- * Redistributions in binary form must reproduce the above copyright notice, this list 
- * of conditions and the following disclaimer in the documentation and/or other materials 
+ * Redistributions in binary form must reproduce the above copyright notice, this list
+ * of conditions and the following disclaimer in the documentation and/or other materials
  * provided with the distribution.
- * 
- * Neither the name of the author nor the names of contributors may be used to endorse 
+ *
+ * Neither the name of the author nor the names of contributors may be used to endorse
  * or promote products derived from this software without specific prior written permission.
- * 
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY 
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY
  * EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
  * MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE
  *  COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
  *  EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE
- *  GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED 
+ *  GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED
  * AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
- *  NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED 
- * OF THE POSSIBILITY OF SUCH DAMAGE. 
+ *  NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED
+ * OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  */
 
@@ -85,7 +85,7 @@ function desanitize(value)
 // is loading.
 var loadingOverlays = {};
 
-// Create a loading overlay. id should be a unique identifier so the loading overlay can be hidden with the 
+// Create a loading overlay. id should be a unique identifier so the loading overlay can be hidden with the
 // same id. The loading overlay will be sized and positions to cover the element specified by coverElementWithId.
 function createLoadingOverlay(id, coverElementWithId)
 {
@@ -133,16 +133,16 @@ $.ETAjax = function(options) {
 	// Set up the error handler. If we get an error, inform the user of the "disconnection".
 	var handlerError = function(XMLHttpRequestObject, textStatus, errorThrown) {
 		if (!errorThrown || errorThrown == "abort") return;
-		
+
 		$.ETAjax.disconnected = true;
-		
+
 		// Save this request's information so that it can be tried again if the user clicks "try again".
 		if (!$.ETAjax.disconnectedRequest) $.ETAjax.disconnectedRequest = options;
-		
+
 		// Show a disconnection message.
 		ETMessages.showMessage(T("message.ajaxDisconnected"), {className: "warning dismissable", id: "ajaxDisconnected"});
 	};
-	
+
 	// Set up the success handler!
 	var handlerSuccess = function(result, textStatus, XMLHttpRequestObject) {
 
@@ -151,7 +151,7 @@ $.ETAjax = function(options) {
 			$.ETAjax.disconnected = false;
 			ETMessages.hideMessage("ajaxDisconnected");
 		}
-		
+
 		// If the result is empty, don't continue. ???
 		// if (!result) return;
 
@@ -161,7 +161,7 @@ $.ETAjax = function(options) {
 			window.location = result.redirect;
 			return;
 		}
-		
+
 		// Did we get any messages? Show them via the messages system.
 		if (result.messages) {
 			for (var i in result.messages) {
@@ -223,10 +223,10 @@ abort: function(id) {
 
 // Set up global AJAX defaults and handlers.
 $(function() {
-	
+
 	// Append a "loading" div to the page.
 	$("<div id='loading'>"+T("Loading...")+"</div>").appendTo("body").hide();
-	
+
 	// Set up global ajax event handlers to show/hide the loading box and configure an onbeforeunload event.
 	$(document).bind("ajaxStart", function(){
 		$("#loading").show();
@@ -238,7 +238,7 @@ $(function() {
 		$("#loading").fadeOut("fast");
 		$(window).unbind("beforeunload.ajax");
 	 });
-	
+
 	// Set the default AJAX request settings.
 	$.ajaxSetup({timeout: 10000});
 
@@ -343,7 +343,7 @@ hideMessage: function(key, noAnimate) {
 
 	// If this message doesn't exist, we can't do anything.
 	if (!ETMessages.messages[key]) return;
-	
+
 	// Fade out the message, or just hide it if we don't want animation.
 	ETMessages.messages[key][0].fadeOut(noAnimate ? 0 : "fast", function() {
 		$(this).remove();
@@ -381,12 +381,12 @@ showSheet: function(id, content, callback) {
 	// If a sheet in the stack with this ID exists, remove it.
 	var i = ETSheet.sheetStack.indexOf(id);
 	if (i != -1) ETSheet.hideSheet(ETSheet.sheetStack[i]);
-	
+
 	// Append the sheet html to the body, add a close button to it.
 	$("body").append(content);
 	var sheet = $("#" + content.attr("id"));
 	sheet.prepend("<a href='javascript:ETSheet.hideSheet(\"" + id + "\")' class='control-delete close'>Close</a>");
-	
+
 	// Add an overlay div to dim the rest of the content. Clicking on it will hide all open sheets.
 	if (!ETSheet.sheetStack.length)
 		$("<div class='sheetOverlay'/>")
@@ -424,7 +424,7 @@ showSheet: function(id, content, callback) {
 	});
 
 	if (callback && typeof callback == "function") callback.apply(sheet);
-		
+
 },
 
 // Hide a sheet.
@@ -628,7 +628,7 @@ $.fn.tooltip = function(options) {
 			switch (options.alignment) {
 				case "left": break;
 				case "right": left += elm.outerWidth() - tooltip.outerWidth(); break;
-				default: left += elm.outerWidth() / 2 - tooltip.outerWidth() / 2;				
+				default: left += elm.outerWidth() / 2 - tooltip.outerWidth() / 2;
 			}
 			left += options.offset ? options.offset[0] || 0 : 0;
 			left = Math.min(left, $("body").width() - tooltip.outerWidth());
@@ -642,7 +642,7 @@ $.fn.tooltip = function(options) {
 			tooltip.stop(true, false).css({display: "block", opacity: 1}).show();
 
 		};
-		
+
 		// Either show it straight away, or delay before we show it.
 		if (options.delay) $(this).data("timeout", setTimeout(handler, options.delay));
 		else handler();
@@ -739,7 +739,7 @@ var ETMembersAllowedTooltip = {
 				});
 			}, ETMembersAllowedTooltip.showDelay);
 		}).bind("mouseout", ETMembersAllowedTooltip.mouseOutHandler);
-		
+
 		// Bind event handlers to the tooltip itself.
 		ETMembersAllowedTooltip.tooltip.unbind("mouseover").unbind("mouseout").bind("mouseover", function() {
 			if (ETMembersAllowedTooltip.hideTimer) clearTimeout(ETMembersAllowedTooltip.hideTimer);
@@ -761,7 +761,7 @@ var ETMembersAllowedTooltip = {
 //***** GLOBAL PAGE STUFF
 
 $(function() {
-	
+
 	// Add scrolling handlers to automatically float the "go to top" and "back to search" links.
 	$(window).scroll(function() {
 		if ($(document).scrollTop() > $("#hdr").outerHeight() && !ETSheet.sheetStack.length && !ET.disableFixedPositions) {
@@ -772,7 +772,7 @@ $(function() {
 			$("#goToTop").hide();
 		}
 	});
-	
+
 	// Start off with the "go to top" link hidden, and add a click handler.
 	$("#goToTop a").click(function(e) {
 		e.preventDefault();
@@ -815,7 +815,7 @@ $(function() {
 		toggleStar($(this).data("id"));
 		e.preventDefault();
 	});
-		
+
 });
 
 // Show the join sheet.
@@ -862,7 +862,7 @@ function toggleStar(conversationId) {
 
 //***** INTERVAL CALLBACK
 
-// This class allows you to set up a callback to be run at a certain interval (in seconds). If the window 
+// This class allows you to set up a callback to be run at a certain interval (in seconds). If the window
 // loses focus, the callback will run when the window regains focus or when the timer runs out (whichever
 // comes last.)
 function ETIntervalCallback(callback, interval)
@@ -960,7 +960,7 @@ init: function() {
 			}
 		});
 		e.preventDefault();
-		
+
 	});
 
 	// Update the page title with the number of unread notifications.

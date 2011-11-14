@@ -6,7 +6,7 @@ if (!defined("IN_ESOTALK")) exit;
 
 /**
  * Shows a list of the most recent posts on the esoTalk blog.
- * 
+ *
  * @package esoTalk
  */
 ?>

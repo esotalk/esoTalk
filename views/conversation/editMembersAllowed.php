@@ -6,7 +6,7 @@ if (!defined("IN_ESOTALK")) exit;
 
 /**
  * Displays a sheet to edit the members allowed in a conversation.
- * 
+ *
  * @package esoTalk
  */
 

@@ -6,7 +6,7 @@ if (!defined("IN_ESOTALK")) exit;
 
 /**
  * Show a "reply" box, for use on a conversation view or when starting a conversation.
- * 
+ *
  * @package esoTalk
  */
 

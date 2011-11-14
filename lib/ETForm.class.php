@@ -5,18 +5,18 @@
 if (!defined("IN_ESOTALK")) exit;
 
 /**
- * The ETForm class defines a form which can be rendered as HTML in the view and its input processed in the 
+ * The ETForm class defines a form which can be rendered as HTML in the view and its input processed in the
  * controller.
- * 
- * Many of the functions in this class are for rendering form controls, and are intended to be used in the 
+ *
+ * Many of the functions in this class are for rendering form controls, and are intended to be used in the
  * view. Generally, a controller will instantiate the form, define its default values and its action, check
  * if it has been posted back, carry out any necessary processing and error checking, and then pass the form
  * onto the view. The view will render the form elements individually.
- * 
+ *
  * However, it also contains functions to define a form's structure and contents in the controller rather than
- * on the view. This is useful as it gives plugins the opportunity to alter forms and add custom fields in 
+ * on the view. This is useful as it gives plugins the opportunity to alter forms and add custom fields in
  * any position. See addSection() and addField() for more information on this.
- * 
+ *
  * @package esoTalk
  */
 class ETForm extends ETPluggable {
@@ -66,7 +66,7 @@ public $hiddenInputs = array();
 
 /**
  * Add a section to the form. Sections can contain multiple fields.
- * 
+ *
  * @param string $id The name of the section.
  * @param string $title The title of the section.
  * @param mixed $position The position to put this section relative to other sections.
@@ -81,7 +81,7 @@ public function addSection($id, $title = "", $position = false)
 
 /**
  * Add a field to the form.
- * 
+ *
  * @param string $section The name of the section to add this field to.
  * @param string $id The name of the field.
  * @param mixed $renderCallback The function to call that will return the field's HTML.
@@ -102,7 +102,7 @@ public function addField($section, $id, $renderCallback, $processCallback, $posi
 
 /**
  * Get the sections defined in the form.
- * 
+ *
  * @return array An array of section names => titles.
  */
 public function getSections()
@@ -113,7 +113,7 @@ public function getSections()
 
 /**
  * Get the fields within a certain section to be rendered.
- * 
+ *
  * @param string $section The section to get fields from.
  * @return array An array of field names => html.
  */
@@ -131,7 +131,7 @@ public function getFieldsInSection($section)
 
 /**
  * Run the processing callbacks for all the fields defined in the form.
- * 
+ *
  * @param mixed $collector A variable which callback functions can add information to.
  * @return void
  */
@@ -146,9 +146,9 @@ public function runFieldCallbacks(&$collector)
 
 
 /**
- * Get the HTML that opens the form. Includes the <form> tag and any hidden inputs (a token one is 
+ * Get the HTML that opens the form. Includes the <form> tag and any hidden inputs (a token one is
  * automatically included.)
- * 
+ *
  * @return string
  */
 public function open()
@@ -164,7 +164,7 @@ public function open()
 
 /**
  * Get the HTML that closes the form.
- * 
+ *
  * @return string
  */
 public function close()
@@ -175,7 +175,7 @@ public function close()
 
 /**
  * Checks if the form has been posted back and if a valid token was posted back with it.
- * 
+ *
  * @param string $field An optional field to check the existence of.
  * @return bool
  */
@@ -187,7 +187,7 @@ public function validPostBack($field = "")
 
 /**
  * Checks if the form has been posted back. Does not require a valid token to be posted back as well.
- * 
+ *
  * @param string $field An optional field to check the existence of.
  * @return bool
  */
@@ -199,7 +199,7 @@ public function isPostBack($field = "")
 
 /**
  * Get the HTML code for a field's error.
- * 
+ *
  * @param string $field The name of the field to get the error of.
  * @return string
  */
@@ -212,7 +212,7 @@ public function getError($field)
 
 /**
  * Get an array of HTML of all errors that occurred within the form.
- * 
+ *
  * @return array
  */
 public function getErrors()
@@ -228,7 +228,7 @@ public function getErrors()
 /**
  * Get the value of a particular field. If the form has been posted back, this will get the POST value of the
  * field. Otherwise, it will get the value set by setValue(), or use $default if it hasn't been set.
- * 
+ *
  * @param string $field The name of the field.
  * @param string $default The default value to fall back on if no value is found.
  * @return string
@@ -237,7 +237,7 @@ public function getValue($field, $default = "")
 {
 	if ($this->isPostBack()) {
 
-		// If the field is part of a multi-dimensional array (i.e. its name is like this[that][foo], we'll 
+		// If the field is part of a multi-dimensional array (i.e. its name is like this[that][foo], we'll
 		// have to parse the field's name to get the correct value from the $_POST array.
 		if (strpos($field, "[") !== false) {
 
@@ -263,7 +263,7 @@ public function getValue($field, $default = "")
 
 /**
  * Get the values of all fields posted back.
- * 
+ *
  * @return array
  */
 public function getValues()
@@ -274,7 +274,7 @@ public function getValues()
 
 /**
  * Set a default value for a particular field, to be used if the form has not been posted back.
- * 
+ *
  * @param string $field The name of the field.
  * @param string $value The default value to set.
  * @return void
@@ -287,7 +287,7 @@ public function setValue($field, $value)
 
 /**
  * Set the default values of multiple fields defined in an array.
- * 
+ *
  * @param array $values An array of field => value elements.
  * @return void
  */
@@ -300,7 +300,7 @@ public function setValues($values)
 
 /**
  * Add a hidden input to be rendered when the form is opened.
- * 
+ *
  * @param string $name The name of the field.
  * @param string $value The value of the hidden input.
  * @param bool $forceValue Whether or not to force the value, and never use the value that has been posted back.
@@ -314,7 +314,7 @@ public function addHidden($name, $value, $forceValue = false)
 
 /**
  * Get the HTML code for an input, with an error appended if there is one.
- * 
+ *
  * @param string $name The name of the field.
  * @param string $type The type of input. This can be anything that would go in a type='' attribute, or "textarea".
  * @param array $attributes An array of attributes to add to the input tag.
@@ -355,7 +355,7 @@ public function input($name, $type = "text", $attributes = array())
 
 /**
  * Convert an array of attributes into a string which can be inserted into the HTML tag.
- * 
+ *
  * @param array $attributes The array of attributes.
  * @return string
  */
@@ -371,7 +371,7 @@ protected function getAttributes($attributes)
 
 /**
  * Add a class to an array of attributes.
- * 
+ *
  * @param array $attributes The attributes array to add the class to.
  * @param string $class The class name.
  * @return void
@@ -385,7 +385,7 @@ protected function addClass(&$attributes, $class)
 
 /**
  * Get the HTML code for a select field and its options.
- * 
+ *
  * @param string $name The name of the field.
  * @param array $options An array of options with value => contents elements.
  * @param array $attributes An array of attributes to add to the select tag.
@@ -402,7 +402,7 @@ public function select($name, $options, $attributes = array())
 
 	// Loop through the options and add a tag for each one, selecting the appropriate one.
 	foreach ($options as $k => $v)
-		$select .= "<option value='$k'".($value == $k ? " selected='selected'" : "").">$v</option>\n";	
+		$select .= "<option value='$k'".($value == $k ? " selected='selected'" : "").">$v</option>\n";
 
 	$select .= "</select>";
 
@@ -415,7 +415,7 @@ public function select($name, $options, $attributes = array())
 
 /**
  * Get the HTML code for a simple checkbox.
- * 
+ *
  * @param string $name The name of the field.
  * @param array $attributes An array of attributes to add to the input tag.
  * @return string
@@ -433,7 +433,7 @@ public function checkbox($name, $attributes = array())
 
 /**
  * Get the HTML code for a simple radio button.
- * 
+ *
  * @param string $name The name of the field.
  * @param string $value The value of this radio button.
  * @param array $attributes An array of attributes to add to the input tag.
@@ -451,7 +451,7 @@ public function radio($name, $value, $attributes = array())
 
 /**
  * Get the HTML code for a submit button.
- * 
+ *
  * @param string $name The name of the field.
  * @param string $label The label to put on the button.
  * @param array $attributes An array of attributes to add to the input tag.
@@ -466,7 +466,7 @@ public function button($name, $label = "", $attributes = array())
 
 /**
  * Get the HTML code for a "save changes" button, with the name "save".
- * 
+ *
  * @return string
  */
 public function saveButton()
@@ -477,7 +477,7 @@ public function saveButton()
 
 /**
  * Get the HTML code for a "cancel" button, with the name "cancel".
- * 
+ *
  * @return string
  */
 public function cancelButton()
@@ -488,7 +488,7 @@ public function cancelButton()
 
 /**
  * Set an error on a specific field in the form.
- * 
+ *
  * @param string $field The name of the field to set the error on.
  * @param string $message The error message.
  * @return void
@@ -501,7 +501,7 @@ public function error($field, $message)
 
 /**
  * Set errors on multiple fields using an array.
- * 
+ *
  * @param array $errors An array of errors with field name => error message elements.
  * @return void
  */
@@ -513,7 +513,7 @@ public function errors($errors)
 
 /**
  * Get the number of errors that have occurred in the form.
- * 
+ *
  * @return int
  */
 public function errorCount()
@@ -524,7 +524,7 @@ public function errorCount()
 
 /**
  * Validate the contents of a field through a validation callback function.
- * 
+ *
  * @param string $field The name of the field to validate.
  * @param mixed $callback The validation callback function to use.
  * @return bool Whether or not the field passed validation.
@@ -539,5 +539,3 @@ public function validate($field, $callback)
 }
 
 }
-
-?>

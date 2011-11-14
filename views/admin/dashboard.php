@@ -7,7 +7,7 @@ if (!defined("IN_ESOTALK")) exit;
 /**
  * Displays the admin dashboard, including forum statistics and an esoTalk news feed. Also initiates a check
  * for updates to the esoTalk software.
- * 
+ *
  * @package esoTalk
  */
 ?>

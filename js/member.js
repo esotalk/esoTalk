@@ -1,7 +1,7 @@
 // Member JavaScript
 
 var ETMember = {
-	
+
 activityPage: 1,
 
 init: function() {

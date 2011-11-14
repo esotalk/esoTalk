@@ -6,7 +6,7 @@ if (!defined("IN_ESOTALK")) exit;
 
 /**
  * Displays the member list page, including the filter bar, the letter scrubber, and the list.
- * 
+ *
  * @package esoTalk
  */
 

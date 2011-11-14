@@ -6,7 +6,7 @@ if (!defined("IN_ESOTALK")) exit;
 
 /**
  * The settings controller handles a user's settings page and all the separate panes that are on it.
- * 
+ *
  * @package esoTalk
  */
 class ETSettingsController extends ETController {
@@ -14,7 +14,7 @@ class ETSettingsController extends ETController {
 
 /**
  * Initialize the settings controller; redirect if the user isn't logged in.
- * 
+ *
  * @return void
  */
 public function init()
@@ -25,9 +25,9 @@ public function init()
 
 
 /**
- * A render function that will render the specified view inside of the main member "profile" view. (Except 
+ * A render function that will render the specified view inside of the main member "profile" view. (Except
  * on AJAX/view response types.)
- * 
+ *
  * @param string $view The name of the view to render.
  * @return void
  */
@@ -44,7 +44,7 @@ public function renderProfile($view = "")
 
 /**
  * View the settings page. Default to the general pane.
- * 
+ *
  * @return void
  */
 public function index()
@@ -55,7 +55,7 @@ public function index()
 
 /**
  * Set up data and menus that are needed to render the member profile view.
- * 
+ *
  * @param string $pane The name of the active pane.
  * @return array The member details.
  */
@@ -94,7 +94,7 @@ protected function profile($pane = "")
 
 /**
  * Show the settings page with the general settings pane.
- * 
+ *
  * @return void
  */
 public function general()
@@ -121,7 +121,7 @@ public function general()
 	// Add the "email me when I'm added to a private conversation" field.
 	$form->setValue("privateAdd", ET::$session->preference("email.privateAdd"));
 	$form->addField("notifications", "privateAdd", array($this, "fieldEmailPrivateAdd"), array($this, "saveEmailPreference"));
-	
+
 	// Add the "email me when someone replies to a conversation I have starred" field.
 	$form->setValue("replyToStarred", ET::$session->preference("email.replyToStarred"));
 	$form->addField("notifications", "replyToStarred", array($this, "fieldEmailReplyToStarred"), array($this, "saveEmailPreference"));
@@ -150,7 +150,7 @@ public function general()
 
 	// If the "remove avatar" button was clicked...
 	elseif ($form->validPostBack("removeAvatar")) {
-		
+
 		// Delete the avatar file and set the member's avatarFormat to null.
 		@unlink(PATH_UPLOADS."/avatars/".$member["memberId"].".".$member["avatarFormat"]);
 		ET::memberModel()->updateById($member["memberId"], array("avatarFormat" => null));
@@ -167,7 +167,7 @@ public function general()
 
 /**
  * Return the HTML to render the avatar field in the general settings form.
- * 
+ *
  * @param ETForm $form The form object.
  * @return string
  */
@@ -184,7 +184,7 @@ public function fieldAvatar($form)
 
 /**
  * Return the HTML to render the language field in the general settings form.
- * 
+ *
  * @param ETForm $form The form object.
  * @return string
  */
@@ -198,7 +198,7 @@ public function fieldLanguage($form)
 
 /**
  * Save the contents of the language field when the general settings form is submitted.
- * 
+ *
  * @param string $key The name of the field that was submitted.
  * @param ETForm $form The form object.
  * @param array $preferences An array of preferences to write to the database.
@@ -215,7 +215,7 @@ public function saveLanguage($key, $form, &$preferences)
 /**
  * Return the HTML to render the "email me when I'm addded to a private conversation" field in the general
  * settings form.
- * 
+ *
  * @param ETForm $form The form object.
  * @return string
  */
@@ -228,7 +228,7 @@ public function fieldEmailPrivateAdd($form)
 /**
  * Return the HTML to render the "email me when someone posts in a conversation I have starred" field in the general
  * settings form.
- * 
+ *
  * @param ETForm $form The form object.
  * @return string
  */
@@ -241,7 +241,7 @@ public function fieldEmailReplyToStarred($form)
 /**
  * Return the HTML to render the "automatically star conversations that I reply to" field in the general
  * settings form.
- * 
+ *
  * @param ETForm $form The form object.
  * @return string
  */
@@ -253,7 +253,7 @@ public function fieldStarOnReply($form)
 
 /**
  * Save the contents of an "email me when ..." field when the general settings form is submitted.
- * 
+ *
  * @param string $key The name of the field that was submitted.
  * @param ETForm $form The form object.
  * @param array $preferences An array of preferences to write to the database.
@@ -267,7 +267,7 @@ public function saveEmailPreference($key, $form, &$preferences)
 
 /**
  * Save the contents of a simple checkbox field when the general settings form is submitted.
- * 
+ *
  * @param string $key The name of the field that was submitted.
  * @param ETForm $form The form object.
  * @param array $preferences An array of preferences to write to the database.
@@ -281,7 +281,7 @@ public function saveBoolPreference($key, $form, &$preferences)
 
 /**
  * Save the contents of the avatar field when the general settings form is submitted.
- * 
+ *
  * @param string $key The name of the field that was submitted.
  * @param ETForm $form The form object.
  * @param array $preferences An array of preferences to write to the database.
@@ -315,7 +315,7 @@ public function saveAvatar($key, $form, &$preferences)
 
 /**
  * Show the settings page with the notifications pane.
- * 
+ *
  * @param $popup bool Whether or not we are getting the contents of the notifications popup.
  * @return void
  */
@@ -338,7 +338,7 @@ public function notifications($popup = false)
 
 
 /**
- * 
+ *
  */
 public function notificationCheck()
 {
@@ -355,7 +355,7 @@ public function notificationCheck()
 
 /**
  * Show the settings page with the change password or email pane.
- * 
+ *
  * @return void
  */
 public function password()
@@ -368,7 +368,7 @@ public function password()
 
 	// If the form was submitted...
 	if ($form->validPostBack("save")) {
-		
+
 		$update = array();
 
 		// Are we setting a new password?
@@ -382,7 +382,7 @@ public function password()
 			else $update["password"] = $password;
 
 		}
-		
+
 		// Are we setting a new email?
 		if ($email = $form->getValue("email"))
 			$update["email"] = $email;
@@ -393,7 +393,7 @@ public function password()
 
 		// If no preliminary errors occurred, and we have stuff to update, we can go ahead and call the model.
 		if (!$form->errorCount() and count($update)) {
-			
+
 			// Update the stuff we need to with the model.
 			$model = ET::memberModel();
 			$model->updateById(ET::$session->userId, $update);
@@ -416,5 +416,3 @@ public function password()
 }
 
 }
-
-?>

@@ -40,7 +40,7 @@ span.highlight {background:#fdef34; border:1px solid #fcef98; padding:1px 3px; b
 .help {color:#888; line-height:1.5em}
 
 
-/* "Actions" - a string of text containing information about something that has happened. For example, 
+/* "Actions" - a string of text containing information about something that has happened. For example,
 <span class='action'><span class='name'>Toby</span> posted in <a href=''>a conversation</a>.</span> */
 .action {color:#888}
 .action img.avatar {vertical-align:-6px; margin-right:3px}
@@ -129,7 +129,7 @@ span.highlight {background:#fdef34; border:1px solid #fcef98; padding:1px 3px; b
 .item-feed a {background:url(icons.png) no-repeat -20px -36px; height:16px; width:16px; display:inline-block; text-indent:-9999px; vertical-align:2px}
 
 
-/* Stars */ 
+/* Stars */
 .star {display:inline-block; text-indent:-1000px; height:12px; width:13px; overflow:hidden; background:url(icons.png) no-repeat; background-position:-20px -232px}
 .star:hover {background-position:-20px -360px;}
 .starOn, .starOn:hover {background-position:-20px -328px;}
@@ -381,7 +381,7 @@ negative margins so they overlap the padding of the <li>. */
 #conversationHeader {margin-bottom:0}
 #conversationHeader .star {vertical-align:-2px; margin-left:10px}
 #conversationHeader .labels {margin-left:10px}
-#conversationHeader .channel {margin-left:15px} 
+#conversationHeader .channel {margin-left:15px}
 #conversationHeader > #control-changeChannel {font-size:85%; margin-left:10px}
 
 #conversationTitle {margin:0; line-height:1.4em; vertical-align:-2px}

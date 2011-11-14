@@ -6,7 +6,7 @@ if (!defined("IN_ESOTALK")) exit;
 
 /**
  * Message master view. Displays a simple HTML template. Used for things like fatal errors and the installer.
- * 
+ *
  * @package esoTalk
  */
 ?>

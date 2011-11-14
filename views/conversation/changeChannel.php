@@ -6,7 +6,7 @@ if (!defined("IN_ESOTALK")) exit;
 
 /**
  * Displays a sheet with a list of channels to choose from.
- * 
+ *
  * @package esoTalk
  */
 

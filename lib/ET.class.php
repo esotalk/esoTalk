@@ -11,7 +11,7 @@ if (!defined("IN_ESOTALK")) exit;
  *   and the cache.
  * - Triggers events, calling handler functions in loaded plugins.
  * - Provides methods to read and alter configuration files and language definitions.
- * 
+ *
  * @package esoTalk
  */
 class ET {
@@ -21,7 +21,7 @@ class ET {
  * The relative path to the root esoTalk folder. (For example, at http://example.com/test/path/forum/index.php,
  * the web path would be /test/path/forum/.
  * @var string
- */ 
+ */
 public static $webPath = "";
 
 
@@ -107,7 +107,7 @@ public static $cache;
 
 /**
  * Shortcut function to fetch a new ETSQLQuery object (or an ETSQLResult object if a query string is passed.)
- * 
+ *
  * @param string $sql An optional SQL query string to run.
  * @return ETSQLQuery|ETSQLResult
  */
@@ -120,7 +120,7 @@ public static function SQL($sql = "")
 
 /**
  * Trigger an event and call event handlers within plugins.
- * 
+ *
  * @param string $event The name of the event.
  * @param array $parameters An array of parameters to pass to the event handlers as arguments.
  * @return array An array of values returned by the event handlers.
@@ -139,14 +139,14 @@ public static function trigger($event, $parameters = array())
 
 /**
  * Check for updates to the esoTalk software.
- * 
+ *
  * @return array|bool The new version information, or false if we are running the latest version.
  */
 public static function checkForUpdates()
 {
 	$json = file_get_contents("http://get.esotalk.com/versions.txt");
 	$packages = json_decode($json, true);
-	
+
 	// Compare the installed version and the latest version. Show a message if there is a new version.
 	if (isset($packages["esoTalk"]) and version_compare($packages["esoTalk"]["version"], ESOTALK_VERSION, ">") == -1) return $packages["esoTalk"];
 
@@ -165,7 +165,7 @@ public static $config = array();
 
 /**
  * Load values from a config file into the config array.
- * 
+ *
  * @param string $file The config file to load values from.
  * @return void
  */
@@ -178,7 +178,7 @@ public static function loadConfig($file)
 
 /**
  * Fetch the value of a configuration option, falling back to a default if it isn't set.
- * 
+ *
  * @param string $key The name of the configuration option.
  * @param mixed $default A default value to fall back on if the config option isn't set.
  * @return mixed The value of the config option.
@@ -191,7 +191,7 @@ public static function config($key, $default = null)
 
 /**
  * Write out an array of values to the config.php file.
- * 
+ *
  * @param array $values The config values to write.
  * @return void
  */
@@ -240,7 +240,7 @@ private static $_definitions = array();
 
 /**
  * Load a language and its definition files, depending on what plugins are enabled.
- * 
+ *
  * @param string $language The name of the language.
  * @return void
  */
@@ -266,7 +266,7 @@ public static function loadLanguage($language = "")
 
 /**
  * Load definitions from a language file into the definitions array.
- * 
+ *
  * @param string $file The file to load definitions from.
  * @return void
  */
@@ -279,7 +279,7 @@ public static function loadDefinitions($file)
 
 /**
  * Save the current language state so it can be restored later.
- * 
+ *
  * @return void
  */
 public static function saveLanguageState()
@@ -291,7 +291,7 @@ public static function saveLanguageState()
 
 /**
  * Revert to the previous language state, saved by saveLanguageState().
- * 
+ *
  * @return void
  */
 public static function revertLanguageState()
@@ -303,7 +303,7 @@ public static function revertLanguageState()
 
 /**
  * Add a definition to the definitions array, but only if it has not already been defined.
- * 
+ *
  * @param string $key The definition key.
  * @param string $value The definition value.
  * @return void
@@ -318,7 +318,7 @@ public static function define($key, $value)
 /**
  * Fetch the translation of a string, falling back to a default if it is not defined. The string provided will
  * be used if a fallback is required but not provided.
- * 
+ *
  * @param string $string The string to translate (ie. the definition key).
  * @param string $default A default value to fall back to if the string is not defined.
  * @return string The translation.
@@ -331,7 +331,7 @@ public static function translate($string, $default = false)
 
 /**
  * Get an array of available language packs in the languages directory.
- * 
+ *
  * @return array An array of the names of all available languages, in alphabetical order.
  */
 public static function getLanguages()
@@ -367,7 +367,7 @@ private static $instances = array();
 /**
  * Get an instance of the class specified by $factoryName. So that we don't constantly get new instances and
  * increase overhead, we store instances in ET::$instances and reuse them as needed.
- * 
+ *
  * @return mixed An instance of the specified class.
  */
 public static function getInstance($factoryName)
@@ -437,7 +437,7 @@ public static function uploader()
 
 /**
  * Halt page execution and show a fatal error message.
- * 
+ *
  * @param Exception $exception The exception that was the cause of the fatal error.
  * @return void
  */
@@ -466,7 +466,7 @@ public static function fatalError($exception)
 
 	$data = array();
 	$data["pageTitle"] = T("Fatal Error");
-	
+
 	// Render the view into $data["content"], so it will be outputted within the master view.
 	ob_start();
 	include PATH_VIEWS."/error.php";
@@ -485,7 +485,7 @@ public static function fatalError($exception)
 
 /**
  * Render a "404 Not Found" error.
- * 
+ *
  * @return void
  */
 public static function notFound()
@@ -507,4 +507,3 @@ public static function notFound()
 }
 
 }
-?>

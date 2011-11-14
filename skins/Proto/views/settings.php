@@ -6,7 +6,7 @@ if (!defined("IN_ESOTALK")) exit;
 
 /**
  * Displays the settings form for the Proto skin.
- * 
+ *
  * @package esoTalk
  */
 
@@ -20,7 +20,7 @@ $form = $data["skinSettingsForm"];
 <li class='sep'></li>
 
 <li id='headerColor'>
-<label>Header color</label> 
+<label>Header color</label>
 <?php echo $form->input("headerColor", "text", array("class" => "color")); ?> <a href='#' class='reset'>Reset</a>
 </li>
 
@@ -72,7 +72,7 @@ $(function() {
 		// Add a color swatch before the input.
 		.before("<span class='colorSwatch'></span>");
 
-		// Create a handler function for when the color is changed to update the input and swatch, and call 
+		// Create a handler function for when the color is changed to update the input and swatch, and call
 		// the custom callback function.
 		var handler = function(color) {
 			callback(color, picker);
@@ -91,7 +91,7 @@ $(function() {
 			e.preventDefault();
 			handler("");
 		}).toggle(!!$("#"+id+" input").val());
-		
+
 	}
 
 	// Turn the "header color" field into a color picker.
@@ -139,6 +139,6 @@ $(function() {
 			$("body").css("backgroundImage", "none");
 		}
 	}).change();
-	
+
 });
 </script>

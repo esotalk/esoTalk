@@ -6,7 +6,7 @@ if (!defined("IN_ESOTALK")) exit;
 
 /**
  * Displays the appearance settings page.
- * 
+ *
  * @package esoTalk
  */
 ?>
@@ -23,7 +23,7 @@ if (count($data["skins"])): ?>
 <h3><?php echo T("Installed Skins"); ?></h3>
 
 <ul id='skinList'>
-	
+
 <?php // Loop through each skin and output its information.
 foreach ($data["skins"] as $k => $skin): ?>
 <li id='skin-<?php echo $k; ?>' class='skin<?php if ($skin["selected"]): ?> thing enabled<?php endif; ?>'>

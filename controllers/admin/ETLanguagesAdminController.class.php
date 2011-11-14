@@ -6,7 +6,7 @@ if (!defined("IN_ESOTALK")) exit;
 
 /**
  * This controller handles the management of plugins.
- * 
+ *
  * @package esoTalk
  */
 class ETLanguagesAdminController extends ETAdminController {
@@ -14,7 +14,7 @@ class ETLanguagesAdminController extends ETAdminController {
 
 /**
  * Show the list of languages.
- * 
+ *
  * @return void
  */
 public function index()
@@ -31,7 +31,7 @@ public function index()
 
 /**
  * Uninstall a language by removing its directory.
- * 
+ *
  * @param string $language The name of the language.
  * @return void
  */
@@ -54,5 +54,3 @@ public function uninstall($language = "")
 }
 
 }
-
-?>

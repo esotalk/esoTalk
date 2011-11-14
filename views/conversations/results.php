@@ -7,7 +7,7 @@ if (!defined("IN_ESOTALK")) exit;
 /**
  * Conversation results. Displays a message if there are no results, or a conversation list and
  * footer if there are.
- * 
+ *
  * @package esoTalk
  */
 

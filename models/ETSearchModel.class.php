@@ -7,7 +7,7 @@ if (!defined("IN_ESOTALK")) exit;
 /**
  * A model which provides functions to perform searches for conversations. Handles the implementation
  * of gambits, and does search optimization.
- * 
+ *
  * Searches are performed by the following steps:
  * 1. Call getConversationIDs with a list of channel IDs to show results from and a search string.
  * 2. The search string is parsed and split into terms. When a term is matched to a gambit, the
@@ -16,7 +16,7 @@ if (!defined("IN_ESOTALK")) exit;
  *    searched, or may alter other parts of the search query.
  * 4. Using the applied ID filters, a final list of conversation IDs is retrieved and returned.
  * 5. Call getResults with this list, and full details are retireved for each of the conversations.
- * 
+ *
  * @package esoTalk
  */
 class ETSearchModel extends ETModel {
@@ -110,10 +110,10 @@ public function __construct()
 
 
 /**
- * Add a gambit to the collection. When a search term is matched to a gambit, the specified 
+ * Add a gambit to the collection. When a search term is matched to a gambit, the specified
  * callback function will be called. A match is determined by the return value of running
  * $condition through eval().
- * 
+ *
  * @param string $condition The condition to run through eval() to determine a match.
  * 		$term represents the search term, in lowercase, in the eval() context. The condition
  * 		should return a boolean value: true means a match, false means no match.
@@ -131,7 +131,7 @@ public static function addGambit($condition, $function)
 /**
  * Add an alias for another gambit to the collection. When a search term is matched
  * to an alias, it will be interpreted as $realTerm.
- * 
+ *
  * @param string $term The alias term.
  * @param string $realTerm The replacement term.
  * @return void
@@ -143,12 +143,12 @@ public static function addAlias($term, $realTerm)
 
 
 /**
- * Add an SQL query to be run before the conversations table is queried for the final list of 
+ * Add an SQL query to be run before the conversations table is queried for the final list of
  * conversation IDs. The query should return a list of conversation IDs; the results then will be
  * limited to conversations matching this list of IDs.
- * 
+ *
  * See some of the default gambits for examples.
- * 
+ *
  * @param ETSQLQuery $sql The SQL query that will return a list of matching conversation IDs.
  * @param bool $negate If set to true, the returned conversation IDs will be blacklisted.
  * @return void
@@ -161,7 +161,7 @@ public function addIDFilter($sql, $negate = false)
 
 /**
  * Add a term to include in a fulltext search.
- * 
+ *
  * @param string $term The term.
  * @return void
  */
@@ -174,7 +174,7 @@ public function fulltext($term)
 /**
  * Apply an order to the search results. This function will ensure that a direction (ASC|DESC) is
  * at the end.
- * 
+ *
  * @param string $order The field to order the results by.
  * @return void
  */
@@ -188,7 +188,7 @@ public function orderBy($order)
 
 /**
  * Apply a custom limit to the number of search results returned.
- * 
+ *
  * @param int $limit The limit.
  * @return void
  */
@@ -200,7 +200,7 @@ public function limit($limit)
 
 /**
  * Reset instance variables.
- * 
+ *
  * @return void
  */
 protected function reset()
@@ -220,7 +220,7 @@ protected function reset()
 /**
  * Determines whether or not the user is "flooding" the search system, based on the number of searches
  * they have performed in the last minute.
- * 
+ *
  * @return bool|int If the user is not flooding, returns false, but if they are, returned the number
  * 		of seconds until they can perform another search.
  */
@@ -229,7 +229,7 @@ public function isFlooding()
 	if (C("esoTalk.search.searchesPerMinute") <= 0) return false;
 	$time = time();
 	$period = 60;
-	
+
 	// If we have a record of their searches in the session, check how many searches they've performed in the last minute.
 	$searches = ET::$session->get("searches");
 	if (!empty($searches)) {
@@ -243,7 +243,7 @@ public function isFlooding()
 		if (count($searches) >= C("esoTalk.search.searchesPerMinute"))
 			return $period - $time + min($searches);
 	}
-	
+
 	// However, if we don't have a record in the session, query the database searches table.
 	else {
 
@@ -267,18 +267,18 @@ public function isFlooding()
 		// Proactively clean the searches table of searches older than $period seconds.
 		ET::SQL()->delete()->from("search")->where("type", "conversations")->where("time<:time")->bind(":time", $time - $period)->exec();
 	}
-	
+
 	// Log this search in the session array.
 	$searches[] = $time;
 	ET::$session->store("searches", $searches);
 
-	return false;		
+	return false;
 }
 
 
 /**
  * Deconstruct a search string and return a list of conversation IDs that fulfill it.
- * 
+ *
  * @param array $channelIDs A list of channel IDs to include results from.
  * @param string $searchString The search string to deconstruct and find matching conversations.
  * @param bool $orderBySticky Whether or not to put stickied conversations at the top.
@@ -300,13 +300,13 @@ public function getConversationIDs($channelIDs = array(), $searchString = "", $o
 	if ($channelIDs) {
 		$this->sql->where("c.channelId IN (:channelIds)")->bind(":channelIds", $channelIDs);
 	}
-	
+
 	// Process the search string into individial terms. Replace all "-" signs with "+!", and then
 	// split the string by "+". Negated terms will then be prefixed with "!". Only keep the first
 	// 5 terms, just to keep the load on the database down!
 	$terms = !empty($searchString) ? explode("+", strtolower(str_replace("-", "+!", trim($searchString, " +-")))) : array();
 	$terms = array_slice($terms, 0, 5);
-	
+
 	// Take each term, match it with a gambit, and execute the gambit's function.
 	foreach ($terms as $term) {
 
@@ -330,7 +330,7 @@ public function getConversationIDs($channelIDs = array(), $searchString = "", $o
 		if ($negate) $term = "-".str_replace(" ", " -", $term);
 		$this->fulltext($term);
 	}
-	
+
 	// If an order for the search results has not been specified, apply a default.
 	// Order by sticky and then last post time.
 	if (!count($this->orderBy)) {
@@ -355,31 +355,31 @@ public function getConversationIDs($channelIDs = array(), $searchString = "", $o
 
 		// Apply the list of good IDs to the query.
 		$sql->where($idCondition);
-		
+
 		// Get the list of conversation IDs so that the next condition can use it in its query.
 		$result = $sql->exec();
 		$ids = array();
 		while ($row = $result->nextRow()) $ids[] = (int)reset($row);
-		
+
 		// If this condition is negated, then add the IDs to the list of bad conversations.
 		// If the condition is not negated, set the list of good conversations to the IDs, provided there are some.
 		if ($negate) $badConversationIDs = array_merge($badConversationIDs, $ids);
 		elseif (count($ids)) $goodConversationIDs = $ids;
 		else return false;
-		
+
 		// Strip bad conversation IDs from the list of good conversation IDs.
 		if (count($goodConversationIDs)) {
 			$goodConversationIds = array_diff($goodConversationIDs, $badConversationIDs);
 			if (!count($goodConversationIDs)) return false;
 		}
-		
+
 		// This will be the condition for the next query that restricts or eliminates conversation IDs.
 		if (count($goodConversationIDs))
 			$idCondition = "conversationId IN (".implode(",", $goodConversationIDs).")";
 		elseif (count($badConversationIDs))
 			$idCondition = "conversationId NOT IN (".implode(",", $badConversationIDs).")";
 	}
-	
+
 	// Reverse the order if necessary - swap DESC and ASC.
 	if ($this->orderReverse) {
 		foreach ($this->orderBy as $k => $v)
@@ -412,14 +412,14 @@ public function getConversationIDs($channelIDs = array(), $searchString = "", $o
 	// Set a default limit if none has previously been set. Set it with one more result than we'll
 	// need so we can see if there are "more results."
 	if (!$this->limit) $this->limit = C("esoTalk.search.results") + 1;
-	
+
 	// Finish constructing the final query using the ID whitelist/blacklist we've come up with.
 	if ($idCondition) $this->sql->where($idCondition);
 	$this->sql->orderBy($this->orderBy)->limit($this->limit);
 
 	// Make sure conversations that the user isn't allowed to see are filtered out.
 	ET::conversationModel()->addAllowedPredicate($this->sql);
-	
+
 	// Execute the query, and collect the final set of conversation IDs.
 	$result = $this->sql->exec();
 	$conversationIDs = array();
@@ -437,9 +437,9 @@ public function getConversationIDs($channelIDs = array(), $searchString = "", $o
 
 /**
  * Get a full list of conversation details for a list of conversation IDs.
- * 
+ *
  * @param array $conversationIDs The list of conversation IDs to fetch details for.
- * @param bool $checkForPermission Whether or not to add a check onto the query to make sure the 
+ * @param bool $checkForPermission Whether or not to add a check onto the query to make sure the
  * 		user has permission to view all of the conversations.
  */
 public function getResults($conversationIDs, $checkForPermission = false)
@@ -471,16 +471,16 @@ public function getResults($conversationIDs, $checkForPermission = false)
 	$sql->where("c.conversationId IN (:conversationIds)")->orderBy("FIELD(c.conversationId,:conversationIdsOrder)");
 	$sql->bind(":conversationIds", $conversationIDs, PDO::PARAM_INT);
 	$sql->bind(":conversationIdsOrder", $conversationIDs, PDO::PARAM_INT);
-	
+
 	$this->trigger("beforeGetResults", array(&$sql));
-	
+
 	// Execute the query and put the details of the conversations into an array.
 	$result = $sql->exec();
 	$results = array();
 	$model = ET::conversationModel();
 
 	while ($row = $result->nextRow()) {
-		
+
 		// Expand the comma-separated label flags into a workable array of active labels.
 		$row["labels"] = $model->expandLabels($row["labels"]);
 
@@ -488,7 +488,7 @@ public function getResults($conversationIDs, $checkForPermission = false)
 		$results[] = $row;
 
 	}
-	
+
 	$this->trigger("afterGetResults", array(&$results));
 
 	return $results;
@@ -497,7 +497,7 @@ public function getResults($conversationIDs, $checkForPermission = false)
 
 /**
  * Returns whether or not there are more results for the most recent search than were returned.
- * 
+ *
  * @return bool
  */
 public function areMoreResults()
@@ -509,12 +509,12 @@ public function areMoreResults()
 
 /**
  * The "unread" gambit callback. Applies a filter to fetch only unread conversations.
- * 
+ *
  * @param ETSearchModel $search The search model.
  * @param string $term The gambit term (in this case, will simply be "unread").
  * @param bool $negate Whether or not the gambit is negated.
  * @return void
- * 
+ *
  * @todo Make negation work on this gambit. Probably requires some kind of "OR" functionality, so that
  * 		we can get conversations which:
  * 		- are NOT in conversationIds with a lastRead status less than the number of posts in the conversation
@@ -541,7 +541,7 @@ public static function gambitUnread(&$search, $term, $negate)
 
 /**
  * The "starred" gambit callback. Applies a filter to fetch only starred conversations.
- * 
+ *
  * @see gambitUnread for parameter descriptions.
  */
 public static function gambitStarred(&$search, $term, $negate)
@@ -562,7 +562,7 @@ public static function gambitStarred(&$search, $term, $negate)
 
 /**
  * The "private" gambit callback. Applies a filter to fetch only private conversations.
- * 
+ *
  * @see gambitUnread for parameter descriptions.
  */
 public static function gambitPrivate(&$search, $term, $negate)
@@ -573,7 +573,7 @@ public static function gambitPrivate(&$search, $term, $negate)
 
 /**
  * The "muted" gambit callback. Applies a filter to fetch only muted conversations.
- * 
+ *
  * @see gambitUnread for parameter descriptions.
  */
 public static function gambitMuted(&$search, $term, $negate)
@@ -596,7 +596,7 @@ public static function gambitMuted(&$search, $term, $negate)
 /**
  * The "draft" gambit callback. Applies a filter to fetch only conversations which the user has a
  * draft in.
- * 
+ *
  * @see gambitUnread for parameter descriptions.
  */
 public static function gambitDraft(&$search, $term, $negate)
@@ -617,7 +617,7 @@ public static function gambitDraft(&$search, $term, $negate)
 /**
  * The "active" gambit callback. Applies a filter to fetch only conversations which have been active
  * in a certain period of time.
- * 
+ *
  * @see gambitUnread for parameter descriptions.
  */
 public function gambitActive(&$search, $term, $negate)
@@ -655,7 +655,7 @@ public function gambitActive(&$search, $term, $negate)
 /**
  * The "author" gambit callback. Applies a filter to fetch only conversations which were started by
  * a particular member.
- * 
+ *
  * @see gambitUnread for parameter descriptions.
  * @todo Somehow make the use of this gambit trigger the switching of the "last post" column in the
  * 		results table with a "started by" column.
@@ -681,7 +681,7 @@ public static function gambitAuthor(&$search, $term, $negate)
 /**
  * The "contributor" gambit callback. Applies a filter to fetch only conversations which contain posts
  * by a particular member.
- * 
+ *
  * @see gambitUnread for parameter descriptions.
  */
 public static function gambitContributor(&$search, $term, $negate)
@@ -708,7 +708,7 @@ public static function gambitContributor(&$search, $term, $negate)
 
 /**
  * The "more results" gambit callback. Bumps up the limit to display more results.
- * 
+ *
  * @see gambitUnread for parameter descriptions.
  */
 public static function gambitMoreResults(&$search, $term, $negate)
@@ -720,7 +720,7 @@ public static function gambitMoreResults(&$search, $term, $negate)
 /**
  * The "replies" gambit callback. Applies a filter to fetch only conversations which have a certain
  * amount of replies.
- * 
+ *
  * @see gambitUnread for parameter descriptions.
  */
 public static function gambitHasNReplies(&$search, $term, $negate)
@@ -750,7 +750,7 @@ public static function gambitHasNReplies(&$search, $term, $negate)
 
 /**
  * The "order by replies" gambit callback. Orders the results by the number of replies they have.
- * 
+ *
  * @see gambitUnread for parameter descriptions.
  */
 public static function gambitOrderByReplies(&$search, $term, $negate)
@@ -762,7 +762,7 @@ public static function gambitOrderByReplies(&$search, $term, $negate)
 
 /**
  * The "order by newest" gambit callback. Orders the results by their start time.
- * 
+ *
  * @see gambitUnread for parameter descriptions.
  * @todo Somehow make the use of this gambit trigger the switching of the "last post" column in the
  * 		results table with a "started by" column.
@@ -776,7 +776,7 @@ public static function gambitOrderByNewest(&$search, $term, $negate)
 
 /**
  * The "sticky" gambit callback. Applies a filter to fetch only stickied conversations.
- * 
+ *
  * @see gambitUnread for parameter descriptions.
  */
 public static function gambitSticky(&$search, $term, $negate)
@@ -787,7 +787,7 @@ public static function gambitSticky(&$search, $term, $negate)
 
 /**
  * The "random" gambit callback. Orders conversations randomly.
- * 
+ *
  * @see gambitUnread for parameter descriptions.
  * @todo Make this not horrendously slow on large forums. For now there is a config option to disable
  * 		this gambit.
@@ -800,7 +800,7 @@ public static function gambitRandom(&$search, $term, $negate)
 
 /**
  * The "reverse" gambit callback. Reverses the order of conversations.
- * 
+ *
  * @see gambitUnread for parameter descriptions.
  */
 public static function gambitReverse(&$search, $term, $negate)
@@ -811,7 +811,7 @@ public static function gambitReverse(&$search, $term, $negate)
 
 /**
  * The "locked" gambit callback. Applies a filter to fetch only locked conversations.
- * 
+ *
  * @see gambitUnread for parameter descriptions.
  */
 public static function gambitLocked(&$search, $term, $negate)
@@ -848,5 +848,3 @@ ETSearchModel::addAlias(T("gambit.active today"), T("gambit.active 1 day"));
 ETSearchModel::addAlias(T("gambit.has replies"), T("gambit.has >0 replies"));
 ETSearchModel::addAlias(T("gambit.has no replies"), T("gambit.has 0 replies"));
 ETSearchModel::addAlias(T("gambit.dead"), T("gambit.active >30 day"));
-
-?>

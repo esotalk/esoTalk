@@ -8,7 +8,7 @@ if (!defined("IN_ESOTALK")) exit;
  * The conversations controller displays a list of conversations, and allows filtering by channels
  * and gambits. It also handles marking all conversations as read, and has a method which provides
  * auto-refresh results for the conversations view.
- * 
+ *
  * @package esoTalk
  */
 class ETConversationsController extends ETController {
@@ -16,7 +16,7 @@ class ETConversationsController extends ETController {
 
 /**
  * Display a list of conversations, optionally filtered by channel(s) and a search string.
- * 
+ *
  * @return void
  */
 function index($channelSlug = false)
@@ -204,7 +204,7 @@ function index($channelSlug = false)
 		$this->json("channels", $this->getViewContents("channels/tabs", $this->data));
 		$this->render("conversations/results");
 	}
-	
+
 	// For json, output the results as a json object.
 	elseif ($this->responseType === RESPONSE_TYPE_JSON) {
 		$this->json("results", $results);
@@ -215,9 +215,9 @@ function index($channelSlug = false)
 
 /**
  * Given the channel slug from a request, work out which channels are selected, whether or not to include
- * descendant channels in the results, and construct a full list of channel IDs to consider when getting the 
+ * descendant channels in the results, and construct a full list of channel IDs to consider when getting the
  * list a conversations.
- * 
+ *
  * @param string $channelSlug The channel slug from the request.
  * @return array An array containing:
  * 		0 => a full list of channel information.
@@ -289,7 +289,7 @@ protected function getSelectedChannels($channelSlug = "")
 
 /**
  * Mark all conversations as read and return to the index page.
- * 
+ *
  * @return void
  */
 public function markAllAsRead()
@@ -306,9 +306,9 @@ public function markAllAsRead()
 
 
 /**
- * Return updated HTML for each row in the conversations table, and indicate if there are new results for the 
+ * Return updated HTML for each row in the conversations table, and indicate if there are new results for the
  * specified channel and search query.
- * 
+ *
  * @param string $channelSlug The channel slug.
  * @param string $query The search query.
  * @return void
@@ -336,13 +336,13 @@ public function update($channelSlug = "", $query = "")
 	foreach ($results as $conversation) {
 		$rows[$conversation["conversationId"]] = $this->getViewContents("conversations/conversation", array("conversation" => $conversation, "channelInfo" => $channelInfo));
 	}
-	
+
 	// Add that to the response.
 	$this->json("conversations", $rows);
 
 	// Now we need to work out if there are any new results for this channel/search query.
 
-	// If the "random" gambit is in the search string, then don't go any further (because the results will 
+	// If the "random" gambit is in the search string, then don't go any further (because the results will
 	// obviously differ!)
 	$terms = $query ? explode("+", strtolower(str_replace("-", "+!", trim($query, " +-")))) : array();
 	foreach ($terms as $v) {
@@ -361,5 +361,3 @@ public function update($channelSlug = "", $query = "")
 }
 
 }
-
-?>

@@ -6,7 +6,7 @@ if (!defined("IN_ESOTALK")) exit;
 
 /**
  * Displays a single post.
- * 
+ *
  * @package esoTalk
  */
 
@@ -37,7 +37,7 @@ endif; ?>>
 
 <?php if (!empty($post["body"])): ?>
 <div class='postBody'>
-<?php echo $post["body"]; ?> 
+<?php echo $post["body"]; ?>
 </div>
 <?php endif; ?>
 

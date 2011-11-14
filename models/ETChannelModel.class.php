@@ -6,7 +6,7 @@ if (!defined("IN_ESOTALK")) exit;
 
 /**
  * The channel model provides functions for retrieving and managing channel data.
- * 
+ *
  * @package esoTalk
  */
 class ETChannelModel extends ETModel {
@@ -34,7 +34,7 @@ public function __construct()
 
 /**
  * Get a full list of channels with all permission details and cache it.
- * 
+ *
  * @return array An array of channel information indexed by the channel IDs.
  */
 public function getAll()
@@ -85,7 +85,7 @@ public function getAll()
 					unset($channel[$column]);
 				}
 
-				// Now, for each group ID, and then for each permission type, add the group ID to that 
+				// Now, for each group ID, and then for each permission type, add the group ID to that
 				// permission type's array if it does have permission.
 				foreach ($groupIds as $i => $id) {
 					foreach ($permissionColumns as $column) {
@@ -109,7 +109,7 @@ public function getAll()
 
 /**
  * Get a list of channels which the user has the specified permission for.
- * 
+ *
  * @param string $permission The name of the permission to filter channels by.
  * @return array An array of channel information indexed by the channel IDs.
  */
@@ -134,7 +134,7 @@ public function get($permission = "view")
 
 /**
  * Add user-channel-specific data (from the member_channel table) into an array of channel data.
- * 
+ *
  * @param array $channels The array of channels to add the user data onto.
  * @return void
  */
@@ -163,21 +163,21 @@ public function joinUserData(&$channels)
 
 /**
  * Returns whether or not the current user has the specified permission for $channelId.
- * 
+ *
  * @param int $channelId The channel ID.
  * @param string $permission The name of the permission to check.
  * @return bool
  */
 public function hasPermission($channelId, $permission = "view")
-{	
+{
 	$sql = ET::SQL()
 		->select("COUNT(1)")
 		->from("channel c")
 		->where("channelId=:channelId")
 		->bind(":channelId", (int)$channelId);
-	
+
 	$this->addPermissionPredicate($sql, $permission);
-	
+
 	return (bool)$sql->exec()->result();
 }
 
@@ -185,10 +185,10 @@ public function hasPermission($channelId, $permission = "view")
 /**
  * Add a WHERE predicate to an SQL query which makes sure only rows for which the user has the specified
  * permission are returned.
- * 
+ *
  * @param ETSQLQuery $sql The SQL query to add the predicate to.
  * @param string $field The name of the permission to check for.
- * @param array $member The member to filter out channels for. If not specified, the currently 
+ * @param array $member The member to filter out channels for. If not specified, the currently
  * 		logged-in user will be used.
  * @param string $table The channel table alias used in the SQL query.
  * @return void
@@ -220,7 +220,7 @@ public function addPermissionPredicate(&$sql, $field = "view", $member = false, 
 
 /**
  * Generates a unqique slug for a channel, given the title of the channel.
- * 
+ *
  * @param string $title The title of the channel.
  * @return string The suggested slug.
  */
@@ -248,7 +248,7 @@ public function generateSlug($title)
 
 /**
  * Create a channel.
- * 
+ *
  * @param array $values An array of fields and their values to insert.
  * @return bool|int The new channel ID, or false if there are errors.
  */
@@ -283,7 +283,7 @@ public function create($values)
 
 /**
  * Update a channel's details.
- * 
+ *
  * @param array $values An array of fields to update and their values.
  * @param array $wheres An array of WHERE conditions.
  * @return bool|ETSQLResult
@@ -310,9 +310,9 @@ public function update($values, $wheres = array())
 
 /**
  * Set permissions for a channel.
- * 
+ *
  * @param int $channelId The ID of the channel to set permissions for.
- * @param array $permissions An array of permissions to set. 
+ * @param array $permissions An array of permissions to set.
  */
 public function setPermissions($channelId, $permissions)
 {
@@ -345,7 +345,7 @@ public function setPermissions($channelId, $permissions)
 
 /**
  * Set a member's status entry for a channel (their record in the member_channel table.)
- * 
+ *
  * @param int $channelId The ID of the channel to set the member's status for.
  * @param int $memberId The ID of the member to set the status for.
  * @param array $data An array of key => value data to save to the database.
@@ -363,7 +363,7 @@ public function setStatus($channelId, $memberId, $data)
 
 /**
  * Delete a channel and its conversations (or optionally move its conversations to another channel.)
- * 
+ *
  * @param int $channelId The ID of the channel to delete.
  * @param bool|int $moveToChannelId The ID of the channel to move conversations to, or false to delete them.
  * @return bool true on success, false on error.
@@ -374,7 +374,7 @@ public function deleteById($channelId, $moveToChannelId = false)
 
 	// Do we want to move the conversations to another channel?
 	if ($moveToChannelId !== false) {
-		
+
 		// If the channel does exist, move all the conversation over to it.
 		if (array_key_exists((int)$moveToChannelId, $this->getAll())) {
 			ET::SQL()
@@ -396,7 +396,7 @@ public function deleteById($channelId, $moveToChannelId = false)
 	if ($this->errorCount()) return false;
 
 	$result = parent::deleteById($channelId);
-		
+
 	// Reset channels in the global cache.
 	ET::$cache->remove(self::CACHE_KEY);
 
@@ -406,7 +406,7 @@ public function deleteById($channelId, $moveToChannelId = false)
 
 /**
  * Validate a channel title.
- * 
+ *
  * @param string $title The channel title.
  * @return string|null An error code, or null if there were no errors.
  */
@@ -418,7 +418,7 @@ public function validateTitle($title)
 
 /**
  * Validate a channel slug.
- * 
+ *
  * @param string $slug The channel slug.
  * @return string|null An error code, or null if there were no errors.
  */
@@ -436,5 +436,3 @@ public function validateSlug($slug)
 }
 
 }
-
-?>

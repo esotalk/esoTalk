@@ -6,7 +6,7 @@ if (!defined("IN_ESOTALK")) exit;
 
 /**
  * Displays the statistics pane in a member's profile.
- * 
+ *
  * @package esoTalk
  */
 

@@ -6,7 +6,7 @@ if (!defined("IN_ESOTALK")) exit;
 
 /**
  * The groups admin controller handles the management of member groups.
- * 
+ *
  * @package esoTalk
  */
 class ETGroupsAdminController extends ETAdminController {
@@ -14,7 +14,7 @@ class ETGroupsAdminController extends ETAdminController {
 
 /**
  * Show a sheet containing a list of groups. Pretty simple, really!
- * 
+ *
  * @return void
  */
 public function index()
@@ -28,7 +28,7 @@ public function index()
 
 /**
  * Show a sheet to edit a member group's details.
- * 
+ *
  * @param int $groupId The ID of the group to edit.
  * @return void
  */
@@ -74,7 +74,7 @@ public function edit($groupId = "")
 
 /**
  * Show a sheet to create a new group.
- * 
+ *
  * @return void
  */
 public function create()
@@ -136,7 +136,7 @@ public function create()
 
 /**
  * Delete a group.
- * 
+ *
  * @param int $groupId The ID of the group to delete.
  * @return void
  */
@@ -156,5 +156,3 @@ public function delete($groupId = "")
 }
 
 }
-
-?>

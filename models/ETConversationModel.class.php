@@ -7,7 +7,7 @@ if (!defined("IN_ESOTALK")) exit;
 /**
  * The conversation model provides functions for retrieving and managing conversation data. It also provides
  * methods to handle conversation "labels".
- * 
+ *
  * @package esoTalk
  */
 class ETConversationModel extends ETModel {
@@ -35,7 +35,7 @@ public function __construct()
 
 /**
  * Adds a label to the collection.
- * 
+ *
  * @param string $label The name of the label.
  * @param string $expression The SQL expression that will determine whether or not the label is active.
  * @return void
@@ -48,10 +48,10 @@ public static function addLabel($label, $expression)
 
 /**
  * Adds a SELECT field to an SQL query which will get the active state of conversation labels.
- * 
+ *
  * We add one field, which we name 'labels', which contains a comma-separated list of
  * label expressions defined by addLabel(). This field can then be expanded using expandLabels().
- * 
+ *
  * @param ETSQLQuery The SQL query to add the SELECT component to.
  * @return void
  */
@@ -64,7 +64,7 @@ public static function addLabels(&$sql)
 
 /**
  * Expands the value of a label field, added by addLabels(), to an array of active labels.
- * 
+ *
  * @param string $labels The value of the 'label' field.
  * @return array An array of active labels.
  */
@@ -86,9 +86,9 @@ public static function expandLabels($labels)
 /**
  * Add a WHERE predicate to an SQL query which will filter out conversations that the user is not
  * allowed to see.
- * 
+ *
  * @param ETSQLQuery $sql The SQL query to add the WHERE predicate to.
- * @param array $member The member to filter out conversations for. If not specified, the currently 
+ * @param array $member The member to filter out conversations for. If not specified, the currently
  * 		logged-in user will be used.
  * @param string $table The conversation table alias used in the SQL query.
  * @return void
@@ -128,10 +128,10 @@ public function addAllowedPredicate(&$sql, $member = false, $table = "c")
 
 /**
  * Get a single conversation's details.
- * 
+ *
  * This function returns an array of fields which is that "standard" for conversation data structure
  * within this model.
- * 
+ *
  * @param array $wheres An array of WHERE conditions. Regardless of how many conversations match, only
  * 		the first will be returned.
  * @return array The conversation details array.
@@ -150,7 +150,7 @@ public function get($wheres = array())
 		// Get the groups that are allowed to view this channel, and the names of those groups.
 		->select("GROUP_CONCAT(pv.groupId)", "channelPermissionView")
 		->select("GROUP_CONCAT(IF(pvg.name IS NOT NULL, pvg.name, ''))", "channelPermissionViewNames")
-		
+
 		// Join the appropriate tables.
 		->from("conversation c")
 		->from("channel ch", "c.channelId=ch.channelId", "left")
@@ -204,7 +204,7 @@ public function get($wheres = array())
 
 /**
  * Get the conversation that the specified $postId is contained within.
- * 
+ *
  * @param int $postId The ID of the post.
  * @return array The conversation.
  * @see get()
@@ -223,7 +223,7 @@ public function getByPostId($postId)
 
 /**
  * Get conversation data for the specified conversation ID.
- * 
+ *
  * @param int $id The ID of the conversation.
  * @return array The conversation.
  * @see get()
@@ -236,7 +236,7 @@ public function getById($id)
 
 /**
  * Get an empty conversation details array for a non-existent conversation.
- * 
+ *
  * @return array The conversation details array.
  */
 public function getEmptyConversation()
@@ -296,11 +296,11 @@ public function getEmptyConversation()
 
 /**
  * Combines two separate strings of group IDs and names into one (id => name).
- * 
+ *
  * When we fetch conversation details in get() and getNew(), we select a field which contains a
  * comma-separated list of group IDs which are allowed to view the conversation's channel, and a field
  * with the names of those groups. This function combines those two fields into one nice array.
- * 
+ *
  * @param string $permissionView The comma-separated list of group IDs.
  * @param string $permissionViewNames The comma-separated list of respective group names.
  * @return array A nice array of groupId => names.
@@ -325,7 +325,7 @@ private function formatGroupsAllowed($permissionView, $permissionViewNames)
  * Get a list of members who are explicitly allowed to view the given conversation.
  * Only members who have been explicitly added to the members allowed list will be returned;
  * this function returns an empty array for non-private conversations.
- * 
+ *
  * @see getMembersAllowedSummary() for an effective list of members/groups who are allowed to view
  * 		a conversation (which takes channel permissions into consideration.)
  * @param array The conversation details.
@@ -361,7 +361,7 @@ public function getMembersAllowed($conversation)
 		->select("NULL")
 		->select("NULL")
 		->select("NULL");
-	
+
 	// If the conversation doesn't exist, the members allowed are in stored in the session.
 	// We'll have to get details from the database using the IDs stored in the session.
 	if (!$conversation["conversationId"]) {
@@ -392,7 +392,7 @@ public function getMembersAllowed($conversation)
 		$qGroups->select("g.groupId", "id")->from("group g")->where("g.groupId IN (:groupIds)")->bind(":groupIds", $groups);
 
 	}
-	
+
 	// If the conversation does exist, we'll get the members allowed from the database.
 	else {
 
@@ -435,9 +435,9 @@ public function getMembersAllowed($conversation)
 
 /**
  * Get a list of members who are effectively allowed to view the given conversation.
- * This function will take into account both the members explicitly allowed to view a conversation 
+ * This function will take into account both the members explicitly allowed to view a conversation
  * and who has permission to view the conversation's channel.
- * 
+ *
  * @see getMembersAllowed()
  * @param array The conversation details.
  * @param array An array of members explicitly allowed in the conversation, from getMembersAllowed().
@@ -456,7 +456,7 @@ public function getMembersAllowedSummary($conversation, $membersAllowed = array(
 		// If guests aren't allowed to view this channel (i.e. not everyone), then we need to
 		// explicitly show who can view the channel.
 		if (!in_array(GROUP_ID_GUEST, $channelGroupIds)) {
-			
+
 			// If members can view the channel, that covers everyone.
 			if (in_array(GROUP_ID_MEMBER, $channelGroupIds)) $groups[GROUP_ID_MEMBER] = ACCOUNT_MEMBER;
 
@@ -470,7 +470,7 @@ public function getMembersAllowedSummary($conversation, $membersAllowed = array(
 
 	// If the conversation IS private...
 	else {
-		
+
 		// Sort the members.
 		$count = count($membersAllowed);
 
@@ -487,7 +487,7 @@ public function getMembersAllowedSummary($conversation, $membersAllowed = array(
 				if (!ET::groupModel()->groupIdsAllowedInGroupIds($member["groups"], $channelGroupIds)) continue;
 				$members[] = $member;
 			}
-			
+
 		}
 
 	}
@@ -501,7 +501,7 @@ public function getMembersAllowedSummary($conversation, $membersAllowed = array(
 	}
 
 	else {
-		
+
 		// Loop through the groups allowed and add them to the summary.
 		foreach ($groups as $id => $name) {
 			$membersAllowedSummary[] = array("type" => "group", "id" => $id, "name" => $name);
@@ -527,7 +527,7 @@ public function getMembersAllowedSummary($conversation, $membersAllowed = array(
 
 /**
  * Start a new converastion. Assumes the creator is the currently logged in user.
- * 
+ *
  * @param array $data An array of the conversation's details: title, channelId, content.
  * @param array $membersAllowed An array of entities allowed to view the conversation, in the same format
  * 		as the return value of getMembersAllowed()
@@ -542,7 +542,7 @@ public function create($data, $membersAllowed = array(), $isDraft = false)
 
 	// If the title is blank but the user is only saving a draft, call it "Untitled conversation."
 	if ($isDraft and !$data["title"]) $data["title"] = T("Untitled conversation");
-	
+
 	// Check for errors; validate the title and the post content.
 	$this->validate("title", $data["title"], array($this, "validateTitle"));
 	$this->validate("content", $data["content"], array(ET::postModel(), "validateContent"));
@@ -568,7 +568,7 @@ public function create($data, $membersAllowed = array(), $isDraft = false)
 	$data["lastPostTime"] = $time;
 	$data["private"] = !empty($membersAllowed);
 	$data["countPosts"] = $isDraft ? 0 : 1;
-	
+
 	// Insert the conversation into the database.
 	$conversationId = parent::create($data);
 
@@ -578,7 +578,7 @@ public function create($data, $membersAllowed = array(), $isDraft = false)
 		->set("countConversations", "countConversations + 1", false)
 		->where("memberId", ET::$session->userId)
 		->exec();
-	
+
 	// Whip up a little array fo conversation details for this model's functions to work with.
 	$conversation = array(
 		"conversationId" => $conversationId,
@@ -595,7 +595,7 @@ public function create($data, $membersAllowed = array(), $isDraft = false)
 	else {
 		$postId = ET::postModel()->create($conversationId, ET::$session->userId, $content);
 
-		// If the conversation is private, send out notifications to the allowed members. 
+		// If the conversation is private, send out notifications to the allowed members.
 		if (!empty($membersAllowed)) {
 			$memberIds = array();
 			foreach ($membersAllowed as $member) {
@@ -622,7 +622,7 @@ public function create($data, $membersAllowed = array(), $isDraft = false)
 
 /**
  * Add a reply to an existing conversation. Assumes the creator is the currently logged in user.
- * 
+ *
  * @param array $conversation The conversation to add the reply to. The conversation's details will
  * 		be updated (post count, last post time, etc.)
  * @param string $content The post content.
@@ -711,7 +711,7 @@ public function addReply(&$conversation, $content)
 
 /**
  * Delete a conversation, and all its posts and other associations.
- * 
+ *
  * @param array $wheres An array of WHERE predicates.
  * @return bool true on success, false on error.
  */
@@ -731,7 +731,7 @@ public function delete($wheres = array())
 
 /**
  * Delete an existing record in the model's table with a particular ID.
- * 
+ *
  * @param mixed $id The ID of the record to delete.
  * @return ETSQLResult
  */
@@ -745,7 +745,7 @@ public function deleteById($id)
  * Set a member's status entry for a conversation (their record in the member_conversation table.)
  * This should not be used directly for setting a draft or 'muted'. setDraft and setMuted should be
  * used for that.
- * 
+ *
  * @param array $conversation The conversation to set the member's status for.
  * @param int $memberId The member to set the status for.
  * @param array $data An array of key => value data to save to the database.
@@ -764,8 +764,8 @@ public function setStatus(&$conversation, $memberId, $data, $type = "member")
 
 
 /**
- * Set a member's draft for a conversation. 
- * 
+ * Set a member's draft for a conversation.
+ *
  * @param array $conversation The conversation to set the draft on. The conversation array's labels
  * 		and draft attribute will be updated.
  * @param int $memberId The member to set the status for.
@@ -776,7 +776,7 @@ public function setDraft(&$conversation, $memberId, $draft = null)
 {
 	// Validate the post content if applicable.
 	if ($draft !== null) $this->validate("content", $draft, array(ET::postModel(), "validateContent"));
-	
+
 	if ($this->errorCount()) return false;
 
 	// Save the draft.
@@ -791,8 +791,8 @@ public function setDraft(&$conversation, $memberId, $draft = null)
 
 
 /**
- * Set a member's last read position for a conversation. 
- * 
+ * Set a member's last read position for a conversation.
+ *
  * @param array $conversation The conversation to set the last read position on. The conversation array's
  * 	lastRead attribute will be updated.
  * @param int $memberId The member to set the status for.
@@ -814,8 +814,8 @@ public function setLastRead(&$conversation, $memberId, $lastRead)
 
 
 /**
- * Set a member's muted flag for a conversation. 
- * 
+ * Set a member's muted flag for a conversation.
+ *
  * @param array $conversation The conversation to set the draft on. The conversation array's labels
  * 		and muted attribute will be updated.
  * @param int $memberId The member to set the flag for.
@@ -834,8 +834,8 @@ public function setMuted(&$conversation, $memberId, $muted)
 
 
 /**
- * Set the sticky flag of a conversation. 
- * 
+ * Set the sticky flag of a conversation.
+ *
  * @param array $conversation The conversation to set the draft on. The conversation array's labels
  * 		and sticky attribute will be updated.
  * @param bool $sticky Whether or not the conversation is stickied.
@@ -855,8 +855,8 @@ public function setSticky(&$conversation, $sticky)
 
 
 /**
- * Set the locked flag of a conversation. 
- * 
+ * Set the locked flag of a conversation.
+ *
  * @param array $conversation The conversation to set the draft on. The conversation array's labels
  * 		and locked attribute will be updated.
  * @param bool $locked Whether or not the conversation is locked.
@@ -877,7 +877,7 @@ public function setLocked(&$conversation, $locked)
 
 /**
  * Convenience method to add or remove a certain label from a conversation's labels array.
- * 
+ *
  * @param array $conversation The conversation to add/remove the label from.
  * @param string $label The name of the label.
  * @param bool $add true to add the label, false to remove it.
@@ -893,8 +893,8 @@ protected function addOrRemoveLabel(&$conversation, $label, $add = true)
 
 
 /**
- * Set the title of a conversation. 
- * 
+ * Set the title of a conversation.
+ *
  * @param array $conversation The conversation to set the title of. The conversation array's title
  * 		attribute will be updated.
  * @param string $title The new title of the conversation.
@@ -920,7 +920,7 @@ public function setTitle(&$conversation, $title)
 
 /**
  * Validate the title of a conversation.
- * 
+ *
  * @param string $title The conversation title.
  * @return bool|string Returns an error string or false if there are no errors.
  */
@@ -931,8 +931,8 @@ public function validateTitle($title)
 
 
 /**
- * Set the channel of a conversation. 
- * 
+ * Set the channel of a conversation.
+ *
  * @param array $conversation The conversation to set the channel for. The conversation array's channelId
  * 		attribute will be updated.
  * @param int $channelId Whether or not the conversation is locked.
@@ -947,7 +947,7 @@ public function setChannel(&$conversation, $channelId)
 	$this->updateById($conversation["conversationId"], array(
 		"channelId" => $channelId
 	));
-	
+
 	$conversation["channelId"] = $channelId;
 
 	return true;
@@ -957,7 +957,7 @@ public function setChannel(&$conversation, $channelId)
 /**
  * Given a name (intended to be the input of the "add members allowed" form), this function finds a matching
  * group or member and returns an array of its details to be used in addMember().
- * 
+ *
  * @param string $name The input.
  * @return bool|array Returns an array of the entity's details (in the same format as getMembersAllowed()),
  * 		or false if no entity was found.
@@ -1010,7 +1010,7 @@ public function getMemberFromName($name)
 
 /**
  * Add a member to a conversation, i.e. give them permission to view it and make the conversation private.
- * 
+ *
  * @param array $conversation The conversation to add the member to. The conversation array's membersAllowed
  * 		and private attributes will be updated.
  * @param array $member The entity to add. This can be from getMemberFromName().
@@ -1020,7 +1020,7 @@ public function addMember(&$conversation, $member)
 {
 	// If the conversation exists, add this member to the database as allowed.
 	if ($conversation["conversationId"]) {
-		
+
 		// Email the member(s) - we have to do this before we put them in the db because it will only email them if they
 		// don't already have a record for this conversation in the status table.
 		if ($conversation["countPosts"] > 0 and $member["type"] == "member") $this->privateAddNotification($conversation, $member["id"]);
@@ -1045,7 +1045,7 @@ public function addMember(&$conversation, $member)
 
 		$member = array("type" => $member["type"], "id" => $member["id"]);
 		if (!in_array($member, $membersAllowed)) $membersAllowed[] = $member;
-		
+
 		// Make sure the the owner of the conversation is allowed to view it.
 		$member = array("type" => "member", "id" => $conversation["startMemberId"]);
 		if (!in_array($member, $membersAllowed)) $membersAllowed[] = $member;
@@ -1062,7 +1062,7 @@ public function addMember(&$conversation, $member)
 /**
  * Remove a member from a conversation, i.e. revoke their permission to view it and make the conversation
  * not private if there are no members left.
- * 
+ *
  * @param array $conversation The conversation to remove the member from. The conversation array's membersAllowed
  * 		and private attributes will be updated.
  * @param array $member The entity to remove. This should have two elements: type and id.
@@ -1072,7 +1072,7 @@ public function removeMember(&$conversation, $member)
 {
 	// If the conversation exists, remove the member from the database.
 	if ($conversation["conversationId"]) {
-	
+
 		// Disallow the member to view the conversation in the status table.
 		// Also unstar the conversation so they will no longer receive email notifications.
 		$this->setStatus($conversation, $member["id"], array("allowed" => false, "starred" => false), $member["type"]);
@@ -1092,13 +1092,13 @@ public function removeMember(&$conversation, $member)
 	foreach ($conversation["membersAllowed"] as $k => $m) {
 		if ($m["type"] == $member["type"] and $m["id"] == $member["id"]) unset($conversation["membersAllowed"][$k]);
 	}
-		
+
 	// If there are no members left allowed in the conversation, then unmark the conversation as private.
 	if (empty($conversation["membersAllowed"])) {
 		$conversation["membersAllowed"] = array();
 		$conversation["private"] = false;
 		$this->addOrRemoveLabel($conversation, "private", false);
-		
+
 		// Turn off conversation's private field in the database.
 		if ($conversation["conversationId"])
 			$this->updateById($conversation["conversationId"], array("private" => false));
@@ -1108,9 +1108,9 @@ public function removeMember(&$conversation, $member)
 
 /**
  * Send private conversation invitation notifications to a list of members. A notification will only
- * be sent if this is the first time a member has been added to the conversation, to prevent intentional 
+ * be sent if this is the first time a member has been added to the conversation, to prevent intentional
  * email spamming.
- * 
+ *
  * @param array $conversation The conversation to that we're sending out notifications for.
  * @param array $memberIds A list of member IDs to send the notifications to.
  * @param bool $notifyAll If set to true, all members will be notified regardless of if they have been
@@ -1134,7 +1134,7 @@ protected function privateAddNotification($conversation, $memberIds, $notifyAll 
 		->bind(":memberIds", $memberIds);
 
 	// Only get members where the member_conversation row doesn't exist (implying that this is the first time
-	// they've been added to the conversation.) 
+	// they've been added to the conversation.)
 	if (!$notifyAll) $sql->where("s.id IS NULL");
 
 	$members = ET::memberModel()->getWithSQL($sql);
@@ -1143,7 +1143,7 @@ protected function privateAddNotification($conversation, $memberIds, $notifyAll 
 		"conversationId" => $conversation["conversationId"],
 		"title" => $conversation["title"]
 	);
-	
+
 	foreach ($members as $member) {
 		ET::activityModel()->create("privateAdd", $member, ET::$session->user, $data);
 	}
@@ -1158,5 +1158,3 @@ ETConversationModel::addLabel("private", "IF(c.private=1,1,0)");
 ETConversationModel::addLabel("locked", "IF(c.locked=1,1,0)");
 ETConversationModel::addLabel("draft", "IF(s.draft IS NOT NULL,1,0)");
 ETConversationModel::addLabel("muted", "IF(s.muted=1,1,0)");
-
-?>

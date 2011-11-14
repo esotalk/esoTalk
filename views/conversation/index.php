@@ -6,7 +6,7 @@ if (!defined("IN_ESOTALK")) exit;
 
 /**
  * Displays conversation information, a list of posts, the timeline, and a reply area for a single conversation.
- * 
+ *
  * @package esoTalk
  */
 
@@ -51,7 +51,7 @@ endif;
 <?php
 
 // Star
-echo star($conversation["conversationId"], $conversation["starred"])."\n"; 
+echo star($conversation["conversationId"], $conversation["starred"])."\n";
 
 // Labels ?>
 <span class='labels'>
@@ -82,7 +82,7 @@ if ($data["controlsMenu"]->count()): ?>
 if (count($conversation["membersAllowedSummary"]) or $conversation["startMemberId"] == ET::$session->userId or $conversation["canModerate"]): ?>
 <div id='conversationPrivacy'>
 <span class='allowedList action'><?php $this->renderView("conversation/membersAllowedSummary", $data); ?></span>
-<?php if ($conversation["startMemberId"] == ET::$session->userId): ?><a href='<?php echo URL("conversation/edit/".$conversation["conversationId"]); ?>' id='control-changeMembersAllowed'><?php echo T("Change"); ?></a><?php endif; ?> 
+<?php if ($conversation["startMemberId"] == ET::$session->userId): ?><a href='<?php echo URL("conversation/edit/".$conversation["conversationId"]); ?>' id='control-changeMembersAllowed'><?php echo T("Change"); ?></a><?php endif; ?>
 </div>
 <?php endif; ?>
 

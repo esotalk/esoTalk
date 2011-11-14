@@ -6,7 +6,7 @@ if (!defined("IN_ESOTALK")) exit;
 
 /**
  * Displays a list of members in the context of the member list.
- * 
+ *
  * @package esoTalk
  */
 ?>
@@ -14,7 +14,7 @@ if (!defined("IN_ESOTALK")) exit;
 <li data-index='<?php echo ctype_alpha($letter = strtolower($member["username"][0])) ? $letter : "0"; ?>'>
 
 <div class='col-member'>
-<?php echo avatar($member["memberId"], $member["avatarFormat"], "thumb"); ?> 
+<?php echo avatar($member["memberId"], $member["avatarFormat"], "thumb"); ?>
 <strong><?php echo memberLink($member["memberId"], $member["username"]); ?></strong>
 
 <?php

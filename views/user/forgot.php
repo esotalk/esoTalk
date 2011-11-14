@@ -5,9 +5,9 @@
 if (!defined("IN_ESOTALK")) exit;
 
 /**
- * Displays the "forgot password" - a form where the user can enter their email address in order to reset 
+ * Displays the "forgot password" - a form where the user can enter their email address in order to reset
  * their password.
- * 
+ *
  * @package esoTalk
  */
 

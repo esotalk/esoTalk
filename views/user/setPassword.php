@@ -5,9 +5,9 @@
 if (!defined("IN_ESOTALK")) exit;
 
 /**
- * Displays a sheet where the user can reset their password, following on from a link sent to them by the 
+ * Displays a sheet where the user can reset their password, following on from a link sent to them by the
  * forgot password process.
- * 
+ *
  * @package esoTalk
  */
 

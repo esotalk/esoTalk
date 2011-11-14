@@ -6,14 +6,14 @@ if (!defined("IN_ESOTALK")) exit;
 
 /**
  * Enables dynamic construction of SQL queries.
- * 
+ *
  * The purpose of this class is not so much to be a database abstraction layer and prevent
  * the need to write straight SQL. It is more to allow query components be added/changed dynamically
  * (by plugins, for example), and to aid in writing safe queries.
- * 
+ *
  * This implementation tries to be as SQL-neutral as possible, but is ultimately written to work
  * with MySQL. It can be extended to provide a query constructor for a different database engine.
- * 
+ *
  * @package esoTalk
  */
 class ETSQLQuery {
@@ -126,7 +126,7 @@ protected $parameters = array();
 
 /**
  * Bind a value to a parameter that will be substituted safely when the query is constructed.
- * 
+ *
  * @param string $parameter The name of the parameter. This must begin with a colon (:).
  * @param mixed $value The value to substitute.
  * @param int $dataType Explicit data type for the parameter using PDO::PARAM_* constants. If null,
@@ -142,7 +142,7 @@ public function bind($parameter, $value, $dataType = null)
 
 /**
  * Add an expression to the SELECT clause.
- * 
+ *
  * @param string|array $expression The expression to select. If an array is passed, all values will be added.
  * @param string $as An optional identifier to select the expression AS.
  * @return ETSQLQuery
@@ -168,7 +168,7 @@ public function select($expression, $as = false)
 
 /**
  * Add a table to the FROM clause, optionally as a JOIN.
- * 
+ *
  * @param string $table The name of the table. This can include an alias at the end. The table prefix will
  * 		automatically be added.
  * @param string $on An optional condition to JOIN the table ON.
@@ -183,8 +183,8 @@ public function from($table, $on = false, $type = false)
 
 	// If a JOIN type or condition was specified, add the table with JOIN syntax.
 	if (!empty($type) or !empty($on))
-		$this->tables[] = strtoupper($type ? $type : "inner")." JOIN $table".(!empty($on) ? " ON ($on)" : ""); 
-	
+		$this->tables[] = strtoupper($type ? $type : "inner")." JOIN $table".(!empty($on) ? " ON ($on)" : "");
+
 	// Otherwise, just add the table name normally.
 	else array_unshift($this->tables, $table);
 
@@ -194,7 +194,7 @@ public function from($table, $on = false, $type = false)
 
 /**
  * Add a WHERE predicate to the query.
- * 
+ *
  * @param string $predicate The predicate to add. This can be either:
  * 		1. A string and the only argument, and it is added as is.
  * 		2. A string with the $value argument specified, and it is used as the field name to be tested for equality.
@@ -209,7 +209,7 @@ public function where($predicate, $value = false)
 
 	// If a value was specified, use the predicate as the field name.
 	if ($value !== false) $predicate = array($predicate => $value);
-	
+
 	// Go through the predicates and add them to the query one by one.
 	$predicates = (array)$predicate;
 	foreach ($predicates as $field => $predicate) {
@@ -232,7 +232,7 @@ public function where($predicate, $value = false)
 
 /**
  * Add an expression to the GROUP BY clause.
- * 
+ *
  * @param string|array $expression The expression, or an array of expressions, to add.
  * @return ETSQLQuery
  */
@@ -248,7 +248,7 @@ public function groupBy($expression)
 
 /**
  * Add an expression to the ORDER BY clause.
- * 
+ *
  * @param string|array $expression The expression, or an array of expressions, to add.
  * @return ETSQLQuery
  */
@@ -264,7 +264,7 @@ public function orderBy($expression)
 
 /**
  * Add an expression to the HAVING clause.
- * 
+ *
  * @param string|array $expression The expression, or an array of expressions, to add.
  * @return ETSQLQuery
  */
@@ -280,7 +280,7 @@ public function having($expression)
 
 /**
  * Force the use of an index in the query.
- * 
+ *
  * @param string $index The name of the index to force use of.
  * @return ETSQLQuery
  */
@@ -293,7 +293,7 @@ public function useIndex($index)
 
 /**
  * Set the maximum number of results for the query to return.
- * 
+ *
  * @param string $limit The maximum number of results.
  * @return ETSQLQuery
  */
@@ -306,7 +306,7 @@ public function limit($limit)
 
 /**
  * Set the row number to start getting results from.
- * 
+ *
  * @param string $offset The row number to start from.
  * @return ETSQLQuery
  */
@@ -319,7 +319,7 @@ public function offset($offset)
 
 /**
  * Begin an UPDATE query and add a table to update.
- * 
+ *
  * @param string $table The name of the table to update.
  * @return ETSQLQuery
  */
@@ -333,7 +333,7 @@ public function update($table)
 
 /**
  * Set a field to a value in an UPDATE or INSERT query.
- * 
+ *
  * @param string|array $field The name of the field to set, or an array of fields => values to set.
  * @param mixed $value The value to set the field to.
  * @param bool $sanitize Whether or not to escape and quote the value.
@@ -350,7 +350,7 @@ public function set($field, $value = false, $sanitize = true)
 		if ($this->mode == "update")
 			$this->set[$field] = $value;
 
-		// But for an INSERT query, we need to add the field to $this->insertFields and the value to the 
+		// But for an INSERT query, we need to add the field to $this->insertFields and the value to the
 		// first row in the SET array.
 		else {
 			$this->insertFields[] = $field;
@@ -364,7 +364,7 @@ public function set($field, $value = false, $sanitize = true)
 
 /**
  * Begin an INSERT query and add a table to insert into.
- * 
+ *
  * @param string $table The name of the table to insert into.
  * @return ETSQLQuery
  */
@@ -378,7 +378,7 @@ public function insert($table)
 
 /**
  * Set multiple rows of data in an INSERT query.
- * 
+ *
  * @param array $fields An array of field names to set.
  * @param array $valueSets An array of arrays of values to insert.
  * @return ETSQLQuery
@@ -398,7 +398,7 @@ public function setMultiple($fields, $valueSets)
 
 /**
  * Set a field to a value when there is a duplicate key in an INSERT query.
- * 
+ *
  * @param string|array $field The name of the field to set, or an array of fields => values to set.
  * @param mixed $value The value to set the field to.
  * @param bool $sanitize Whether or not to escape and quote the value.
@@ -416,7 +416,7 @@ public function setOnDuplicateKey($field, $value = false, $sanitize = true)
 
 /**
  * Begin a REPLACE query and add a table to replace into.
- * 
+ *
  * @param string $table The name of the table to replace into.
  * @return ETSQLQuery
  */
@@ -430,7 +430,7 @@ public function replace($table)
 
 /**
  * Begin a DELETE query and add a table to delete.
- * 
+ *
  * @param string $table The name of the table to delete.
  * @return ETSQLQuery
  */
@@ -444,7 +444,7 @@ public function delete($table = null)
 
 /**
  * Add a SELECT query to be UNIONed.
- * 
+ *
  * @param ETSQLQuery $query The ETSQLQuery object to UNION.
  * @return ETSQLQuery
  */
@@ -459,7 +459,7 @@ public function union($query)
 /**
  * Indent each line in each value of an array. This is used on each item in the SELECT, WHERE, and FROM clause
  * so that sub-SELECTs appear indented.
- * 
+ *
  * @param mixed $value The value to apply indentation to.
  * @return mixed The value with indentation applied.
  */
@@ -472,7 +472,7 @@ protected function indent($value)
 
 /**
  * Construct a WHERE clause from the query structure information gathered in this class.
- * 
+ *
  * @return string
  */
 protected function getWhere()
@@ -483,7 +483,7 @@ protected function getWhere()
 
 /**
  * Construct a FROM clause from the query structure information gathered in this class.
- * 
+ *
  * @return string
  */
 protected function getOrderBy()
@@ -514,7 +514,7 @@ protected function getSelect()
 	$groupBy = count($this->groupBy) ? "\nGROUP BY ".implode(", ", $this->groupBy) : "";
 	$limit = $this->limit ? "\nLIMIT $this->limit" : "";
 	$offset = $this->offset ? "\nOFFSET $this->offset" : "";
-	
+
 	// Put the whole query together and return it.
 	return $select.$from.$index.$this->getWhere().$groupBy.$this->getOrderBy().$limit.$offset;
 }
@@ -620,7 +620,7 @@ protected function getUnion()
 /**
  * Construct the SQL from the query structure information we've gathered in this class, substitute in parameter
  * values, and return the final product it as a string.
- * 
+ *
  * @return string
  */
 public function get()
@@ -655,7 +655,7 @@ public function get()
 		default:
 			$query = "";
 	}
-	
+
 	// Substitute in bound parameter values.
 	$query = preg_replace('/(:[A-Za-z0-9_]+)/e', 'array_key_exists("$1", $this->parameters)
 		? ET::$database->escapeValue($this->parameters["$1"][0], $this->parameters["$1"][1])
@@ -667,7 +667,7 @@ public function get()
 
 /**
  * Construct the SQL query and execute it, returning the result.
- * 
+ *
  * @return ETSQLResult
  */
 public function exec()
@@ -677,5 +677,3 @@ public function exec()
 }
 
 }
-
-?>
