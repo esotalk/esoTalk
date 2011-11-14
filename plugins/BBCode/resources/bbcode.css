@@ -1,0 +1,9 @@
+[class*=bbcode-] {margin:-6px -2px; display:inline-block}
+[class*=bbcode-] span {text-indent:-999px; width:12px; height:12px; padding:6px; display:inline-block; background-image:url(formattingIcons.png)}
+.bbcode-b span {background-position:0 0}
+.bbcode-i span {background-position:-24px 0}
+.bbcode-h span {background-position:-48px 0}
+.bbcode-s span {background-position:-72px 0}
+.bbcode-link span {background-position:-96px 0}
+.bbcode-img span {background-position:-120px 0}
+.bbcode-fixed span {background-position:-144px 0}

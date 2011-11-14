@@ -1,0 +1,12 @@
+#debug {clear:both; margin-top:20px; border-top:5px solid #e8da00; position:relative; z-index:1000}
+#debugHdr {margin:0; background:#ffa;  padding:8px 25px; overflow:hidden}
+#debugHdr h2 {font-size:110%; font-weight:bold; display:inline}
+#debug h3 {margin:-1px 0 0; font-size:110%}
+#debug h3 a {display:block; border:solid #ddd; color:#777; border-width:1px 0; background:#fff; padding:6px 25px; font-weight:normal}
+#debug h3 a:hover {text-decoration:none}
+#debug h3 a:active {background:#eee}
+#debug .section {padding:10px 25px; background:#fff}
+#debug li {padding:20px 0}
+#debug .section pre {margin-bottom:20px; margin-top:10px}
+#debug .queryTime {margin-left:10px}
+#debug .queryTime.warning {background:#a00; color:#fff; -webkit-border-radius:2px; font-weight:bold; padding:1px 4px}

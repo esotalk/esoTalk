@@ -1,0 +1,135 @@
+/* Mobile stylesheet */
+
+/* Layout - set the page width and remove borders/padding on some common elements. */
+html {-webkit-text-size-adjust:none}
+body {font-size:12px}
+#hdr-content, #body-content, #ftr-content {min-width:0; padding:0; max-width:none}
+.bodyHeader {padding:10px}
+.area {border-width:1px 0; -webkit-border-radius:0}
+
+
+/* Header - center the title and float the buttons. */
+#hdr {padding:13px 5px}
+#hdr #forumTitle {text-align:center; display:block; width:150px; margin:0 auto; white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
+#hdr .button {padding:8px; margin:-6px 0 0}
+#hdr .popupWrapper {float:right; margin:0 0 0 7px}
+#hdr #backButton {float:left}
+#userMenu {margin:0 !important; text-align:left;}
+#hdr #notifications {padding-top:7px; padding-bottom:7px; width:2em; margin-top:-5px}
+
+
+/* Footer */
+#ftr-content {padding:10px; overflow:hidden;}
+
+
+/* Sheets - make them the right width and remove their border. */
+.sheet {width:320px !important; border:0; -webkit-border-radius:0}
+.sheet.active {background:#fff; border:0; -webkit-border-radius:0}
+.sheet.active .sheetContent {margin:0; border:0}
+.sheet.active {top:0}
+.sheet .buttons small {margin:0 0 10px; float:none; display:block}
+.sheet .buttons .button {float:none; margin:0 10px 0 0}
+
+
+/* Messages - make them cover the whole bottom of the screen. */
+#messages {left:0; bottom:0; right:0}
+.message {display:block; margin:0; -webkit-border-radius:0; overflow:hidden}
+
+
+/* Forms - unfloat labels. */
+.form > li > label {display:block; width:auto; float:none; margin-left:0 !important}
+.form > li {padding-left:0 !important}
+
+
+/* Popup menus - make things bigger so they're easier to tap. */
+.popupMenu {padding:0}
+.popupMenu li > a, .popupMenu li > span {padding:8px 30px 8px 20px; border-bottom:1px solid #ddd; font-size:110%}
+.popupMenu li.sep {display:none}
+
+
+/* ...But don't let these changes affect the notifications menu. */
+#notificationsPopup {width:318px; font-size:100%}
+.notificationsList li > a {border-bottom:0;}
+
+
+/* Tabs - make them bigger. */
+.tabs {font-size:120%}
+.tabs.big {padding-left:10px}
+
+
+/* Search - unfloat the search and hide the gambits. */
+.search {float:none; margin-bottom:5px}
+.search .text {width:80%}
+#gambits {display:none !important}
+
+
+/* Lists - give them left/right padding and always show controls. */
+.list li {padding:10px}
+.list .controls {visibility:visible}
+
+
+/* Conversation list */
+.conversationList li {padding:10px 10px 10px 30px; overflow:hidden}
+.conversationList .col-star {float:left; margin-left:-28px; margin-top:1px; margin-right:0}
+.conversationList .col-conversation {display:block; margin:5px 0 3px; width:auto}
+.conversationList .col-channel {display:block; padding-right:5px; margin:0; width:auto; text-align:left}
+.conversationList .col-lastPost {padding-right:0; display:block}
+.conversationList .col-replies {display:none}
+.conversationList .title {font-size:120%}
+.conversationList .avatar {display:none}
+#conversationsFooter {padding:10px; margin:0}
+
+
+/* Channel list */
+.channelList li, .channelList .depth0 {padding:10px}
+.channelList .info {display:block; float:none; margin:0 0 0}
+.channelList .description {display:block; margin:5px 0 0}
+.channelList .stats {display:none}
+
+
+/* Conversation view */
+#conversationTitle {display:block; float:none; margin-bottom:10px; font-size:130%}
+#conversationHeader {padding:15px 10px}
+#conversationHeader .search {display:none}
+#conversationHeader .channel {margin-left:0}
+#conversationPrivacy, #conversationControls.controls {float:none; margin:10px 10px}
+#conversationBody {padding-top:0}
+#reply .avatar {display:none}
+
+
+/* Hide scrubbers. */
+.hasScrubber {margin-right:0}
+.scrubberColumn {display:none}
+
+
+/* Make time markers horizontal. */
+.timeMarker {padding:5px 10px; display:block; border-bottom:1px solid #ddd; text-shadow:0 1px #fff; margin:0 0 5px; -webkit-border-radius:0}
+
+
+/* Make posts simple boxes with a thumbnail avatar. */
+.post {margin:10px; padding-left:0}
+.postContent:after, .postContent:before {display:none}
+.post div.avatar {margin:7px 0 0 10px; position:relative; z-index:999}
+.post div.avatar, .post div.avatar img {width:20px; height:20px}
+.post.edit .controls {float:none; margin-top:10px}
+
+
+/* Show controls by default, but hide unnecessary ones. */
+.hasControls .controls {opacity:1; visibility:visible}
+.controls .time, .post .group, .post .editedBy, .post .deletedBy {display:none}
+
+
+/* Member profile */
+#memberProfile {padding:10px}
+#memberActions {display:none}
+div.activity {padding:0 10px}
+
+
+/* Admin section. We have to !important all of this because this stylesheet is included before admin.css. */
+#adminMenu {float:none !important; width:auto !important; padding:10px !important;}
+#adminMenu li {float:left !important;}
+#adminContent {margin:0 !important; padding:0 !important}
+#adminStatistics {float:none !important; width:auto !important}
+#adminDashboard {margin:0 !important}
+#adminChannels .channelList div .controls {visibility:visible !important}
+#skinList .popupWrapper, #pluginList .popupWrapper, #languageList .popupWrapper {display:inline-block !important;}
