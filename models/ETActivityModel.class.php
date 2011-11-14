@@ -8,16 +8,16 @@ if (!defined("IN_ESOTALK")) exit;
  * The activity model provides functions for retrieving and managing activity/notification data. It also
  * provides methods to define new types of activity/notifications, add new activity/notification entries,
  * and send email notifications.
- * 
+ *
  * In more detail: each piece of activity or notification is of a certain "type" - for example, "mention" for
  * @mentions or "groupChange" for when a user's group is changed. Each activity type can have one or more
  * "projections", or places where it will be projected to. There are three types of projections: "activity"
  * (to be shown on the member's profile), "notification" (to be shown in the member's notifications), and
  * "email" (to be sent out as an email to the member.)
- * 
+ *
  * For each type, one or more projections can be set to a callback function, which should return an array of
  * information to display (more on that later.)
- * 
+ *
  * @package esoTalk
  */
 class ETActivityModel extends ETModel {
@@ -45,18 +45,18 @@ protected $membersUsed = array();
 
 /**
  * Class constructor; sets up the base model functions to use the activity table.
- * 
+ *
  * @return void
  */
 public function __construct()
 {
-	parent::__construct("activity");	
+	parent::__construct("activity");
 }
 
 
 /**
  * Returns an array of activity "types" which have a handler for a certain projection type.
- * 
+ *
  * @param string $projection One of the PROJECTION_* constants.
  * @return array An array containing a list of activity "types".
  */
@@ -72,7 +72,7 @@ public static function getTypesWithProjection($projection)
 
 /**
  * Add a new activity type to the collection.
- * 
+ *
  * @param string $type The name of the type.
  * @param array $projections An array of projections that this activity type should handle, and their
  * 		callback functions. The keys should be PROJECTION_* constants.
@@ -87,9 +87,9 @@ public static function addType($type, $projections)
 /**
  * Create a new activity entry in the database. If the specified activity type has an email projection
  * handler, this method will also send an email notification where appropriate.
- * 
+ *
  * @todo Add an unsubscribe link to notification email footers.
- * 
+ *
  * @param string $type The name of the type of activity to create.
  * @param array $member An array of details for the member to create the activity for.
  * @param array $fromMember An array of details for the member that the activity is from.
@@ -124,13 +124,13 @@ public function create($type, $member, $fromMember = null, $data = null)
 	$activity["fromMemberName"] = $fromMember ? $fromMember["username"] : null;
 	$activity["activityId"] = $activityId;
 
-	// If this activity type has an email projection, the member wants to receive an email notification 
+	// If this activity type has an email projection, the member wants to receive an email notification
 	// for this type, and we haven't set sent them one in a previous call of this method, then let's send one!
 	if (!empty($projections[self::PROJECTION_EMAIL]) and !empty($member["preferences"]["email.$type"]) and !in_array($member["memberId"], $this->membersUsed)) {
 
 		// Log the member as "used", so we don't send them any more email notifications about the same subject.
 		$this->membersUsed[] = $member["memberId"];
-		
+
 		// Load the member's language into esoTalk's memory.
 		ET::saveLanguageState();
 		ET::loadLanguage($member["preferences"]["language"]);
@@ -156,7 +156,7 @@ public function create($type, $member, $fromMember = null, $data = null)
  * out to all people who are in the "allowed members" list, and also to people who have starred the
  * converastion. Starting a notification group before adding this activity will limit the email notifications
  * to one per member.
- * 
+ *
  * @return void
  */
 public function startNotificationGroup()
@@ -168,7 +168,7 @@ public function startNotificationGroup()
 /**
  * End a notification "group". Same as above, but this should be used AFTER all notification re: a particular
  * subject have been sent.
- * 
+ *
  * @return void
  */
 public function endNotificationGroup()
@@ -180,7 +180,7 @@ public function endNotificationGroup()
 /**
  * Get activity data with the "activity" projection for a certain member (i.e. the activity that should
  * appear on their profile page.)
- * 
+ *
  * @param array $member The details of the member to get activity for.
  * @param int $offset Offset to start getting results from.
  * @param int $limit Number of results to get.
@@ -197,8 +197,8 @@ public function getActivity($member, $offset = 0, $limit = 11)
 		->select("type")
 		->select("data")
 		->select("NULL", "postId")
-		->select("NULL", "title") 
-		->select("NULL", "content") 
+		->select("NULL", "title")
+		->select("NULL", "content")
 		->select("NULL", "start")
 		->select("time")
 		->from("activity a")
@@ -267,7 +267,7 @@ public function getActivity($member, $offset = 0, $limit = 11)
 /**
  * Get activity data with the "notification" projection for the current user (i.e. the activity that should
  * appear in their notifications list.)
- * 
+ *
  * @param int $limit Number of results to get. A value of -1 means get all new notifications (notifications
  * 		that have occurred since the member's notificationReadTime.)
  * @return array A multi-dimensional array of notification data.
@@ -404,9 +404,9 @@ public function getNotifications($limit = 5)
 
 /**
  * Add a WHERE predicate to an SQL query that gets conversations which should appear as notifications.
- * The conversations must be private and the user must be allowed, or the user must have starred the 
+ * The conversations must be private and the user must be allowed, or the user must have starred the
  * conversation. The user must also have permission to view the channel that the conversation is in.
- * 
+ *
  * @param ETSQLQuery $sql The SQL query to add the predicate to.
  * @return void
  */
@@ -421,7 +421,7 @@ private function addNotificationConversationPredicate(&$sql)
 
 /**
  * Returns a formatted activity item for the "post" activity type. For example, '[member] posted in [title]'.
- * 
+ *
  * @param array $item The activity item's details.
  * @param array $member The details of the member this activity is for.
  * @return array 0 => activity title, 1 => activity body
@@ -436,9 +436,9 @@ public static function postActivity($item, $member)
 
 
 /**
- * Returns a formatted notification item for the "post" activity type. For example, '[member1] and [member2] 
+ * Returns a formatted notification item for the "post" activity type. For example, '[member1] and [member2]
  * posted in [title]'.
- * 
+ *
  * @param array $item The activity item's details.
  * @return array 0 => notification body, 1 => notification link
  */
@@ -468,8 +468,8 @@ public static function postNotification(&$item)
 
 /**
  * Returns a formatted activity item for the "join" activity type. For example, '[member] joined the forum.'
- * 
- * @see postActivity() for parameter and return information. 
+ *
+ * @see postActivity() for parameter and return information.
  */
 public static function joinActivity($item, $member)
 {
@@ -483,7 +483,7 @@ public static function joinActivity($item, $member)
 /**
  * Returns a formatted notification item for the "groupChange" activity type. For example, '[member] changed
  * your group to [groups].'
- * 
+ *
  * @see postNotification() for parameter and return information.
  */
 public static function groupChangeNotification($item)
@@ -499,7 +499,7 @@ public static function groupChangeNotification($item)
 /**
  * Returns a formatted activity item for the "groupChange" activity type. For example, '[fromMember] changed
  * [member]'s group to [groups].'
- * 
+ *
  * @see postActivity() for parameter and return information.
  */
 public static function groupChangeActivity($item, $member)
@@ -515,7 +515,7 @@ public static function groupChangeActivity($item, $member)
 /**
  * Returns a formatted notification item for the "mention" activity type. For example, '[member] tagged you
  * in a post.'
- * 
+ *
  * @see postNotification() for parameter and return information.
  */
 public static function mentionNotification($item)
@@ -529,7 +529,7 @@ public static function mentionNotification($item)
 
 /**
  * Returns a formatted email subject+body for the "mention" activity type.
- * 
+ *
  * @param array $item The activity item's details.
  * @param array $member The details of the member this activity is for.
  * @return array 0 => email subject, 1 => email body
@@ -545,7 +545,7 @@ public static function mentionEmail($item, $member)
 
 /**
  * Returns a formatted email subject+body for the "privateAdd" activity type.
- * 
+ *
  * @see mentionEmail() for parameter and return information.
  */
 public static function privateAddEmail($item, $member)
@@ -559,7 +559,7 @@ public static function privateAddEmail($item, $member)
 
 /**
  * Returns a formatted email subject+body for the "replyToStarred" activity type.
- * 
+ *
  * @see mentionEmail() for parameter and return information.
  */
 public static function replyToStarredEmail($item, $member)
@@ -573,7 +573,7 @@ public static function replyToStarredEmail($item, $member)
 
 /**
  * Returns a formatted notification item for the "updateAvailable" activity type.
- * 
+ *
  * @see postNotification() for parameter and return information.
  */
 public static function updateAvailableNotification($item)
@@ -621,5 +621,3 @@ ETActivityModel::addType("replyToStarred", array(
 ETActivityModel::addType("updateAvailable", array(
 	"notification" => array("ETActivityModel", "updateAvailableNotification")
 ));
-
-?>

@@ -36,7 +36,7 @@ function ETAutoCompletePopup(field, character, clickHandler) {
 					break;
 				}
 			}
-			
+
 			// If we found the position of the character, replace it all with the member's name.
 			if (nameStart) {
 				ac.field.val(value.substring(0, nameStart) + member["name"] + " " + value.substr(selection.start));
@@ -70,7 +70,7 @@ function ETAutoCompletePopup(field, character, clickHandler) {
 				case 13: case 9: // Enter/Tab
 					ac.popup.find("li").eq(ac.index).click();
 					e.preventDefault();
-					break; 
+					break;
 				case 27: // Escape
 					ac.hide();
 					e.stopPropagation();
@@ -107,7 +107,7 @@ function ETAutoCompletePopup(field, character, clickHandler) {
 								break;
 							}
 						}
-						
+
 						if (nameStart) {
 							var name = value.substring(nameStart, selection.start);
 							ac.fetchNewContent(name);
@@ -220,7 +220,7 @@ function ETAutoCompletePopup(field, character, clickHandler) {
 		ac.value = value;
 		ac.update();
 	}
-	
+
 	// Show the popup
 	this.show = function() {
 		ac.popup.show().css({position: "absolute", zIndex: 9999});
@@ -275,7 +275,7 @@ function ETAutoCompletePopup(field, character, clickHandler) {
 		clearTimeout(ac.timeout);
 		$.ETAjax.abort("autoComplete");
 	}
-	
+
 	// Update the selected index of the popup.
 	this.updateIndex = function(index)
 	{

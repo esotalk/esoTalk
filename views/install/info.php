@@ -6,7 +6,7 @@ if (!defined("IN_ESOTALK")) exit;
 
 /**
  * Displays the esoTalk installation form.
- * 
+ *
  * @package esoTalk
  */
 

@@ -6,7 +6,7 @@ if (!defined("IN_ESOTALK")) exit;
 
 /**
  * Shows a collection of posts as list items.
- * 
+ *
  * @package esoTalk
  */
 
@@ -30,7 +30,7 @@ $thisPostTime = relativeTime($post["time"]);
 if (!isset($prevPost["time"]) or relativeTime($prevPost["time"]) != $thisPostTime): ?>
 <div class='timeMarker'><?php echo $thisPostTime; ?></div>
 <?php endif; ?>
-<?php $this->renderView("conversation/post", array("post" => $formattedPost)); ?> 
+<?php $this->renderView("conversation/post", array("post" => $formattedPost)); ?>
 </li>
 
 <?php $prevPost = $post; ?>

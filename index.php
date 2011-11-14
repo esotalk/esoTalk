@@ -17,7 +17,7 @@
  * 8. Sets up the language.
  * 9. Sets up the appropriate controller.
  * 10. Dispatches to the controller, which will in turn render the page.
- * 
+ *
  * @package esoTalk
  */
 
@@ -175,7 +175,7 @@ if (C("esoTalk.installed")) {
 	}
 
 }
- 
+
 
 //***** 6. INITIALIZE SESSION AND DATABASE, AND CACHE
 
@@ -252,7 +252,7 @@ elseif (isMobileBrowser()) $skinName = C("esoTalk.mobileSkin");
 // Otherwise, use the default skin.
 else $skinName = C("esoTalk.skin");
 
-// Include the skin file and instantiate its class. 
+// Include the skin file and instantiate its class.
 ET::$skinName = $skinName;
 if (file_exists($file = PATH_SKINS."/$skinName/skin.php")) include_once $file;
 $skinClass = "ETSkin_".$skinName;
@@ -321,5 +321,3 @@ ob_end_flush();
 //***** 12. CLEANUP
 
 ET::$database->close();
-
-?>

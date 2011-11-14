@@ -6,7 +6,7 @@ if (!defined("IN_ESOTALK")) exit;
 
 /**
  * Displays a page to edit or start a new conversation.
- * 
+ *
  * @package esoTalk
  */
 
@@ -35,7 +35,7 @@ echo $form->open(); ?>
 <?php
 // Controls
 if ($conversation["conversationId"]): ?>
-<?php echo $form->saveButton(); ?> 
+<?php echo $form->saveButton(); ?>
 <a href='<?php echo URL(R("return", conversationURL($conversation["conversationId"], $conversation["title"]))); ?>' class='cancel'><?php echo T("Cancel"); ?></a>
 <?php endif; ?>
 

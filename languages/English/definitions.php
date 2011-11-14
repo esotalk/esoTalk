@@ -454,7 +454,7 @@ $definitions["email.replyToStarred.subject"] = "There is a new reply to '%1\$s'"
 
 
 // Translating the gambit system can be quite complex, but we'll do our best to get you through it. :)
-// Note: Don't use any html entities in these definitions, except for: &lt; &gt; &amp; &#39; 
+// Note: Don't use any html entities in these definitions, except for: &lt; &gt; &amp; &#39;
 
 // Simple gambits
 // These gambits are pretty much evaluated as-they-are.
@@ -525,5 +525,3 @@ $definitions["gambit.active last ? days"] = "{$definitions["gambit.active"]} {$d
 // This is similar to the regular expression for the active gambit, but for the "has n reply(s)" gambit.
 // Usually you just need to change the "has" and "repl".
 $definitions["gambit.gambitHasNReplies"] = "/^has *(?<a>>|<|>=|<=)? *(?<b>\d+) *repl/";
-
-?>

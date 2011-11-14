@@ -7,7 +7,7 @@ if (!defined("IN_ESOTALK")) exit;
 /**
  * A class that defines a controller, and provides methods and properties to dispatch requests and render
  * the page. A controller takes user input from a request, handles it, and responds by rendering content/data.
- * 
+ *
  * @package esoTalk
  */
 class ETController extends ETPluggable {
@@ -137,7 +137,7 @@ private $messages = array();
 
 /**
  * Class constructor.
- * 
+ *
  * @return void
  */
 public function __construct()
@@ -152,7 +152,7 @@ public function __construct()
 
 /**
  * Dispatch a request to $method, passing along $arguments.
- * 
+ *
  * @param string $method The name of the controller method.
  * @param array $arguments An array of arguments to pass to the method.
  * @return void
@@ -187,7 +187,7 @@ public function dispatch($method, $arguments)
 /**
  * Add a message to be displayed on the page. The messages will also be stored in the session so that if the
  * controller redirects instead of rendering, they will be displayed on the next response.
- * 
+ *
  * @param string $message The message text.
  * @param mixed $options An array of options. Possible keys include:
  * 		id: a unique ID for the message. If specified, this message will overwrite any previous messages with
@@ -210,7 +210,7 @@ public function message($message, $options = "")
 /**
  * Add an array of messages to be displayed on the page. This is the same as looping through an array and
  * calling message() for each item.
- * 
+ *
  * @param array $messages An array of messages. Any non-numeric keys will be used as the ID for their message.
  * @param mixed $options An array of options; see message() for a full description. These options will be used
  * 		for all of the messages.
@@ -227,9 +227,9 @@ public function messages($messages, $options = "")
 
 
 /**
- * Given an array of notifications, add messages to the controller to display the notifications in the 
+ * Given an array of notifications, add messages to the controller to display the notifications in the
  * messages area.
- * 
+ *
  * @param array $notifications An array of notifications, typically from ETActivityModel::getNotifications(-1).
  * @return void
  */
@@ -252,26 +252,26 @@ public function notificationMessages($notifications)
 /**
  * Common initialization for all controllers, called on every page load. This will add basic user links to
  * the "user" menu, and add core JS files and language definitions.
- * 
+ *
  * If this is overridden, parent::init() should be called to maintain consistency between controllers.
- * 
+ *
  * @return void
  */
 public function init()
 {
-	// Check for updates to the esoTalk software, but only if we're the root admin and we haven't checked in 
+	// Check for updates to the esoTalk software, but only if we're the root admin and we haven't checked in
 	// a while.
 	if (ET::$session->userId == C("esoTalk.rootAdmin") and C("esoTalk.admin.lastUpdateCheckTime") + C("esoTalk.updateCheckInterval") < time())
 		ET::upgradeModel()->checkForUpdates();
 
 	if ($this->responseType === RESPONSE_TYPE_DEFAULT) {
-	
+
 		// If the user IS NOT logged in, add the 'login' and 'sign up' links to the bar.
 		if (!ET::$session->user) {
 			$this->addToMenu("user", "login", "<a href='".URL("user/login?return=".urlencode($this->selfURL))."' class='link-login'>".T("Log In")."</a>");
 			$this->addToMenu("user", "join", "<a href='".URL("user/join?return=".urlencode($this->selfURL))."' class='link-join'>".T("Sign Up")."</a>");
 		}
-			
+
 		// If the user IS logged in, we want to display their name and appropriate links.
 		else {
 			$this->addToMenu("user", "user", "<a href='".URL("member/me")."'>".avatar(ET::$session->userId, ET::$session->user["avatarFormat"], "thumb").name(ET::$session->user["username"])."</a>");
@@ -285,7 +285,7 @@ public function init()
 			$this->notificationMessages($notifications);
 
 			$this->addToMenu("user", "settings", "<a href='".URL("settings")."' class='link-settings'>".T("Settings")."</a>");
-			
+
 			if (ET::$session->isAdmin())
 				$this->addToMenu("user", "administration", "<a href='".URL("admin")."' class='link-administration'>".T("Administration")."</a>");
 
@@ -305,7 +305,7 @@ public function init()
 		$this->addToMenu("statistics", "statistic-online", $stat);
 
 		$this->addToMenu("meta", "copyright", "<a href='http://esotalk.com/'>Powered by esoTalk".(ET::$session->isAdmin() ? " ".ESOTALK_VERSION : "")."</a>");
-		
+
 		// Set up some default JavaScript files and language definitions.
 		$this->addJSFile("js/lib/jquery.js", true);
 		$this->addJSFile("js/lib/jquery.misc.js", true);
@@ -317,7 +317,7 @@ public function init()
 
 		// If config/custom.css contains something, add it to be included in the page.
 		if (file_exists($file = PATH_CONFIG."/custom.css") and filesize($file) > 0) $this->addCSSFile("config/custom.css", true);
-	
+
 	}
 
 	$this->trigger("init");
@@ -326,10 +326,10 @@ public function init()
 
 /**
  * Redirect to another location.
- * 
+ *
  * If the response type is AJAX or JSON, this function will render the page with a "redirect" key set in the
  * response data. The esoTalk JavaScript will set window.location upon receiving this data.
- * 
+ *
  * @param string $url The URL to redirect to.
  * @param int $code The HTTP response code to respond with. This will usually be either 302 (temporary) or
  * 		301 (permanent).
@@ -348,10 +348,10 @@ public function redirect($url, $code = 302)
 
 /**
  * Push an item onto the top of the navigation (breadcrumb) stack.
- * 
+ *
  * This is simply a layer on top of ETSession::pushNavigation() which stores the navigation ID. Later in the
  * controller's life, the navigation ID is used to create a "back" button with ETSession::getNavigation().
- * 
+ *
  * @see ETSession::pushNavigation()
  * @param string $id The navigation ID.
  * @param string $type The type of page this is.
@@ -367,7 +367,7 @@ public function pushNavigation($id, $type, $url)
 
 /**
  * Add a piece of data to be rendered in a JSON response.
- * 
+ *
  * @param string $key The JSON key.
  * @param mixed $value The value.
  * @return void
@@ -380,7 +380,7 @@ public function json($key, $value)
 
 /**
  * Add a piece of data to be transported to the view when it is rendered.
- * 
+ *
  * @param string $key The data key.
  * @param mixed $value The data value.
  * @return void
@@ -393,7 +393,7 @@ public function data($key, $value)
 
 /**
  * Render the specified view, in the format according to the controller's set response type.
- * 
+ *
  * @param string $view The view to render. This can be left blank if we know the response type is one that
  * 		doesn't require a view, such as JSON or ATOM.
  * @return void
@@ -479,7 +479,7 @@ public function render($view = "")
 /**
  * Render a simple message sheet with an 'OK' button. This can be used to easily display, for example, a
  * "you do not have permission to be here" message.
- * 
+ *
  * @param string $title The title to use in the message sheet.
  * @param string $message The message text.
  * @return void
@@ -504,7 +504,7 @@ public function renderMessage($title, $message)
 /**
  * Render a "Page Not Found" message sheet, and send a 404 header with the response. This can be used to
  * easily display, for example, a "this conversation was not found" message.
- * 
+ *
  * @param string $message The message text.
  * @return void
  */
@@ -517,7 +517,7 @@ public function render404($message = "")
 
 /**
  * Validate an input token. If it's invalid, show a "no permission" message.
- * 
+ *
  * @param string $token The token to validate. If false, the token will automatically be taken from the
  * 		request input.
  * @return bool true if the token is valid, false if it isn't.
@@ -536,7 +536,7 @@ public function validateToken($token = false)
 
 /**
  * Renders a view, and captures and returns the output.
- * 
+ *
  * @param string $view The name of the view to get.
  * @param array $data An array of data to pass to the view.
  * @return string The output of the view.
@@ -552,7 +552,7 @@ public function getViewContents($view, $data = array())
 
 /**
  * Renders a view.
- * 
+ *
  * @param string $view The name of the view to render.
  * @param array $data An array of data to pass to the view.
  * @return void
@@ -565,7 +565,7 @@ public function renderView($view, $data = array())
 
 /**
  * Gets the full filepath to the specified view.
- * 
+ *
  * @param string $view The name of the view to get the filepath of.
  * @return string The filepath of the view.
  */
@@ -589,7 +589,7 @@ public function getViewPath($view)
 
 /**
  * Get all of the controller's messages, and remove them from the session storage.
- * 
+ *
  * @return array An array of the controller's messages.
  */
 public function getMessages()
@@ -603,7 +603,7 @@ public function getMessages()
 /**
  * Set a language definition(s) to be accessible by JavaScript code on the page, as a property of the
  * esoTalk.language object.
- * 
+ *
  * @param string $key,... Unlimited number of language definition keys to make accessible to JavaScript.
  * @return void
  */
@@ -616,7 +616,7 @@ public function addJSLanguage()
 
 /**
  * Set a variable that can be accessed by JavaScript code on the page, as a property of the esoTalk object.
- * 
+ *
  * @param string $key The key to make $val accessible under.
  * @param mixed $val The value.
  * @return void
@@ -629,7 +629,7 @@ public function addJSVar($key, $val)
 
 /**
  * Add a JavaScript file to be included in the page header.
- * 
+ *
  * @param string $file The relative or absolute path to the JavaScript file.
  * @param bool $global Whether or not this file is included globally (on every interface of the application.)
  * 		If true, we will aggregate this with other global files to get consistency, encouraging the browser
@@ -645,14 +645,14 @@ public function addJSFile($file, $global = false)
 
 /**
  * Add a CSS file, or files, to be included on the page.
- * 
+ *
  * @param string $file The relative or absolute path to the CSS file.
  * @param bool $global Whether or not this file is included globally (on every interface of the application.)
  * 		If true, we will aggregate this with other global files to get consistency, encouraging the browser
  * 		to cache the aggregated file.
  * @return void
  */
-public function addCSSFile($file, $global = false) 
+public function addCSSFile($file, $global = false)
 {
 	$key = $global ? "global" : "local";
 	$this->cssFiles[$key][] = $file;
@@ -662,7 +662,7 @@ public function addCSSFile($file, $global = false)
 /**
  * Add a string of HTML to be outputted inside of the <head> tag. This can be used to add things to the page
  * like <meta> tags.
- * 
+ *
  * @param string $string The string to add.
  * @return void
  */
@@ -675,7 +675,7 @@ public function addToHead($string)
 /**
  * Take a collection of CSS or JS files and create and return the filename of an aggregation file which
  * contains all of their individual contents.
- * 
+ *
  * @param array $files An array of files to aggregate.
  * @param string $type The type of files we are aggregating ("css" or "js").
  * @return array An array containing a single element, which is the path to the aggregation file.
@@ -714,7 +714,7 @@ protected function aggregateFiles($files, $type)
 
 /**
  * Generate all of the HTML to be outputted inside of the <head> tag.
- * 
+ *
  * @return string The HTML to go inside <head>.
  */
 public function head()
@@ -724,7 +724,7 @@ public function head()
 	// Add the canonical URL tag.
 	if (!empty($this->canonicalURL))
 		$head .= "<link rel='canonical' href='$this->canonicalURL'>\n";
-	
+
 	// Go through CSS stylesheets and aggregate them, then add appropriate tags to the header.
 	// Here we loop through "groups" of CSS files (usually "global" and "local".)
 	foreach ($this->cssFiles as $files) {
@@ -740,7 +740,7 @@ public function head()
 		// For each of the files that we need to include in the page, add a <link> tag.
 		foreach ($files as $file)
 			$head .= "<link rel='stylesheet' href='".getResource($file)."?".filemtime($file)."'>\n";
-		
+
 	}
 
 	// Same thing as above, but with JavaScript!
@@ -772,7 +772,7 @@ public function head()
 
 	// Finally, append the custom HTML string constructed via $this->addToHead().
 	$head .= $this->head;
-	
+
 	$this->trigger("head", array(&$head));
 
 	return $head;
@@ -781,7 +781,7 @@ public function head()
 
 /**
  * Add an item to one of the master view's menus.
- * 
+ *
  * @param string $menu The name of the menu.
  * @param string $id The name of this menu item.
  * @param string $html The content of this menu item.
@@ -796,5 +796,3 @@ public function addToMenu($menu, $id, $html, $position = false)
 }
 
 }
-
-?>

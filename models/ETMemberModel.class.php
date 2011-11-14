@@ -7,7 +7,7 @@ if (!defined("IN_ESOTALK")) exit;
 /**
  * The member model provides functions for retrieving and managing member data. It also provides methods to
  * handle "last action" types.
- * 
+ *
  * @package esoTalk
  */
 class ETMemberModel extends ETModel {
@@ -40,7 +40,7 @@ public function __construct()
 
 /**
  * Create a member.
- * 
+ *
  * @param array $values An array of fields and their values to insert.
  * @return bool|int The new member ID, or false if there were errors.
  */
@@ -100,7 +100,7 @@ public function create(&$values)
 
 /**
  * Update a member's details.
- * 
+ *
  * @param array $values An array of fields to update and their values.
  * @param array $wheres An array of WHERE conditions.
  * @return bool|ETSQLResult
@@ -129,7 +129,7 @@ public function update($values, $wheres = array())
 
 /**
  * Get standardized member data given an SQL query (which can specify WHERE conditions, for example.)
- * 
+ *
  * @param ETSQLQuery $sql The SQL query to use as a basis.
  * @return array An array of members and their details.
  */
@@ -155,7 +155,7 @@ public function getWithSQL($sql)
 
 /**
  * Get standardized member data.
- * 
+ *
  * @param array $wheres An array of where conditions.
  * @return array An array of members and their details.
  */
@@ -170,7 +170,7 @@ public function get($wheres = array())
 
 /**
  * Get member data for the specified post ID.
- * 
+ *
  * @param int $memberId The ID of the member.
  * @return array An array of the member's details.
  */
@@ -182,7 +182,7 @@ public function getById($memberId)
 
 /**
  * Get member data for the specified post IDs, in the same order.
- * 
+ *
  * @param array $ids The IDs of the members to fetch.
  * @return array An array of member details, ordered by the order of the IDs.
  */
@@ -200,13 +200,13 @@ public function getByIds($ids)
 
 /**
  * Expand raw member data into more readable values.
- * 
+ *
  * @param array $member The member to expand data for.
  * @return void
  */
 public function expand(&$member)
 {
-	// Make the groups into an array of groupId => names. (Possibly consider using ETGroupModel::getAll() 
+	// Make the groups into an array of groupId => names. (Possibly consider using ETGroupModel::getAll()
 	// instead of featching the groupNames in getWithSQL()?)
 	$member["groups"] = array_combine(explode(",", $member["groups"]), explode(",", $member["groupNames"]));
 
@@ -217,7 +217,7 @@ public function expand(&$member)
 
 /**
  * Generate a password hash using phpass.
- * 
+ *
  * @param string $password The plain-text password.
  * @return string The hashed password.
  */
@@ -231,7 +231,7 @@ public function hashPassword($password)
 
 /**
  * Check if a plain-text password matches an encrypted password.
- * 
+ *
  * @param string $password The plain-text password to check.
  * @param string $hash The password hash to check against.
  * @return bool Whether or not the password is correct.
@@ -246,7 +246,7 @@ public function checkPassword($password, $hash)
 
 /**
  * Validate a username.
- * 
+ *
  * @param string $username The username to validate.
  * @param bool $checkForDuplicate Whether or not to check if a member with this username already exists.
  * @return null|string An error code, or null if there were no errors.
@@ -267,7 +267,7 @@ public function validateUsername($username, $checkForDuplicate = true)
 
 /**
  * Validate an email.
- * 
+ *
  * @param string $email The email to validate.
  * @param bool $checkForDuplicate Whether or not to check if a member with this email already exists.
  * @return null|string An error code, or null if there were no errors.
@@ -285,7 +285,7 @@ public function validateEmail($email, $checkForDuplicate = true)
 
 /**
  * Validate a password.
- * 
+ *
  * @param string $password The password to validate.
  * @return null|string An error code, or null if there were no errors.
  */
@@ -298,7 +298,7 @@ public function validatePassword($password)
 
 /**
  * Returns whether or not the current user can rename a member.
- * 
+ *
  * @return bool
  */
 public function canRename($member)
@@ -310,7 +310,7 @@ public function canRename($member)
 
 /**
  * Returns whether or not the current user can delete a member.
- * 
+ *
  * @return bool
  */
 public function canDelete($member)
@@ -321,7 +321,7 @@ public function canDelete($member)
 
 /**
  * Returns whether or not the current user can change a member's permissions.
- * 
+ *
  * @return bool
  */
 public function canChangePermissions($member)
@@ -334,7 +334,7 @@ public function canChangePermissions($member)
 
 /**
  * Returns whether or not the current user can suspend/unsuspend a member.
- * 
+ *
  * @return bool
  */
 public function canSuspend($member)
@@ -353,7 +353,7 @@ public function canSuspend($member)
 
 /**
  * Set a member's account and groups.
- * 
+ *
  * @param array $member The details of the member to set the account/groups for.
  * @param string $account The new account.
  * @param array $groups The new group IDs.
@@ -376,7 +376,7 @@ public function setGroups($member, $account, $groups = array())
 		->from("member_group")
 		->where("memberId", $member["memberId"])
 		->exec();
-	
+
 	// Insert new member-group associations.
 	$inserts = array();
 	foreach ($groups as $id) $inserts[] = array($member["memberId"], $id);
@@ -399,7 +399,7 @@ public function setGroups($member, $account, $groups = array())
 
 /**
  * Set a member's preferences.
- * 
+ *
  * @todo Probably merge this into update().
  * @param array $member An array of the member's details.
  * @param array $preferences A key => value array of preferences to set.
@@ -420,7 +420,7 @@ public function setPreferences($member, $preferences)
 
 /**
  * Delete a member with the specified ID, along with all of their associated records.
- * 
+ *
  * @param int $memberId The ID of the member to delete.
  * @param bool $deletePosts Whether or not to mark the member's posts as deleted.
  * @return void
@@ -476,7 +476,7 @@ public function deleteById($memberId, $deletePosts = false)
 public function updateLastAction($type, $data = array())
 {
 	if (!ET::$session->user) return false;
-	
+
 	$data["type"] = $type;
 	ET::$session->updateUser("lastActionTime", time());
 	ET::$session->updateUser("lastActionDetail", $data);
@@ -490,7 +490,7 @@ public function updateLastAction($type, $data = array())
 
 /**
  * Register a type of "last action".
- * 
+ *
  * @param string $type The name of the last action type.
  * @param mixed The callback function that will be called to format the last action for display. The function
  * 		should return an array:
@@ -506,7 +506,7 @@ public static function addLastActionType($type, $callback)
 
 /**
  * Get formatted last action info for a member, given their lastActionTime and lastActionDetail fields.
- * 
+ *
  * @todo Probably move the serialize part into expand().
  * @param int $time The member's lastActionTime field.
  * @param string $action The member's lastActionDetail field.
@@ -521,9 +521,9 @@ public static function getLastActionInfo($time, $action)
 	if (!isset($data["type"])) return false;
 
 	// If there's a callback for this last action type, return its output.
-	if (isset(self::$lastActionTypes[$data["type"]])) 
+	if (isset(self::$lastActionTypes[$data["type"]]))
 		return call_user_func(self::$lastActionTypes[$data["type"]], $data) + array(null, null);
-	
+
 	// Otherwise, return an empty array.
 	else return array(null, null);
 }
@@ -531,7 +531,7 @@ public static function getLastActionInfo($time, $action)
 
 /**
  * Return a formatted last action array for the "viewingConversation" type.
- * 
+ *
  * @param array $data An array of data associated with the last action.
  * @return array 0 => last action description, 1 => URL
  */
@@ -547,7 +547,7 @@ public static function lastActionViewingConversation($data)
 
 /**
  * Return a formatted last action array for the "startingConversation" type.
- * 
+ *
  * @param array $data An array of data associated with the last action.
  * @return array
  */
@@ -561,5 +561,3 @@ public static function lastActionStartingConversation($action)
 // Add default last action types.
 ETMemberModel::addLastActionType("viewingConversation", array("ETMemberModel", "lastActionViewingConversation"));
 ETMemberModel::addLastActionType("startingConversation", array("ETMemberModel", "lastActionStartingConversation"));
-
-?>

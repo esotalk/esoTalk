@@ -7,7 +7,7 @@ if (!defined("IN_ESOTALK")) exit;
 /**
  * Displays a sheet with a form to change a member's permissions (their account type and the groups which
  * they are in.)
- * 
+ *
  * @package esoTalk
  */
 
@@ -30,7 +30,7 @@ foreach ($data["accounts"] as $account) $options[$account] = groupName($account)
 echo $form->select("account", $options);
 ?></li>
 
-<li id='permissionGroups'><label><?php echo T("Groups"); ?></label> 
+<li id='permissionGroups'><label><?php echo T("Groups"); ?></label>
 <div class='checkboxGroup'>
 <?php foreach ($data["groups"] as $group): ?>
 <label class='checkbox'>

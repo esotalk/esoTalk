@@ -6,7 +6,7 @@ if (!defined("IN_ESOTALK")) exit;
 
 /**
  * Displays a sheet with a form to edit a channel's details and permissions.
- * 
+ *
  * @package esoTalk
  */
 

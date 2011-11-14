@@ -6,7 +6,7 @@ if (!defined("IN_ESOTALK")) exit;
 
 /**
  * Displays a sheet with options to delete a member.
- * 
+ *
  * @package esoTalk
  */
 
@@ -28,7 +28,7 @@ $member = $data["member"];
 </label></p>
 
 <p class='radio'><label>
-<?php echo $form->radio("deletePosts", true); ?> 
+<?php echo $form->radio("deletePosts", true); ?>
 <?php echo T("<strong>Delete this member's posts.</strong> All of this member's posts will be marked as deleted, but will be able to be restored manually."); ?>
 </label></p>
 

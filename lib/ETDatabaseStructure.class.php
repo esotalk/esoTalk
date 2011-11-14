@@ -7,15 +7,15 @@ if (!defined("IN_ESOTALK")) exit;
 /**
  * The database structure class provides a wrapper for defining table structures so that they can be easily
  * manipluated and upgraded without having to run arbitrary queries in a linear upgrade script.
- * 
+ *
  * Similar to the SQLQuery class, this implementation tries to be as SQL-neutral as possible, but is
  * ultimately written to work with MySQL. It can be extended to provide structure management for a different
  * database engine.
- * 
+ *
  * @package esoTalk
  */
 class ETDatabaseStructure {
-	
+
 
 /**
  * The name of the table currently being constructed.
@@ -68,7 +68,7 @@ protected $keys = array();
 
 /**
  * Class constructor: reset all variables in the instance so we have a fresh slate.
- * 
+ *
  * @return void
  */
 public function __construct()
@@ -79,7 +79,7 @@ public function __construct()
 
 /**
  * Reset the instance so that all structure information is cleared.
- * 
+ *
  * @return ETDatabaseStructure
  */
 public function reset()
@@ -98,7 +98,7 @@ public function reset()
 
 /**
  * Start the construction of a table.
- * 
+ *
  * @param string $tableName The name of the table.
  * @param string $engine The table engine that the table should use.
  * @return ETDatabaseStructure
@@ -115,7 +115,7 @@ public function table($tableName, $engine = "InnoDB")
 
 /**
  * Add a column to the table.
- * 
+ *
  * @param string $name The name of the column.
  * @param string $type The type signature of the column.
  * @param mixed $default The default value of the column. If this is false, the column will be NOT NULL.
@@ -131,7 +131,7 @@ public function column($name, $type, $default = null)
 
 /**
  * Add a key to the table.
- * 
+ *
  * @param mixed $columns The name of the column, or an array of columns, to index.
  * @param string $type The type of key: primary, unique, fulltext, or empty for a normal key.
  * @return ETDatabaseStructure
@@ -140,7 +140,7 @@ public function key($columns, $type = "")
 {
 	$columns = (array)$columns;
 
-	// If this is a primary key, and there's only one column, and that column's type is an int, set auto 
+	// If this is a primary key, and there's only one column, and that column's type is an int, set auto
 	// increment on it.
 	if ($type == "primary" and count($columns) == 1 and substr($this->columns[$columns[0]]["type"], 0, 3) == "int")
 		$this->columns[$columns[0]]["autoIncrement"] = true;
@@ -162,8 +162,8 @@ public function key($columns, $type = "")
 /**
  * Execute the queries necessary to bring the database structure up-to-date with the one that has been defined
  * in the instance.
- * 
- * @param bool $drop Whether or not an existing table should be dropped before creating one adhering to the 
+ *
+ * @param bool $drop Whether or not an existing table should be dropped before creating one adhering to the
  * 		structure definition.
  * @return ETDatabaseStructure
  */
@@ -215,7 +215,7 @@ public function exec($drop = false)
 		foreach ($this->columns as $name => $column) {
 
 			$definition = $this->columnDefinition($column);
-			
+
 			// If the column doesn't exist, we'll need to add it.
 			if (!array_key_exists($name, $existingColumns)) {
 				ET::SQL($alterPrefix." ADD `$name` ".$definition.($previousColumn !== false ? " AFTER `$previousColumn`" : ""));
@@ -236,7 +236,7 @@ public function exec($drop = false)
 		// Go through the keys and add/modify them as necessary.
 		$existingKeys = $this->existingKeys();
 		foreach ($this->keys as $name => $key) {
-			
+
 			$definition = $this->keyDefinition($name, $key);
 
 			// If this key already exists, and it's different to the one we want, drop it and re-add it.
@@ -262,7 +262,7 @@ public function exec($drop = false)
 
 /**
  * Get the SQL definition string for a column (eg. int(11) unsigned NOT NULL AUTO_INCREMENT).
- * 
+ *
  * @param array $column The column details.
  * @return string
  */
@@ -278,7 +278,7 @@ protected function columnDefinition($column)
 
 /**
  * Get the SQL definition string for a key (eg. UNIQUE KEY `keyname` (`column1`,`column2`)).
- * 
+ *
  * @param string $name The name of the the key.
  * @param array $key The key details.
  * @return string
@@ -288,14 +288,14 @@ protected function keyDefinition($name, $key)
 	foreach ($key["columns"] as &$column) $column = "`$column`";
 	if ($name == "PRIMARY")
 		return "PRIMARY KEY (".implode(",", $key["columns"]).")";
-	else 
+	else
 		return ($key["type"] ? strtoupper($key["type"])." " : "")."KEY `$name` (".implode(",", $key["columns"]).")";
 }
 
 
 /**
  * Returns whether or not the current table exists in the database.
- * 
+ *
  * @return bool
  */
 public function exists()
@@ -309,7 +309,7 @@ public function exists()
 
 /**
  * Returns whether or not a column exists in the database.
- * 
+ *
  * @param string $name The name of the column to check.
  * @return bool
  */
@@ -321,7 +321,7 @@ public function columnExists($name)
 
 /**
  * Returns whether or not an key exists in the database.
- * 
+ *
  * @param string $name The name of the key, or "PRIMARY" for the primary key.
  * @return bool
  */
@@ -333,7 +333,7 @@ public function keyExists($name)
 
 /**
  * Returns a list of columns and their information in the current table.
- * 
+ *
  * @return array
  */
 public function existingColumns()
@@ -356,7 +356,7 @@ public function existingColumns()
 
 /**
  * Returns a list of keys and their information in the current table.
- * 
+ *
  * @return array
  */
 public function existingKeys()
@@ -382,7 +382,7 @@ public function existingKeys()
 
 /**
  * Drop the current table from the database.
- * 
+ *
  * @return ETDatabaseStructure
  */
 public function drop()
@@ -394,7 +394,7 @@ public function drop()
 
 /**
  * Drop the specified column from the current table.
- * 
+ *
  * @param string $name The name of the column.
  * @return ETDatabaseStructure
  */
@@ -408,7 +408,7 @@ public function dropColumn($name)
 
 /**
  * Drop the specified key from the current table.
- * 
+ *
  * @param string $name The name of the key, or "PRIMARY" to drop the primary key.
  * @return ETDatabaseStructure
  */
@@ -422,7 +422,7 @@ public function dropKey($name)
 
 /**
  * Rename the current table.
- * 
+ *
  * @param string $newName The new name of the table.
  * @return ETDatabaseStructure
  */
@@ -436,7 +436,7 @@ public function rename($newName)
 
 /**
  * Drop the specified column from the current table.
- * 
+ *
  * @param string $name The name of the column.
  * @param string $newName The new name of the column.
  * @return ETDatabaseStructure
@@ -452,5 +452,3 @@ public function renameColumn($name, $newName)
 }
 
 }
-
-?>

@@ -6,7 +6,7 @@ if (!defined("IN_ESOTALK")) exit;
 
 /**
  * Fatal error page.
- * 
+ *
  * @package esoTalk
  */
 ?>
@@ -46,7 +46,7 @@ if (is_array($backtrace)) {
 			isset($v["type"]) ? $v["type"] : "::",
 			$v["function"],"();</strong>";
 		echo "</pre>";
-	} 
+	}
     echo "</div>";
 }
 
@@ -69,7 +69,7 @@ if (array_key_exists('HTTP_USER_AGENT', $_SERVER))
 
 if (array_key_exists('REQUEST_URI', $_SERVER))
 	echo '<li><strong>Request URI:</strong> '.$_SERVER['REQUEST_URI']."</li>\n";
-	
+
 echo "</ul>";
 
-endif; ?>
+endif;

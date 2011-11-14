@@ -6,7 +6,7 @@ if (!defined("IN_ESOTALK")) exit;
 
 /**
  * A wrapper around a PDOStatement which provides convenient functions for handling SQL results.
- * 
+ *
  * @package esoTalk
  */
 class ETSQLResult {
@@ -34,11 +34,11 @@ protected $rows = null;
 
 /**
  * Class constructor: set up the instance with a PDOStatement object and a query string.
- * 
+ *
  * @param PDOStatement $pdoStatement The PDOStatement object.
  * @return void
  */
-public function __construct($pdoStatement) 
+public function __construct($pdoStatement)
 {
 	$this->pdoStatement = $pdoStatement;
 	$this->queryString = $pdoStatement->queryString;
@@ -47,7 +47,7 @@ public function __construct($pdoStatement)
 
 /**
  * Fetches all of the rows returned by the query.
- * 
+ *
  * @return array
  */
 protected function rows()
@@ -74,7 +74,7 @@ public function numRows()
  * Returns a multi-dimensional array containing all rows in the result.
  * A column to use for the array keys can optionally be specified, otherwise
  * the array will be indexed.
- * 
+ *
  * @param string $keyColumn The column to use for the array keys.
  * @return array
  */
@@ -105,7 +105,7 @@ public function firstRow()
 
 
 /**
- * Returns the next row in the result as an associative array, or false if there are no rows. 
+ * Returns the next row in the result as an associative array, or false if there are no rows.
  *
  * @return array|boolean
  */
@@ -117,7 +117,7 @@ public function nextRow()
 
 /**
  * Returns the value of the first column of the first row in the result, or false if there are no rows.
- * 
+ *
  * @return mixed
  */
 public function result()
@@ -126,4 +126,3 @@ public function result()
 }
 
 }
-?>

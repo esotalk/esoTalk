@@ -6,7 +6,7 @@ if (!defined("IN_ESOTALK")) exit;
 
 /**
  * Displays a login sheet/form.
- * 
+ *
  * @package esoTalk
  */
 
@@ -35,7 +35,7 @@ $form = $data["form"];
 <?php
 echo $form->button("login", T("Log In"), array("class" => "big"));
 echo $form->cancelButton();
-?> 
+?>
 </div>
 
 <?php echo $form->close(); ?>

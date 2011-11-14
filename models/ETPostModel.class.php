@@ -6,7 +6,7 @@ if (!defined("IN_ESOTALK")) exit;
 
 /**
  * The post model provides functions for retrieving and managing post data.
- * 
+ *
  * @package esoTalk
  */
 class ETPostModel extends ETModel {
@@ -25,7 +25,7 @@ public function __construct()
 
 /**
  * Get standardized post data given an SQL query (which can specify WHERE conditions, for example.)
- * 
+ *
  * @param ETSQLQuery $sql The SQL query to use as a basis.
  * @return array An array of posts and their details.
  */
@@ -73,7 +73,7 @@ public function getWithSQL($sql)
 
 /**
  * Get standardized post data.
- * 
+ *
  * @param array $wheres An array of where conditions.
  * @return array An array of posts and their details.
  */
@@ -88,7 +88,7 @@ public function get($wheres = array())
 
 /**
  * Get post data for the specified post ID.
- * 
+ *
  * @param int $postId The ID of the post.
  * @return array An array of the post's details.
  */
@@ -100,7 +100,7 @@ public function getById($postId)
 
 /**
  * Get an array of posts from a certain conversation.
- * 
+ *
  * @param int $conversationId The ID of the conversation to get posts from.
  * @param array $criteria An array of options to get a more specific range of posts. Can have the following:
  * 		startFrom: the post index to start from
@@ -110,7 +110,7 @@ public function getById($postId)
  * @return array An array of resulting posts and their details.
  */
 public function getByConversation($conversationId, $criteria = array())
-{	
+{
 	$sql = ET::SQL()
 		->where("p.conversationId=:conversationId")
 		->bind(":conversationId", $conversationId);
@@ -121,7 +121,7 @@ public function getByConversation($conversationId, $criteria = array())
 		$sql->where("time>:time1")
 			->bind(":time1", $time);
 	}
-	
+
 	// If we're gettings posts based on a fulltext search...
 	if (isset($criteria["search"]))
 		$this->whereSearch($sql, $criteria["search"]);
@@ -129,7 +129,7 @@ public function getByConversation($conversationId, $criteria = array())
 	// Impose an offset/limit if necessary.
 	if (isset($criteria["startFrom"])) $sql->offset(abs($criteria["startFrom"]));
 	if (isset($criteria["limit"])) $sql->limit(abs($criteria["limit"]));
-	
+
 	// Get the posts!
 	$posts = $this->getWithSQL($sql);
 
@@ -138,7 +138,7 @@ public function getByConversation($conversationId, $criteria = array())
 
 /**
  * Get the number of search results in a conversation for a search string.
- * 
+ *
  * @param int $conversationId The ID of the conversation that's being searched.
  * @param string $search The search string.
  * @return int The number of posts that match the string in a fulltext search.
@@ -157,7 +157,7 @@ public function getSearchResultsCount($conversationId, $search)
 
 /**
  * Add a fulltext search WHERE predicate to an SQL query.
- * 
+ *
  * @param ETSQLQuery $sql The SQL query to add the predicate to.
  * @param string $search The search string.
  * @return void
@@ -169,12 +169,12 @@ private function whereSearch(&$sql, $search)
 		->bind(":search", $search);
 }
 
-	
+
 /**
  * Create a post in the specified conversation.
- * 
+ *
  * This function will go through the post content and notify any members who are @mentioned.
- * 
+ *
  * @param int $conversationId The ID of the conversation to create the post in.
  * @param int $memberId The ID of the author of the post.
  * @param string $content The post content.
@@ -187,7 +187,7 @@ public function create($conversationId, $memberId, $content, $title = "")
 	$this->validate("content", $content, array($this, "validateContent"));
 
 	if ($this->errorCount()) return false;
-	
+
 	// Prepare the post details for the query.
 	$data = array(
 		"conversationId" => $conversationId,
@@ -212,7 +212,7 @@ public function create($conversationId, $memberId, $content, $title = "")
 		$names = ET::formatter()->getMentions($content);
 
 		if (count($names)) {
-		
+
 			// Get the member details from the database.
 			$sql = ET::SQL()
 				->where("m.username IN (:names)")
@@ -245,14 +245,14 @@ public function create($conversationId, $memberId, $content, $title = "")
 		}
 
 	}
-			
+
 	return $id;
 }
 
 
 /**
  * Edit a post's content.
- * 
+ *
  * @param array $post The post to edit. This array's content, editMember, and editTime attributes will
  * 		be updated.
  * @param string $content The new post content.
@@ -264,7 +264,7 @@ public function editPost(&$post, $content)
 	$this->validate("content", $content, array($this, "validateContent"));
 
 	if ($this->errorCount()) return false;
-	
+
 	// Update the post.
 	$time = time();
 	$this->updateById($post["postId"], array(
@@ -285,7 +285,7 @@ public function editPost(&$post, $content)
 /**
  * Mark a post as deleted. This does not actually delete the post from the database; it just sets the
  * deleteMemberId and deleteTime fields.
- * 
+ *
  * @param array $post The post to mark as deleted.
  * @return bool true on success, false on error.
  */
@@ -308,7 +308,7 @@ public function deletePost(&$post)
 
 /**
  * Unmark a post as deleted.
- * 
+ *
  * @param array $post The post to unmark as deleted.
  * @return bool true on success, false on error.
  */
@@ -331,19 +331,17 @@ public function restorePost(&$post)
 
 /**
  * Validate a post's content.
- * 
+ *
  * @param string $content The post content.
  * @return bool|string Returns an error string or false if there are no errors.
  */
 public function validateContent($content)
 {
 	$content = trim($content);
-	
+
 	// Make sure it's not too long but has at least one character.
 	if (strlen($content) > C("esoTalk.conversation.maxCharsPerPost")) return "postTooLong";
 	if (!strlen($content)) return "emptyPost";
 }
 
 }
-
-?>

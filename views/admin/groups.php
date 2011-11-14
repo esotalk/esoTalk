@@ -6,7 +6,7 @@ if (!defined("IN_ESOTALK")) exit;
 
 /**
  * Displays a sheet with a list of member groups and controls to edit, delete, or create them.
- * 
+ *
  * @package esoTalk
  */
 

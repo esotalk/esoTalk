@@ -6,7 +6,7 @@ if (!defined("IN_ESOTALK")) exit;
 
 /**
  * Displays the online members sheet.
- * 
+ *
  * @package esoTalk
  */
 ?>
@@ -25,8 +25,8 @@ if (count($data["members"])): ?>
 <?php foreach ($data["members"] as $member): ?>
 <li>
 <span class='action'>
-<?php echo avatar($member["memberId"], $member["avatarFormat"], "thumb"); ?> 
-<?php echo memberLink($member["memberId"], $member["username"]); ?> 
+<?php echo avatar($member["memberId"], $member["avatarFormat"], "thumb"); ?>
+<?php echo memberLink($member["memberId"], $member["username"]); ?>
 <?php
 $action = ET::memberModel()->getLastActionInfo($member["lastActionTime"], $member["lastActionDetail"]);
 if ($action[0]) printf(T("is %s"), (!empty($action[1]) ? "<a href='{$action[1]}'>" : "").lcfirst(sanitizeHTML($action[0])).(!empty($action[1]) ? "</a>" : ""));

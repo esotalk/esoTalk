@@ -6,7 +6,7 @@ if (!defined("IN_ESOTALK")) exit;
 
 /**
  * Displays a fatal error that has occurred in the esoTalk installer.
- * 
+ *
  * @package esoTalk
  */
 ?>

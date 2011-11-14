@@ -6,7 +6,7 @@ if (!defined("IN_ESOTALK")) exit;
 
 /**
  * Displays a list of labels that apply to a conversation.
- * 
+ *
  * @package esoTalk
  */
 

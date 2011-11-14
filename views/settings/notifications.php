@@ -7,7 +7,7 @@ if (!defined("IN_ESOTALK")) exit;
 /**
  * Displays a list of notifications, for use in the notifications settings pane and also in the notifications
  * popup.
- * 
+ *
  * @package esoTalk
  */
 ?>

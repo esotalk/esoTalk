@@ -7,7 +7,7 @@ if (!defined("IN_ESOTALK")) exit;
 /**
  * Displays the general settings form. Since all sections/fields are defined in the controller's form, all we
  * do here is output them one-by-one.
- * 
+ *
  * @package esoTalk
  */
 

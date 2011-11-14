@@ -6,7 +6,7 @@ if (!defined("IN_ESOTALK")) exit;
 
 /**
  * Displays the admin settings page, consisting of a form with various controls.
- * 
+ *
  * @package esoTalk
  */
 

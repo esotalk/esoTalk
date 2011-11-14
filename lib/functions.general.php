@@ -7,7 +7,7 @@ if (!defined("IN_ESOTALK")) exit;
 /**
  * General functions. Contains utility functions that are used throughout the application, such as sanitation
  * functions, color functions, JSON encoding, URL construction, and array manipluation.
- * 
+ *
  * @package esoTalk
  */
 
@@ -17,7 +17,7 @@ if (!defined("E_USER_DEPRECATED")) define('E_USER_DEPRECATED', E_USER_WARNING);
 
 /**
  * Throw a deprecation error.
- * 
+ *
  * @param string $oldFunction The name of the deprecated function.
  * @param string $newFunction The name of a function that should be used instead.
  * @return void
@@ -32,7 +32,7 @@ function deprecated($oldFunction, $newFunction = false)
 
 /**
  * Shortcut function for ET::translate().
- * 
+ *
  * @see ET::translate()
  */
 function T($string, $default = false)
@@ -43,7 +43,7 @@ function T($string, $default = false)
 
 /**
  * Translate a string to its normal form or its plurular form, depending on an amount.
- * 
+ *
  * @param string $string The string to translate (singular).
  * @param string $pluralString The string to translate (plurular).
  * @param int $amount The amount.
@@ -56,7 +56,7 @@ function Ts($string, $pluralString, $amount)
 
 /**
  * Shortcut function for ET::config().
- * 
+ *
  * @see ET::config()
  */
 function C($string, $default = false)
@@ -68,7 +68,7 @@ function C($string, $default = false)
 /**
  * Get a request input value, falling back to a default value if it is not set. POST will be searched first,
  * then GET, and then the fallback will be used.
- * 
+ *
  * @param string $key The request input key.
  * @param mixed $default The fallback value.
  * @return mixed
@@ -83,29 +83,29 @@ function R($key, $default = "")
 
 /**
  * Remove a directory recursively.
- * 
+ *
  * @param string $dir The path to the directory.
  * @return bool Whether or not the remove succeeded.
  */
 function rrmdir($dir)
-{ 
-	if (is_dir($dir)) { 
-		$objects = scandir($dir); 
-		foreach ($objects as $object) { 
-			if ($object != "." and $object != "..") { 
+{
+	if (is_dir($dir)) {
+		$objects = scandir($dir);
+		foreach ($objects as $object) {
+			if ($object != "." and $object != "..") {
 				if (filetype($dir."/".$object) == "dir") rrmdir($dir."/".$object);
-				else unlink($dir."/".$object); 
-			} 
-		} 
-		return rmdir($dir); 
-	} 
+				else unlink($dir."/".$object);
+			}
+		}
+		return rmdir($dir);
+	}
 	return false;
 }
 
 
 /**
  * Write contents to a file, attempting to create the directory that the file is in if it does not exist.
- * 
+ *
  * @param string $file The filepath to write to.
  * @param string $contents The contents to write.
  * @return int
@@ -122,7 +122,7 @@ function file_force_contents($file, $contents){
 
 /**
  * Converts the php.ini notiation for numbers (like '2M') to an integer of bytes.
- * 
+ *
  * @param string $value The value of the php.ini directive.
  * @return int The equivalent number of bytes.
  */
@@ -149,7 +149,7 @@ function iniToBytes($value)
 
 /**
  * Minify a CSS string by removing comments and whitespace.
- * 
+ *
  * @param string $css The CSS to minify.
  * @return string The minified result.
  */
@@ -167,7 +167,7 @@ function minifyCSS($css)
 
 /**
  * Minify a JavaScript string using JSMin.
- * 
+ *
  * @param string $js The JavaScript to minify.
  * @return string The minified result.
  */
@@ -180,7 +180,7 @@ function minifyJS($js)
 
 /**
  * Send an email with proper headers.
- * 
+ *
  * @param string $to The address to send the email to.
  * @param string $subject The subject of the email.
  * @param string $body The body of the email.
@@ -190,7 +190,7 @@ function sendEmail($to, $subject, $body)
 {
 	$headers = "From: ".sanitizeForHTTP(C("esoTalk.forumTitle")." <".C("esoTalk.emailFrom").">")."\r\n".
 		"Content-Type: text/plain; charset=".T("charset")." format=flowed";
-	
+
 	return mail($to, $subject, $body, $headers);
 }
 
@@ -198,7 +198,7 @@ function sendEmail($to, $subject, $body)
 /**
  * Parse an array of request parts (eg. $_GET["p"] exploded by "/"), work out what controller to set up,
  * instantiate it, and work out the method + arguments to dispatch to it.
- * 
+ *
  * @param array $parts An array of parts of the request.
  * @param array $controllers An array of available controllers, with the keys as the controller names and the
  * 		values as the factory names.
@@ -264,7 +264,7 @@ function parseRequest($parts, $controllers)
 
 /**
  * Sanitize a string for outputting in a HTML context.
- * 
+ *
  * @param string $string The string to sanitize.
  * @return string The sanitized string.
  */
@@ -276,7 +276,7 @@ function sanitizeHTML($value)
 
 /**
  * Sanitize HTTP header-sensitive characters (CR and LF.)
- * 
+ *
  * @param string $string The string to sanitize.
  * @return string The sanitized string.
  */
@@ -288,7 +288,7 @@ function sanitizeForHTTP($value)
 
 /**
  * Sanitize file-system sensitive characters.
- * 
+ *
  * @param string $string The string to sanitize.
  * @return string The sanitized string.
  */
@@ -300,7 +300,7 @@ function sanitizeFileName($value)
 
 /**
  * Sort an array by values in its second dimension.
- * 
+ *
  * @param array $array The array to sort.
  * @param mixed $index The key of the second dimension to sort the array by.
  * @param string $order The direction (asc or desc).
@@ -308,28 +308,28 @@ function sanitizeFileName($value)
  * @param bool $caseSensitive Whether or not to use case-sensitive sort functions.
  * @return array The sorted array.
  */
-function sort2d($array, $index, $order = "asc", $natSort = false, $caseSensitive = false)  
-{ 
-	if (is_array($array) and count($array) > 0) { 
+function sort2d($array, $index, $order = "asc", $natSort = false, $caseSensitive = false)
+{
+	if (is_array($array) and count($array) > 0) {
 		$temp = array();
 		foreach (array_keys($array) as $key) {
-			$temp[$key] = $array[$key][$index]; 
-			if (!$natSort) ($order == "asc") ? asort($temp) : arsort($temp); 
-			else { 
-				($caseSensitive) ? natsort($temp) : natcasesort($temp); 
-				if ($order != "asc") $temp = array_reverse($temp, true); 
+			$temp[$key] = $array[$key][$index];
+			if (!$natSort) ($order == "asc") ? asort($temp) : arsort($temp);
+			else {
+				($caseSensitive) ? natsort($temp) : natcasesort($temp);
+				if ($order != "asc") $temp = array_reverse($temp, true);
 			}
 		}
-		foreach (array_keys($temp) as $key) $sorted[$key] = $array[$key]; 
-		return $sorted; 
-	} 
-	return $array; 
-}  
+		foreach (array_keys($temp) as $key) $sorted[$key] = $array[$key];
+		return $sorted;
+	}
+	return $array;
+}
 
 
 /**
  * Returns whether or not the user is using a mobile device.
- * 
+ *
  * @return bool
  */
 function isMobileBrowser()
@@ -350,7 +350,7 @@ function isMobileBrowser()
 
 /**
  * Create a slug for use in URLs from a given string. Any non-alphanumeric characters will be converted to "-".
- * 
+ *
  * @param string $string The string to convert.
  * @return string The slug.
  */
@@ -358,10 +358,10 @@ function slug($string)
 {
 	// Convert special latin letters and other characters to HTML entities.
 	$slug = htmlentities($string, ENT_NOQUOTES, "UTF-8");
-	
+
 	// With those HTML entities, either convert them back to a normal letter, or remove them.
 	$slug = preg_replace(array("/&([a-z]{1,2})(acute|cedil|circ|grave|lig|orn|ring|slash|th|tilde|uml);/i", "/&[^;]{2,6};/"), array("$1", " "), $slug);
-	
+
 	// Now replace non-alphanumeric characters with a hyphen, and remove multiple hyphens.
 	$slug = strtolower(trim(preg_replace(array("/[^0-9a-z]/i", "/-+/"), "-", $slug), "-"));
 
@@ -371,7 +371,7 @@ function slug($string)
 
 /**
  * Generate a salt of $numOfChars characters long containing random letters, numbers, and symbols.
- * 
+ *
  * @param int $numOfChars The length of the random string.
  * @return string The random string.
  */
@@ -386,9 +386,9 @@ function generateRandomString($numOfChars)
 
 /**
  * For bad server configs. Pretty much just performing stripslashes on an array here.
- * 
+ *
  * @param mixed $value The value to undo magic quotes on.
- * @return mixed 
+ * @return mixed
  */
 function undoMagicQuotes($value)
 {
@@ -402,7 +402,7 @@ function undoMagicQuotes($value)
 /**
  * For bad server configs as well. Unset all input variables added to the global namespace if register_globals
  * is on.
- * 
+ *
  * @return void
  */
 function undoRegisterGlobals()
@@ -420,7 +420,7 @@ function undoRegisterGlobals()
 
 /**
  * Convert an RGB triplet to an HSL triplet.
- * 
+ *
  * @param array $rgb The RGB triplet.
  * @return array The HSL triplet.
  */
@@ -456,70 +456,70 @@ function rgb2hsl($rgb)
 
 /**
  * Convert an HSL triplet to an RGB triplet.
- * 
+ *
  * @param array $hsl The HSL triplet.
  * @return array The RGB triplet.
  */
 function hsl2rgb($hsl)
-{ 
-	$h = $hsl[0]; 
-	$s = $hsl[1]; 
-	$l = $hsl[2]; 
-	$m2 = ($l <= 0.5) ? $l * ($s + 1) : $l + $s - $l*$s; 
-	$m1 = $l * 2 - $m2; 
-	return array(hue2rgb($m1, $m2, $h + 0.33333), 
-		   hue2rgb($m1, $m2, $h), 
-		   hue2rgb($m1, $m2, $h - 0.33333)); 
-} 
-
-
-/** 
- * Helper function for hsl2rgb(). 
- */ 
-function hue2rgb($m1, $m2, $h)
-{ 
-	$h = ($h < 0) ? $h + 1 : (($h > 1) ? $h - 1 : $h); 
-	if ($h * 6 < 1) return $m1 + ($m2 - $m1) * $h * 6; 
-	if ($h * 2 < 1) return $m2; 
-	if ($h * 3 < 2) return $m1 + ($m2 - $m1) * (0.66666 - $h) * 6; 
-	return $m1; 
+{
+	$h = $hsl[0];
+	$s = $hsl[1];
+	$l = $hsl[2];
+	$m2 = ($l <= 0.5) ? $l * ($s + 1) : $l + $s - $l*$s;
+	$m1 = $l * 2 - $m2;
+	return array(hue2rgb($m1, $m2, $h + 0.33333),
+		   hue2rgb($m1, $m2, $h),
+		   hue2rgb($m1, $m2, $h - 0.33333));
 }
 
 
-/** 
+/**
+ * Helper function for hsl2rgb().
+ */
+function hue2rgb($m1, $m2, $h)
+{
+	$h = ($h < 0) ? $h + 1 : (($h > 1) ? $h - 1 : $h);
+	if ($h * 6 < 1) return $m1 + ($m2 - $m1) * $h * 6;
+	if ($h * 2 < 1) return $m2;
+	if ($h * 3 < 2) return $m1 + ($m2 - $m1) * (0.66666 - $h) * 6;
+	return $m1;
+}
+
+
+/**
  * Convert a hex color into an RGB triplet.
- * 
+ *
  * @param string $hex The hex color value (with a leading #).
  * @param bool $normalize Whether or not the values of the RGB triplet should be 0-255 or 0-1.
  * @return array The RGB triplet.
- */ 
+ */
 function colorUnpack($hex, $normalize = false)
-{ 
-	if (strlen($hex) == 4) { 
-		$hex = $hex[1] . $hex[1] . $hex[2] . $hex[2] . $hex[3] . $hex[3]; 
-	} 
-	$c = hexdec($hex); 
-	for ($i = 16; $i >= 0; $i -= 8) { 
-		$out[] = (($c >> $i) & 0xFF) / ($normalize ? 255 : 1); 
-	} 
-	return $out; 
-} 
+{
+	if (strlen($hex) == 4) {
+		$hex = $hex[1] . $hex[1] . $hex[2] . $hex[2] . $hex[3] . $hex[3];
+	}
+	$c = hexdec($hex);
+	for ($i = 16; $i >= 0; $i -= 8) {
+		$out[] = (($c >> $i) & 0xFF) / ($normalize ? 255 : 1);
+	}
+	return $out;
+}
 
 
-/** 
+/**
  * Convert an RGB triplet to a hex color.
- * 
+ *
  * @param array $rgb The RGB triplet.
  * @param bool $normalize Whether or not the values of the RGB triplet are 0-255 or 0-1.
  * @return The hex color, with a leading #.
- */ 
+ */
 function colorPack($rgb, $normalize = false)
-{ 
+{
 	$out = null;
-	foreach ($rgb as $k => $v) { 
-		$out |= (($v * ($normalize ? 255 : 1)) << (16 - $k * 8)); 
-	} 
-	return "#".str_pad(dechex($out), 6, 0, STR_PAD_LEFT); 
+	foreach ($rgb as $k => $v) {
+		$out |= (($v * ($normalize ? 255 : 1)) << (16 - $k * 8));
+	}
+	return "#".str_pad(dechex($out), 6, 0, STR_PAD_LEFT);
 }
 
 
@@ -562,37 +562,37 @@ function json_encode($a = false)
 // json_decode for PHP < 5.2.0
 if (!function_exists("json_decode")) {
 
-function json_decode($json) 
-{ 
-	$json = str_replace(array("\\\\", "\\\""), array("&#92;", "&#34;"), $json); 
-	$parts = preg_split("@(\"[^\"]*\")|([\[\]\{\},:])|\s@is", $json, -1, PREG_SPLIT_NO_EMPTY | PREG_SPLIT_DELIM_CAPTURE); 
-	foreach ($parts as $index => $part) { 
-		if (strlen($part) == 1) { 
-			switch ($part) { 
-				case "[": 
-				case "{": 
-					$parts[$index] = "array("; 
-					break; 
-				case "]": 
-				case "}": 
-					$parts[$index] = ")"; 
-					break; 
-				case ":": 
-				  $parts[$index] = "=>"; 
-				  break;    
-				case ",": 
-				  break; 
-				default: 
-					return null; 
-			} 
-		} 
-		else { 
-			if ((substr($part, 0, 1) != "\"") || (substr($part, -1, 1) != "\"")) 
-				return null; 
-		} 
-	} 
-	$json = str_replace(array("&#92;", "&#34;", "$"), array("\\\\", "\\\"", "\\$"), implode("", $parts)); 
-	return eval("return $json;"); 
+function json_decode($json)
+{
+	$json = str_replace(array("\\\\", "\\\""), array("&#92;", "&#34;"), $json);
+	$parts = preg_split("@(\"[^\"]*\")|([\[\]\{\},:])|\s@is", $json, -1, PREG_SPLIT_NO_EMPTY | PREG_SPLIT_DELIM_CAPTURE);
+	foreach ($parts as $index => $part) {
+		if (strlen($part) == 1) {
+			switch ($part) {
+				case "[":
+				case "{":
+					$parts[$index] = "array(";
+					break;
+				case "]":
+				case "}":
+					$parts[$index] = ")";
+					break;
+				case ":":
+				  $parts[$index] = "=>";
+				  break;
+				case ",":
+				  break;
+				default:
+					return null;
+			}
+		}
+		else {
+			if ((substr($part, 0, 1) != "\"") || (substr($part, -1, 1) != "\""))
+				return null;
+		}
+	}
+	$json = str_replace(array("&#92;", "&#34;", "$"), array("\\\\", "\\\"", "\\$"), implode("", $parts));
+	return eval("return $json;");
 }
 
 }
@@ -600,10 +600,10 @@ function json_decode($json)
 
 /**
  * Construct a URL, given a request path.
- * 
+ *
  * Constructs a relative or absolute URL which can be used to link
  * to a page in esoTalk, according to the format specified by C("esoTalk.urls").
- * 
+ *
  * @param string $url The request path (eg. conversations/all). May include a query string/hash.
  * @param bool $absolute Whether or not to return an absolute URL.
  * @return string
@@ -636,7 +636,7 @@ function URL($url = "", $absolute = false)
 
 /**
  * Remove the absolute path to the root esoTalk directory from a file path.
- * 
+ *
  * @param string $path The file path.
  * @return string The path relative to the esoTalk root directory.
  */
@@ -649,7 +649,7 @@ function getRelativePath($path)
 
 /**
  * Get the "web path" (the path relative to the domain root) for a file.
- * 
+ *
  * @param string $path The path to convert.
  * @return string The web path for the specified path.
  */
@@ -671,7 +671,7 @@ function getWebPath($path)
 /**
  * Get the relative path or URL to a resource (a web-accessible file stored in plugins, skins, languages, or js)
  * depending on the state of the resourceURL config setting.
- * 
+ *
  * @param string $path The absolute path to the resource.
  * @return string The relative path or URL to the given resource.
  */
@@ -694,7 +694,7 @@ function getResource($path)
 
 /**
  * Construct a URL to a conversation, given its ID and title.
- * 
+ *
  * @param int $conversationId The ID of the conversation.
  * @param string $title The title of the conversation.
  * @return string The URL to the conversation (to be used in the URL function.)
@@ -707,7 +707,7 @@ function conversationURL($conversationId, $title = "")
 
 /**
  * Construct a URL to a member, given their ID and username, and the profile pane to go to.
- * 
+ *
  * @param int $memberId The ID of the member.
  * @param string $username The member's username.
  * @param string $pane The profile pane to go to.
@@ -721,7 +721,7 @@ function memberURL($memberId, $username = "", $pane = "")
 
 /**
  * Construct a URL to a post, given its ID.
- * 
+ *
  * @param int $postId The ID of the post.
  * @return string The URL to the post (to be used in the URL function.)
  */
@@ -733,7 +733,7 @@ function postURL($postId)
 
 /**
  * Construct a URL to a search results page, given a search string.
- * 
+ *
  * @param string $search The search string.
  * @param string $channel The channel slug ('all' if not specified.)
  * @return string The URL to the search page (to be used in the URL function.)
@@ -746,7 +746,7 @@ function searchURL($search, $channel = "all")
 
 /**
  * Send a HTTP Location header to redirect to a specific page.
- * 
+ *
  * @param string $destination The location to redirect to.
  * @param int $code The HTTP code to send with the redirection.
  * @return void
@@ -765,7 +765,7 @@ function redirect($destination, $code = 302)
 
 /**
  * Get a human-friendly string (eg. 1 hour ago) for how much time has passed since a given time.
- * 
+ *
  * @param int $then UNIX timestamp of the time to work out how much time has passed since.
  * @param bool $precise Whether or not to return "x minutes/seconds", or just "a few minutes".
  * @return string A human-friendly time string.
@@ -774,7 +774,7 @@ function relativeTime($then, $precise = false)
 {
 	// If there is no $then, we can only assume that whatever it is never happened...
 	if (!$then) return T("never");
-	
+
 	// Work out how many seconds it has been since $then.
 	$ago = time() - $then;
 
@@ -832,13 +832,13 @@ function relativeTime($then, $precise = false)
 
 /**
  * Extract the contents of a ZIP file, and return a list of files it contains and their contents.
- * 
+ *
  * @param string $filename The filepath to the ZIP file.
  * @return array An array of files and their details/contents.
  */
 function unzip($filename)
 {
-	$files = array();	
+	$files = array();
 	$handle = fopen($filename, "rb");
 
 	// Seek to the end of central directory record.
@@ -857,15 +857,15 @@ function unzip($filename)
 
 	// Loop through each entry in the zip file.
 	for ($i = 0; $i < $centralDir["entries"]; $i++) {
-		
+
 		// Read next central directory structure header.
 		@rewind($handle);
 		@fseek($handle, $pos + 4);
 		$header = unpack("vversion/vversionExtracted/vflag/vcompression/vmtime/vmdate/Vcrc/VcompressedSize/Vsize/vfilenameLen/vextraLen/vcommentLen/vdisk/vinternal/Vexternal/Voffset", fread($handle, 42));
-		
+
 		// Get the filename.
 		$header["filename"] = $header["filenameLen"] ? fread($handle, $header["filenameLen"]) : "";
-		
+
 		// Save the position.
 		$pos = ftell($handle) + $header["extraLen"] + $header["commentLen"];
 
@@ -880,14 +880,14 @@ function unzip($filename)
 		$localHeader["filename"] = fread($handle, $localHeader["filenameLen"]);
 		// Skip the extra bit.
 		if ($localHeader["extraLen"] > 0) fread($handle, $localHeader["extraLen"]);
-		
+
 		// Extract the file (if it's not a folder.)
 		$directory = substr($header["filename"], -1) == "/";
 		if (!$directory and $header["compressedSize"] > 0) {
 			if ($header["compression"] == 0) $content = fread($handle, $header["compressedSize"]);
 			else $content = gzinflate(fread($handle, $header["compressedSize"]));
 		} else $content = "";
-		
+
 		// Add to the files array.
 		$files[] = array(
 			"name" => $header["filename"],
@@ -895,11 +895,11 @@ function unzip($filename)
 			"directory" => $directory,
 			"content" => !$directory ? $content : false
 		);
-		
+
 	}
 
 	fclose($handle);
-	
+
 	// Return an array of files that were extracted.
 	return $files;
 }
@@ -907,7 +907,7 @@ function unzip($filename)
 
 /**
  * Add an element to an indexed array after a specified position.
- * 
+ *
  * @param array $array The array to add to.
  * @param mixed $add The element to add.
  * @param int $position The index to add the element at.
@@ -939,7 +939,7 @@ function addToArray(&$array, $add, $position = false)
 
 /**
  * Add an element to an keyed array after/before a certain key, or at a certain index.
- * 
+ *
  * @param array $array The array to add to.
  * @param string $key The key to add to the array.
  * @param mixed $value The value to add to the array.
@@ -963,7 +963,7 @@ function addToArrayString(&$array, $key, $value, $position = false)
 	// If the position is "before" or "after" a certain key, find that key in the array and record the index.
 	if (is_array($position)) {
 		$index = array_search(reset($position), $keys, true);
-		if (key($position) == "after") $index++; 
+		if (key($position) == "after") $index++;
 	}
 	// If the position is just an integer, then we already have the index.
 	else $index = (int)$position;
@@ -975,5 +975,3 @@ function addToArrayString(&$array, $key, $value, $position = false)
 	// Combine the new keys/values!
 	$array = array_combine($keys, $values);
 }
-
-?>

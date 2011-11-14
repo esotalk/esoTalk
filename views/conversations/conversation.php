@@ -6,7 +6,7 @@ if (!defined("IN_ESOTALK")) exit;
 
 /**
  * Displays a single conversation row in the context of a list of results.
- * 
+ *
  * @package esoTalk
  */
 
@@ -70,4 +70,3 @@ echo "<span class='action'>".avatar($conversation["lastPostMemberId"], $conversa
 echo "<span>".Ts("%s reply", "%s replies", $conversation["replies"])."</span>";
 ?></div>
 </li>
-

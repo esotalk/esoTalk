@@ -6,7 +6,7 @@ if (!defined("IN_ESOTALK")) exit;
 
 /**
  * Displays a sheet with a form to edit a group's details, or create a new one.
- * 
+ *
  * @package esoTalk
  */
 

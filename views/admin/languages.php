@@ -6,7 +6,7 @@ if (!defined("IN_ESOTALK")) exit;
 
 /**
  * Displays a list of installed languages.
- * 
+ *
  * @package esoTalk
  */
 ?>
@@ -24,7 +24,7 @@ if (count($data["languages"])): ?>
 <h3><?php echo T("Installed Languages"); ?></h3>
 
 <ul id='languageList'>
-	
+
 <?php // Loop through each language and output its information.
 foreach ($data["languages"] as $k => $language): ?>
 <li id='language-<?php echo $k; ?>' class='language thing'>

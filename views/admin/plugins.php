@@ -6,7 +6,7 @@ if (!defined("IN_ESOTALK")) exit;
 
 /**
  * Displays a list of installed plugins.
- * 
+ *
  * @package esoTalk
  */
 ?>
@@ -24,7 +24,7 @@ if (count($data["plugins"])): ?>
 <h3><?php echo T("Installed Plugins"); ?></h3>
 
 <ul id='pluginList'>
-	
+
 <?php // Loop through each plugin and output its information.
 foreach ($data["plugins"] as $k => $plugin): ?>
 <li id='plugin-<?php echo $k; ?>' class='plugin<?php if ($plugin["loaded"]): ?> thing enabled<?php endif; ?>'>

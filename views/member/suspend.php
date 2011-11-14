@@ -6,7 +6,7 @@ if (!defined("IN_ESOTALK")) exit;
 
 /**
  * Displays a sheet with a form to toggle the suspension of a member.
- * 
+ *
  * @package esoTalk
  */
 

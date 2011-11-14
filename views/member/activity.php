@@ -7,7 +7,7 @@ if (!defined("IN_ESOTALK")) exit;
 /**
  * Displays the activity pane in a member's profile, which contains a list of activity items and a "view more"
  * link if there are more results.
- * 
+ *
  * @package esoTalk
  */
 

@@ -7,7 +7,7 @@ if (!defined("IN_ESOTALK")) exit;
 /**
  * Default configuration: This file will get overwritten with every esoTalk update, so do not edit it.
  * If you wish the change a config setting, copy it into config/config.php and change it there.
- * 
+ *
  * @package esoTalk
  */
 
@@ -97,12 +97,12 @@ $config["esoTalk.notificationCheckInterval"] = 30;
 $config["esoTalk.search.results"] = 20; // Number of conversations to list for a normal search.
 $config["esoTalk.search.moreResults"] = 100; // Total number of conversations to list when 'more results' is clicked.
 $config["esoTalk.search.updateInterval"] = 60; // Number of seconds at which to automatically update the unread status, post count, and last post information for currently listed conversations in a search.
-$config["esoTalk.search.searchesPerMinute"] = 15; // Users are limited to this many normal searches every minute. 
+$config["esoTalk.search.searchesPerMinute"] = 15; // Users are limited to this many normal searches every minute.
 $config["esoTalk.search.disableRandomGambit"] = false; // The "random" gambit can be very slow/intensive on large forums.
 
 // Conversation view settings.
 $config["esoTalk.conversation.postsPerPage"] = 20; // The maximum number of posts to display on each page of a conversation.
-$config["esoTalk.conversation.searchesPerMinute"] = 15; // Users are limited to this many "within conversation" searches every minute. 
+$config["esoTalk.conversation.searchesPerMinute"] = 15; // Users are limited to this many "within conversation" searches every minute.
 $config["esoTalk.conversation.timeBetweenPosts"] = 10; // Posting flood control, in seconds.
 $config["esoTalk.conversation.maxCharsPerPost"] = 10000;
 
@@ -110,7 +110,7 @@ $config["esoTalk.conversation.maxCharsPerPost"] = 10000;
 $config["esoTalk.conversation.updateIntervalStart"] = 10; // The initial number of seconds before checking for new posts on the conversation view.
 $config["esoTalk.conversation.updateIntervalMultiplier"] = 1.5; // Each time we check for new posts and there are none, multiply the number of seconds by this.
 // ex. after 10 seconds, check for new posts. If there are none: after 10*1.5 = 15 seconds check for new posts. If there are none: after 15*1.5 = 22.5 seconds check for new posts...
-$config["esoTalk.conversation.updateIntervalLimit"] = 512; // The maximum number of seconds between checking for new posts. 
+$config["esoTalk.conversation.updateIntervalLimit"] = 512; // The maximum number of seconds between checking for new posts.
 
 // Member list settings.
 $config["esoTalk.members.membersPerPage"] = 30;
@@ -131,5 +131,3 @@ $config["esoTalk.avatars.width"] = 64;
 $config["esoTalk.avatars.height"] = 64;
 $config["esoTalk.avatars.thumbWidth"] = 20;
 $config["esoTalk.avatars.thumbHeight"] = 20;
-
-?>

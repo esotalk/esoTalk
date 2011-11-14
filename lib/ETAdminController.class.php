@@ -7,7 +7,7 @@ if (!defined("IN_ESOTALK")) exit;
 /**
  * A class that defines a controller for a section in the administration panel. Constructs a standard menu
  * to be displayed on the admin wrapper view.
- * 
+ *
  * @package esoTalk
  */
 class ETAdminController extends ETController {
@@ -15,7 +15,7 @@ class ETAdminController extends ETController {
 
 /**
  * Initialize the admin controller. Construct a menu to show all admin panels.
- * 
+ *
  * @return void
  */
 public function init()
@@ -46,7 +46,7 @@ public function init()
 /**
  * Rather than just rendering the view passed to this function, we need to render the admin "wrapper" view
  * and include the specified view within that (except on AJAX/view response types.)
- * 
+ *
  * @param string $view The name of the view to render.
  * @return void
  */
@@ -54,7 +54,7 @@ public function render($view = "")
 {
 	$this->data("menu", $this->menu);
 	$this->data("defaultMenu", $this->defaultMenu);
-	
+
 	if (!in_array($this->responseType, array(RESPONSE_TYPE_VIEW, RESPONSE_TYPE_AJAX))) {
 		$this->data("view", $view);
 		parent::render("admin/index");
@@ -64,5 +64,3 @@ public function render($view = "")
 }
 
 }
-
-?>

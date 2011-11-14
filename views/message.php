@@ -6,7 +6,7 @@ if (!defined("IN_ESOTALK")) exit;
 
 /**
  * Displays a modal message sheet. Used by ETController::renderMessage().
- * 
+ *
  * @package esoTalk
  */
 ?>

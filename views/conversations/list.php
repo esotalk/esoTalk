@@ -6,7 +6,7 @@ if (!defined("IN_ESOTALK")) exit;
 
 /**
  * Displays the conversation list - a table with each conversation as a row.
- * 
+ *
  * @package esoTalk
  */
 ?>

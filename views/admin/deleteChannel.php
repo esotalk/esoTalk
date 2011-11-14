@@ -6,7 +6,7 @@ if (!defined("IN_ESOTALK")) exit;
 
 /**
  * Displays a sheet to delete a channel.
- * 
+ *
  * @package esoTalk
  */
 
@@ -25,11 +25,11 @@ $form = $data["form"];
 <p class='help'><?php echo T("message.deleteChannelHelp"); ?></p>
 
 <p class='radio'>
-<label><?php echo $form->radio("method", "move"); ?> <?php echo T("<strong>Move</strong> conversations to the following channel:"); ?></label> 
+<label><?php echo $form->radio("method", "move"); ?> <?php echo T("<strong>Move</strong> conversations to the following channel:"); ?></label>
 <?php
 $moveOptions = array();
 foreach ($data["channels"] as $id => $ch) {
-	if ($id == $channel["channelId"]) continue; 
+	if ($id == $channel["channelId"]) continue;
 	$moveOptions[$id] = str_repeat("&nbsp;", $ch["depth"] * 5).$ch["title"];
 }
 echo $form->select("moveToChannelId", $moveOptions);

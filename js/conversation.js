@@ -15,7 +15,7 @@ updateInterval: null,
 editingReply: false, // Are we typing a reply?
 editingPosts: 0, // Number of posts being edited.
 
-// Initialize: 
+// Initialize:
 init: function() {
 
 	// If we're viewing an existing conversation...
@@ -71,7 +71,7 @@ init: function() {
 		// Initialize the scrubber.
 		ETScrubber.init();
 
-		// When the "add a reply" button in the sidebar is clicked, we trigger a click on the "now" item in 
+		// When the "add a reply" button in the sidebar is clicked, we trigger a click on the "now" item in
 		// the scrubber, and also on the reply textarea.
 		$("#jumpToReply").click(function(e) {
 			e.preventDefault();
@@ -182,11 +182,11 @@ initReply: function() {
 
 	// Auto resize our reply textareas
 	textarea.TextAreaExpander(200, 2000);
-	
+
 	// Disable the "post reply" button if there's not a draft. Disable the save draft button regardless.
 	if (!textarea.val()) $("#reply .postReply, #reply .discardDraft").disable();
 	$("#reply .saveDraft").disable();
-	
+
 	// Add event handlers on the textarea to enable/disable buttons.
 	textarea.keyup(function(e) {
 		if (e.ctrlKey) return;
@@ -195,7 +195,7 @@ initReply: function() {
 	});
 
 	if (ET.mentions) new ETAutoCompletePopup($("#reply textarea"), "@");
-	
+
 	// Add click events to the buttons.
 	$("#reply .saveDraft").click(function(e){ ETConversation.saveDraft(); e.preventDefault(); });
 	$("#reply .discardDraft").click(function(e){ ETConversation.discardDraft(); e.preventDefault(); });
@@ -204,10 +204,10 @@ initReply: function() {
 		else ETConversation.startConversation();
 		e.preventDefault();
 	});
-	
+
 	// If the user can actually reply, condense the box so it expands when clicked on.
 	if (!$("#reply").hasClass("logInToReply") && ETConversation.id) {
-	
+
 		// Make the reply box a placeholder.
 		$("#reply").addClass("replyPlaceholder");
 
@@ -236,9 +236,9 @@ initReply: function() {
 
 		// If there's something in the reply textarea, show it.
 		if ($("#reply textarea").val()) $("#reply").trigger("change");
-	
+
 		$(document).click(function(e) { ETConversation.hideReply(); });
-	
+
 	}
 
 	$("#reply .controls a").tooltip({alignment: "center"});
@@ -277,27 +277,27 @@ hideReply: function() {
 // Add a reply.
 addReply: function() {
 	var content = $("#reply textarea").val();
-		
+
 	// Disable the reply/draft buttons.
 	$("#reply .postReply, #reply .saveDraft").disable();
-	
+
 	// Make the ajax request.
 	$.ETAjax({
 		url: "conversation/reply.ajax/"+ETConversation.id,
 		type: "post",
 		data: {conversationId: ETConversation.id, content: content},
-		success: function(data) {		
-			
+		success: function(data) {
+
 			// If there are messages, enable the reply/draft buttons and don't continue.
 			if (!data.postId) {
 				$("#reply .postReply, #reply .saveDraft").enable();
 				return;
 			}
-			
+
 			// Hide messages which may have been previously triggered.
 			ETMessages.hideMessage("waitToReply");
 			ETMessages.hideMessage("emptyPost");
-			
+
 			// Hide the draft label, clear the textarea, and initialize the reply area again.
 			$("#conversationHeader .labels .label-draft").remove();
 			$("#reply textarea").val("");
@@ -336,10 +336,10 @@ startConversation: function(draft) {
 	var title = $("#conversationTitle input").val();
 	var content = $("#reply textarea").val();
 	var channel = $("#conversationHeader .channels :radio:checked").val();
-	
+
 	// Disable the post reply and save draft buttons.
 	$("#reply .postReply, #reply .saveDraft").disable();
-	
+
 	// Make the ajax request.
 	var data = {title: title, content: content, channel: channel};
 	if (draft) data.saveDraft = "1";
@@ -368,7 +368,7 @@ startConversation: function(draft) {
 
 // Save a draft.
 saveDraft: function() {
-	
+
 	// If this is a new conversation, just use the startConversation function
 	if (!ETConversation.id) {
 		ETConversation.startConversation(true);
@@ -388,7 +388,7 @@ saveDraft: function() {
 		success: function(data) {
 			if (data.messages) return;
 			ETMessages.hideMessage("emptyPost");
-			
+
 			// Show the draft label, disable the save draft button, and enable the discard draft button.
 			$("#conversationHeader .labels").html(data.labels);
 			$("#reply .saveDraft").disable();
@@ -400,7 +400,7 @@ saveDraft: function() {
 
 // Discard a draft.
 discardDraft: function() {
-	
+
 	// If there are no posts in the conversation (ie. it's a draft conversation), delete the conversation.
 	if (this.postCount == 0 && $("#control-delete").length) {
 		if (ETConversation.confirmDelete()) window.location = $("#control-delete").attr("href");
@@ -418,7 +418,7 @@ discardDraft: function() {
 			hideLoadingOverlay("reply", false);
 		},
 		success: function(data) {
-			
+
 			// Hide the draft label and collapse the reply area.
 			$("#conversationHeader .labels").html(data.labels);
 			$("#reply textarea").val("");
@@ -437,7 +437,7 @@ update: function() {
 
 	// Don't do this if we're searching, or if we haven't loaded the end of the conversation.
 	if (ETConversation.searchString || ETScrubber.loadedItems.indexOf(ETConversation.postCount - 1) == -1) return;
- 	
+
 	// Make the request for post data.
 	$.ETAjax({
 		url: "conversation/index.ajax/"+ETConversation.id+"/"+ETConversation.postCount,
@@ -453,7 +453,7 @@ update: function() {
 				ETScrubber.addItems(data.startFrom, data.view, moreItem, true);
 
 				var interval = ET.conversationUpdateIntervalStart;
-				
+
 			}
 
 			// Otherwise, multiply the update interval by our config setting.
@@ -535,7 +535,7 @@ redisplayAvatars: function() {
 			$(this).find("div.avatar").hide();
 		else
 			$(this).find("div.avatar").show();
-		
+
 		prevSource = $(this).find("img.avatar").attr("src");
 
 	});
@@ -544,9 +544,9 @@ redisplayAvatars: function() {
 
 // Delete a post.
 deletePost: function(postId) {
-	
+
 	$.hideToolTip();
-	
+
 	// Make the ajax request.
 	$.ETAjax({
 		url: "conversation/deletePost.ajax/" + postId,
@@ -566,9 +566,9 @@ deletePost: function(postId) {
 
 // Delete a post.
 restorePost: function(postId) {
-	
+
 	$.hideToolTip();
-	
+
 	// Make the ajax request.
 	$.ETAjax({
 		url: "conversation/restorePost.ajax/" + postId,
@@ -589,10 +589,10 @@ restorePost: function(postId) {
 
 // Edit a post - make the post area into a textarea.
 editPost: function(postId) {
-	
+
 	$.hideToolTip();
 	var post = $("#p" + postId);
-	
+
 	$.ETAjax({
 		url: "conversation/editPost.ajax/" + postId,
 		type: "get",
@@ -630,7 +630,7 @@ editPost: function(postId) {
 				e.preventDefault();
 				ETConversation.saveEditPost(postId, textarea.val());
 			});
-			
+
 			// Animate the post's height.
 			var newHeight = $(".postContent", newPost).height();
 			$(".postContent", newPost).height(startHeight).animate({height: newHeight}, "fast", function() {
@@ -638,11 +638,11 @@ editPost: function(postId) {
 			});
 
 			ETConversation.redisplayAvatars();
-			
+
 			// Scroll to the bottom of the edit area if necessary.
 			var scrollTo = newPost.offset().top + newHeight - $(window).height() + 10;
 			if ($(document).scrollTop() < scrollTo) $.scrollTo(scrollTo, "slow");
-			
+
 			// Regsiter the Ctrl+Enter and Escape shortcuts on the post's textarea.
 			textarea.keydown(function(e) {
 				if (e.ctrlKey && e.which == 13) {
@@ -685,13 +685,13 @@ saveEditPost: function(postId, content) {
 			// Replace the post HTML with the new post we just got.
 			post.replaceWith(data.view);
 			var newPost = $("#p" + postId);
-			
+
 			// Animate the post's height.
 			var newHeight = $(".postContent", newPost).height();
 			$(".postContent", newPost).height(startHeight).animate({height: newHeight}, "fast", function() {
 				$(this).height("");
 			});
-			
+
 			ETConversation.editingPosts--;
 			ETConversation.redisplayAvatars();
 		}
@@ -702,20 +702,20 @@ saveEditPost: function(postId, content) {
 cancelEditPost: function(postId) {
 	ETConversation.editingPosts--;
 	var post = $("#p" + postId);
-	
+
 	var scrollTop = $(document).scrollTop();
-	
+
 	// Change the post control and body HTML back to what it was before.
 	var startHeight = $(".postContent", post).height();
 	post.replaceWith(post.data("oldPost"));
-	var newPost = $("#p" + postId);	
-	
+	var newPost = $("#p" + postId);
+
 	// Animate the post's height.
 	var newHeight = $(".postContent", newPost).height();
 	$(".postContent", newPost).height(startHeight).animate({height: newHeight}, "fast", function() {
 		$(this).height("");
 	});
-	
+
 	$.scrollTo(scrollTop);
 },
 
@@ -727,7 +727,7 @@ quotePost: function(postId, multi) {
 		success: function(data) {
 			var top = $(document).scrollTop();
 			ETConversation.quote("reply", selection ? selection : data.content, data.postId + ":" + data.member, null, true);
-			
+
 			// If we're "multi" quoting (i.e. shift is being held down), keep our scroll position static.
 			// Otherwise, scroll down to the reply area.
 			if (!multi) {
@@ -989,36 +989,36 @@ insertText: function(textarea, text) {
 	textarea.focus();
 	textarea.val(textarea.val() + text);
 	textarea.focus();
-	
+
 	// Trigger the textarea's keyup to emulate typing.
 	textarea.trigger("keyup");
 },
 
 // Add text to the reply area, with the options of wrapping it around a selection and selecting a part of it when it's inserted.
 wrapText: function(textarea, tagStart, tagEnd, selectArgument, defaultArgumentValue) {
-	
+
 	textarea = $(textarea);
 
 	// Save the scroll position of the textarea.
 	var scrollTop = textarea.scrollTop();
-	
+
 	// Work out what text is currently selected.
 	var selectionInfo = textarea.getSelection();
 	if (textarea.val().substring(selectionInfo.start, selectionInfo.start + 1).match(/ /)) selectionInfo.start++;
 	if (textarea.val().substring(selectionInfo.end - 1, selectionInfo.end).match(/ /)) selectionInfo.end--;
 	var selection = textarea.val().substring(selectionInfo.start, selectionInfo.end);
-	
+
 	// Work out the text to insert over the selection.
 	selection = selection ? selection : (defaultArgumentValue ? defaultArgumentValue : "");
 	var text = tagStart + selection + (typeof tagEnd != "undefined" ? tagEnd : tagStart);
-	
+
 	// Replace the textarea's value.
 	textarea.val(textarea.val().substr(0, selectionInfo.start) + text + textarea.val().substr(selectionInfo.end));
 
 	// Scroll back down and refocus on the textarea.
 	textarea.scrollTo(scrollTop);
 	textarea.focus();
-	
+
 	// If a selectArgument was passed, work out where it is and select it. Otherwise, select the text that was selected
 	// before this function was called.
 	if (selectArgument) {
@@ -1036,14 +1036,14 @@ wrapText: function(textarea, tagStart, tagEnd, selectArgument, defaultArgumentVa
 
 // Toggle preview on an editing area.
 togglePreview: function(id, preview) {
-	
+
 	// If the preview box is checked...
 	if (preview) {
-		
+
 		// Hide the formatting buttons.
 		$("#" + id + " .formattingButtons").hide();
 		$("#" + id + "-preview").html("");
-		
+
 		// Get the formatted post and show it.
 		$.ETAjax({
 			url: "conversation/preview.ajax",
@@ -1053,7 +1053,7 @@ togglePreview: function(id, preview) {
 
 				// Keep the minimum height.
 				$("#" + id + "-preview").css("min-height", $("#" + id + "-textarea").innerHeight());
-				
+
 				// Hide the textarea, and show the preview.
 				$("#" + id + " textarea").hide();
 				$("#" + id + "-preview").show()
@@ -1061,7 +1061,7 @@ togglePreview: function(id, preview) {
 			}
 		});
 	}
-	
+
 	// The preview box isn't checked...
 	else {
 		// Show the formatting buttons and the textarea; hide the preview area.

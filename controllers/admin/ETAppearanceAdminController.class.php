@@ -7,7 +7,7 @@ if (!defined("IN_ESOTALK")) exit;
 /**
  * This controller handles changing of the forum appearance, including the management of skins and skin
  * settings.
- * 
+ *
  * @package esoTalk
  */
 class ETAppearanceAdminController extends ETAdminController {
@@ -15,7 +15,7 @@ class ETAppearanceAdminController extends ETAdminController {
 
 /**
  * Show the appearearance page, including a list of skins.
- * 
+ *
  * @return void
  */
 public function index()
@@ -31,7 +31,7 @@ public function index()
 
 /**
  * Return a list of skins and their information.
- * 
+ *
  * @return array
  */
 protected function getSkins()
@@ -41,7 +41,7 @@ protected function getSkins()
 	// Get the installed skins and their details by reading the skins/ directory.
 	if ($handle = opendir(PATH_SKINS)) {
 	    while (false !== ($file = readdir($handle))) {
-		
+
 			// Make sure the skin is valid, and include its skin.php file.
 	        if ($file[0] != "." and file_exists($skinFile = PATH_SKINS."/$file/skin.php") and (include_once $skinFile)) {
 
@@ -57,7 +57,7 @@ protected function getSkins()
 				if ($skins[$file]["selected"]) $skins[$file]["settingsView"] = ET::$skin->settings($this);
 
 			}
-			
+
 	    }
 	    closedir($handle);
 	}
@@ -69,7 +69,7 @@ protected function getSkins()
 
 /**
  * Activate a skin so it is used as the default skin.
- * 
+ *
  * @param string $skin The name of the skin.
  * @return void
  */
@@ -90,7 +90,7 @@ public function activate($skin = "")
 
 /**
  * Activate a skin so it is used as the mobile skin.
- * 
+ *
  * @param string $skin The name of the skin.
  * @return void
  */
@@ -111,7 +111,7 @@ public function activateMobile($skin = "")
 
 /**
  * Uninstall a skin by removing its directory.
- * 
+ *
  * @param string $skin The name of the skin.
  * @return void
  */
@@ -160,7 +160,7 @@ function installSkin()
 	// Unzip the skin. If we can't, show an error.
 	if (!($files = unzip("skins/{$_FILES["installSkin"]["name"]}", "skins/"))) $this->esoTalk->message("invalidSkin");
 	else {
-		
+
 		// Loop through the files in the zip and make sure it's a valid skin.
 		$directories = 0; $skinFound = false;
 		foreach ($files as $k => $file) {
@@ -197,20 +197,18 @@ function installSkin()
 					}
 				}
 			}
-			
+
 			// Everything copied over correctly - success!
 			if (!$error) $this->esoTalk->message("skinAdded");
 		}
-		
+
 		// Hmm, something went wrong. Show an error.
 		else $this->esoTalk->message("invalidSkin");
 	}
-	
+
 	// Delete the temporarily uploaded skin file.
 	unlink("skins/{$_FILES["installSkin"]["name"]}");
 }
 */
 
 }
-
-?>

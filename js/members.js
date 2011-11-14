@@ -9,7 +9,7 @@ init: function() {
 		e.preventDefault();
 		ETMembers.loadCreateMemberSheet();
 	});
-	
+
 	// Set up the letter scrubber.
 	ETScrubber.header = $("#memberListFilter");
 	ETScrubber.body = $("#memberListBody");

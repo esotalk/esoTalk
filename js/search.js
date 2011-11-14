@@ -30,7 +30,7 @@ init: function() {
 
 	new ETAutoCompletePopup(ETSearch.formInput, "author:");
 	new ETAutoCompletePopup(ETSearch.formInput, "contributor:");
-	
+
 	// Add an onclick handler to the search button to perform a search.
 	ETSearch.form.submit(function(e) {
 		ETSearch.search(ETSearch.formInput.val());
@@ -81,7 +81,7 @@ init: function() {
 
 	// Hide the gambits area.
 	$("#gambits").hide();
-	
+
 	// The gambits area should hide when the search input loses focus.
 	ETSearch.formInput.blur(function() {
 		$("#gambits").fadeOut("fast");
@@ -106,17 +106,17 @@ init: function() {
 	.bind("mousedown", function(e) {
 		e.preventDefault();
 	});
-	
-	
+
+
 	// INITIALIZE THE REST OF THE PAGE.
 
 	// Run a callback that will update search results every so often.
 	ETSearch.updateInterval = new ETIntervalCallback(ETSearch.update, ET.searchUpdateInterval);
-	
+
 	// Add tooltips to the channels, and give them click handlers.
 	$("#channels a:not(.channel-list)").tooltip({alignment: "left", delay: 250, offset: [7, 0], className: "withArrow withArrowBottom"});
 	$("#channels a.channel-list").tooltip();
-	
+
 	// When the hash in the URL changes, update the search interface.
 	$(document).bind("statechange", function(event, hash) {
 
@@ -267,7 +267,7 @@ changeChannel: function(channel, addChannel, markAllAsRead) {
 	}
 
 	// Perform the search.
-	ETSearch.search(ETSearch.currentSearch, markAllAsRead);	
+	ETSearch.search(ETSearch.currentSearch, markAllAsRead);
 },
 
 // Get a list of slugs of the currently selected channels.
@@ -289,19 +289,19 @@ search: function(query, markAllAsRead) {
 
 	// Hide the gambits popup.
 	$("#gambits").fadeOut("fast");
-	
-	// Set the current search and the form input value.	
+
+	// Set the current search and the form input value.
 	ETSearch.currentSearch = ETSearch.formInput.val(query).val();
 
 	// Get the channel slugs and join them together so we can put them in a URL.
 	var channelString = ETSearch.getCurrentChannelSlugs().join("+");
-	
+
 	// Create a history entry so we can use the back button even though we're making an AJAX request.
 	$.history.load("conversations/"+channelString+(query ? "?search="+encodeURIComponent(query) : ""), true);
 
 	// Clear the results update timeout.
 	ETSearch.updateInterval.reset();
-	
+
 	// Make the request.
 	$.ETAjax({
 		id: "search",
@@ -384,7 +384,7 @@ update: function() {
 
 	// Get the channel slugs and join them together so we can put them in a URL.
 	var channelString = ETSearch.getCurrentChannelSlugs().join("+");
-	
+
 	// Make an ajax request.
 	$.ETAjax({
 		url: "conversations/update.ajax/"+channelString+"/"+encodeURIComponent(ETSearch.currentSearch),
@@ -393,7 +393,7 @@ update: function() {
 		data: {conversationIds: conversationIds},
 		success: function(data) {
 			if (!data.conversations) return;
-			
+
 			// For each of the conversation rows returned, replace them in the results table.
 			for (var i in data.conversations) {
 				if (!$("#c"+i).length) continue;
@@ -414,23 +414,23 @@ gambit: function(gambit, negative) {
 
 	// Get the initial length of the search text.
 	var initialLength = $.trim(ETSearch.formInput.val()).length;
-	
+
 	// Make a regular expression to find any instances of the gambit already in there.
 	var safe = gambit.replace(/([?^():\[\]])/g, "\\$1");
 	var regexp = new RegExp(negative
 		? "( ?(- *|!)" + safe + " *$|^ *!" + safe + " *\\+ ?| ?(- *|!)" + safe + "|^ *!" + safe + " *$)"
 		: "( ?\\+ *" + safe + " *$|^ *" + safe + " *\\+ ?| ?\\+ *" + safe + "|^ *" + safe + " *$)"
 	, "i");
-	
+
 	// If there is an instance, take it out.
 	if (ETSearch.formInput.val().match(regexp)) ETSearch.formInput.val(ETSearch.formInput.val().replace(regexp, ""));
-	
+
 	// Otherwise, insert the gambit with a +, -, or ! before it.
 	else {
 		var insert = (initialLength ? (negative ? " - " : " + ") : (negative ? "!" : "")) + gambit;
 		ETSearch.formInput.focus();
 		ETSearch.formInput.val(ETSearch.formInput.val() + insert);
-		
+
 		// If there is an instance of "?" or ":member" or ">10" in the gambit, we want to select it so the user can type over it.
 		var placeholderIndex, placeholder;
 		if (insert.indexOf("?") != -1) {

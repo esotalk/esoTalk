@@ -5,9 +5,9 @@
 if (!defined("IN_ESOTALK")) exit;
 
 /**
- * The upgrade controller runs the upgrade model's upgrade method, updates the config file with the latest 
+ * The upgrade controller runs the upgrade model's upgrade method, updates the config file with the latest
  * version, and redirects to the index.
- * 
+ *
  * @package esoTalk
  */
 class ETUpgradeController extends ETController {
@@ -15,7 +15,7 @@ class ETUpgradeController extends ETController {
 
 /**
  * Initialize the upgrade controller.
- * 
+ *
  * @return void
  */
 public function init()
@@ -30,7 +30,7 @@ public function init()
 
 /**
  * Perform the upgrade process.
- * 
+ *
  * @return void
  */
 public function index()
@@ -55,7 +55,7 @@ public function index()
 
 /**
  * Show a fatal error, providing the user with the option to try again.
- * 
+ *
  * @param string $error The error that occurred.
  * @return void
  */
@@ -67,5 +67,3 @@ protected function fatalError($error)
 }
 
 }
-
-?>

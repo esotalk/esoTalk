@@ -7,7 +7,7 @@ if (!defined("IN_ESOTALK")) exit;
 /**
  * The ETFormat class provides various formatting methods which can be performed on a string. It also includes
  * a way for plugins to hook in and add their own formatting methods.
- * 
+ *
  * @package esoTalk
  */
 class ETFormat extends ETPluggable {
@@ -29,7 +29,7 @@ public $basic = false;
 
 /**
  * Initialize the formatter with a content string on which all subsequent operations will be performed.
- * 
+ *
  * @param string $content The content string.
  * @param bool $sanitize Whether or not to sanitize HTML in the content.
  * @return ETFormat
@@ -48,7 +48,7 @@ public function init($content, $sanitize = true)
 
 /**
  * Turn "basic", inline-only formatting on or off.
- * 
+ *
  * @param bool $basic Whether or not basic formatting should be on.
  * @return ETFormat
  */
@@ -61,7 +61,7 @@ public function basic($basic)
 
 /**
  * Format the content string using a standard procedure and plugin hooks.
- * 
+ *
  * @return ETFormat
  */
 public function format()
@@ -92,7 +92,7 @@ public function format()
 
 /**
  * Get the content string in its current state.
- * 
+ *
  * @return string
  */
 public function get()
@@ -103,7 +103,7 @@ public function get()
 
 /**
  * Clip the content string to a certain number of characters, appending "..." if necessary.
- * 
+ *
  * @param int $characters The number of characters to clip to.
  * @return ETFormat
  */
@@ -126,7 +126,7 @@ public function clip($characters)
 
 /**
  * Close all unclosed HTML tags in the content string.
- * 
+ *
  * @return ETFormat
  */
 public function closeTags()
@@ -163,7 +163,7 @@ public function closeTags()
 
 /**
  * Convert whitespace into appropriate HTML tags (<br/> and <p>).
- * 
+ *
  * @return ETFormat
  */
 public function whitespace()
@@ -184,7 +184,7 @@ public function whitespace()
 
 /**
  * Convert inline URLs and email addresses into HTML anchor tags.
- * 
+ *
  * @return ETFormat
  */
 public function links()
@@ -203,13 +203,13 @@ public function links()
 
 /**
  * The callback function used to replace inline URLs with HTML anchor tags.
- * 
+ *
  * @param array $matches An array of matches from the regular expression.
  * @return string The replacement HTML anchor tag.
  */
 public function linksCallback($matches)
 {
-	// If we're not doing basic formatting, YouTube embedding is enabled, and this is a YouTube video link, 
+	// If we're not doing basic formatting, YouTube embedding is enabled, and this is a YouTube video link,
 	// then return an embed tag.
 	if (!$this->basic and C("esoTalk.format.youtube") and preg_match("/^(?:www\.)?youtube\.com\/watch\?v=([^&]+)/i", $matches[2], $youtube)) {
 		$id = $youtube[1];
@@ -225,7 +225,7 @@ public function linksCallback($matches)
 
 /**
  * Convert simple bullet and numbered lists (eg. - list item\n - another list item) into their HTML equivalent.
- * 
+ *
  * @return ETFormat
  */
 public function lists()
@@ -250,12 +250,12 @@ public function lists()
 
 /**
  * Convert [quote] tags into their HTML equivalent.
- * 
+ *
  * @return ETFormat
  */
 public function quotes()
 {
-	// Starting from the innermost quote, work our way to the outermost, replacing them one-by-one using a 
+	// Starting from the innermost quote, work our way to the outermost, replacing them one-by-one using a
 	// callback function. This is the only simple way to do nested quotes without a lexer.
 	$regexp = "/(.*?)\n?\[quote(?:=(.*?)(]?))?\]\n?(.*?)\n?\[\/quote\]\n{0,2}/ise";
 	while (preg_match($regexp, $this->content)) {
@@ -268,7 +268,7 @@ public function quotes()
 
 /**
  * The callback function to get quote HTML, given the quote text and its citation.
- * 
+ *
  * @param string $text The quoted text.
  * @param string $citation The citation text.
  * @return string The quote HTML.
@@ -296,7 +296,7 @@ public function makeQuote($text, $citation = "")
 
 /**
  * Remove all quotes from the content string. This can be used to prevent nested quotes when quoting a post.
- * 
+ *
  * @return ETFormat
  */
 public function removeQuotes()
@@ -310,7 +310,7 @@ public function removeQuotes()
 
 /**
  * Convert all @mentions into links to member profiles.
- * 
+ *
  * @return ETFormat
  */
 public function mentions()
@@ -327,7 +327,7 @@ public function mentions()
 
 /**
  * Get all of the @mentions present in a content string, and return the member names in an array.
- * 
+ *
  * @param string $content The content string to get mentions from.
  * @return array
  */
@@ -343,7 +343,7 @@ public function getMentions($content)
 
 /**
  * Highlight a list of words in the content string.
- * 
+ *
  * @return ETFormat
  */
 public function highlight($words)
@@ -355,5 +355,3 @@ public function highlight($words)
 }
 
 }
-
-?>

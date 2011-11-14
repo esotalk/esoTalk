@@ -2,9 +2,9 @@
 
 // Dashboard page.
 var ETAdminDashboard = {
-	
+
 init: function() {
-	
+
 	// If the welcome sheet is present, show it as a sheet.
 	if ($("#adminWelcomeSheet").length)
 		ETSheet.showSheet("adminWelcomeSheet", $("#adminWelcomeSheet"));
@@ -101,7 +101,7 @@ init: function() {
 
 // Manage plugins.
 var ETAdminPlugins = {
-	
+
 init: function() {
 
 	// Make the controls into popups.
@@ -124,7 +124,7 @@ init: function() {
 
 // Manage languages.
 var ETAdminLanguages = {
-	
+
 init: function() {
 
 	// Make the controls into popups.
@@ -244,7 +244,7 @@ initEditChannel: function() {
 
 // Update the permission checkboxes' disabled states depending on which boxes are checked/unchecked.
 updatePermissionState: function() {
-	
+
 	// If guests can view, then so can everyone else.
 	var checkboxes = $("#channelPermissions .permission-view:not(#permissions-guests .permission-view)").prop("disabled", false);
 	if ($("#permissions-guests .permission-view").prop("checked")) {

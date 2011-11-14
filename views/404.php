@@ -6,7 +6,7 @@ if (!defined("IN_ESOTALK")) exit;
 
 /**
  * 404 Page. Displayed when a controller could not be found.
- * 
+ *
  * @package esoTalk
  */
 ?>

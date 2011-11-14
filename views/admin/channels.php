@@ -6,7 +6,7 @@ if (!defined("IN_ESOTALK")) exit;
 
 /**
  * Displays the list of channels.
- * 
+ *
  * @package esoTalk
  */
 ?>
@@ -31,7 +31,7 @@ $curDepth = 0;
 $counter = 0;
 
 // For each of the channels...
-foreach ($data["channels"] as $channel): 
+foreach ($data["channels"] as $channel):
 
 // If this channel is on the same depth as the last channel, just end the previous channel's <li>.
 if ($channel["depth"] == $curDepth) {

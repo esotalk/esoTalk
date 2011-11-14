@@ -6,7 +6,7 @@ if (!defined("IN_ESOTALK")) exit;
 
 /**
  * Displays a sheet which includes a plugin's settings view.
- * 
+ *
  * @package esoTalk
  */
 

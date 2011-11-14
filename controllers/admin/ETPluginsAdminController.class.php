@@ -6,7 +6,7 @@ if (!defined("IN_ESOTALK")) exit;
 
 /**
  * This controller handles the management of plugins.
- * 
+ *
  * @package esoTalk
  */
 class ETPluginsAdminController extends ETAdminController {
@@ -14,7 +14,7 @@ class ETPluginsAdminController extends ETAdminController {
 
 /**
  * Show the list of plugins.
- * 
+ *
  * @return void
  */
 public function index()
@@ -29,7 +29,7 @@ public function index()
 
 /**
  * Return a list of plugins and their information.
- * 
+ *
  * @return array
  */
 protected function getPlugins()
@@ -37,7 +37,7 @@ protected function getPlugins()
 	// Get the installed plugins and their details by reading the plugins/ directory.
 	if ($handle = opendir(PATH_PLUGINS)) {
 	    while (false !== ($file = readdir($handle))) {
-		
+
 			// Make sure the plugin is valid, and include its plugin.php file.
 	        if ($file[0] != "." and file_exists($pluginFile = PATH_PLUGINS."/$file/plugin.php") and (include_once $pluginFile)) {
 
@@ -51,11 +51,11 @@ protected function getPlugins()
 				// If this skin's settings function returns a view path, then store it.
 				if ($plugins[$file]["loaded"]) $plugins[$file]["settingsView"] = ET::$plugins[$file]->settings($this);
 			}
-			
+
 	    }
 	    closedir($handle);
 	}
-	
+
 	ksort($plugins);
 
 	return $plugins;
@@ -64,7 +64,7 @@ protected function getPlugins()
 
 /**
  * Toggle a plugin.
- * 
+ *
  * @param string $plugin The name of the plugin.
  * @return void
  */
@@ -87,7 +87,7 @@ public function toggle($plugin = "")
 		// Call the plugin's disable function.
 		ET::$plugins[$plugin]->disable();
 	}
-	
+
 	// Otherwise, if it's not enabled, add it to the array.
 	else {
 		$enabledPlugins[] = $plugin;
@@ -104,7 +104,7 @@ public function toggle($plugin = "")
 						$this->message(sprintf(T("message.pluginDependencyNotMet"), $name, $minVersion), "warning");
 						$dependencyFailure = true;
 				}
-				
+
 			}
 		}
 
@@ -130,14 +130,14 @@ public function toggle($plugin = "")
 
 	// Write to the config file.
 	ET::writeConfig(array("esoTalk.enabledPlugins" => $enabledPlugins));
-	
+
 	$this->redirect(URL("admin/plugins"));
 }
 
 
 /**
  * Call a plugin's settings function and render a sheet containing the view it returns.
- * 
+ *
  * @param string $plugin The name of the plugin.
  * @return void
  */
@@ -158,7 +158,7 @@ public function settings($plugin = "")
 
 /**
  * Uninstall a plugin by calling its uninstall function and removing its directory.
- * 
+ *
  * @param string $plugin The name of the plugin.
  * @return void
  */
@@ -210,44 +210,44 @@ public function uninstall($plugin = "")
 // 		$this->esoTalk->message("invalidPlugin");
 // 		return false;
 // 	}
-	
+
 // 	// Temorarily move the uploaded plugin into the plugins directory so that we can read it.
 // 	if (!move_uploaded_file($_FILES["installPlugin"]["tmp_name"], "plugins/{$_FILES["installPlugin"]["name"]}")) {
 // 		$this->esoTalk->message("notWritable", false, "plugins/");
 // 		return false;
 // 	}
-	
+
 // 	// Unzip the plugin. If we can't, show an error.
 // 	if (!($files = unzip("plugins/{$_FILES["installPlugin"]["name"]}", "plugins/"))) $this->esoTalk->message("invalidPlugin");
 // 	else {
-		
+
 // 		// Loop through the files in the zip and make sure it's a valid plugin.
 // 		$directories = 0; $pluginFound = false;
 // 		foreach ($files as $k => $file) {
-			
+
 // 			// Strip out annoying Mac OS X files!
 // 			if (substr($file["name"], 0, 9) == "__MACOSX/" or substr($file["name"], -9) == ".DS_Store") {
 // 				unset($files[$k]);
 // 				continue;
 // 			}
-			
+
 // 			// If the zip has more than one base directory, it's not a valid plugin.
 // 			if ($file["directory"] and substr_count($file["name"], "/") < 2) $directories++;
-			
+
 // 			// Make sure there's an actual plugin file in there.
 // 			if (substr($file["name"], -10) == "plugin.php") $pluginFound = true;
 // 		}
-		
+
 // 		// OK, this plugin in valid!
 // 		if ($pluginFound and $directories == 1) {
-			
+
 // 			// Loop through plugin files and write them to the plugins directory.
 // 			$error = false;
 // 			foreach ($files as $k => $file) {
-				
+
 // 				// Make a directory if it doesn't exist!
 // 				if ($file["directory"] and !is_dir("plugins/{$file["name"]}")) mkdir("plugins/{$file["name"]}");
-				
+
 // 				// Write a file.
 // 				elseif (!$file["directory"]) {
 // 					if (!writeFile("plugins/{$file["name"]}", $file["content"])) {
@@ -257,19 +257,17 @@ public function uninstall($plugin = "")
 // 					}
 // 				}
 // 			}
-			
+
 // 			// Everything copied over correctly - success!
 // 			if (!$error) $this->esoTalk->message("pluginAdded");
 // 		}
-		
+
 // 		// Hmm, something went wrong. Show an error.
 // 		else $this->esoTalk->message("invalidPlugin");
 // 	}
-	
+
 // 	// Delete the temporarily uploaded plugin file.
 // 	unlink("plugins/{$_FILES["installPlugin"]["name"]}");
 // }
 
 }
-
-?>

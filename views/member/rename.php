@@ -6,7 +6,7 @@ if (!defined("IN_ESOTALK")) exit;
 
 /**
  * Displays a sheet to choose a new name for a member.
- * 
+ *
  * @package esoTalk
  */
 
