@@ -172,7 +172,7 @@ public function hasPermission($channelId, $permission = "view")
 {	
 	$sql = ET::SQL()
 		->select("COUNT(1)")
-		->from("channel")
+		->from("channel c")
 		->where("channelId=:channelId")
 		->bind(":channelId", (int)$channelId);
 	
