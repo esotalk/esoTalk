@@ -72,9 +72,10 @@ public function create(&$values)
 		->exec();
 
 	$memberId = parent::create($values);
+	$values["memberId"] = $memberId;
 
 	// Create "join" activity for this member.
-	ET::activityModel()->create("join", $memberId);
+	ET::activityModel()->create("join", $values);
 
 	// Go through the list of channels and unsubscribe from any ones that have that attribute set.
 	$channels = ET::channelModel()->getAll();
