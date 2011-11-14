@@ -978,17 +978,18 @@ function addToArrayString(&$array, $key, $value, $position = false)
 
 
 
-if(function_exists('lcfirst') === false) {
+if (function_exists("lcfirst") === false) {
  
 /**
- * Make a string's first character lowercase
+ * Make a string's first character lowercase.
  * 
  * NOTE: Is included in PHP 5 >= 5.3.0
  * 
  * @param string $str The input string.
  * @return string 
  */
-function lcfirst($str) {
+function lcfirst($str)
+{
 	$str[0] = strtolower($str[0]);
 	return $str;
 }

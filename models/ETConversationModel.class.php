@@ -635,7 +635,7 @@ public function addReply(&$conversation, $content)
 
 	// Flood control!
 	if (ET::$session->isFlooding()) {
-		$this->error("flooding", sprintf( T("waitToReply"), C("esoTalk.conversation.timeBetweenPosts")) );
+		$this->error("flooding", sprintf(T("message.waitToReply"), C("esoTalk.conversation.timeBetweenPosts")));
 		return false;
 	}
 

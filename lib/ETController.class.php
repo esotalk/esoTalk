@@ -221,7 +221,7 @@ public function messages($messages, $options = "")
 	if (!is_array($options)) $options = array("className" => $options);
 	foreach ($messages as $id => $message) {
 		$options["id"] = !is_numeric($id) ? $id : null;
-		$this->message(T("message.$message"), $options);
+		$this->message(T("message.$message", $message), $options);
 	}
 }
 
