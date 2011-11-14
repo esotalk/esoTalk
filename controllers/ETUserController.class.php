@@ -135,7 +135,7 @@ public function join()
 
 				// If we require the user to confirm their email, send them an email and show a message.
 				if (C("esoTalk.registration.requireEmailConfirmation")) {
-					$this->sendConfirmationEmail($data["email"], $data["name"], $memberId.$data["password"]);
+					$this->sendConfirmationEmail($data["email"], $data["username"], $memberId.$data["resetPassword"]);
 					$this->renderMessage("Success!", T("message.confirmEmail"));
 				}
 
@@ -192,7 +192,7 @@ public function confirm($hash = "")
 	// See if there is an unconfirmed user with this ID and password hash. If there is, confirm them and log them in.
 	$result = ET::SQL()
 		->select("1")
-		->from("members")
+		->from("member")
 		->where("memberId", $memberId)
 		->where("resetPassword", md5($hash))
 		->where("confirmedEmail=0")

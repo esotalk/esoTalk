@@ -61,6 +61,16 @@ public function create(&$values)
 
 	if ($this->errorCount()) return false;
 
+	// Delete any members with the same email or username but who haven't confirmed their email address.
+	ET::SQL()
+		->delete()
+		->from("member")
+		->where("email=:email OR username=:username")
+		->bind(":email", $values["email"])
+		->bind(":username", $values["username"])
+		->where("confirmedEmail", 0)
+		->exec();
+
 	$memberId = parent::create($values);
 
 	// Create "join" activity for this member.
@@ -428,23 +438,27 @@ public function deleteById($memberId, $deletePosts = false)
 
 	// Delete member and other records associated with the member.
 	ET::SQL()
-		->delete("member")
+		->delete()
+		->from("member")
 		->where("memberId", $memberId)
 		->exec();
 
 	ET::SQL()
-		->delete("member_channel")
+		->delete()
+		->from("member_channel")
 		->where("memberId", $memberId)
 		->exec();
 
 	ET::SQL()
-		->delete("member_conversation")
+		->delete()
+		->from("member_conversation")
 		->where("id", $memberId)
 		->where("type", "member")
 		->exec();
 
 	ET::SQL()
-		->delete("member_group")
+		->delete()
+		->from("member_group")
 		->where("memberId", $memberId)
 		->exec();
 }
