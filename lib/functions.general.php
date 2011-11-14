@@ -156,12 +156,12 @@ function iniToBytes($value)
 function minifyCSS($css)
 {
 	// Compress whitespace.
-    $css = preg_replace('/\s+/', ' ', $css);
+	$css = preg_replace('/\s+/', ' ', $css);
 
-    // Remove comments.
-    $css = preg_replace('/\/\*.*?\*\//', '', $css);
+	// Remove comments.
+	$css = preg_replace('/\/\*.*?\*\//', '', $css);
 
-    return trim($css);
+	return trim($css);
 }
 
 
@@ -974,4 +974,23 @@ function addToArrayString(&$array, $key, $value, $position = false)
 
 	// Combine the new keys/values!
 	$array = array_combine($keys, $values);
+}
+
+
+
+if(function_exists('lcfirst') === false) {
+ 
+/**
+ * Make a string's first character lowercase
+ * 
+ * NOTE: Is included in PHP 5 >= 5.3.0
+ * 
+ * @param string $str The input string.
+ * @return string 
+ */
+function lcfirst($str) {
+	$str[0] = strtolower($str[0]);
+	return $str;
+}
+
 }
