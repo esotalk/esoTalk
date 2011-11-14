@@ -17,7 +17,7 @@ ET::$pluginInfo["BBCode"] = array(
 
 /**
  * BBCode Formatter Plugin
- * 
+ *
  * Interprets BBCode in posts and converts it to HTML formatting when rendered. Also adds BBCode formatting
  * buttons to the post editing/reply area.
  */
@@ -27,7 +27,7 @@ class ETPlugin_BBCode extends ETPlugin {
 /**
  * Add an event handler to the initialization of the conversation controller to add BBCode CSS and JavaScript
  * resources.
- * 
+ *
  * @return void
  */
 public function handler_conversationController_renderBefore($sender)
@@ -38,9 +38,9 @@ public function handler_conversationController_renderBefore($sender)
 
 
 /**
- * Add an event handler to the "getEditControls" method of the conversation controller to add BBCode 
+ * Add an event handler to the "getEditControls" method of the conversation controller to add BBCode
  * formatting buttons to the edit controls.
- * 
+ *
  * @return void
  */
 public function handler_conversationController_getEditControls($sender, &$controls, $id)
@@ -57,7 +57,7 @@ public function handler_conversationController_getEditControls($sender, &$contro
 
 /**
  * Add an event handler to the formatter to take out and store code blocks before formatting takes place.
- * 
+ *
  * @return void
  */
 public function handler_format_beforeFormat($sender)
@@ -81,7 +81,7 @@ public function handler_format_beforeFormat($sender)
 
 /**
  * Add an event handler to the formatter to parse BBCode and format it into HTML.
- * 
+ *
  * @return void
  */
 public function handler_format_format($sender)
@@ -114,7 +114,7 @@ public function handler_format_format($sender)
 
 /**
  * Add an event handler to the formatter to put code blocks back in after formatting has taken place.
- * 
+ *
  * @return void
  */
 public function handler_format_afterFormat($sender)
@@ -127,5 +127,3 @@ public function handler_format_afterFormat($sender)
 }
 
 }
-
-?>

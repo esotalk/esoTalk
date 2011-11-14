@@ -6,7 +6,7 @@ if (!defined("IN_ESOTALK")) exit;
 
 /**
  * Displays a sheet containing a form to create a new member account.
- * 
+ *
  * @package esoTalk
  */
 

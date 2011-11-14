@@ -7,7 +7,7 @@ if (!defined("IN_ESOTALK")) exit;
 /**
  * This controller handles the settings section of the admin CP. It sets up and processes the settings form,
  * including uploading a header image.
- * 
+ *
  * @package esoTalk
  */
 class ETSettingsAdminController extends ETAdminController {
@@ -15,7 +15,7 @@ class ETSettingsAdminController extends ETAdminController {
 
 /**
  * Show and process the settings form.
- * 
+ *
  * @return void
  */
 public function index()
@@ -41,7 +41,7 @@ public function index()
 	$form->setValue("registrationOpen", C("esoTalk.registration.open"));
 	$form->setValue("requireAdminApproval", C("esoTalk.registration.requireAdminApproval"));
 	$form->setValue("requireEmailConfirmation", C("esoTalk.registration.requireEmailConfirmation"));
-	
+
 	// If the save button was clicked...
 	if ($form->validPostBack("save")) {
 
@@ -76,7 +76,7 @@ public function index()
 
 /**
  * Upload a header image.
- * 
+ *
  * @return void
  */
 protected function uploadHeaderImage($form)

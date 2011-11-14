@@ -6,7 +6,7 @@ if (!defined("IN_ESOTALK")) exit;
 
 /**
  * This controlls handles the management of channels.
- * 
+ *
  * @package esoTalk
  */
 class ETChannelsAdminController extends ETAdminController {
@@ -14,14 +14,14 @@ class ETChannelsAdminController extends ETAdminController {
 
 /**
  * Show the list of channels.
- * 
+ *
  * @return void
  */
 public function index()
 {
 	// Get all of the channels.
 	$channels = ET::channelModel()->getAll();
-	
+
 	// Add necessary JavaScript to enable sorting of the channel list.
 	$this->addJSFile("js/lib/jquery.ui.js");
 	$this->addJSFile("js/lib/jquery.ui.nestedSortable.js");
@@ -34,7 +34,7 @@ public function index()
 
 /**
  * Edit a channel's details.
- * 
+ *
  * @param int $channelId The ID of the channel to edit.
  * @return void
  */
@@ -58,13 +58,13 @@ public function edit($channelId = "")
 
  	// Set which permission checkboxes should be checked on the form!
  	foreach ($channel["permissions"] as $type => $groupIds) {
- 		foreach ($groupIds as $groupId) 
+ 		foreach ($groupIds as $groupId)
  			$form->setValue("permissions[$groupId][$type]", 1);
  	}
 
  	// If the form was submitted...
  	if ($form->validPostBack("save")) {
- 		
+
  		// Save the channel's information.
  		$model = ET::channelModel();
  		$model->updateById($channelId, array(
@@ -100,14 +100,14 @@ public function edit($channelId = "")
 
 /**
  * Save the tree structure of the channels.
- * 
+ *
  * @return void
  */
 public function reorder()
 {
 	if (!$this->validateToken()) return;
 
-	// All of the tree information, including depth, parent_id, left, and right for each channel, should be 
+	// All of the tree information, including depth, parent_id, left, and right for each channel, should be
 	// in this input variable.
 	$tree = R("tree");
 
@@ -128,7 +128,7 @@ public function reorder()
 
 /**
  * Get a channel's permissions. This is used to copy a channel's permissions into the permissions grid.
- * 
+ *
  * @param int $channelId The ID of the channel.
  * @return void
  */
@@ -146,14 +146,14 @@ public function getPermissions($channelId)
 
 /**
  * Create a channel.
- * 
+ *
  * @return void
  */
 public function create()
 {
 	// Get the channels!
 	$channels = ET::channelModel()->getAll();
-	
+
 	// Set up a form!
  	$form = ETFactory::make("form");
  	$form->action = URL("admin/channels/create");
@@ -172,7 +172,7 @@ public function create()
 
  	// If the form was submitted...
  	if ($form->validPostBack("save")) {
- 		
+
  		// Save the channel's information.
  		$model = ET::channelModel();
  		$channelId = $model->create(array(
@@ -209,7 +209,7 @@ public function create()
 
 /**
  * Delete a channel.
- * 
+ *
  * @param int $channelId The ID of the channel to delete.
  * @return void
  */
@@ -231,10 +231,10 @@ public function delete($channelId)
 		// If this is the last channel, we can't delete it.
 		if (count($channels) == 1)
 			$this->message(T("message.cannotDeleteLastChannel"), "warning");
-		
+
 		// Otherwise...
 		else {
-		
+
 			// Attempt to delete the channel.
 			$model = ET::channelModel();
 			$model->deleteById($channelId, $form->getValue("method") == "move" ? (int)$form->getValue("moveToChannelId") : false);
@@ -259,5 +259,3 @@ public function delete($channelId)
 }
 
 }
-
-?>

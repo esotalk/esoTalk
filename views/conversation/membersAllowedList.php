@@ -6,7 +6,7 @@ if (!defined("IN_ESOTALK")) exit;
 
 /**
  * Displays a full list of members allowed to view a conversation.
- * 
+ *
  * @package esoTalk
  */
 

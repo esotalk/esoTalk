@@ -6,7 +6,7 @@ if (!defined("IN_ESOTALK")) exit;
 
 /**
  * Mobile master view. Displays a simplified HTML template with a header and footer.
- * 
+ *
  * @package esoTalk
  */
 ?>
@@ -15,7 +15,7 @@ if (!defined("IN_ESOTALK")) exit;
 <head>
 <meta charset='<?php echo T("charset", "utf-8"); ?>'>
 <title><?php echo $data["pageTitle"]; ?></title>
-<?php echo $data["head"]; ?> 
+<?php echo $data["head"]; ?>
 <script>
 // Turn off JS effects and fixed positions, and disable tooltips.
 jQuery.fx.off = true;

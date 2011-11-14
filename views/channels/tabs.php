@@ -6,12 +6,12 @@ if (!defined("IN_ESOTALK")) exit;
 
 /**
  * Displays the channel breadcrumb tabs in the channel list and the conversations list.
- * 
+ *
  * Works with a few things set in $data:
  * 		currentChannels: an array of currently selected channel IDs.
  * 		channelTabs: an array of channels which should be displayed as the current depth.
  * 		channelPath: an array of channels leading up to the current depth.
- * 
+ *
  * @package esoTalk
  */
 

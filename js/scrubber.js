@@ -34,7 +34,7 @@ init: function() {
 		this.loadedItems.push(i);
 
 	// Make the header and the scrubber's position fixed when we scroll down the page.
-	// Get the normal top position of the header and of the scrubber. If the scrollTop is greater than 
+	// Get the normal top position of the header and of the scrubber. If the scrollTop is greater than
 	// this, we know we'll need to make it fixed.
 	var headerTop = this.header.offset().top;
 	var headerWidth = this.header.width();
@@ -65,7 +65,7 @@ init: function() {
 			ETScrubber.scrubber.css({position: "", top: ""});
 		}
 
-		// Now we need to work out where we are in the content and highlight the appropriate 
+		// Now we need to work out where we are in the content and highlight the appropriate
 		// index in the scrubber. Go through each of the items on the page...
 		$("li", ETScrubber.items).each(function() {
 			var item = $(this);
@@ -84,7 +84,7 @@ init: function() {
 			}
 		});
 
-		// Work out if the "next page" block is visible in the viewport. If it it, automatically load 
+		// Work out if the "next page" block is visible in the viewport. If it it, automatically load
 		// new items, starting from the last item position that we have loaded already.
 		var newer = $(".scrubberNext", ETScrubber.body);
 		if (newer.length && y + $(window).height() > newer.offset().top && !newer.hasClass("loading") && !ET.disableFixedPositions) {
@@ -92,7 +92,7 @@ init: function() {
 		}
 	});
 
-	// Alright, so, all the scrolling event stuff is done! Now we need to make the "next/previous page" and 
+	// Alright, so, all the scrolling event stuff is done! Now we need to make the "next/previous page" and
 	// "load more" blocks clickable.
 	$(".scrubberMore a", ETScrubber.body).live("click", function(e) {
 		e.preventDefault();
@@ -188,7 +188,7 @@ init: function() {
 				moreItem.addClass("loading");
 				ETScrubber.loadItemsCallback(index, function(data) {
 
-					// If we're scrolling down to the very bottom, save the scroll position relative to the 
+					// If we're scrolling down to the very bottom, save the scroll position relative to the
 					// bottom of the items area.
 					if (index == Infinity) var scrollOffset = ETScrubber.items.offset().top + ETScrubber.items.outerHeight() - $(document).scrollTop();
 
@@ -217,7 +217,7 @@ scrollToIndex: function(index) {
 	var post = null,
 		found = false,
 		item;
-	
+
 	// Go through each of the items and find one on or before the supplied index to scroll to.
 	$("li", ETScrubber.items).each(function() {
 		item = $(this);
@@ -251,7 +251,7 @@ addItems: function(startFrom, items, moreItem, animate) {
 	var view = $(items);
 	view = view.filter("li");
 
-	// Now we're going to loop through the range of items (startFrom -> startFrom + itemsPerPage) and make 
+	// Now we're going to loop through the range of items (startFrom -> startFrom + itemsPerPage) and make
 	// a nice array of item objects, making sure we only add items that we don't already have. This means that
 	// if we already have items 1-10 and 15-25, and we load items 11-20, this array will only contain 11-14.
 	var items = [],
@@ -301,7 +301,7 @@ addItems: function(startFrom, items, moreItem, animate) {
 	if (ETScrubber.loadedItems.indexOf(startFrom + items.length + 1) == -1 && items.last().next().is("li:not(.scrubberMore)")) {
 		scrubberMore = scrubberMore.clone();
 		items.last().after(scrubberMore);
-	
+
 		// Work out the range of items that this "more" block covers. We know where it starts, so loop forwards
 		// from there and find the end.
 		for (var i = startFrom + items.length + 1; i < ETScrubber.count; i++) {
@@ -312,7 +312,7 @@ addItems: function(startFrom, items, moreItem, animate) {
 	}
 
 	if (animate) items.hide().fadeIn("slow");
-	
+
 	// Update the loadedItems index with the new item positions we have loaded.
 	for (var i = startFrom; i < startFrom + items.length; i++) {
 		if (ETScrubber.loadedItems.indexOf(i) == -1)

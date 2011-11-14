@@ -6,7 +6,7 @@ if (!defined("IN_ESOTALK")) exit;
 
 /**
  * The upgrade model provides methods to install and upgrade esoTalk's database structure and data.
- * 
+ *
  * @package esoTalk
  */
 class ETUpgradeModel extends ETModel {
@@ -15,7 +15,7 @@ class ETUpgradeModel extends ETModel {
 /**
  * Check for updates to the esoTalk software. If there's a new version, and this is the first time we've heard
  * of it, create a notifcation for the current user.
- * 
+ *
  * @return void
  */
 public function checkForUpdates()
@@ -39,7 +39,7 @@ public function checkForUpdates()
 /**
  * Define esoTalk's table structure, using the database structure class to create tables or make alterations
  * to existing tables as necessary.
- * 
+ *
  * @param bool $drop Whether or not to drop existing tables before recreating them.
  * @return void
  */
@@ -227,7 +227,7 @@ protected function structure($drop = false)
 
 /**
  * Perform a fresh installation of the esoTalk database. Create the table structure and insert default data.
- * 
+ *
  * @param array $info An array of information gathered from the installation form.
  * @return void
  */
@@ -300,7 +300,7 @@ public function install($info)
 
 /**
  * Perform an upgrade to ensure that the database is up-to-date.
- * 
+ *
  * @param string $currentVersion The version we are upgrading from.
  * @return void
  */
@@ -313,5 +313,3 @@ public function upgrade($currentVersion = "")
 }
 
 }
-
-?>

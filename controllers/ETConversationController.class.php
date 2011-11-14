@@ -6,7 +6,7 @@ if (!defined("IN_ESOTALK")) exit;
 
 /**
  * The conversation controller handles all actions to do with viewing/managing a single conversation.
- * 
+ *
  * @package esoTalk
  */
 class ETConversationController extends ETController {
@@ -14,7 +14,7 @@ class ETConversationController extends ETController {
 
 /**
  * Show a full conversation.
- * 
+ *
  * @param string $conversationId The conversation ID, suffixed with the conversation's slug.
  * @param mixed $year Can be in one of three formats:
  * 		YYYY/MM: start viewing posts from a certain year/month combination
@@ -39,7 +39,7 @@ public function index($conversationId = false, $year = false, $month = false)
 	if ($searchString) {
 
 		$conversation["countPosts"] = ET::postModel()->getSearchResultsCount($conversation["conversationId"], $searchString);
-		
+
 		// Add the keywords in $this->searchString to be highlighted. Make sure we keep ones "in quotes" together.
 		$words = array();
 		$term = $searchString;
@@ -134,7 +134,7 @@ public function index($conversationId = false, $year = false, $month = false)
 	if ($this->responseType === RESPONSE_TYPE_DEFAULT) $startFrom = min($startFrom, $conversation["countPosts"] - 1);
 
 	if (ET::$session->userId) {
-		
+
 		// Update the user's last read.
 		ET::conversationModel()->setLastRead($conversation, ET::$session->userId, $startFrom + C("esoTalk.conversation.postsPerPage"));
 
@@ -145,7 +145,7 @@ public function index($conversationId = false, $year = false, $month = false)
 		));
 
 	}
-	
+
 	// Get the posts in the conversation.
 	$options = array(
 		"startFrom" => $startFrom,
@@ -183,7 +183,7 @@ public function index($conversationId = false, $year = false, $month = false)
 		$conversation["membersAllowed"] = ET::conversationModel()->getMembersAllowed($conversation);
 		$conversation["membersAllowedSummary"] = ET::conversationModel()->getMembersAllowedSummary($conversation, $conversation["membersAllowed"]);
 
-		// Add essential variables and language definitions to be accessible through JavaScript. 
+		// Add essential variables and language definitions to be accessible through JavaScript.
 		if ($conversation["canModerate"]) {
 			$this->addJSLanguage("Lock", "Unlock", "Sticky", "Unsticky", "message.confirmDelete");
 		}
@@ -191,7 +191,7 @@ public function index($conversationId = false, $year = false, $month = false)
 
 		$this->addJSVar("postsPerPage", C("esoTalk.conversation.postsPerPage"));
 		$this->addJSVar("conversationUpdateIntervalStart", C("esoTalk.conversation.updateIntervalStart"));
-		$this->addJSVar("conversationUpdateIntervalMultiplier", C("esoTalk.conversation.updateIntervalMultiplier"));	
+		$this->addJSVar("conversationUpdateIntervalMultiplier", C("esoTalk.conversation.updateIntervalMultiplier"));
 		$this->addJSVar("conversationUpdateIntervalLimit", C("esoTalk.conversation.updateIntervalLimit"));
 		$this->addJSVar("mentions", C("esoTalk.format.mentions"));
 		$this->addJSVar("time", time());
@@ -216,18 +216,18 @@ public function index($conversationId = false, $year = false, $month = false)
 
 			// Add the change channel control.
 			$controls->add("changeChannel", "<a href='".URL("conversation/changeChannel/".$conversation["conversationId"]."/?return=".urlencode($this->selfURL))."' id='control-changeChannel'>".T("Change channel")."</a>");
-		
+
 			// Add the sticky/unsticky control.
 			$controls->add("sticky", "<a href='".URL("conversation/sticky/".$conversation["conversationId"]."/?token=".ET::$session->token."&return=".urlencode($this->selfURL))."' id='control-sticky'>".T($conversation["sticky"] ? "Unsticky" : "Sticky")."</a>");
-	
+
 			// Add the lock/unlock control.
 			$controls->add("lock", "<a href='".URL("conversation/lock/".$conversation["conversationId"]."/?token=".ET::$session->token."&return=".urlencode($this->selfURL))."' id='control-lock'>".T($conversation["locked"] ? "Unlock" : "Lock")."</a>");
-		
+
 			// Add the delete conversation control.
 			$controls->separator();
 			$controls->add("delete", "<a href='".URL("conversation/delete/".$conversation["conversationId"]."/?token=".ET::$session->token)."' id='control-delete'>".T("Delete conversation")."</a>");
 		}
-		
+
 		// Add the meta description tag to the head. It will contain an excerpt from the first post's content.
 		if ($conversation["countPosts"] > 0) {
 			$description = ET::SQL()
@@ -243,7 +243,7 @@ public function index($conversationId = false, $year = false, $month = false)
 			$description = str_replace(array("\n\n", "\n"), " ", $description);
 			$this->addToHead("<meta name='description' content='".sanitizeHTML($description)."'>");
 		}
-	
+
 		// Add JavaScript variables which contain conversation information.
 		$this->addJSVar("conversation", array(
 			"conversationId" => (int)$conversation["conversationId"],
@@ -298,7 +298,7 @@ public function index($conversationId = false, $year = false, $month = false)
 
 /**
  * Show the start conversation page.
- * 
+ *
  * @param string $member A member's name to make the conversation private with.
  * @return void
  */
@@ -334,14 +334,14 @@ public function start($member = false)
 
 		// Update the user's last action to say that they're "starting a conversation".
 		ET::memberModel()->updateLastAction("startingConversation");
-			
+
 		// Add a meta tag to the head to prevent search engines from indexing this page.
 		$this->addToHead("<meta name='robots' content='noindex, noarchive'/>");
 		$this->addJSFile("js/lib/jquery.autogrow.js");
 		$this->addJSFile("js/scrubber.js");
 		$this->addJSFile("js/autocomplete.js");
 		$this->addJSFile("js/conversation.js");
-		
+
 		// If there's a member name in the querystring, make the conversation that we're starting private
 		// with them and redirect.
 		if ($member and ET::$session->validateToken(R("token"))) {
@@ -401,7 +401,7 @@ public function start($member = false)
 
 /**
  * Redirect to show a specific post within its conversation.
- * 
+ *
  * @param int $postId The post ID to show.
  * @return void
  */
@@ -443,7 +443,7 @@ public function post($postId = false)
  * Show a post's details in JSON format so they can be used to construct a quote. The JSON output will
  * include the postId, member (prefixed with an @ if mentions are enabled), and the content (with inner quotes
  * removed.)
- * 
+ *
  * @param int $postId The post ID.
  * @return void
  */
@@ -461,7 +461,7 @@ public function quotePost($postId = false)
 	}
 
 	$post = $this->getPostForQuoting($postId, $conversation["conversationId"]);
-	if ($post) {	
+	if ($post) {
 		$this->json("postId", $postId);
 		$this->json("member", (C("esoTalk.format.mentions") ? "@" : "").$post["username"]);
 		$this->json("content", ET::formatter()->init($post["content"], false)->removeQuotes()->get());
@@ -472,7 +472,7 @@ public function quotePost($postId = false)
 
 /**
  * Delete a conversation, and redirect to the home page.
- * 
+ *
  * @param int $conversationId The ID of the conversation to delete.
  * @return void
  */
@@ -491,7 +491,7 @@ public function delete($conversationId = false)
 
 /**
  * Toggle the sticky flag on a conversation.
- * 
+ *
  * @param int $conversationId The ID of the conversation.
  * @return void
  */
@@ -503,7 +503,7 @@ public function sticky($conversationId = false)
 
 /**
  * Toggle the locked flag on a conversation.
- * 
+ *
  * @param int $conversationId The ID of the conversation.
  * @return void
  */
@@ -515,7 +515,7 @@ public function lock($conversationId = false)
 
 /**
  * Toggle a flag on a conversation.
- * 
+ *
  * @param int $conversationId The ID of the conversation.
  * @param string $type The name of the flag to toggle.
  * @return void
@@ -545,7 +545,7 @@ protected function toggle($conversationId, $type)
 
 /**
  * Show a page where a conversation's details (title, members allowed) can be edited.
- * 
+ *
  * @param int $conversationId The ID of the conversation to edit.
  * @return void
  */
@@ -583,7 +583,7 @@ public function edit($conversationId = false)
 
 /**
  * Show a page where a conversation's channel can be changed.
- * 
+ *
  * @param int $conversationId The ID of the conversation to edit.
  * @return void
  */
@@ -623,14 +623,14 @@ public function changeChannel($conversationId = "")
 
 /**
  * Save a conversation's details.
- * 
+ *
  * @param int $conversationId The conversation ID.
  * @return void
  */
 public function save($conversationId = false)
 {
 	if (!$this->validateToken()) return;
-	
+
 	// Get the conversation.
 	$model = ET::conversationModel();
 	if (!$conversationId) $conversation = $model->getEmptyConversation();
@@ -665,7 +665,7 @@ public function save($conversationId = false)
 	// If the conversation does not exist (i.e. we're changing the channel when starting a conversation),
 	// interact with the session channelId variable.
 	else {
-		
+
 		if ($channelId = $form->getValue("channel"))
 			ET::$session->store("channelId", (int)$channelId);
 
@@ -702,7 +702,7 @@ public function save($conversationId = false)
 
 /**
  * Show a page where the members allowed in a conversation can be edited.
- * 
+ *
  * @param int $conversationId The ID of the conversation to edit.
  * @return void
  */
@@ -735,7 +735,7 @@ public function membersAllowed($conversationId = false)
 /**
  * Show a full list of the members allowed in a conversation. This is used in popups triggered by hovering
  * over a "3 others" link or a private label.
- * 
+ *
  * @param int $conversationId The ID of the conversation to get members allowed for.
  * @return void
  */
@@ -756,14 +756,14 @@ public function membersAllowedList($conversationId = false)
 
 /**
  * Add a member to the allowed list of a conversation.
- * 
+ *
  * @param int $conversationId The ID of the conversation.
  * @return void
  */
 public function addMember($conversationId = false)
 {
 	if (!$this->validateToken()) return;
-	
+
 	// Get the conversation.
 	$model = ET::conversationModel();
 	if (!$conversationId) $conversation = $model->getEmptyConversation();
@@ -811,14 +811,14 @@ public function addMember($conversationId = false)
 
 /**
  * Remove a member from the allowed list of a conversation.
- * 
+ *
  * @param int $conversationId The ID of the conversation.
  * @return void
  */
 public function removeMember($conversationId = false)
 {
 	if (!$this->validateToken()) return;
-	
+
 	// Get the conversation.
 	$model = ET::conversationModel();
 	if (!$conversationId) $conversation = $model->getEmptyConversation();
@@ -865,7 +865,7 @@ public function removeMember($conversationId = false)
 
 /**
  * Toggle the starred flag of a conversation for the current user.
- * 
+ *
  * @param int $conversationId The ID of the conversation.
  * @return void
  */
@@ -893,7 +893,7 @@ public function star($conversationId = false)
 
 /**
  * Toggle the muted flag of a conversation for the current user.
- * 
+ *
  * @param int $conversationId The ID of the conversation.
  * @return void
  */
@@ -925,7 +925,7 @@ public function mute($conversationId = false)
 
 /**
  * Mark a conversation as read for the current user.
- * 
+ *
  * @param int $conversationId The ID of the conversation.
  * @return void
  */
@@ -950,7 +950,7 @@ public function markAsRead($conversationId = false)
 
 /**
  * Reply to a conversation, or save/discard a draft.
- * 
+ *
  * @param int $conversationId The ID of the conversation.
  * @return void
  */
@@ -994,7 +994,7 @@ public function reply($conversationId = false)
 	// Add a reply.
 	else {
 
-		// Fetch the members allowed so that notifications can be sent out in the addReply method if this is 
+		// Fetch the members allowed so that notifications can be sent out in the addReply method if this is
 		// the first post.
 		$model = ET::conversationModel();
 		$conversation["membersAllowed"] = $model->getMembersAllowed($conversation);
@@ -1003,7 +1003,7 @@ public function reply($conversationId = false)
 		// If there were errors, show them.
 		if ($model->errorCount())
 			$this->messages($model->errors(), "warning");
-		
+
 		else {
 
 			// Update the user's last read.
@@ -1041,7 +1041,7 @@ public function reply($conversationId = false)
 
 /**
  * Format a string of content to be previewed when editing a post.
- * 
+ *
  * @return void
  */
 public function preview()
@@ -1054,7 +1054,7 @@ public function preview()
 
 /**
  * Edit a post.
- * 
+ *
  * @param int $postId The post ID.
  * @return void
  */
@@ -1102,7 +1102,7 @@ public function editPost($postId = false)
 
 /**
  * Delete a post.
- * 
+ *
  * @param int $postId The post ID.
  * @return void
  */
@@ -1128,7 +1128,7 @@ public function deletePost($postId = false)
 
 /**
  * Restore a post.
- * 
+ *
  * @param int $postId The post ID.
  * @return void
  */
@@ -1154,7 +1154,7 @@ public function restorePost($postId = false)
 
 /**
  * Format post data into an array which can be used to display the post template view (conversation/post).
- * 
+ *
  * @param array $post The post data.
  * @param array $conversation The details of the conversation which the post is in.
  * @return array A formatted array which can be used in the post template view.
@@ -1176,7 +1176,7 @@ protected function formatPostForTemplate($post, $conversation)
 
 		"data" => array(
 			"id" => $post["postId"]
-		)		
+		)
 	);
 
 	// If the post was within the last 24 hours, show a relative time (eg. 2 hours ago.)
@@ -1197,7 +1197,7 @@ protected function formatPostForTemplate($post, $conversation)
 		$lastAction = ET::memberModel()->getLastActionInfo($post["lastActionTime"], $post["lastActionDetail"]);
 		if ($lastAction[0]) $lastAction[0] = " (".sanitizeHTML($lastAction[0]).")";
 		if ($lastAction) array_unshift($formatted["info"], "<".(!empty($lastAction[1]) ? "a href='{$lastAction[1]}'" : "span")." class='online' title='".T("Online")."{$lastAction[0]}'>".T("Online")."</".(!empty($lastAction[1]) ? "a" : "span").">");
-	
+
 		// Show the user's group type.
 		$formatted["info"][] = "<span class='group'>".memberGroup($post["account"], $post["groups"])."</span>";
 
@@ -1213,27 +1213,27 @@ protected function formatPostForTemplate($post, $conversation)
 			$formatted["controls"][] = "<a href='".URL("conversation/editPost/".$post["postId"])."' title='".T("Edit")."' class='control-edit'>".T("Edit")."</a>";
 			$formatted["controls"][] = "<a href='".URL("conversation/deletePost/".$post["postId"]."?token=".ET::$session->token)."' title='".T("Delete")."' class='control-delete'>".T("Delete")."</a>";
 		}
-	
+
 	}
 
 	// But if the post IS deleted...
 	else {
-		
+
 		// Add the "deleted by" information.
 		if ($post["deleteMemberId"]) $formatted["controls"][] = "<span>".sprintf(T("Deleted %s by %s"), "<span title='".date(T("date.full"), $post["deleteTime"])."'>".relativeTime($post["deleteTime"], true)."</span>", $post["deleteMemberName"])."</span>";
-					
+
 		// If the user can edit the post, add a restore control.
 		if ($canEdit)
 			$formatted["controls"][] = "<a href='".URL("conversation/restorePost/".$post["postId"]."?token=".ET::$session->token)."' title='".T("Restore")."' class='control-restore'>".T("Restore")."</a>";
 	}
-	
+
 	return $formatted;
 }
 
 
 /**
  * Returns whether or not a user has permission to edit a post, based on its details and context.
- * 
+ *
  * @param array $post The post array.
  * @param array $conversation The details of the conversation which the post is in.
  * @return bool Whether or not the user can edit the post.
@@ -1255,7 +1255,7 @@ private function canEditPost($post, $conversation)
 
 /**
  * Format a post's content to be displayed.
- * 
+ *
  * @param string $content The post content to format.
  * @return string The formatted post content.
  */
@@ -1268,7 +1268,7 @@ protected function displayPost($content)
 
 /**
  * Get an array of formatting controls to be shown when editing a post.
- * 
+ *
  * @param string $id The ID of the post area (eg. p# or reply.)
  * @return array The controls.
  */
@@ -1277,7 +1277,7 @@ protected function getEditControls($id)
 	$controls = array(
 		"quote" => "<a href='javascript:ETConversation.quote(\"$id\");void(0)' class='control-quote' title='".T("Quote")."' accesskey='q'><span>".T("Quote")."</span></a>",
 	);
-	
+
 	$this->trigger("getEditControls", array(&$controls, $id));
 
 	if (!empty($controls)) {
@@ -1285,14 +1285,14 @@ protected function getEditControls($id)
 		$controls[] = "</span>";
 		$controls[] = "<label class='previewCheckbox'><input type='checkbox' id='$id-previewCheckbox' onclick='ETConversation.togglePreview(\"$id\",this.checked)' accesskey='p'/> ".T("Preview")."</label>";
 	}
-	
+
 	return $controls;
 }
 
 
 /**
  * Get post data so it can be used to construct a quote of a post.
- * 
+ *
  * @param int $postId The ID of the post.
  * @param int $conversationId The ID of the conversation that the post is in.
  * @return array An array containing the username and the post content.
@@ -1315,7 +1315,7 @@ protected function getPostForQuoting($postId, $conversationId)
 
 /**
  * Shortcut function to get a conversation and render a 404 page if it cannot be found.
- * 
+ *
  * @param int $id The ID of the conversation to get, or the post to get the conversation of.
  * @param bool $post Whether or not $id is the conversationId or a postId.
  * @return bool|array An array of the conversation details, or false if it wasn't found.
@@ -1337,7 +1337,7 @@ protected function getConversation($id, $post = false)
 /**
  * Return post data to work with for an editing action (editPost, deletePost, etc.), but only if the post
  * exists and the user has permission to edit it.
- * 
+ *
  * @param int $postId The post ID.
  * @return bool|array An array of post data, or false if it cannot be edited.
  */
@@ -1361,5 +1361,3 @@ protected function getPostForEditing($postId)
 }
 
 }
-
-?>

@@ -6,7 +6,7 @@ if (!defined("IN_ESOTALK")) exit;
 
 /**
  * Shows a page to edit a single post.
- * 
+ *
  * @package esoTalk
  */
 

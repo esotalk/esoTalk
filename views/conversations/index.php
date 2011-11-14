@@ -6,7 +6,7 @@ if (!defined("IN_ESOTALK")) exit;
 
 /**
  * Displays the conversation list, including the filter area (search form, gambits, and channel breadcrumb.)
- * 
+ *
  * @package esoTalk
  */
 ?>

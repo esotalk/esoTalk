@@ -6,7 +6,7 @@ if (!defined("IN_ESOTALK")) exit;
 
 /**
  * This controller displays the dashboard section of the admin CP. Not much to see here!
- * 
+ *
  * @package esoTalk
  */
 class ETDashboardAdminController extends ETAdminController {
@@ -14,7 +14,7 @@ class ETDashboardAdminController extends ETAdminController {
 
 /**
  * Show the administrator dashboard view.
- * 
+ *
  * @return void
  */
 public function index()
@@ -44,7 +44,7 @@ public function index()
 
 		// Posts which've been made in the past week.
 		T("New posts in the past week") => number_format(ET::SQL()->select("COUNT(*)")->from("post")->where(":time<time")->bind(":time", $oneWeekAgo)->exec()->result()),
-		
+
 	);
 
 	// Determine if we should show the welcome sheet.
@@ -59,9 +59,9 @@ public function index()
 
 
 /**
- * Get a list of the most recent posts on the esoTalk blog. Also check for updates to the esoTalk software 
+ * Get a list of the most recent posts on the esoTalk blog. Also check for updates to the esoTalk software
  * and return the update notification area.
- * 
+ *
  * @return void
  */
 public function news()
@@ -105,5 +105,3 @@ public function news()
 }
 
 }
-
-?>

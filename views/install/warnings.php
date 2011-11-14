@@ -6,7 +6,7 @@ if (!defined("IN_ESOTALK")) exit;
 
 /**
  * Displays a list of warnings that have occurred within the esoTalk installer.
- * 
+ *
  * @package esoTalk
  */
 ?>

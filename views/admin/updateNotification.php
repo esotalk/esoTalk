@@ -6,7 +6,7 @@ if (!defined("IN_ESOTALK")) exit;
 
 /**
  * Shows the "update notification" box at the top of the dashboard.
- * 
+ *
  * @package esoTalk
  */
 ?>

@@ -5,9 +5,9 @@
 if (!defined("IN_ESOTALK")) exit;
 
 /**
- * The user controller handles session/user-altering actions such as logging in and out, signing up, and 
+ * The user controller handles session/user-altering actions such as logging in and out, signing up, and
  * resetting a password.
- * 
+ *
  * @package esoTalk
  */
 class ETUserController extends ETController {
@@ -15,7 +15,7 @@ class ETUserController extends ETController {
 
 /**
  * There's no index method for this controller, so redirect back to the index.
- * 
+ *
  * @return void
  */
 public function index()
@@ -26,7 +26,7 @@ public function index()
 
 /**
  * Show the login sheet and handle input from the login form.
- * 
+ *
  * @return void
  */
 public function login()
@@ -44,7 +44,7 @@ public function login()
 
 	// If the login form was submitted, attempt to log in.
 	if ($form->validPostBack("username")) {
-		
+
 		// If the login was successful, redirect or set a json flag, depending on the response type.
 		if (ET::$session->login($form->getValue("username"), $form->getValue("password"), $form->getValue("remember")))
 			$this->redirect(URL(R("return")));
@@ -67,7 +67,7 @@ public function login()
 
 /**
  * Log the user out and redirect.
- * 
+ *
  * @return void
  */
 public function logout()
@@ -81,7 +81,7 @@ public function logout()
 
 /**
  * Show the sign up sheet and handle input from its form.
- * 
+ *
  * @return void
  */
 public function join()
@@ -94,7 +94,7 @@ public function join()
 		$this->renderMessage(T("Registration Closed"), T("message.registrationClosed"));
 		return;
 	}
-	
+
 	// Set the title and make sure this page isn't indexed.
 	$this->title = T("Sign Up");
 	$this->addToHead("<meta name='robots' content='noindex, noarchive'/>");
@@ -159,7 +159,7 @@ public function join()
 
 /**
  * Send an email to a member containing a link which will confirm their email address.
- * 
+ *
  * @param string $email The email of the member.
  * @param string $username The username of the member.
  * @param string $hash The hash stored in the member's resetPassword field, prefixed with the member's ID.
@@ -176,7 +176,7 @@ protected function sendConfirmationEmail($email, $username, $hash)
 
 /**
  * Confirm a member's email address with the provided hash.
- * 
+ *
  * @param string $hash The hash stored in the member's resetPassword field, prefixed with the member's ID.
  * @return void
  */
@@ -188,7 +188,7 @@ public function confirm($hash = "")
 	// Split the hash into the member ID and hash.
 	$memberId = (int)substr($hash, 0, strlen($hash) - 32);
 	$hash = substr($hash, -32);
-	
+
 	// See if there is an unconfirmed user with this ID and password hash. If there is, confirm them and log them in.
 	$result = ET::SQL()
 		->select("1")
@@ -198,13 +198,13 @@ public function confirm($hash = "")
 		->where("confirmedEmail=0")
 		->exec();
 	if ($result->numRows()) {
-		
+
 		// Mark the member as confirmed.
 		ET::memberModel()->updateById($memberId, array(
 			"resetPassword" => null,
 			"confirmedEmail" => true
 		));
-		
+
 		// Log them in and show a message.
 		ET::$session->loginWithMemberId($memberId);
 		$this->message(T("message.emailConfirmed"), "success");
@@ -217,7 +217,7 @@ public function confirm($hash = "")
 
 /**
  * Resend an email confirmation email.
- * 
+ *
  * @param string $username The username of the member to resend to.
  * @return void
  */
@@ -237,16 +237,16 @@ public function sendConfirmation($username = "")
 
 
 /**
- * Show the forgot password sheet, allowing a member to be sent an email containing a link to reset their 
+ * Show the forgot password sheet, allowing a member to be sent an email containing a link to reset their
  * password.
- * 
+ *
  * @return void
  */
 public function forgot()
 {
 	// If the user is logged in, kick them out.
 	if (ET::$session->user) $this->redirect(URL(""));
-	
+
 	// Set the title and make sure the page doesn't get indexed.
 	$this->title = T("Forgot Password");
 	$this->addToHead("<meta name='robots' content='noindex, noarchive'/>");
@@ -257,21 +257,21 @@ public function forgot()
 
 	// If the cancel button was pressed, return to where the user was before.
 	if ($form->isPostBack("cancel")) redirect(URL(R("return")));
-	
+
 	// If they've submitted their email to get a password reset link, email one to them!
 	if ($form->validPostBack("submit")) {
-		
+
 		// Find the member with this email.
 		$member = reset(ET::memberModel()->get(array("email" => $form->getValue("email"))));
 		if (!$member)
 			$form->error("email", T("message.emailDoesntExist"));
 
 		else {
-			
+
 			// Update their record in the database with a special password reset hash.
 			$hash = md5(uniqid(rand()));
 			ET::memberModel()->updateById($member["memberId"], array("resetPassword" => $hash));
-			
+
 			// Send them email containing the link, and redirect to the home page.
 			sendEmail($member["email"],
 				sprintf(T("email.forgotPassword.subject"), $member["username"]),
@@ -281,7 +281,7 @@ public function forgot()
 			return;
 
 		}
-		
+
 	}
 
 	$this->data("form", $form);
@@ -291,8 +291,8 @@ public function forgot()
 
 /**
  * Show a form allowing the user to reset their password, following on from a link sent to them by the forgot
- * password process. 
- * 
+ * password process.
+ *
  * @param string $hashString The hash stored in the member's resetPassword field, prefixed by their ID.
  * @return void
  */
@@ -303,7 +303,7 @@ public function reset($hashString = "")
 	// Split the hash into the member ID and hash.
 	$memberId = (int)substr($hashString, 0, strlen($hashString) - 32);
 	$hash = substr($hashString, -32);
-		
+
 	// Find the member with this password reset token. If it's an invalid token, take them back to the email form.
 	$member = reset(ET::memberModel()->get(array("m.memberId" => $memberId, "resetPassword" => md5($hash))));
 	if (!$member) return;
@@ -311,10 +311,10 @@ public function reset($hashString = "")
 	// Construct a form.
 	$form = ETFactory::make("form");
 	$form->action = URL("user/reset/$hashString");
-			
+
 	// If the change password form has been submitted...
 	if ($form->validPostBack("submit")) {
-		
+
 		// Make sure the passwords match. The model will do the rest of the validation.
 		if ($form->getValue("password") != $form->getValue("confirm"))
 			$form->error("confirm", T("message.passwordsDontMatch"));
@@ -329,7 +329,7 @@ public function reset($hashString = "")
 
 			// If there were validation errors, pass them to the form.
 			if ($model->errorCount()) $form->errors($model->errors());
-		
+
 			else {
 				$this->message(T("message.passwordChanged"));
 				$this->redirect(URL(""));
@@ -344,5 +344,3 @@ public function reset($hashString = "")
 }
 
 }
-
-?>

@@ -6,7 +6,7 @@ if (!defined("IN_ESOTALK")) exit;
 
 /**
  * The members controller handles the member list, online members sheet, and the creation of new members.
- * 
+ *
  * @package esoTalk
  */
 class ETMembersController extends ETController {
@@ -14,7 +14,7 @@ class ETMembersController extends ETController {
 
 /**
  * Show the member list page.
- * 
+ *
  * @param string $orderBy What to sort the members by.
  * @param mixed $start Where to start the results from. This can be:
  * 		- An integer, in which case it will be used as a numerical offset.
@@ -23,7 +23,7 @@ class ETMembersController extends ETController {
  * @return void
  */
 public function index($orderBy = false, $start = 0)
-{	
+{
 	// Begin constructing a query to fetch results.
 	$sql = ET::SQL()->from("member m");
 
@@ -170,7 +170,7 @@ public function index($orderBy = false, $start = 0)
 
 /**
  * Show the "create member" sheet, containing a form to create a new member.
- * 
+ *
  * @return void
  */
 public function create()
@@ -224,7 +224,7 @@ public function create()
 
 /**
  * Show the "online members" sheet.
- * 
+ *
  * @return void
  */
 public function online()
@@ -232,7 +232,7 @@ public function online()
 	// Set the title and make sure this page isn't indexed.
 	$this->title = T("Online Members");
 	$this->addToHead("<meta name='robots' content='noindex, noarchive'/>");
-	
+
 	// Construct a query to get only members who are online.
 	$sql = ET::SQL()
 		->where((time() - ET::config("esoTalk.userOnlineExpire"))."<lastActionTime")
@@ -249,7 +249,7 @@ public function online()
 /**
  * Return a JSON array of up to 50 members whose usernames match a given string. This data can be used to
  * create a list of members in an autocomplete menu.
- * 
+ *
  * @param string $input The string to match member usernames against.
  * @return void
  */
@@ -284,7 +284,5 @@ public function autocomplete($input = "")
 	$this->json("results", $results);
 	$this->render();
 }
-	
-}
 
-?>
+}

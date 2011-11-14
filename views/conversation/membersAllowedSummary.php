@@ -7,7 +7,7 @@ if (!defined("IN_ESOTALK")) exit;
 /**
  * Shows a summary of the members allowed in a conversation.
  * For example: Toby, Administrators, and 2 others can view this conversation.
- * 
+ *
  * @package esoTalk
  */
 
@@ -43,7 +43,7 @@ if (count($names)) {
 	// If there's more than one name, construct the list so that it has the word "and" in it.
 	if (count($names) > 1) {
 
-		// If there're more than 3 names, chop off everything after the first 3 and replace them with a 
+		// If there're more than 3 names, chop off everything after the first 3 and replace them with a
 		// "x others" link.
 		if (count($names) > 3) {
 			$otherNames = array_splice($names, 3);
@@ -51,7 +51,7 @@ if (count($names)) {
 		} else {
 			$lastName = array_pop($names);
 		}
-		
+
 		printf(T("%s ".($conversation["countPosts"] > 0 ? "can" : "will be able to")." view this conversation."), sprintf(T("%s and %s"), implode(", ", $names), $lastName));
 	}
 

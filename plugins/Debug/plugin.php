@@ -17,7 +17,7 @@ ET::$pluginInfo["Debug"] = array(
 
 /**
  * Debug Plugin
- * 
+ *
  * Shows useful debugging information, such as SQL queries, to administrators.
  */
 class ETPlugin_Debug extends ETPlugin {
@@ -31,7 +31,7 @@ private $queryStartTime;
 
 
 /**
- * An application backtrace taken before a query is executed, and used to work out which model/method the 
+ * An application backtrace taken before a query is executed, and used to work out which model/method the
  * query came from.
  * @var array
  */
@@ -47,7 +47,7 @@ private $queries = array();
 
 /**
  * Initialize the plugin: turn esoTalk's debug config variable on.
- * 
+ *
  * @return void
  */
 public function init()
@@ -62,7 +62,7 @@ public function init()
 
 /**
  * On all controller initializations, add the debug CSS file to the page.
- * 
+ *
  * @return void
  */
 public function handler_init()
@@ -74,7 +74,7 @@ public function handler_init()
 
 /**
  * Store the current time (before a query is executed) so we can work out how long it took when it finishes.
- * 
+ *
  * @return void
  */
 public function handler_database_beforeQuery($sender, $query)
@@ -88,7 +88,7 @@ public function handler_database_beforeQuery($sender, $query)
 
 /**
  * Work out how long the query took to run and add it to the log.
- * 
+ *
  * @return void
  */
 public function handler_database_afterQuery($sender, $result)
@@ -107,22 +107,22 @@ public function handler_database_afterQuery($sender, $result)
 
 /**
  * Render the debug area at the bottom of the page.
- * 
+ *
  * @return void
  */
 function handler_pageEnd($sender)
 {
 	// Don't proceed if the user is not permitted to see the debug information!
 	if (!ET::$session->isAdmin()) return;
-	
+
 	// Stop the page loading timer.
 	$end = microtime(true);
 	$time = round($end - PAGE_START_TIME, 4);
-	
+
 	// Output the debug area.
 	echo "<div id='debug'>
 <div id='debugHdr'><h2>".sprintf(T("Page loaded in %s seconds"), $time)."</h2></div>";
-	
+
 	// Include the geshi library so we can syntax-highlight MySQL queries.
 	include "geshi/geshi.php";
 
@@ -134,7 +134,7 @@ function handler_pageEnd($sender)
 		echo "<div><strong>".$query[2]."</strong> <span class='queryTime subText".($query[1] > 0.5 ? " warning" : "")."'>".$query[1]."s</span>".$geshi->parse_code()."</div>";
 	}
 	$this->queries = array();
-	
+
 	// Output POST + GET + FILES information.
 	echo "</div>
 	<h3><a href='#' onclick='$(\"#debugPostGetFiles\").slideToggle(\"fast\");return false'>".T("POST + GET + FILES information")."</a></h3>
@@ -147,7 +147,7 @@ function handler_pageEnd($sender)
 	echo sanitizeHTML(print_r($_FILES, true));
 	echo "</p>
 	</div>";
-	
+
 	// Output SESSION + COOKIE information.
 	echo "<h3><a href='#' onclick='$(\"#debugSessionCookie\").slideToggle(\"fast\");return false'>".T("SESSION + COOKIE information")."</a></h3>
 	<div id='debugSessionCookie' class='section'><p style='white-space:pre' class='fixed' id='debugSession'>\$_SESSION = ";
@@ -155,8 +155,8 @@ function handler_pageEnd($sender)
 	echo "</p><p style='white-space:pre' class='fixed' id='debugCookie'>\$_COOKIE = ";
 	echo sanitizeHTML(print_r($_COOKIE, true));
 	echo "</p></div>";
-	
-	
+
+
 	// Hide all panels by default.
 	echo "<script>
 	$(function() {
@@ -166,5 +166,3 @@ function handler_pageEnd($sender)
 }
 
 }
-
-?>

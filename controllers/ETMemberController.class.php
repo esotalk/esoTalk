@@ -5,19 +5,19 @@
 if (!defined("IN_ESOTALK")) exit;
 
 /**
- * The member controller handles all actions to do with viewing/managing a single member. This includes 
+ * The member controller handles all actions to do with viewing/managing a single member. This includes
  * viewing their profile (and individual profile panes), changing their permissions, and deleting or renaming
  * them.
- * 
+ *
  * @package esoTalk
  */
 class ETMemberController extends ETController {
 
 
 /**
- * A render function that will render the specified view inside of the main member "profile" view. (Except 
+ * A render function that will render the specified view inside of the main member "profile" view. (Except
  * on AJAX/view response types.)
- * 
+ *
  * @param string $view The name of the view to render.
  * @return void
  */
@@ -34,7 +34,7 @@ public function renderProfile($view = "")
 
 /**
  * Redirect to the profile for the member with the specified username.
- * 
+ *
  * @param string $name The name of the member.
  * @return void
  */
@@ -57,7 +57,7 @@ public function name($name = "")
 
 /**
  * View a member's profile. Default to the activity pane.
- * 
+ *
  * @param string $member The ID of the member.
  * @return void
  */
@@ -69,7 +69,7 @@ public function index($member = "")
 
 /**
  * Fetch the specified member's details, or render a not found error if the member doesn't exist.
- * 
+ *
  * @param string $member The member's ID.
  * @return array An array of the member's details, or false if they weren't found.
  */
@@ -86,7 +86,7 @@ protected function getMember($memberId)
 
 /**
  * Set up data and menus that are needed to render the member profile view.
- * 
+ *
  * @param string $member The ID of the member.
  * @param string $pane The name of the active pane.
  * @return array The member details, or false if the member was not found.
@@ -96,7 +96,7 @@ protected function profile($member, $pane = "")
 	// Translate "me" to the currently logged in user. Otherwise, use the member ID provided.
 	if ($member == "me") $memberId = ET::$session->userId;
 	else $memberId = (int)$member;
-	
+
 	if (!($member = $this->getMember($memberId))) return false;
 
 	// Set the title and include relevant JavaScript.
@@ -146,7 +146,7 @@ protected function profile($member, $pane = "")
 	// If this is the logged-in user's profile, show a link to their settings page.
 	if ($member["memberId"] == ET::$session->userId)
 		$actions->add("settings", "<a href='".URL("settings")."'>".T("Edit your profile")."</a>");
-	
+
 	// Otherwise, show links to do with the user's private conversations with this member.
 	elseif (ET::$session->userId) {
 		$actions->add("private", "<span class='label label-private'>".T("label.private")."</span>");
@@ -166,7 +166,7 @@ protected function profile($member, $pane = "")
 
 /**
  * Show a member profile with the activity pane.
- * 
+ *
  * @param string $member The member ID.
  * @param int $page The activity page number.
  * @return void
@@ -200,7 +200,7 @@ public function activity($member = "", $page = "")
 
 /**
  * Delete an activity item.
- * 
+ *
  * @param int $activityId The ID of the activity item.
  * @return void
  */
@@ -228,7 +228,7 @@ public function deleteActivity($activityId = "")
 
 /**
  * Show a member profile with the statistics pane.
- * 
+ *
  * @param string $member The member ID.
  * @return void
  */
@@ -261,7 +261,7 @@ public function statistics($member = "")
 
 /**
  * Show a sheet to edit a member's permissions by changing their account type and groups.
- * 
+ *
  * @param int $memberId The member's ID.
  * @return void
  */
@@ -324,7 +324,7 @@ public function permissions($memberId = "")
 
 		// Save the new account and groups.
 		ET::memberModel()->setGroups($member, $currentAccount, $currentGroups);
-	
+
 		// Show a message and redirect.
 		$this->message(T("message.changesSaved"), "success");
 		$this->redirect($redirectURL);
@@ -351,7 +351,7 @@ public function permissions($memberId = "")
 
 /**
  * Remove a member's avatar and redirect back to their profile.
- * 
+ *
  * @param int $memberId The member's ID.
  * @return void
  */
@@ -380,7 +380,7 @@ public function removeAvatar($memberId = "")
 
 /**
  * Show a sheet to toggle suspension of a member.
- * 
+ *
  * @param int $memberId The member's ID.
  * @return void
  */
@@ -424,7 +424,7 @@ public function suspend($memberId = "")
 
 /**
  * Show a sheet to change a member's username.
- * 
+ *
  * @param int $memberId The member's ID.
  * @return void
  */
@@ -469,7 +469,7 @@ public function rename($memberId = "")
 
 /**
  * Show a sheet to delete a member.
- * 
+ *
  * @param int $memberId The member's ID.
  * @return void
  */
@@ -504,5 +504,3 @@ public function delete($memberId = "")
 }
 
 }
-
-?>

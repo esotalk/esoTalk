@@ -6,7 +6,7 @@ if (!defined("IN_ESOTALK")) exit;
 
 /**
  * Displays a single activity item in a member's profile.
- * 
+ *
  * @package esoTalk
  */
 
@@ -21,7 +21,7 @@ $member = $data["member"];
 <?php endif; ?>
 </div>
 <div class='action'>
-<?php echo avatar($activity["fromMemberId"], $activity["avatarFormat"], "thumb"); ?> 
+<?php echo avatar($activity["fromMemberId"], $activity["avatarFormat"], "thumb"); ?>
 <?php echo $activity["description"]; ?>
 </div>
 <?php if (!empty($activity["body"])): ?>

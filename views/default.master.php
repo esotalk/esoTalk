@@ -6,7 +6,7 @@ if (!defined("IN_ESOTALK")) exit;
 
 /**
  * Default master view. Displays a HTML template with a header and footer.
- * 
+ *
  * @package esoTalk
  */
 ?>
@@ -15,7 +15,7 @@ if (!defined("IN_ESOTALK")) exit;
 <head>
 <meta charset='<?php echo T("charset", "utf-8"); ?>'>
 <title><?php echo $data["pageTitle"]; ?></title>
-<?php echo $data["head"]; ?> 
+<?php echo $data["head"]; ?>
 </head>
 
 <body class='<?php echo $data["bodyClass"]; ?>'>

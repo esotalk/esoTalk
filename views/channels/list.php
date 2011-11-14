@@ -6,7 +6,7 @@ if (!defined("IN_ESOTALK")) exit;
 
 /**
  * Displays the channel list.
- * 
+ *
  * @package esoTalk
  */
 ?>

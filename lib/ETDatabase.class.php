@@ -6,7 +6,7 @@ if (!defined("IN_ESOTALK")) exit;
 
 /**
  * The database class handles the database connection and the running of queries against the database.
- * 
+ *
  * @package esoTalk
  */
 class ETDatabase extends ETPluggable {
@@ -134,7 +134,7 @@ public function getVersion()
 /**
  * Initialize the database class with database details. These details will be used when a PDO connection
  * is made.
- * 
+ *
  * @param string $host The database host.
  * @param string $user The database user.
  * @param string $password The database password.
@@ -223,7 +223,7 @@ public function lastInsertId()
 
 /**
  * Escape a value so that it is safe to use in an SQL query.
- * 
+ *
  * @param mixed $value The value to escape.
  * @param int $dataType Explicit data type for the value using PDO::PARAM_* constants. If null,
  * 		the type of $value will be used.
@@ -266,7 +266,7 @@ public function escapeValue($value, $dataType = null)
 
 /**
  * Run a query against the database.
- * 
+ *
  * @param string $query The query to run.
  * @return ETSQLResult|bool An SQL result, or false if the query was unsuccessful.
  */
@@ -277,7 +277,7 @@ public function query($query)
 
 	// Get the database connection.
 	$connection = $this->connection();
-	
+
 	$this->trigger("beforeQuery", array(&$query));
 	$this->queries[] = $query;
 
@@ -294,7 +294,7 @@ public function query($query)
 	$result = ETFactory::make("sqlResult", $statement);
 
 	$this->trigger("afterQuery", array($result));
-	
+
 	return $result;
 }
 
@@ -302,7 +302,7 @@ public function query($query)
 /**
  * Find anything in single quotes in the error and make it red in the query (just to make debugging a bit
  * easier!)
- * 
+ *
  * @param string $query The SQL query that failed.
  * @param string $error The error string that was returned by the connection.
  * @return string The SQL query with the guessed "errorous" parts highlighted.
@@ -316,4 +316,3 @@ protected function highlightQueryErrors($query, $error)
 }
 
 }
-?>

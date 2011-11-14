@@ -6,7 +6,7 @@ if (!defined("IN_ESOTALK")) exit;
 
 /**
  * The ETMenu class provides a way to collect menu items and then render them as list items in a menu.
- * 
+ *
  * @package esoTalk
  */
 class ETMenu {
@@ -28,7 +28,7 @@ protected $highlight = array();
 
 /**
  * Add an item to this menu collection.
- * 
+ *
  * @param string $id The name of the menu item.
  * @param string $html The HTML content of the menu item.
  * @param mixed $position The position to put the menu item, relative to other menu items.
@@ -43,7 +43,7 @@ public function add($id, $html, $position = false)
 
 /**
  * Add a separator item to this menu collection.
- * 
+ *
  * @param mixed $position The position to put the menu item, relative to other menu items.
  * @see addToArrayString
  * @return void
@@ -56,7 +56,7 @@ public function separator($position = false)
 
 /**
  * Highlight a particular menu item.
- * 
+ *
  * @param string $id The name of the menu item to highlight.
  * @return void
  */
@@ -68,7 +68,7 @@ public function highlight($id)
 
 /**
  * Get the contents of the menu as a string of <li> elements.
- * 
+ *
  * @return string The HTML contents of the menu.
  */
 public function getContents()
@@ -84,7 +84,7 @@ public function getContents()
 
 /**
  * Get the number of menu items collected in this menu.
- * 
+ *
  * @return int
  */
 public function count()
@@ -93,5 +93,3 @@ public function count()
 }
 
 }
-
-?>

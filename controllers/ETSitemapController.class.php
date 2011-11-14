@@ -31,7 +31,7 @@ if (!file_exists("sitemap.xml") or filemtime("sitemap.xml") < time() - $config["
 	require "lib/database.php";
 	$db = new Database();
 	if (!$db->connect($config["mysqlHost"], $config["mysqlUser"], $config["mysqlPass"], $config["mysqlDB"])) exit;
-	
+
 	// Does sitemap.general.xml exist? If not, create it.
 	if (!file_exists("sitemap.general.xml")) {
 		writeFile("sitemap.general.xml", "<?xml version='1.0' encoding='UTF-8'?><urlset xmlns='http://www.sitemaps.org/schemas/sitemap/0.9'><url><loc>{$config["baseURL"]}</loc><changefreq>hourly</changefreq><priority>1.0</priority></url></urlset>");
@@ -60,9 +60,9 @@ if (!file_exists("sitemap.xml") or filemtime("sitemap.xml") < time() - $config["
 
 			// Create a <url> tag for each conversation in the result set.
 			while (list($conversationId, $slug, $postsPerDay, $lastUpdated, $posts) = mysql_fetch_row($r)) {
-				
+
 				$urlset .= "<url><loc>{$config["baseURL"]}" . makeLink($conversationId, $slug) . "</loc><lastmod>" . gmdate("Y-m-d\TH:i:s+00:00", $lastUpdated) . "</lastmod><changefreq>";
-				
+
 				// How often should we tell them to check for updates?
 				if ($postsPerDay < 0.006) $urlset .= "yearly";
 				elseif ($postsPerDay < 0.07) $urlset .= "monthly";
@@ -70,7 +70,7 @@ if (!file_exists("sitemap.xml") or filemtime("sitemap.xml") < time() - $config["
 				elseif ($postsPerDay < 3) $urlset .= "daily";
 				else $urlset .= "hourly";
 				$urlset .= "</changefreq>";
-				
+
 				// Estimate the conversation's importance based upon the number of posts.
 				if ($posts < 50) ; // Default priority is 0.5, so specifying it is redundant.
 				elseif ($posts < 100) $urlset .= "<priority>0.6</priority>";
@@ -78,7 +78,7 @@ if (!file_exists("sitemap.xml") or filemtime("sitemap.xml") < time() - $config["
 				elseif ($posts < 1000) $urlset .= "<priority>0.8</priority>";
 				else $urlset .= "<priority>0.9</priority>";
 				$urlset .= "</url>";
-				
+
 			}
 
 			// [Encode, and] write out the file.
@@ -96,7 +96,7 @@ if (!file_exists("sitemap.xml") or filemtime("sitemap.xml") < time() - $config["
 	// For each conversation sitemap that we wrote, up until we break'd, add a <sitemap> entry to the index.
 	for ($j = 1; $j < $i; $j++) $sitemap .= "<sitemap><loc>{$config["baseURL"]}sitemap.conversations.$j.xml" . ZLIB . "</loc><lastmod>" . gmdate("Y-m-d\TH:i:s+00:00") . "</lastmod></sitemap>";
 	$sitemap .= "</sitemapindex>";
-	
+
 	// And write out!
 	writeFile("sitemap.xml", $sitemap);
 }
@@ -106,5 +106,3 @@ header("Content-type: text/xml");
 $handle = fopen("sitemap.xml", "r");
 echo fread($handle, filesize("sitemap.xml"));
 fclose($handle);
-
-?>

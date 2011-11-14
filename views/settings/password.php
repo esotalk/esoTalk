@@ -6,7 +6,7 @@ if (!defined("IN_ESOTALK")) exit;
 
 /**
  * Displays the "change password or email" settings form.
- * 
+ *
  * @package esoTalk
  */
 

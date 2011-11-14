@@ -7,7 +7,7 @@ if (!defined("IN_ESOTALK")) exit;
 /**
  * The Session model represents the current session and the current user. It provides functions for manipluating
  * and managing the session and user, such as storing data, logging in and out, and validating tokens.
- * 
+ *
  * @package esoTalk
  */
 class ETSession extends ETModel {
@@ -21,7 +21,7 @@ public $user;
 
 
 /**
- * The current user's member ID, or null if they're not logged in. 
+ * The current user's member ID, or null if they're not logged in.
  * @var int
  */
 public $userId;
@@ -43,7 +43,7 @@ public $ip;
 
 /**
  * Class constructor: starts the session and initializes class properties (ip, token, user, etc.)
- * 
+ *
  * @return void
  */
 public function __construct()
@@ -64,7 +64,7 @@ public function __construct()
 	// If a persistent login cookie is set, attempt to log in.
 	// We use this implementation: http://jaspan.com/improved_persistent_login_cookie_best_practice
 	if (!$this->userId and ($cookie = $this->getCookie("persistent"))) {
-		
+
 		// Get the token, series, and member ID from the cookie.
 		$token = substr($cookie, -32);
 		$series = substr($cookie, -64, 32);
@@ -80,11 +80,11 @@ public function __construct()
 
 		// If a matching record exists...
 		if ($row = $result->firstRow() and $row["series"] == $series) {
-			
+
 			// If the token doesn't match, the user's cookie has probably been stolen by someone else.
 			if ($row["token"] != $token) {
-				
-				// Delete this member's cookie identifier for this series, so the attacker will not be able 
+
+				// Delete this member's cookie identifier for this series, so the attacker will not be able
 				// to log in again.
 				ET::SQL()->delete()->from("cookie")->where("memberId", $memberId)->where("series", $series)->exec();
 
@@ -114,7 +114,7 @@ public function __construct()
 
 /**
  * Pulls fresh user data from the database into the $user property.
- * 
+ *
  * @return void
  */
 public function refreshUserData()
@@ -126,7 +126,7 @@ public function refreshUserData()
 
 /**
  * Get the value of a specific preference for the currently logged in user.
- * 
+ *
  * @return mixed
  */
 public function preference($key, $default = false)
@@ -137,7 +137,7 @@ public function preference($key, $default = false)
 
 /**
  * Set preferences for the current user.
- * 
+ *
  * @param array $values An array of preferences to set.
  * @return void
  */
@@ -150,7 +150,7 @@ public function setPreferences($values)
 
 /**
  * Set up the session to be logged in with the given member.
- * 
+ *
  * @param array $member The details of the member to log in with.
  * @return bool true on success, false on error.
  */
@@ -165,7 +165,7 @@ protected function processLogin($member)
 	// Assign the user ID to a SESSION variable.
 	$_SESSION["userId"] = $member["memberId"];
 	$this->user = $member;
-	
+
 	// Regenerate the session ID and token to prevent session fixation.
 	$this->regenerateToken();
 
@@ -175,7 +175,7 @@ protected function processLogin($member)
 
 /**
  * Log in the member with the specified ID.
- * 
+ *
  * @param int $memberId The member ID.
  * @return bool true on success, false on failure.
  */
@@ -188,7 +188,7 @@ public function loginWithMemberId($memberId)
 
 /**
  * Log in the member with the specified username and password, and optionally set a persistent login cookie.
- * 
+ *
  * @param string $username The username.
  * @param string $password The password.
  * @param bool $remember Whether or not to set a persistent login cookie.
@@ -230,7 +230,7 @@ public function login($name, $password, $remember = false)
 
 /**
  * Create or update a memberId-series-token triplet in the cookie table that can be used to verify a cookie.
- * 
+ *
  * @param int $memberId The ID of the member that the cookie is being set for.
  * @param string $series The series identifier.
  * @return string $token The token that was generated.
@@ -253,7 +253,7 @@ protected function createPersistentToken($memberId, $series)
 
 /**
  * Set a cookie with a standardized name prefix.
- * 
+ *
  * @param string $name The name of the cookie.
  * @param string $value The value of the cookie.
  * @param int $expire The time before the cookie will expire.
@@ -266,7 +266,7 @@ public function setCookie($name, $value, $expire = 0)
 
 /**
  * Get the value of a cookie set by $this->setCookie().
- * 
+ *
  * @param string $name The name of the cookie.
  * @param string $default The value to return if the cookie is not set.
  * @return string
@@ -280,7 +280,7 @@ public function getCookie($name, $default = null)
 
 /**
  * Log the current user out.
- * 
+ *
  * @return void
  */
 public function logout()
@@ -291,14 +291,14 @@ public function logout()
 
 	// Eat the persistent login cookie. OM NOM NOM
 	if ($this->getCookie("persistent")) $this->setCookie("persistent", false, -1);
-	
+
 	$this->trigger("logout");
 }
 
 
 /**
  * Update the current session's local user data.
- * 
+ *
  * @param string $key The key to set.
  * @param mixed $value The value to set.
  * @return void
@@ -311,7 +311,7 @@ public function updateUser($key, $value)
 
 /**
  * Check a token against the current valid token.
- * 
+ *
  * @param string $token The token to check.
  * @return bool Whether or not the token is valid.
  */
@@ -323,7 +323,7 @@ public function validateToken($token)
 
 /**
  * Regenerate the session ID, token, and store the user's agent.
- * 
+ *
  * @return void
  */
 public function regenerateToken()
@@ -336,11 +336,11 @@ public function regenerateToken()
 
 /**
  * Push an item onto the top of the navigation breadcrumb stack.
- * 
+ *
  * When adding an item to the navigation breadcrumb stack, we first go through all the items in the stack and
- * check if there's an item with the same ID. If it is found, we go back to that point in the breadcrumb, 
+ * check if there's an item with the same ID. If it is found, we go back to that point in the breadcrumb,
  * discarding everything afterwards.
- * 
+ *
  * @param string $id The navigation ID (a unique ID for this item in the breadcrumb.)
  * @param string $type The type of page this is (search/conversation/etc - will be used in the "back to [type]" text.)
  * @param string $url The URL to this page.
@@ -367,7 +367,7 @@ public function pushNavigation($id, $type, $url)
 /**
  * Get the item that is on top of the navigation stack. The navigation ID of the current page will be used to
  * make the the item returned isn't the item for the current page.
- * 
+ *
  * @param string $currentId The unqiue navigation ID of the current page.
  * @return bool|array The navigation item, or false if there is none (if the current page is the top.)
  */
@@ -385,7 +385,7 @@ public function getNavigation($currentId)
 
 /**
  * Return whether or not the current user is an administrator.
- * 
+ *
  * @return bool
  */
 public function isAdmin()
@@ -396,7 +396,7 @@ public function isAdmin()
 
 /**
  * Return whether or not the current user is suspended.
- * 
+ *
  * @return bool
  */
 public function isSuspended()
@@ -407,7 +407,7 @@ public function isSuspended()
 
 /**
  * Return whether or not the current user is flooding.
- * 
+ *
  * @return bool
  */
 public function isFlooding()
@@ -430,7 +430,7 @@ public function isFlooding()
 
 /**
  * Get a list of group IDs which the current user is in.
- * 
+ *
  * @return array
  */
 public function getGroupIds()
@@ -442,7 +442,7 @@ public function getGroupIds()
 
 /**
  * Store a value in the session data store.
- * 
+ *
  * @return void
  */
 public function store($key, $value)
@@ -453,7 +453,7 @@ public function store($key, $value)
 
 /**
  * Retrieve a value from the session data store.
- * 
+ *
  * @return mixed
  */
 public function get($key, $default = null)
@@ -464,7 +464,7 @@ public function get($key, $default = null)
 
 /**
  * Remove a value from the session data store.
- * 
+ *
  * @return void
  */
 public function remove($key)
@@ -473,5 +473,3 @@ public function remove($key)
 }
 
 }
-
-?>
