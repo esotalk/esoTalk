@@ -48,7 +48,7 @@ public function handler_conversationController_getEditControls($sender, &$contro
 	addToArrayString($controls, "fixed", "<a href='javascript:BBCode.fixed(\"$id\");void(0)' title='".T("Fixed")."' class='bbcode-fixed'><span>".T("Fixed")."</span></a>", 0);
 	addToArrayString($controls, "image", "<a href='javascript:BBCode.image(\"$id\");void(0)' title='".T("Image")."' class='bbcode-img'><span>".T("Image")."</span></a>", 0);
 	addToArrayString($controls, "link", "<a href='javascript:BBCode.link(\"$id\");void(0)' title='".T("Link")."' class='bbcode-link'><span>".T("Link")."</span></a>", 0);
-	addToArrayString($controls, "strike", "<a href='javascript:BBCode.strike(\"$id\");void(0)' title='".T("Strike")."' class='bbcode-s'><span>".T("Strike")."</span></a>", 0);
+	addToArrayString($controls, "strike", "<a href='javascript:BBCode.strikethrough(\"$id\");void(0)' title='".T("Strike")."' class='bbcode-s'><span>".T("Strike")."</span></a>", 0);
 	addToArrayString($controls, "header", "<a href='javascript:BBCode.header(\"$id\");void(0)' title='".T("Header")."' class='bbcode-h'><span>".T("Header")."</span></a>", 0);
 	addToArrayString($controls, "italic", "<a href='javascript:BBCode.italic(\"$id\");void(0)' title='".T("Italic")."' class='bbcode-i'><span>".T("Italic")."</span></a>", 0);
 	addToArrayString($controls, "bold", "<a href='javascript:BBCode.bold(\"$id\");void(0)' title='".T("Bold")."' class='bbcode-b'><span>".T("Bold")."</span></a>", 0);
