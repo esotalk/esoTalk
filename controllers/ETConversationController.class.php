@@ -168,7 +168,8 @@ public function index($conversationId = false, $year = false, $month = false)
 		$this->canonicalURL = URL($url, true);
 
 		// If the slug in the URL is not the same as the actual slug, redirect.
-		if (strpos($conversationId, "-") === false or substr($conversationId, strpos($conversationId, "-") + 1) != slug($conversation["title"])) {
+		$slug = slug($conversation["title"]);
+		if ($slug and (strpos($conversationId, "-") === false or substr($conversationId, strpos($conversationId, "-") + 1) != $slug)) {
 			redirect(URL($url), 301);
 		}
 
