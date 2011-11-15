@@ -15,8 +15,8 @@ ET::$skinInfo["Proto"] = array(
 	"description" => "The default esoTalk skin.",
 	"version" => ESOTALK_VERSION,
 	"author" => "esoTalk Team",
-	"authorEmail" => "support@esotalk.com",
-	"authorURL" => "http://esotalk.com",
+	"authorEmail" => "support@esotalk.org",
+	"authorURL" => "http://esotalk.org",
 	"license" => "GPLv2"
 );
 
