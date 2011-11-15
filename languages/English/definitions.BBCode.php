@@ -4,10 +4,10 @@
 
 // English Definitions for the BBCode plugin.
 
-$definitions["Fixed"] = "Fixed";
-$definitions["Image"] = "Image";
-$definitions["Link"] = "Link";
-$definitions["Strike"] = "Strike";
-$definitions["Header"] = "Header";
-$definitions["Italic"] = "Italic";
-$definitions["Bold"] = "Bold";
+$definitions["Fixed"] = "代码";
+$definitions["Image"] = "图片";
+$definitions["Link"] = "链接";
+$definitions["Strike"] = "删除线";
+$definitions["Header"] = "标题";
+$definitions["Italic"] = "斜体";
+$definitions["Bold"] = "加粗";
