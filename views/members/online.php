@@ -29,7 +29,7 @@ if (count($data["members"])): ?>
 <?php echo memberLink($member["memberId"], $member["username"]); ?>
 <?php
 $action = ET::memberModel()->getLastActionInfo($member["lastActionTime"], $member["lastActionDetail"]);
-if ($action[0]) printf(T("is %s"), (!empty($action[1]) ? "<a href='{$action[1]}'>" : "").lcfirst(sanitizeHTML($action[0])).(!empty($action[1]) ? "</a>" : ""));
+if ($action[0]) printf(" ".T("is %s"), (!empty($action[1]) ? "<a href='{$action[1]}'>" : "").lcfirst(sanitizeHTML($action[0])).(!empty($action[1]) ? "</a>" : ""));
 ?>
 </span>
 </li>
