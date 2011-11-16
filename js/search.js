@@ -114,7 +114,7 @@ init: function() {
 	ETSearch.updateInterval = new ETIntervalCallback(ETSearch.update, ET.searchUpdateInterval);
 
 	// Add tooltips to the channels, and give them click handlers.
-	$("#channels a:not(.channel-list)").tooltip({alignment: "left", delay: 250, offset: [7, 0], className: "withArrow withArrowBottom"});
+	$("#channels a:not(.channel-list)").tooltip({alignment: "left", delay: 250, offset: [0, 0], className: "withArrow withArrowBottom"});
 	$("#channels a.channel-list").tooltip();
 
 	// When the hash in the URL changes, update the search interface.
