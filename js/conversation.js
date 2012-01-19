@@ -55,7 +55,10 @@ init: function() {
 			$.ETAjax({
 				url: "conversation/index.ajax/"+ETConversation.id+"/"+position,
 				data: {search: ETConversation.searchString},
-				success: success,
+				success: function(data) {
+					success(data);
+					ETConversation.redisplayAvatars();
+				},
 				global: false
 			});
 		}
@@ -314,6 +317,7 @@ addReply: function() {
 			var moreItem = $("<li></li>").appendTo("#conversationPosts");
 			ETScrubber.count = ETConversation.postCount;
 			ETScrubber.addItems(ETConversation.postCount - 1, data.view, moreItem, true);
+			ETConversation.redisplayAvatars();
 
 			// Star the conversation if the user has the "star on reply" option on.
 			if (data.starOnReply) {

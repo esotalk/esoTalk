@@ -270,6 +270,12 @@ addItems: function(startFrom, items, moreItem, animate) {
 	// Now that we have an array of items, convert it to a jQuery collection.
 	items = $(items);
 
+	// If we already have a "Just now" time marker anywhere in our posts, remove any "Just now" time markers
+	// from these new posts.
+	if ($("div.timeMarker[data-now]", ETScrubber.body).length) {
+		items.find("div.timeMarker[data-now]").remove();
+	}
+
 	// Add the items to the page before/after/replacing the "more" block, depending on the type of "more" block.
 	if (moreItem.is(".scrubberPrevious"))
 		moreItem.after(items);
