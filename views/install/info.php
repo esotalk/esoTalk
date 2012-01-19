@@ -56,7 +56,7 @@ $form = $data["form"];
 <div id='advanced'>
 
 <ul class='form'>
-<li><label><?php echo T("MySQL table prefix"); ?></label> <?php echo $form->input("tablePrefix"); ?></li>
+<li><label><?php echo T("MySQL table prefix"); ?></label> <?php echo $form->input("tablePrefix", "text", array("style" => "width:30px")); ?>_</li>
 <li><label><?php echo T("Base URL"); ?></label> <?php echo $form->input("baseURL"); ?></li>
 <li><label><?php echo T("Use friendly URLs"); ?></label> <?php echo $form->checkbox("friendlyURLs"); ?></li>
 </ul>
