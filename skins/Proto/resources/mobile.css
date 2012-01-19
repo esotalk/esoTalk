@@ -6,6 +6,7 @@ body {font-size:12px}
 #hdr-content, #body-content, #ftr-content {min-width:0; padding:0; max-width:none}
 .bodyHeader {padding:10px}
 .area {border-width:1px 0; -webkit-border-radius:0}
+#body-content {border-left:0; border-right:0; -webkit-border-radius:0}
 
 
 /* Header - center the title and float the buttons. */
@@ -33,7 +34,7 @@ body {font-size:12px}
 
 /* Messages - make them cover the whole bottom of the screen. */
 #messages {left:0; bottom:0; right:0}
-.message {display:block; margin:0; -webkit-border-radius:0; overflow:hidden}
+.message {display:block; margin:0; -webkit-border-radius:0; overflow:hidden; border-left:0; border-right:0; border-bottom:0}
 
 
 /* Forms - unfloat labels. */
@@ -70,10 +71,10 @@ body {font-size:12px}
 
 /* Conversation list */
 .conversationList li {padding:10px 10px 10px 30px; overflow:hidden}
-.conversationList .col-star {float:left; margin-left:-28px; margin-top:1px; margin-right:0}
+.conversationList .col-star {float:left; margin-left:-28px; margin-top:6px; margin-right:0}
 .conversationList .col-conversation {display:block; margin:5px 0 3px; width:auto}
 .conversationList .col-channel {display:block; padding-right:5px; margin:0; width:auto; text-align:left}
-.conversationList .col-lastPost {padding-right:0; display:block}
+.conversationList .col-lastPost {padding-right:0}
 .conversationList .col-replies {display:none}
 .conversationList .title {font-size:120%}
 .conversationList .avatar {display:none}
@@ -109,7 +110,7 @@ body {font-size:12px}
 /* Make posts simple boxes with a thumbnail avatar. */
 .post {margin:10px; padding-left:0}
 .postContent:after, .postContent:before {display:none}
-.post div.avatar {margin:7px 0 0 10px; position:relative; z-index:999}
+.post div.avatar {margin:7px 0 0 10px; position:relative; z-index:50}
 .post div.avatar, .post div.avatar img {width:20px; height:20px}
 .post.edit .controls {float:none; margin-top:10px}
 
