@@ -148,7 +148,7 @@ span.highlight {background:#fdef34; border:1px solid #fcef98; padding:1px 3px; b
 
 
 /* Member online icon */
-.online {background-position:-20px -485px; width:9px; height:9px; text-indent:-9999px; vertical-align:0}
+.online {background-position:-20px -485px; width:9px; height:9px; text-indent:-9999px; vertical-align:middle}
 
 
 /* Avatars */
