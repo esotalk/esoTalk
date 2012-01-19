@@ -317,7 +317,7 @@ public function mentions()
 {
 	$this->content = preg_replace(
 		'/(^|[\s,\.:])@(\w{3,20})\b/ie',
-		"'$1<a href=\''.URL('member?name='.urlencode('$2')).'\'>$2</a>'",
+		"'$1<a href=\''.URL('member/name/'.urlencode('$2')).'\'>$2</a>'",
 		$this->content
 	);
 

@@ -42,7 +42,7 @@ public function name($name = "")
 {
 	$result = ET::SQL()
 		->select("memberId, username")
-		->from("members")
+		->from("member")
 		->where("username", $name)
 		->exec();
 
