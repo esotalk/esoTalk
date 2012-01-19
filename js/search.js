@@ -376,8 +376,8 @@ update: function() {
 
 	// Construct a list of conversation IDs for which to get updated details.
 	var conversationIds = "";
-	var count = Math.min($("#conversations tr").length, 20);
-	$("#conversations tr").each(function(i, row) {
+	var count = Math.min($("#conversations li").length, 20);
+	$("#conversations li").each(function(i, row) {
 		if (i > count) return false;
 		conversationIds += ETSearch.getConversationIdForElement(row) + ",";
 	});
