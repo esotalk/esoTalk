@@ -86,7 +86,7 @@ init: function() {
 
 		// Store the conversation title and add a click handler to edit it.
 		this.title = $("#conversationTitle a").html() || $("#conversationTitle").html();
-		$("#conversationTitle a").click(function(e) {
+		$("#conversationTitle a").live("click", function(e) {
 			e.preventDefault();
 			ETConversation.editTitle();
 		});
@@ -881,12 +881,12 @@ changeChannel: function() {
 
 // Edit the title of the conversation.
 editTitle: function() {
-	if (!$("#conversationTitle a").hasClass("editing")) {
+	if (!$("#conversationTitle").hasClass("editing")) {
 
 		// Replace the title tag with an input.
 		var title = $("#conversationTitle a").html().trim();
-		$("#conversationTitle a").html("<input type='text' class='text'/>").addClass("editing");
-		$("#conversationTitle a input").val(title).autoGrowInput({
+		$("#conversationTitle").html("<input type='text' class='text'/>").addClass("editing");
+		$("#conversationTitle input").val(title).autoGrowInput({
 		    comfortZone: 30,
 		    minWidth: 250,
 		    maxWidth: 500
@@ -905,12 +905,12 @@ editTitle: function() {
 
 // Save the conversation title.
 saveTitle: function(cancel) {
-	if ($("#conversationTitle a").hasClass("editing")) {
+	if ($("#conversationTitle").hasClass("editing")) {
 
 		// Return the conversation title input back to normal.
 		var title = $("#conversationTitle input").val();
 		if (!title || cancel) title = ETConversation.title;
-		$("#conversationTitle a").html(title).removeClass("editing");
+		$("#conversationTitle").html("<a href='#'>"+title+"</a>").removeClass("editing");
 
 		// If we're cancelling, that's all we need to do.
 		if (cancel || ETConversation.title == title) return;
