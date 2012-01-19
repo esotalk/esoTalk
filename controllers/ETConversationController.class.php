@@ -39,6 +39,7 @@ public function index($conversationId = false, $year = false, $month = false)
 	if ($searchString) {
 
 		$conversation["countPosts"] = ET::postModel()->getSearchResultsCount($conversation["conversationId"], $searchString);
+		$conversation["searching"] = true;
 
 		// Add the keywords in $this->searchString to be highlighted. Make sure we keep ones "in quotes" together.
 		$words = array();
@@ -1191,7 +1192,7 @@ protected function formatPostForTemplate($post, $conversation)
 		$date = date("M j", $post["time"]);
 
 	// Add the date/time to the post info as a permalink.
-	$formatted["info"][] = "<a href='".URL(postURL($post["postId"]))."' class='time' title='".date(T("date.full"), $post["time"])."'>$date</a>";
+	$formatted["info"][] = "<a href='".URL(postURL($post["postId"]))."' class='time' title='".date(T("date.full"), $post["time"])."'>".(!empty($conversation["searching"]) ? T("Context") : $date)."</a>";
 
 	// If the post isn't deleted, add a lot of stuff!
 	if (!$post["deleteMemberId"]) {

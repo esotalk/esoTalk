@@ -99,6 +99,7 @@ $definitions["Choose what people will see when they first visit your forum."] = 
 $definitions["Click on a member's name to remove them."] = "Click on a member's name to remove them.";
 $definitions["Close registration"] = "Close registration";
 $definitions["Confirm password"] = "Confirm password";
+$definitions["Context"] = "Context";
 $definitions["Controls"] = "Controls";
 $definitions["Conversation"] = "Conversation";
 $definitions["Conversations participated in"] = "Conversations participated in";
