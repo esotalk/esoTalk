@@ -151,7 +151,7 @@ protected function profile($member, $pane = "")
 	elseif (ET::$session->userId) {
 		$actions->add("private", "<span class='label label-private'>".T("label.private")."</span>");
 		$actions->add("privateConversations", "<a href='".URL(searchURL("private + contributor:".$member["username"]))."'>".sprintf(T("See the private conversations I've had with %s"), $member["username"])."</a>");
-		$actions->add("privateStart", "<a href='".URL("conversation/start/".urlencode($member["username"]))."'>".sprintf(T("Start a private conversation with %s"), $member["username"])."</a>");
+		$actions->add("privateStart", "<a href='".URL("conversation/start/".urlencode($member["username"])."?token=".ET::$session->token)."'>".sprintf(T("Start a private conversation with %s"), $member["username"])."</a>");
 	}
 
 	// Pass along these menus to the view.
