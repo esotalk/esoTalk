@@ -49,6 +49,7 @@ public function edit($channelId = "")
  	$form = ETFactory::make("form");
  	$form->action = URL("admin/channels/edit/".$channel["channelId"]);
  	$form->setValues($channel);
+ 	$form->setValues($channel["attributes"]);
 
 	// Get a list of groups!
  	$groups = ET::groupModel()->getAll();
