@@ -266,6 +266,7 @@ $definitions["Registration"] = "Registration";
 $definitions["Remove avatar"] = "Remove avatar";
 $definitions["Rename Member"] = "Rename Member";
 $definitions["Reply"] = "Reply";
+$definitions["Report a bug"] = "Report a bug";
 $definitions["Require users to confirm their email address"] = "Require users to confirm their email address";
 $definitions["restore"] = "restore";
 

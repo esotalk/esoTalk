@@ -142,7 +142,7 @@ function index($channelSlug = false)
 		$this->canonicalURL = URL($url, true);
 
 		// Add a link to the RSS feed in the bar.
-		$this->addToMenu("meta", "feed", "<a href='".URL(str_replace("conversations/", "conversations/index.atom/", $url))."' id='feed'>".T("Feed")."</a>");
+		// $this->addToMenu("meta", "feed", "<a href='".URL(str_replace("conversations/", "conversations/index.atom/", $url))."' id='feed'>".T("Feed")."</a>");
 
 		// Construct a list of keywords to use in the meta tags.
 		$keywords = array();
