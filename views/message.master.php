@@ -15,7 +15,7 @@ if (!defined("IN_ESOTALK")) exit;
 <html>
 <head>
 <title><?php echo $data["pageTitle"]; ?></title>
-<meta charset='<?php echo T("charset"); ?>'/>
+<meta charset='<?php echo T("charset", "utf-8"); ?>'/>
 <style type='text/css'>
 body {background:#fff !important; font-size:13px; font-family:helvetica neue,helvetica,arial,sans-serif; -webkit-font-smoothing:antialiased; margin:0}
 #container {margin:50px auto; width:900px; background:#eaf5f9; padding:20px; line-height:1.5; -webkit-border-radius:5px}

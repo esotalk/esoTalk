@@ -118,7 +118,9 @@ init: function() {
 		var hash = window.location.hash.replace("#", "");
 		if (hash.substr(0, 1) == "p" && $("#"+hash).length) {
 			ETConversation.highlightPost($("#"+hash));
-			ETConversation.scrollTo($("#"+hash).offset().top);
+			setTimeout(function(){
+				ETConversation.scrollTo($("#"+hash).offset().top - 10);
+			}, 100);
 		}
 
 	}
