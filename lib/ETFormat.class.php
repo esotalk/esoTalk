@@ -191,7 +191,7 @@ public function links()
 {
 	// Convert normal links - http://www.example.com, www.example.com - using a callback function.
 	$this->content = preg_replace_callback(
-		"/(?<=\s|^|>)(\w+:\/\/)?([\w\-\.]+\.(?:com|net|org|gov|edu|co|biz|info|tv|mil|cn|jp|ru|eu|nz|ca|uk|de)[^\s<]*?)(?=[\s\.,?!>\)]*(?:\s|>|\)|$))/i",
+		"/(?<=\s|^|>|\()(\w+:\/\/)?([\w\-\.]+\.(?:com|net|org|gov|edu|co|biz|info|tv|mil|cn|jp|ru|eu|nz|ca|uk|de)[^\s<]*?)(?=[\s\.,?!>\)]*(?:\s|>|\)|$))/i",
 		array($this, "linksCallback"), $this->content);
 
 	// Convert email links.
