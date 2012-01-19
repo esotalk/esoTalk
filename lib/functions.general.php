@@ -610,6 +610,8 @@ function json_decode($json)
  */
 function URL($url = "", $absolute = false)
 {
+	if (strpos($url, "http://") === 0) return $url;
+	
 	// Strip off the hash.
 	$hash = strstr($url, "#");
 	if ($hash) $url = substr($url, 0, -strlen($hash));
