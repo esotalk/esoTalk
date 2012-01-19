@@ -231,8 +231,12 @@ initReply: function() {
 			if (!ETConversation.replyShowing) {
 				ETConversation.replyShowing = true;
 				$("#reply").removeClass("replyPlaceholder");
+
+				// Put the cursor at the end of the textarea.
+				var pos = textarea.val().length;
+				textarea.selectRange(pos, pos);
 			}
-		})
+		});
 
 		// If there's something in the reply textarea, show it.
 		if ($("#reply textarea").val()) $("#reply").trigger("change");
