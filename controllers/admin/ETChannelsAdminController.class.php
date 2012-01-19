@@ -68,12 +68,13 @@ public function edit($channelId = "")
 
  		// Save the channel's information.
  		$model = ET::channelModel();
- 		$model->updateById($channelId, array(
+ 		$data = array(
  			"title" => $form->getValue("title"),
- 			"slug" => $model->generateSlug($form->getValue("title")),
  			"description" => $form->getValue("description"),
  			"attributes" => array_merge((array)$channel["attributes"], array("defaultUnsubscribed" => $form->getValue("defaultUnsubscribed")))
-	 	));
+	 	);
+	 	if ($form->getValue("slug") != $channel["slug"]) $data["slug"] = $form->getValue("slug");
+ 		$model->updateById($channelId, $data);
 
 	 	// Set the channel's permissions.
 	 	$model->setPermissions($channelId, $form->getValue("permissions"));
