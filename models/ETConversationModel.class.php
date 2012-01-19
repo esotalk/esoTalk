@@ -579,6 +579,13 @@ public function create($data, $membersAllowed = array(), $isDraft = false)
 		->where("memberId", ET::$session->userId)
 		->exec();
 
+	// Update the channel's converastion count.
+	ET::SQL()
+		->update("channel")
+		->set("countConversations", "countConversations + 1", false)
+		->where("channelId", $data["channelId"])
+		->exec();
+
 	// Whip up a little array fo conversation details for this model's functions to work with.
 	$conversation = array(
 		"conversationId" => $conversationId,
@@ -717,12 +724,20 @@ public function addReply(&$conversation, $content)
  */
 public function delete($wheres = array())
 {
+	// Get conversation IDs that match these WHERE conditions.
+	$ids = array();
+	$result = ET::SQL()->select("conversationId")->from("conversation c")->where($wheres)->exec();
+	while ($row = $result->nextRow()) $ids[] = $row["conversationId"];
+
+	// Delete the conversation, posts, member_conversation, and activity rows.
 	ET::SQL()
 		->delete("c, m, p")
 		->from("conversation c")
 		->from("member_conversation m", "m.conversationId=c.conversationId", "left")
 		->from("post p", "p.conversationId=c.conversationId", "left")
-		->where($wheres)
+		->from("activity a", "(a.associatedId=c.conversationId AND a.associatedType='conversation') OR (a.associatedId=p.postId AND a.associatedType='post')", "left")
+		->where("c.conversationId IN (:conversationIds)")
+		->bind(":conversationIds", $ids)
 		->exec();
 
 	return true;

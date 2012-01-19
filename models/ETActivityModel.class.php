@@ -94,9 +94,11 @@ public static function addType($type, $projections)
  * @param array $member An array of details for the member to create the activity for.
  * @param array $fromMember An array of details for the member that the activity is from.
  * @param array $data An array of custom data that can be used by the type/projection callback functions.
+ * @param string $associatedType The type of a node that is associated with this activity (eg. 'post' or 'conversation')
+ * @param int $associatedId The ID of a node that is associated with this activity (eg. a post or conversation ID)
  * @return bool|int The activity ID, or false if there were errors.
  */
-public function create($type, $member, $fromMember = null, $data = null)
+public function create($type, $member, $fromMember = null, $data = null, $associatedType = null, $associatedId = null)
 {
 	// Make sure we have a definition for this type of activity.
 	if (empty(self::$types[$type]))
@@ -110,6 +112,8 @@ public function create($type, $member, $fromMember = null, $data = null)
 		"type" => $type,
 		"memberId" => $member["memberId"],
 		"fromMemberId" => $fromMember ? $fromMember["memberId"] : null,
+		"associatedType" => $associatedType,
+		"associatedId" => $associatedId,
 		"time" => time()
 	);
 	$activityId = null;
