@@ -186,7 +186,7 @@ function index($channelSlug = false)
 		// ...and show them in the footer.
 		foreach ($stats as $k => $v) {
 			$stat = Ts("statistic.$k", "statistic.$k.plural", number_format($v));
-			if ($k == "member") $stat = "<a href='".URL("members")."'>$stat</a>";
+			if ($k == "member" and (C("esoTalk.members.visibleToGuests") or ET::$session->user)) $stat = "<a href='".URL("members")."'>$stat</a>";
 			$this->addToMenu("statistics", "statistic-$k", $stat, array("before" => "statistic-online"));
 		}
 

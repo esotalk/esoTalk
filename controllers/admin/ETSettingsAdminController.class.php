@@ -39,6 +39,7 @@ public function index()
 	$form->setValue("forumHeader", C("esoTalk.forumLogo") ? "image" : "title");
 	$form->setValue("defaultRoute", C("esoTalk.defaultRoute"));
 	$form->setValue("registrationOpen", C("esoTalk.registration.open"));
+	$form->setValue("memberListVisibleToGuests", C("esoTalk.members.visibleToGuests"));
 	$form->setValue("requireAdminApproval", C("esoTalk.registration.requireAdminApproval"));
 	$form->setValue("requireEmailConfirmation", C("esoTalk.registration.requireEmailConfirmation"));
 
@@ -52,7 +53,8 @@ public function index()
 			"esoTalk.forumLogo" => $form->getValue("forumHeader") == "image" ? $this->uploadHeaderImage($form) : false,
 			"esoTalk.defaultRoute" => $form->getValue("defaultRoute"),
 			"esoTalk.registration.open" => $form->getValue("registrationOpen"),
-			"esoTalk.registration.requireEmailConfirmation" => $form->getValue("requireEmailConfirmation")
+			"esoTalk.registration.requireEmailConfirmation" => $form->getValue("requireEmailConfirmation"),
+			"esoTalk.members.visibleToGuests" => $form->getValue("memberListVisibleToGuests")
 		);
 
 		// Make sure a forum title is present.

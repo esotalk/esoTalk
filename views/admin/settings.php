@@ -74,6 +74,17 @@ $(function() {
 <li class='sep'></li>
 
 <li>
+<label><?php echo T("Member list"); ?></label>
+<div class='subText'><?php echo T("Make member list visible to:"); ?></div>
+<div class='checkboxGroup'>
+<label class='radio'><?php echo $form->radio("memberListVisibleToGuests", 0); ?> <?php echo T("Registered members"); ?></label>
+<label class='radio'><?php echo $form->radio("memberListVisibleToGuests", 1); ?> <?php echo T("Everyone"); ?></label>
+</div>
+</li>
+
+<li class='sep'></li>
+
+<li>
 <label><?php echo T("Member groups"); ?></label>
 <div class='subText'><?php echo T("Groups can be used to categorize members and give them certain privileges."); ?></div>
 <?php foreach ($groups as $k => $v) $groups[$k] = "<strong class='group-{$v["name"]}'>".groupName($v["name"])."</strong>";

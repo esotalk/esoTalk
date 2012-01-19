@@ -113,6 +113,7 @@ $config["esoTalk.conversation.updateIntervalMultiplier"] = 1.5; // Each time we 
 $config["esoTalk.conversation.updateIntervalLimit"] = 512; // The maximum number of seconds between checking for new posts.
 
 // Member list settings.
+$config["esoTalk.members.visibleToGuests"] = false;
 $config["esoTalk.members.membersPerPage"] = 30;
 
 // Post formatting settings.
