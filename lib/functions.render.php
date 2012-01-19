@@ -30,7 +30,7 @@ function highlight($text, $words)
 		if (!($word = trim($word))) continue;
 
 		// Make sure we only highlight whole words that would've been matched by a fulltext search.
-		$text = preg_replace("/(?<=[\s>]|^)(".preg_quote($word, "/").")(?=[\s<,\.?!:\/-]|$)/i", "<span class='highlight'>$1</span>", $text);
+		$text = preg_replace("/(?<=[\s>]|^)(".preg_quote($word, "/").")(?=[\s<,\.?!:\/-]|$)/iu", "<span class='highlight'>$1</span>", $text);
 
 	}
 	return $text;
