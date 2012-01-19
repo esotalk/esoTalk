@@ -304,7 +304,7 @@ addItems: function(startFrom, items, moreItem, animate) {
 
 	// If we don't have the item immediately AFTER the LAST item that we just loaded (ie. there's a gap), we
 	// need to put a "more" block there.
-	if (ETScrubber.loadedItems.indexOf(startFrom + items.length + 1) == -1 && items.last().next().is("li:not(.scrubberMore)")) {
+	if (ETScrubber.loadedItems.indexOf(startFrom + items.length) == -1 && items.last().next().is("li:not(.scrubberMore)")) {
 		scrubberMore = scrubberMore.clone();
 		items.last().after(scrubberMore);
 
