@@ -104,9 +104,12 @@ public function index($conversationId = false, $year = false, $month = false)
 			$year = (int)$year;
 			$month = (int)$month;
 
-			// Make a timestamp out of this date.
-			$timestamp = mktime(0, 0, 0, min($month, 2038), 1, $year);
+			// Bit of a hacky way of loading posts from the last page.
+			if ($year == 9999 and $month == 99) $timestamp = PHP_INT_MAX;
 
+			// Make a timestamp out of this date.
+			else $timestamp = mktime(0, 0, 0, min($month, 12), 1, min($year, 2038));
+			
 			// Find the closest post that's after this timestamp, and find its position within the conversation.
 			$position = ET::SQL()
 				->select("COUNT(postId)", "position")
