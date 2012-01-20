@@ -142,6 +142,11 @@ public function index($conversationId = false, $year = false, $month = false)
 		// Update the user's last read.
 		ET::conversationModel()->setLastRead($conversation, ET::$session->userId, $startFrom + C("esoTalk.conversation.postsPerPage"));
 
+		// If we're on the last page, mark any notifications related to this conversation as read.
+		if ($startFrom + C("esoTalk.conversation.postsPerPage") >= $conversation["countPosts"]) {
+			ET::activityModel()->markNotificationsAsRead($conversation["conversationId"]);
+		}
+
 		// Update the user's last action.
 		ET::memberModel()->updateLastAction("viewingConversation", $conversation["private"] ? null : array(
 			"conversationId" => $conversation["conversationId"],

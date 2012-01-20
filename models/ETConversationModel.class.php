@@ -689,12 +689,13 @@ public function addReply(&$conversation, $content)
 	$members = ET::memberModel()->getWithSQL($sql);
 
 	$data = array(
-		"conversationId" => $conversation["id"],
+		"conversationId" => $conversation["conversationId"],
+		"postId" => $postId,
 		"title" => $conversation["title"]
 	);
 
 	foreach ($members as $member) {
-		ET::activityModel()->create("replyToStarred", $member, ET::$session->user, $data);
+		ET::activityModel()->create("post", $member, ET::$session->user, $data);
 	}
 
 	// Update the conversation post count.
@@ -735,7 +736,7 @@ public function delete($wheres = array())
 		->from("conversation c")
 		->from("member_conversation m", "m.conversationId=c.conversationId", "left")
 		->from("post p", "p.conversationId=c.conversationId", "left")
-		->from("activity a", "(a.associatedId=c.conversationId AND a.associatedType='conversation') OR (a.associatedId=p.postId AND a.associatedType='post')", "left")
+		->from("activity a", "a.conversation=c.conversationId", "left")
 		->where("c.conversationId IN (:conversationIds)")
 		->bind(":conversationIds", $ids)
 		->exec();

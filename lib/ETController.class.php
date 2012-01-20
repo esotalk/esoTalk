@@ -276,14 +276,6 @@ public function init()
 		else {
 			$this->addToMenu("user", "user", "<a href='".URL("member/me")."'>".avatar(ET::$session->userId, ET::$session->user["avatarFormat"], "thumb").name(ET::$session->user["username"])."</a>");
 
-			// Fetch all unread notifications so we have a count for the notifications button.
-			$notifications = ET::activityModel()->getNotifications(-1);
-			$count = count($notifications);
-			$this->addToMenu("user", "notifications", "<a href='".URL("settings/notifications")."' id='notifications' class='popupButton ".($count ? "new" : "")."'><span>$count</span></a>");
-
-			// Show messages with these notifications.
-			$this->notificationMessages($notifications);
-
 			$this->addToMenu("user", "settings", "<a href='".URL("settings")."' class='link-settings'>".T("Settings")."</a>");
 
 			if (ET::$session->isAdmin())
@@ -401,6 +393,18 @@ public function data($key, $value)
 public function render($view = "")
 {
 	$this->trigger("renderBefore");
+
+	if ($this->responseType == RESPONSE_TYPE_DEFAULT) {
+		
+		// Fetch all unread notifications so we have a count for the notifications button.
+		$notifications = ET::activityModel()->getNotifications(-1);
+		$count = count($notifications);
+		$this->addToMenu("user", "notifications", "<a href='".URL("settings/notifications")."' id='notifications' class='popupButton ".($count ? "new" : "")."'><span>$count</span></a>", array("after" => "user"));
+
+		// Show messages with these notifications.
+		$this->notificationMessages($notifications);
+		
+	}
 
 	// Set up the master view, content type, and other stuff depending on the response type.
 	switch ($this->responseType) {

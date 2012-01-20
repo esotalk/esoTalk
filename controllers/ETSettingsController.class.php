@@ -330,8 +330,8 @@ public function notifications($popup = false)
 	// Get the notifications.
 	$this->data("notifications", ET::activityModel()->getNotifications($limit));
 
-	// Update the user's notifcation read time.
-	ET::$session->setPreferences(array("notificationReadTime" => time()));
+	// Mark all notifications as read.
+	ET::activityModel()->markNotificationsAsRead();
 
 	$this->renderProfile("settings/notifications");
 }
