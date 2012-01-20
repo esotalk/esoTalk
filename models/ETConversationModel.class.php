@@ -736,7 +736,7 @@ public function delete($wheres = array())
 		->from("conversation c")
 		->from("member_conversation m", "m.conversationId=c.conversationId", "left")
 		->from("post p", "p.conversationId=c.conversationId", "left")
-		->from("activity a", "a.conversation=c.conversationId", "left")
+		->from("activity a", "a.conversationId=c.conversationId", "left")
 		->where("c.conversationId IN (:conversationIds)")
 		->bind(":conversationIds", $ids)
 		->exec();
