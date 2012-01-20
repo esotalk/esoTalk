@@ -370,9 +370,14 @@ public function getNotifications($limit = 5)
 		->limit(20);
 
 	// If we're only getting unread notifications, add a condition to the activity time.
-	if ($limit == -1) $activity
-		->where("a.time>:notificationReadTime")
-		->bind(":notificationReadTime", ET::$session->preference("notificationReadTime"));
+	if ($limit == -1) {
+		$activity
+			->where("a.time>:notificationReadTime")
+			->bind(":notificationReadTime", ET::$session->preference("notificationReadTime"));
+		$conversations
+			->where("t.time>:notificationReadTime")
+			->bind(":notificationReadTime", ET::$session->preference("notificationReadTime"));
+	}
 
 	// UNION the two queries and impose a limit.
 	$result = ET::SQL()
