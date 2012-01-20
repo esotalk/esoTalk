@@ -539,14 +539,14 @@ redisplayAvatars: function() {
 
 	// Loop through the avatars in the posts area and compare each one's src with the one before it.
 	// If they're the same, hide it.
-	var prevSource = null;
+	var prevId = null;
 	$("#conversationPosts > li").each(function() {
-		if (prevSource == $(this).find("img.avatar").attr("src"))
+		if (prevId == $(this).find("div.post").data("memberid"))
 			$(this).find("div.avatar").hide();
 		else
 			$(this).find("div.avatar").show();
 
-		prevSource = $(this).find("img.avatar").attr("src");
+		prevId = $(this).find("div.post").data("memberid");
 
 	});
 

@@ -1179,7 +1179,8 @@ protected function formatPostForTemplate($post, $conversation)
 		"body" => !$post["deleteMemberId"] ? $this->displayPost($post["content"]) : false,
 
 		"data" => array(
-			"id" => $post["postId"]
+			"id" => $post["postId"],
+			"memberid" => $post["memberId"]
 		)
 	);
 
