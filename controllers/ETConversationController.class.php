@@ -350,6 +350,7 @@ public function start($member = false)
 		$this->addJSFile("js/scrubber.js");
 		$this->addJSFile("js/autocomplete.js");
 		$this->addJSFile("js/conversation.js");
+		$this->addJSVar("mentions", C("esoTalk.format.mentions"));
 
 		// If there's a member name in the querystring, make the conversation that we're starting private
 		// with them and redirect.
