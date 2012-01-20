@@ -394,7 +394,7 @@ public function render($view = "")
 {
 	$this->trigger("renderBefore");
 
-	if ($this->responseType == RESPONSE_TYPE_DEFAULT) {
+	if ($this->responseType == RESPONSE_TYPE_DEFAULT and ET::$session->user) {
 		
 		// Fetch all unread notifications so we have a count for the notifications button.
 		$notifications = ET::activityModel()->getNotifications(-1);
