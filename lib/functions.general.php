@@ -790,7 +790,7 @@ function relativeTime($then, $precise = false)
 	}
 
 	// If this happened over two months ago, return "x months ago".
-	elseif ($ago >= ($period = 60 * 60 * 24 * (365.25 / 12) * 2)) {
+	elseif ($ago >= ($period = 60 * 60 * 24 * (365.25 / 12)) * 2) {
 		$months = floor($ago / $period);
 		return Ts("%d month ago", "%d months ago", $months);
 	}
