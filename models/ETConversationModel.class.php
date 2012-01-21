@@ -960,9 +960,27 @@ public function setChannel(&$conversation, $channelId)
 
 	if ($this->errorCount()) return false;
 
+	// Decrease the conversation/post count of the old channel.
+	ET::SQL()->update("channel")
+		->set("countConversations", "countConversations - 1", false)
+		->set("countPosts", "countPosts - :posts", false)
+		->bind(":posts", $conversation["countPosts"])
+		->where("channelId=:channelId")
+		->bind(":channelId", $conversation["channelId"])
+		->exec();
+
 	$this->updateById($conversation["conversationId"], array(
 		"channelId" => $channelId
 	));
+
+	// Increase the conversation/post count of the new channel.
+	ET::SQL()->update("channel")
+		->set("countConversations", "countConversations + 1", false)
+		->set("countPosts", "countPosts + :posts", false)
+		->bind(":posts", $conversation["countPosts"])
+		->where("channelId=:channelId")
+		->bind(":channelId", $channelId)
+		->exec();
 
 	$conversation["channelId"] = $channelId;
 
