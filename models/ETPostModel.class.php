@@ -229,6 +229,7 @@ public function create($conversationId, $memberId, $content, $title = "")
 			$members = ET::memberModel()->getWithSQL($sql);
 
 			$data = array(
+				"conversationId" => $conversationId,
 				"postId" => (int)$id,
 				"title" => $title
 			);
