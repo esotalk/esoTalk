@@ -366,7 +366,7 @@ negative margins so they overlap the padding of the <li>. */
 .conversationList .col-conversation {width:95%}
 .conversationList .col-star {float:left; width:1em; margin-left:-13em; padding-left:0.5em}
 .conversationList .col-channel {float:left; width:10em; margin-left:-11em; text-align:right}
-.conversationList .col-lastPost {width:20em; margin-right:-30em; margin-left:0; padding-right:0; font-size:85%}
+.conversationList .col-lastPost {width:20em; margin-right:-30em; margin-left:0; padding-right:0; font-size:85%; overflow:hidden; white-space:nowrap}
 .conversationList .col-replies {margin-right:-40em; margin-left:30em; width:10em; padding-left:0}
 .list .col-replies {color:#888; font-size:85%}
 .list .col-replies span {background:url(icons.png) no-repeat -20px -136px; padding-left:20px}
