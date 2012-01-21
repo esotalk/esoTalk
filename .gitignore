@@ -9,8 +9,4 @@ config/*
 robots.txt
 
 #For Toby's own repo (should really clean these up on my comp):
-plugins/old
-plugins/Emoticons
-plugins/Likes
-skins/old
 uploads/*
