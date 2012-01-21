@@ -401,7 +401,7 @@ $definitions["message.logInToSeeAllConversations"] = "<a href='".URL("user/login
 $definitions["message.memberNotFound"] = "Hm, there doesn't seem to be a member with that name.";
 $definitions["message.memberNoPermissionView"] = "That member can't be added because they don't have permission to view the channel that this conversation is in.";
 $definitions["message.nameTaken"] = "The name you have entered is taken or is a reserved word.";
-$definitions["message.newSearchResults"] = "There has been new activity that has affected your search results.";
+$definitions["message.newSearchResults"] = "There has been new activity that has affected your search results. <a href='%s'>Refresh</a>";
 $definitions["message.noActivity"] = "%s hasn't done anything on this forum yet!";
 $definitions["message.noMembersOnline"] = "No members are currently online.";
 $definitions["message.noNotifications"] = "You have no notifications.";

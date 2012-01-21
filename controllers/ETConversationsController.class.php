@@ -329,6 +329,7 @@ public function update($channelSlug = "", $query = "")
 	}
 
 	if (!count($conversationIds)) return;
+	$conversationIds = array_slice((array)$conversationIds, 0, 20);
 
 	// Get the full result data for these conversations, and construct an array of rendered conversation rows.
 	$results = ET::searchModel()->getResults($conversationIds, true);
@@ -355,7 +356,7 @@ public function update($channelSlug = "", $query = "")
 
 	// Get the difference of the two sets of conversationId's.
 	$diff = array_diff((array)$newConversationIds, (array)$conversationIds);
-	if (count($diff)) $this->message(T("message.newSearchResults"));
+	if (count($diff)) $this->message(sprintf(T("message.newSearchResults"), "javascript:ETSearch.showNewActivity();void(0)"));
 
 	$this->render();
 }
