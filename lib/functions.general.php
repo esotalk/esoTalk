@@ -244,7 +244,7 @@ function parseRequest($parts, $controllers)
 			// Search for a plugin with this method. If found, use that.
 			$found = false;
 			foreach (ET::$plugins as $plugin) {
-				if (method_exists($plugin, "controller_".$c."_".$method)) {
+				if (method_exists($plugin, $c."Controller_".$method)) {
 					$found = true;
 					break;
 				}
