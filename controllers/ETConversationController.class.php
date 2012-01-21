@@ -1239,6 +1239,8 @@ protected function formatPostForTemplate($post, $conversation)
 			$formatted["controls"][] = "<a href='".URL("conversation/restorePost/".$post["postId"]."?token=".ET::$session->token)."' title='".T("Restore")."' class='control-restore'>".T("Restore")."</a>";
 	}
 
+	$this->trigger("formatPostForTemplate", array(&$formatted, $post, $conversation));
+
 	return $formatted;
 }
 

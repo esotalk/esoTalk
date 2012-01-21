@@ -56,6 +56,8 @@ public function getWithSQL($sql)
 		->groupBy("p.postId")
 		->orderBy("p.time ASC");
 
+	$this->trigger("getPostsBefore", array($sql));
+
 	$result = $sql->exec();
 
 	// Loop through the results and compile them into an array of posts.
@@ -66,6 +68,8 @@ public function getWithSQL($sql)
 		$posts[] = $post;
 
 	}
+
+	$this->trigger("getPostsAfter", array(&$posts));
 
 	return $posts;
 }
