@@ -106,6 +106,8 @@ public function handler_conversationController_renderBefore($sender)
 
 public function handler_conversationController_formatPostForTemplate($sender, &$formatted, $post, $conversation)
 {
+	if ($post["deleteMemberId"]) return;
+
 	$liked = array_key_exists(ET::$session->userId, $post["likes"]);
 
 	$members = $this->getNames($post["likes"]);
