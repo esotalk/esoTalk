@@ -188,9 +188,9 @@ function minifyJS($js)
  */
 function sendEmail($to, $subject, $body)
 {
-	$headers = "From: ".sanitizeForHTTP(C("esoTalk.forumTitle")." <".C("esoTalk.emailFrom").">")."\r\n".
-		'X-Mailer: esoTalk' . "\r\n".
-		'MIME-Version: 1.0' . "\r\n".
+	$headers = "From: ".sanitizeForHTTP(C("esoTalk.forumTitle")." <".C("esoTalk.emailFrom").">")."\n".
+		'X-Mailer: esoTalk' . "\n".
+		'MIME-Version: 1.0' . "\n".
 		"Content-Type: text/plain; charset=".T("charset")."";
 
 	return mail($to, $subject, $body, $headers);
