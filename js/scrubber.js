@@ -58,11 +58,11 @@ init: function() {
 
 		// If we're past the normal top position of the scrubber, make it fixed.
 		if (y >= scrubberTop && !ET.disableFixedPositions) {
-			ETScrubber.scrubber.css({position: "fixed", top: ETScrubber.header.outerHeight() + 10, zIndex: 100});
+			ETScrubber.scrubber.addClass("floating").css({position: "fixed", top: ETScrubber.header.outerHeight() + 10, zIndex: 100});
 		}
 		// Otherwise, put it back to normal.
 		else {
-			ETScrubber.scrubber.css({position: "", top: ""});
+			ETScrubber.scrubber.removeClass("floating").css({position: "", top: ""});
 		}
 
 		// Now we need to work out where we are in the content and highlight the appropriate
