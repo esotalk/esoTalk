@@ -188,6 +188,8 @@ function minifyJS($js)
  */
 function sendEmail($to, $subject, $body)
 {
+	if (($return = ET::trigger("sendEmailBefore")) and !empty($return)) return reset($return);
+
 	$headers = "From: ".sanitizeForHTTP(C("esoTalk.forumTitle")." <".C("esoTalk.emailFrom").">")."\r\n".
 		'X-Mailer: esoTalk' . "\r\n".
 		'MIME-Version: 1.0' . "\r\n".
