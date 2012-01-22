@@ -6,7 +6,7 @@ if (!defined("IN_ESOTALK")) exit;
 
 ET::$pluginInfo["SMTP"] = array(
 	"name" => "SMTP",
-	"description" => "Allows mail to be send via an SMTP server.",
+	"description" => "Allows mail to be send via an SMTP server. Based on work by Raphael Michel <webmaster@raphaelmichel.de>",
 	"version" => ESOTALK_VERSION,
 	"author" => "Toby Zerner",
 	"authorEmail" => "support@esotalk.org",
