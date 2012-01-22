@@ -151,7 +151,7 @@ else {
 	ETFactory::registerController("channels", "ETChannelsController", PATH_CONTROLLERS."/ETChannelsController.class.php");
 	ETFactory::registerController("member", "ETMemberController", PATH_CONTROLLERS."/ETMemberController.class.php");
 	ETFactory::registerController("members", "ETMembersController", PATH_CONTROLLERS."/ETMembersController.class.php");
-	ETFactory::registerController("feed", "ETFeedController", PATH_CONTROLLERS."/ETFeedController.class.php");
+	// ETFactory::registerController("feed", "ETFeedController", PATH_CONTROLLERS."/ETFeedController.class.php");
 	ETFactory::registerController("admin", "ETAdminController", PATH_CONTROLLERS."/ETAdminController.class.php");
 
 	ETFactory::registerAdminController("dashboard", "ETDashboardAdminController", PATH_CONTROLLERS."/admin/ETDashboardAdminController.class.php");
