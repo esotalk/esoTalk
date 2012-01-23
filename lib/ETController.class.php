@@ -734,7 +734,7 @@ public function head()
 	foreach ($this->cssFiles as $files) {
 
 		// If CSS aggregation is enabled, and there's more than one file in this "group", proceed with aggregation.
-		if (count($files) > 1 and C("esoTalk.aggregateCSS") and ET::$controllerName != "admin")
+		if (count($files) > 1 and C("esoTalk.aggregateCSS") and !(ET::$controller instanceof ETAdminController))
 			$files = $this->aggregateFiles($files, "css");
 
 		// Otherwise, we need to prepend the full path to each of the files.
@@ -751,7 +751,7 @@ public function head()
 	foreach ($this->jsFiles as $files) {
 
 		// If JS aggregation is enabled, and there's more than one file in this "group", proceed with aggregation.
-		if (count($files) > 1 and C("esoTalk.aggregateJS") and ET::$controllerName != "admin")
+		if (count($files) > 1 and C("esoTalk.aggregateJS") and !(ET::$controller instanceof ETAdminController))
 			$files = $this->aggregateFiles($files, "js");
 
 		// Otherwise, we need to prepend the full path to each of the files.
