@@ -85,6 +85,8 @@ public function handler_postModel_getPostsAfter($sender, &$posts)
 		$post["likes"] = array();
 	}
 
+	if (!count($postsById)) return;
+
 	$result = ET::SQL()
 		->select("postId, m.memberId, username, avatarFormat")
 		->from("like l")
