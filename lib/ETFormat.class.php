@@ -301,8 +301,8 @@ public function makeQuote($text, $citation = "")
  */
 public function removeQuotes()
 {
-	while (preg_match("`(.*)\[quote(\=[^\]]+)?\].*?\[/quote\]`", $this->content))
-		$this->content = preg_replace("`(.*)\[quote(\=[^\]]+)?\].*?\[/quote\]`", "$1", $this->content);
+	while (preg_match("`(.*)\[quote(\=[^\]]+)?\].*?\[/quote\]`si", $this->content))
+		$this->content = preg_replace("`(.*)\[quote(\=[^\]]+)?\].*?\[/quote\]`si", "$1", $this->content);
 
 	return $this;
 }
