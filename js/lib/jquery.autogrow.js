@@ -49,7 +49,7 @@
 			if (vlen != e.valLength || ewidth != e.boxWidth) {
 
                 // Save the scroll top position.
-                var scrollTop = $(document).scrollTop();
+                //var scrollTop = $(document).scrollTop();
 
 				if (hCheck && (vlen < e.valLength || ewidth != e.boxWidth)) e.style.height = e.expandMin + "px";
 				var h = Math.max(e.expandMin, Math.min(e.scrollHeight, e.expandMax));
@@ -58,7 +58,7 @@
 				e.style.height = (h - parseInt($(e).css("padding-top")) - parseInt($(e).css("padding-bottom"))) + "px";
 
                 // Scroll back to where we were.
-                $.scrollTo(scrollTop);
+                //$.scrollTo(scrollTop);
 
 				e.valLength = vlen;
 				e.boxWidth = ewidth;
