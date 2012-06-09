@@ -21,7 +21,7 @@ $form = $data["form"];
 <?php echo $form->open(); ?>
 
 <div class='section'>
-<p class='help'><?php echo T("Alright! Now, what do you want your new password to be?"); ?></p>
+<p class='help'><?php echo T("message.setNewPassword"); ?></p>
 <ul class='form'>
 <li><label><?php echo T("New password"); ?></label> <?php echo $form->input("password", "password"); ?></li>
 <li><label><?php echo T("Confirm password"); ?></label> <?php echo $form->input("confirm", "password"); ?></li>
