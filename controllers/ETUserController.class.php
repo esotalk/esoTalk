@@ -230,7 +230,7 @@ public function sendConfirmation($username = "")
 	$member = reset(ET::memberModel()->get(array("m.username" => $username, "confirmedEmail" => false)));
 	if ($member) {
 		$this->sendConfirmationEmail($member["email"], $member["username"], $member["memberId"].$member["resetPassword"]);
-		$this->renderMessage("Success!", T("message.confirmEmail"));
+		$this->renderMessage(T("Success!"), T("message.confirmEmail"));
 	}
 	else $this->redirect(URL(""));
 }
@@ -277,7 +277,7 @@ public function forgot()
 				sprintf(T("email.forgotPassword.subject"), $member["username"]),
 				sprintf(T("email.header"), $member["username"]).sprintf(T("email.forgotPassword.body"), C("esoTalk.forumTitle"), URL("user/reset/".$member["memberId"].$hash, true))
 			);
-			$this->renderMessage("Success!", T("message.passwordEmailSent"));
+			$this->renderMessage(T("Success!"), T("message.passwordEmailSent"));
 			return;
 
 		}

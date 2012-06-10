@@ -53,6 +53,7 @@ $definitions["%s tagged you in a post."] = "%s mentioned you in a post.";
 $definitions["%s will be able to view this conversation."] = "%s will be able to view this conversation.";
 $definitions["%s will be able to:"] = "%s will be able to:";
 
+$definitions["Success"] = "Success";
 $definitions["A new version of esoTalk (%s) is available."] = "A new version of esoTalk (%s) is available.";
 $definitions["a private conversation"] = "a private conversation";
 $definitions["Access the administrator control panel."] = "Access the administrator control panel.";
