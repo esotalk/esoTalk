@@ -275,7 +275,7 @@ public function validateUsername($username, $checkForDuplicate = true)
 public function validateEmail($email, $checkForDuplicate = true)
 {
 	// Check it against a regular expression to make sure it's a valid email address.
-	if (!preg_match("/^[A-Z0-9._%-+]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i", $email)) return "invalidEmail";
+	if (!preg_match("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$", $email)) return "invalidEmail";
 
 	// Make sure there's no other member with the same email.
 	if ($checkForDuplicate and ET::SQL()->select("1")->from("member")->where("email=:email")->where("confirmedEmail=1")->bind(":email", $email)->exec()->numRows())
