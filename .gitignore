@@ -7,6 +7,7 @@
 cache/*
 config/*
 robots.txt
+config.defaults.php
 
 #For Toby's own repo (should really clean these up on my comp):
 uploads/*

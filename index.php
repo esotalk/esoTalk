@@ -33,8 +33,8 @@ define("PAGE_START_TIME", microtime(true));
 ini_set("display_errors", "On");
 error_reporting(E_ERROR | E_PARSE | E_CORE_ERROR | E_COMPILE_ERROR | E_USER_ERROR | E_RECOVERABLE_ERROR);
 
-// Make sure a default timezone is set... silly PHP 5.
-if (ini_get("date.timezone") == "") date_default_timezone_set("GMT");
+//in china
+ini_set("date.timezone", "Asia/Shanghai"); 
 
 // Define directory constants.
 if (!defined("PATH_ROOT")) define("PATH_ROOT", dirname(__FILE__));

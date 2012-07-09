@@ -88,7 +88,7 @@ span.highlight {background:#fdef34; border:1px solid #fcef98; padding:1px 3px; b
 
 
 /* Controls */
-.controls {list-style-type:none; padding:0; font-size:85%}
+.controls {list-style-type:none; padding:0; font-size:100%}
 .controls > li {display:inline; margin-right:10px}
 
 .hasControls .controls {opacity:0; float:right; -webkit-transition:opacity 0.1s linear}
@@ -138,7 +138,7 @@ span.highlight {background:#fdef34; border:1px solid #fcef98; padding:1px 3px; b
 
 
 /* Conversation labels */
-.label {font-size:70%; white-space:nowrap; text-transform:uppercase}
+.label {font-size:100%; white-space:nowrap; text-transform:uppercase}
 .label-locked, #gambits .gambit-locked {color:#555}
 .label-muted, #gambits .gambit-muted {color:#aaa}
 .label-private, #gambits .gambit-private {color:#a43fe7}
@@ -199,7 +199,7 @@ span.highlight {background:#fdef34; border:1px solid #fcef98; padding:1px 3px; b
 
 
 /* Tooltips */
-.tooltip {color:#fff; background:#111; background:rgba(0, 0, 0, 0.9); border:1px solid #000; padding:5px 9px 3px; display:block; border-radius:2px; font-size:85%; -webkit-box-shadow:0px 2px 3px rgba(0, 0, 0, 0.1); box-shadow:0px 2px 3px rgba(0, 0, 0, 0.1); max-width:400px; line-height:1.5em; cursor:default; z-index:400}
+.tooltip {color:#fff; background:#111; background:rgba(0, 0, 0, 0.9); border:1px solid #000; padding:5px 9px 3px; display:block; border-radius:2px; font-size:100%; -webkit-box-shadow:0px 2px 3px rgba(0, 0, 0, 0.1); box-shadow:0px 2px 3px rgba(0, 0, 0, 0.1); max-width:400px; line-height:1.5em; cursor:default; z-index:400}
 .withArrow.tooltip:before {border-color:#000}
 .withArrow.tooltip:after {border-color:#222}
 
@@ -246,7 +246,7 @@ span.highlight {background:#fdef34; border:1px solid #fcef98; padding:1px 3px; b
 /* Tabs */
 .tabs {margin:0; padding:2px; line-height:1em; overflow:hidden}
 .tabs li {float:left; list-style-type:none; margin:4px 7px 0 0}
-.tabs li > a, .tabs li > span {padding:4px 6px 3px; white-space:nowrap; font-size:85%; display:block}
+.tabs li > a, .tabs li > span {padding:4px 6px 3px; white-space:nowrap; font-size:100%; display:block}
 .tabs li > a {color:#666; cursor:pointer; border-radius:3px}
 .tabs li > span {color:#888}
 .tabs li a:hover {border:1px solid #eee; margin:-1px; text-decoration:none}
@@ -267,7 +267,7 @@ span.highlight {background:#fdef34; border:1px solid #fcef98; padding:1px 3px; b
 
 
 /* Channels */
-.channel {background:#fff; text-decoration:none; color:#666; border-radius:3px; font-size:85%; border:1px solid #d5d5d5; white-space:nowrap; -webkit-box-shadow:0 1px 0 rgba(0, 0, 0, 0.04); box-shadow:0 1px 0 rgba(0, 0, 0, 0.04); padding:2px 5px}
+.channel {background:#fff; text-decoration:none; color:#666; border-radius:3px; font-size:100%; border:1px solid #d5d5d5; white-space:nowrap; -webkit-box-shadow:0 1px 0 rgba(0, 0, 0, 0.04); box-shadow:0 1px 0 rgba(0, 0, 0, 0.04); padding:2px 5px}
 a.channel:hover {text-decoration:none; border-color:#aaa}
 
 
@@ -301,8 +301,8 @@ a.channel:hover {text-decoration:none; border-color:#aaa}
 #channelList {margin-top:-11px}
 .channelList li {padding:6px 0}
 .channelList .channel {padding:3px 6px}
-.channelList .description {display:inline; margin-left:10px; font-size:85%; line-height:2em; color:#888}
-.channelList .stats {float:right; font-size:85%}
+.channelList .description {display:inline; margin-left:10px; font-size:100%; line-height:2em; color:#888}
+.channelList .stats {float:right; font-size:100%}
 .channelList .stats span {margin-right:10px}
 .channelList .subscription {float:right; margin:-1px 0}
 .channelList .button {width:80px; text-align:center}
@@ -366,9 +366,9 @@ negative margins so they overlap the padding of the <li>. */
 .conversationList .col-conversation {width:95%}
 .conversationList .col-star {float:left; width:1em; margin-left:-13em; padding-left:0.5em}
 .conversationList .col-channel {float:left; width:10em; margin-left:-11em; text-align:right}
-.conversationList .col-lastPost {width:20em; margin-right:-30em; margin-left:0; padding-right:0; font-size:85%; overflow:hidden; white-space:nowrap}
+.conversationList .col-lastPost {width:20em; margin-right:-30em; margin-left:0; padding-right:0; font-size:100%; overflow:hidden; white-space:nowrap}
 .conversationList .col-replies {margin-right:-40em; margin-left:30em; width:10em; padding-left:0}
-.list .col-replies {color:#888; font-size:85%}
+.list .col-replies {color:#888; font-size:100%}
 .list .col-replies span {background:url(icons.png) no-repeat -20px -136px; padding-left:20px}
 
 
@@ -382,7 +382,7 @@ negative margins so they overlap the padding of the <li>. */
 #conversationHeader .star {vertical-align:-2px; margin-left:10px}
 #conversationHeader .labels {margin-left:10px}
 #conversationHeader .channel {margin-left:15px}
-#conversationHeader > #control-changeChannel {font-size:85%; margin-left:10px}
+#conversationHeader > #control-changeChannel {font-size:100%; margin-left:10px}
 
 #conversationTitle {margin:0; line-height:1.4em; vertical-align:-2px}
 #conversationTitle input.text {font-weight:bold}
@@ -398,7 +398,7 @@ negative margins so they overlap the padding of the <li>. */
 
 /* Conversation privacy */
 #conversationPrivacy {float:left; margin:10px 0 40px; line-height:1.5em}
-#control-changeMembersAllowed {font-size:85%; margin-left:5px}
+#control-changeMembersAllowed {font-size:100%; margin-left:5px}
 
 
 /* Members allowed list */
@@ -433,7 +433,7 @@ a.deleteLink:hover {color:#f00 !important; text-decoration:line-through}
 
 .scrubber li ul {display:none}
 .scrubber li.selected ul {display:block}
-.scrubber li ul {list-style-type:none; padding:0 0 0 15px; margin:0; font-size:85%}
+.scrubber li ul {list-style-type:none; padding:0 0 0 15px; margin:0; font-size:100%}
 .scrubber li ul li.selected a {color:#000}
 
 
@@ -448,7 +448,7 @@ a.deleteLink:hover {color:#f00 !important; text-decoration:line-through}
 /* Posts */
 .postList, .activityList {list-style-type:none; margin:0; padding:0; position:relative}
 
-.timeMarker {padding:7px 13px; text-transform:uppercase; font-size:85%; letter-spacing:1px; background:#f7f7f7; color:#aaa; display:inline-block; clear:both; border-radius:3px; margin-bottom:15px}
+.timeMarker {padding:7px 13px; text-transform:uppercase; font-size:100%; letter-spacing:1px; background:#f7f7f7; color:#aaa; display:inline-block; clear:both; border-radius:3px; margin-bottom:15px}
 
 .post {margin-bottom:15px; padding-left:74px; padding-bottom:2px; position:relative; overflow:hidden}
 .post div.avatar {float:left; margin-left:-74px}
@@ -462,7 +462,7 @@ a.deleteLink:hover {color:#f00 !important; text-decoration:line-through}
 .postHeader h3 {display:inline; font-size:110%; margin:0}
 .postHeader h3, .postHeader h3 a {color:#000}
 .postHeader .info {display:inline}
-.postHeader .info > span, .postHeader .info > a {font-size:85%; margin-left:7px; color:#888}
+.postHeader .info > span, .postHeader .info > a {font-size:100%; margin-left:7px; color:#888}
 .postHeader .controls {float:right; margin-top:3px}
 
 .postBody {line-height:1.5em; overflow:auto; padding:0px 12px}
@@ -525,8 +525,8 @@ code {background:#eee}
 .memberList strong a {color:#000}
 .memberList li div {display:inline-block}
 .memberList .col-member {width:55%}
-.memberList .col-member .group {font-size:85%}
-.memberList .col-lastActive {width:25%; font-size:85%}
+.memberList .col-member .group {font-size:100%}
+.memberList .col-lastActive {width:25%; font-size:100%}
 .memberList .col-replies {width:10%; padding:0}
 .memberList .avatar {margin-right:5px}
 .memberList .group, .memberList .controls, .memberList .online {margin-left:5px}
@@ -607,7 +607,7 @@ input[type=checkbox], input[type=radio] {padding:0; margin:4px 2px 0 0; cursor:p
 .radio input[type=radio], .checkbox input[type=checkbox] {float:left; margin-left:-20px}
 
 input.error, input.error:focus {border-color:#f59e79 !important}
-.form div.error {color:#db3000; font-size:85%}
+.form div.error {color:#db3000; font-size:100%}
 .indent {margin-left:20px}
 
 
@@ -615,7 +615,7 @@ input.error, input.error:focus {border-color:#f59e79 !important}
 .form {margin:0; padding:0}
 .form > li {display:block; list-style:none; margin-bottom:7px; padding-left:150px; overflow:hidden}
 .form > li > label {line-height:1.8em; margin:0 10px 1px 0; width:140px; margin-left:-150px; float:left}
-.form > li > small {font-size:85%; margin:0 0 5px 0; padding:5px 10px; display:block; padding:0; background:none; border:0}
+.form > li > small {font-size:100%; margin:0 0 5px 0; padding:5px 10px; display:block; padding:0; background:none; border:0}
 .form > li.sep {border-top:1px solid #e5e5e5; border-bottom:1px solid #fff; margin:15px 0}
 .checkboxGroup {line-height:1.7em}
 .colorSwatch {display:inline-block; height:21px; width:21px; border-radius:3px; margin-right:5px; vertical-align:-8px; border:1px solid rgba(0, 0, 0, 0.2)}
@@ -625,7 +625,7 @@ input.error, input.error:focus {border-color:#f59e79 !important}
 
 
 /* Buttons */
-.button {height:23px; cursor:pointer; padding:1px 10px 3px; border:1px solid #bbb; border-radius:3px; line-height:19px; margin:0; font-size:85%}
+.button {height:23px; cursor:pointer; padding:1px 10px 3px; border:1px solid #bbb; border-radius:3px; line-height:19px; margin:0; font-size:100%}
 .button.big {height:26px; font-size:100%; padding:0 10px 2px; line-height:25px}
 
 .button span {margin:-3px 2px -1px -2px; vertical-align:middle}
