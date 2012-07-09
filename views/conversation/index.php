@@ -184,10 +184,8 @@ foreach ($recentMonths as $month) {
 	echo "</li>";
 }
 
-// If the latest post was in today's month, output a "Now" item.
- if ($latestYear == $currentYear and $latestMonth == $currentMonth): ?>
-<li class='scrubber-now' data-index='last'><a href='<?php echo URL(makeURL("last")); ?>'><?php echo T("Now"); ?></a></li>
-<?php endif; ?>
+// If the latest post was in today's month, output a "Now" item. ?>
+<li class='scrubber-now' data-index='last'<?php if ($latestYear != $currentYear or $latestMonth != $currentMonth): ?> style='display:none'<?php endif; ?>><a href='<?php echo URL(makeURL("last")); ?>'><?php echo T("Now"); ?></a></li>
 </ul>
 
 <a href='#reply' class='button<?php if (!$conversation["canReply"] and ET::$session->user): ?> disabled<?php endif; ?>' id='jumpToReply'><span class='icon-add'></span> <?php echo T("Post a Reply"); ?></a>

@@ -114,7 +114,7 @@ init: function() {
 	ETSearch.updateInterval = new ETIntervalCallback(ETSearch.update, ET.searchUpdateInterval);
 
 	// Add tooltips to the channels, and give them click handlers.
-	$("#channels a:not(.channel-list)").tooltip({alignment: "left", delay: 250, offset: [7, 0], className: "withArrow withArrowBottom"});
+	$("#channels a:not(.channel-list)").tooltip({alignment: "left", delay: 250, offset: [0, 0], className: "withArrow withArrowBottom"});
 	$("#channels a.channel-list").tooltip();
 
 	// When the hash in the URL changes, update the search interface.
@@ -376,8 +376,8 @@ update: function() {
 
 	// Construct a list of conversation IDs for which to get updated details.
 	var conversationIds = "";
-	var count = Math.min($("#conversations tr").length, 20);
-	$("#conversations tr").each(function(i, row) {
+	var count = Math.min($("#conversations li").length, 20);
+	$("#conversations li").each(function(i, row) {
 		if (i > count) return false;
 		conversationIds += ETSearch.getConversationIdForElement(row) + ",";
 	});

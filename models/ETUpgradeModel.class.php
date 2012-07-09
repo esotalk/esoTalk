@@ -55,11 +55,17 @@ protected function structure($drop = false)
 		->column("memberId", "int(11) unsigned", false)
 		->column("fromMemberId", "int(11) unsigned")
 		->column("data", "tinyblob")
+		->column("conversationId", "int(11) unsigned")
+		->column("postId", "int(11) unsigned")
 		->column("time", "int(11) unsigned")
+		->column("read", "tinyint(1)", 0)
 		->key("activityId", "primary")
 		->key("memberId")
 		->key("time")
 		->key("type")
+		->key("conversationId")
+		->key("postId")
+		->key("read")
 		->exec($drop);
 
 	// Channel table.

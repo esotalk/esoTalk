@@ -93,7 +93,7 @@ public function handler_format_format($sender)
 	// \[ (i|b|color|url|somethingelse) \=? ([^]]+)? \] (?: ([^]]*) \[\/\1\] )
 
 	// Images: [img]url[/img]
-	$sender->content = preg_replace("/\[img\](.*?)\[\/img\]/i", "<img src='$1' alt='-image-'/>", $sender->content);
+	if (!$sender->basic) $sender->content = preg_replace("/\[img\](.*?)\[\/img\]/i", "<img src='$1' alt='-image-'/>", $sender->content);
 
 	// Links with display text: [url=http://url]text[/url]
 	$sender->content = preg_replace("/\[url=(\w{2,6}:\/\/)?([^\]]*?)\](.*?)\[\/url\]/ie", "'<a href=\'' . ('$1' ? '$1' : 'http://') . '$2\' rel=\'nofollow external\' target=\'_blank\'>$3</a>'", $sender->content);
@@ -108,7 +108,7 @@ public function handler_format_format($sender)
 	$sender->content = preg_replace("/\[s\](.*?)\[\/s\]/si", "<del>$1</del>", $sender->content);
 
 	// Headers: [h]header[/h]
-	if (!$sender->basic) $sender->content = preg_replace("/\[h\](.*?)\[\/h\]/", "</p><h4>$1</h4><p>", $sender->content);
+	$sender->content = preg_replace("/\[h\](.*?)\[\/h\]/", "</p><h4>$1</h4><p>", $sender->content);
 }
 
 

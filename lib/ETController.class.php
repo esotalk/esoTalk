@@ -276,14 +276,6 @@ public function init()
 		else {
 			$this->addToMenu("user", "user", "<a href='".URL("member/me")."'>".avatar(ET::$session->userId, ET::$session->user["avatarFormat"], "thumb").name(ET::$session->user["username"])."</a>");
 
-			// Fetch all unread notifications so we have a count for the notifications button.
-			$notifications = ET::activityModel()->getNotifications(-1);
-			$count = count($notifications);
-			$this->addToMenu("user", "notifications", "<a href='".URL("settings/notifications")."' id='notifications' class='popupButton ".($count ? "new" : "")."'><span>$count</span></a>");
-
-			// Show messages with these notifications.
-			$this->notificationMessages($notifications);
-
 			$this->addToMenu("user", "settings", "<a href='".URL("settings")."' class='link-settings'>".T("Settings")."</a>");
 
 			if (ET::$session->isAdmin())
@@ -401,6 +393,18 @@ public function data($key, $value)
 public function render($view = "")
 {
 	$this->trigger("renderBefore");
+
+	if ($this->responseType == RESPONSE_TYPE_DEFAULT and ET::$session->user) {
+		
+		// Fetch all unread notifications so we have a count for the notifications button.
+		$notifications = ET::activityModel()->getNotifications(-1);
+		$count = count($notifications);
+		$this->addToMenu("user", "notifications", "<a href='".URL("settings/notifications")."' id='notifications' class='popupButton ".($count ? "new" : "")."'><span>$count</span></a>", array("after" => "user"));
+
+		// Show messages with these notifications.
+		$this->notificationMessages($notifications);
+		
+	}
 
 	// Set up the master view, content type, and other stuff depending on the response type.
 	switch ($this->responseType) {
@@ -730,7 +734,7 @@ public function head()
 	foreach ($this->cssFiles as $files) {
 
 		// If CSS aggregation is enabled, and there's more than one file in this "group", proceed with aggregation.
-		if (count($files) > 1 and C("esoTalk.aggregateCSS"))
+		if (count($files) > 1 and C("esoTalk.aggregateCSS") and !(ET::$controller instanceof ETAdminController))
 			$files = $this->aggregateFiles($files, "css");
 
 		// Otherwise, we need to prepend the full path to each of the files.
@@ -747,7 +751,7 @@ public function head()
 	foreach ($this->jsFiles as $files) {
 
 		// If JS aggregation is enabled, and there's more than one file in this "group", proceed with aggregation.
-		if (count($files) > 1 and C("esoTalk.aggregateJS"))
+		if (count($files) > 1 and C("esoTalk.aggregateJS") and !(ET::$controller instanceof ETAdminController))
 			$files = $this->aggregateFiles($files, "js");
 
 		// Otherwise, we need to prepend the full path to each of the files.

@@ -49,6 +49,7 @@ public function edit($channelId = "")
  	$form = ETFactory::make("form");
  	$form->action = URL("admin/channels/edit/".$channel["channelId"]);
  	$form->setValues($channel);
+ 	$form->setValues((array)$channel["attributes"]);
 
 	// Get a list of groups!
  	$groups = ET::groupModel()->getAll();
@@ -67,12 +68,13 @@ public function edit($channelId = "")
 
  		// Save the channel's information.
  		$model = ET::channelModel();
- 		$model->updateById($channelId, array(
+ 		$data = array(
  			"title" => $form->getValue("title"),
- 			"slug" => $model->generateSlug($form->getValue("title")),
  			"description" => $form->getValue("description"),
  			"attributes" => array_merge((array)$channel["attributes"], array("defaultUnsubscribed" => $form->getValue("defaultUnsubscribed")))
-	 	));
+	 	);
+	 	if ($form->getValue("slug") != $channel["slug"]) $data["slug"] = $form->getValue("slug");
+ 		$model->updateById($channelId, $data);
 
 	 	// Set the channel's permissions.
 	 	$model->setPermissions($channelId, $form->getValue("permissions"));

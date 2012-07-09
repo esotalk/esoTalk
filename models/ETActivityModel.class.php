@@ -94,6 +94,8 @@ public static function addType($type, $projections)
  * @param array $member An array of details for the member to create the activity for.
  * @param array $fromMember An array of details for the member that the activity is from.
  * @param array $data An array of custom data that can be used by the type/projection callback functions.
+ * @param string $associatedType The type of a node that is associated with this activity (eg. 'post' or 'conversation')
+ * @param int $associatedId The ID of a node that is associated with this activity (eg. a post or conversation ID)
  * @return bool|int The activity ID, or false if there were errors.
  */
 public function create($type, $member, $fromMember = null, $data = null)
@@ -110,6 +112,8 @@ public function create($type, $member, $fromMember = null, $data = null)
 		"type" => $type,
 		"memberId" => $member["memberId"],
 		"fromMemberId" => $fromMember ? $fromMember["memberId"] : null,
+		"conversationId" => isset($data["conversationId"]) ? $data["conversationId"] : null,
+		"postId" => isset($data["postId"]) ? $data["postId"] : null,
 		"time" => time()
 	);
 	$activityId = null;
@@ -217,7 +221,7 @@ public function getActivity($member, $offset = 0, $limit = 11)
 		->select($member["memberId"], "fromMemberId")
 		->select("NULL", "fromMemberName")
 		->select("'{$member["avatarFormat"]}'", "avatarFormat")
-		->select("'post'", "type")
+		->select("'postActivity'", "type")
 		->select("NULL", "data")
 		->select("postId")
 		->select("c.title", "title")
@@ -227,6 +231,7 @@ public function getActivity($member, $offset = 0, $limit = 11)
 		->from("post p")
 		->from("conversation c", "c.conversationId=p.conversationId", "left")
 		->where("memberId=:memberId")
+		->where("p.deleteTime IS NULL")
 		->bind(":memberId", $member["memberId"])
 		->where("c.countPosts>0")
 		->where("c.private=0")
@@ -276,107 +281,33 @@ public function getNotifications($limit = 5)
 {
 	if (!ET::$session->user) return null;
 
-	// We get notification data by UNIONing two queries. This first query gets notifications for new posts in
-	// private/starred conversations.
-
-	// The first query is complex. Put as simply as possible, this query:
-	// 1. Gets a list of the 20 most recently-posted-in conversations that are private or that the user has starred.
-	// 2. For each of these conversations, gets the 10th most recent postId.
-	// 3. For each of these conversations, gets all posts with ids greater that the 10th most recent postId in step 2.
-	// The authors of these posts and other information is concatenated so that one row is returned for each conversation/notification.
-
-	// 1. Get a list of the 20 most recently-posted-in conversations that are private or that the user has starred.
-	$recentConversationIds = ET::SQL()
-		->select("c.conversationId")
-		->select("lastPostTime")
-		->from("conversation c")
-		->from("member_conversation s", "s.conversationId=c.conversationId", "inner")
-		->orderBy("lastPostTime")
-		->limit(20);
-	$this->addNotificationConversationPredicate($recentConversationIds);
-
-	// If we're only getting unread notifications, add a condition to the lastPostTime.
-	if ($limit == -1) $recentConversationIds
-		->where("lastPostTime>:notificationReadTime")
-		->bind(":notificationReadTime", ET::$session->preference("notificationReadTime"));
-
-	$recentConversationIds = $recentConversationIds->get();
-
-	// 2. Get the 10th most recent postId ("minPostId") in each of the conversations in the "recentConversationIds" result.
-	$minPostId = ET::SQL()
-		->select("postId")
-		->from("post p2")
-		->useIndex("post_conversationId_time")
-		->where("p2.conversationId=recent.conversationId")
-		->orderBy("p2.postId DESC")
-		->limit(1)
-		->offset(10)
-		->get();
-
-	// 3. Get all posts with ids greater than "minPostId", group by conversationId, and get all the data we need.
-	$conversations = ET::SQL()
-		->select("MAX(postId)", "postId")
-		->select("GROUP_CONCAT(m.memberId ORDER BY postId DESC SEPARATOR ',')", "fromMemberId")
-		->select("GROUP_CONCAT(m.username ORDER BY postId DESC SEPARATOR ',')", "fromMemberName")
-		->select("GROUP_CONCAT(IF(m.avatarFormat IS NULL,'',m.avatarFormat) ORDER BY postId DESC SEPARATOR ',')", "avatarFormat")
-		->select("c2.private", "private")
-		->select("c2.title", "title")
-		->select("c2.private AND c2.startMemberId=t.memberId AND c2.startTime=MAX(t.time)", "start")
-		->select("MAX(t.time)", "time")
-		->select("NULL", "data")
-		->select("'post'", "type")
-		->from(
-			"(".ET::SQL()
-				->select("DISTINCT conversationId")
-				->select("($minPostId)", "minPostId")
-				->from("($recentConversationIds) recent")
-				->get().
-			") lo"
-		)
-		->from("post t", false, "natural")
-		->from("member m", "t.memberId=m.memberId", "left")
-		->from("conversation c2", "c2.conversationId=t.conversationId", "left")
-		->where("t.conversationId=lo.conversationId")
-		->where("t.postId>lo.minPostId OR lo.minPostId IS NULL")
-		->where("t.memberId!=:userId")
-		->bind(":userId", ET::$session->userId)
-		->groupBy("t.conversationId")
-		->orderBy("c2.lastPostTime DESC")
-		->limit(20);
-
-	// This one's a bit simpler - it just gets the 20 most recent notifications in the notifications table.
-	$activity = ET::SQL()
-		->select("NULL")
+	$result = ET::SQL()
 		->select("a.fromMemberId")
-		->select("m.username")
+		->select("m.username", "fromMemberName")
 		->select("m.avatarFormat")
-		->select("NULL")
-		->select("NULL")
-		->select("NULL")
 		->select("a.time")
 		->select("a.data")
 		->select("a.type")
+		->select("a.postId")
+		->select("a.conversationId")
+		->select("a.read")
 		->from("activity a")
 		->from("member m", "m.memberId=a.fromMemberId", "left")
+		->from("activity prev", "prev.conversationId=a.conversationId AND prev.activityId>a.activityId", "left")
+		->where("prev.activityId IS NULL")
 		->where("a.memberId=:userId")
 		->bind(":userId", ET::$session->userId)
 		->where("a.type IN (:types)")
 		->bind(":types", $this->getTypesWithProjection(self::PROJECTION_NOTIFICATION))
 		->orderBy("a.time DESC")
-		->limit(20);
+		->limit($limit == -1 ? false : $limit);
 
-	// If we're only getting unread notifications, add a condition to the activity time.
-	if ($limit == -1) $activity
-		->where("a.time>:notificationReadTime")
-		->bind(":notificationReadTime", ET::$session->preference("notificationReadTime"));
+	// If we're only getting unread notifications...
+	if ($limit == -1) {
+		$result->where("a.read=0");
+	}
 
-	// UNION the two queries and impose a limit.
-	$result = ET::SQL()
-		->union($conversations)
-		->union($activity)
-		->orderBy("time DESC")
-		->limit($limit == -1 ? false : $limit)
-		->exec();
+	$result = $result->exec();
 
 	// Now expand the resultset into a proper array of activity items by running activity type/projection
 	// callback functions.
@@ -390,7 +321,7 @@ public function getNotifications($limit = 5)
 		$item["data"] = unserialize($item["data"]);
 
 		// Work out if the notification is unread.
-		$item["unread"] = $item["time"] > ET::$session->preference("notificationReadTime");
+		$item["unread"] = !$item["read"];
 
 		// Run the type/projection's callback function. The return value is the notification body and link.
 		list($item["body"], $item["link"]) = call_user_func_array(self::$types[$item["type"]][self::PROJECTION_NOTIFICATION], array(&$item)) + array(null, null);
@@ -402,20 +333,21 @@ public function getNotifications($limit = 5)
 }
 
 
-/**
- * Add a WHERE predicate to an SQL query that gets conversations which should appear as notifications.
- * The conversations must be private and the user must be allowed, or the user must have starred the
- * conversation. The user must also have permission to view the channel that the conversation is in.
- *
- * @param ETSQLQuery $sql The SQL query to add the predicate to.
- * @return void
- */
-private function addNotificationConversationPredicate(&$sql)
+public function markNotificationsAsRead($conversationId = false)
 {
-	$sql->where("((s.allowed=1 AND c.private=1) OR s.starred=1) AND s.muted!=1 AND ((s.type='member' AND s.id=:userId) OR (s.type='group' AND s.id IN (:groupIds)))")
-		->bind(":userId", ET::$session->userId)
-		->bind(":groupIds", ET::$session->getGroupIds());
-	ET::channelModel()->addPermissionPredicate($sql);
+	$query = ET::SQL()
+		->update("activity")
+		->set("`read`", 1)
+		->where("memberId=:memberId")
+		->where("`read`=0")
+		->bind(":memberId", ET::$session->userId);
+
+	if ($conversationId) {
+		$query->where("conversationId=:conversationId")
+			->bind(":conversationId", $conversationId);
+	}
+
+	$query->exec();
 }
 
 
@@ -444,23 +376,8 @@ public static function postActivity($item, $member)
  */
 public static function postNotification(&$item)
 {
-	// Get the first 3 unique member names.
-	$members = explode(",", $item["fromMemberName"]);
-	$members = array_unique($members);
-	$members = array_slice($members, 0, 3);
-	foreach ($members as &$name) $name = name($name);
-
-	// Take out the last of those 3, and construct an array with two elements which we can them implode with the word "and".
-	$member = reset(array_splice($members, -1));
-	if (count($members)) $members[0] = implode(", ", $members);
-	$members[1] = $member;
-
-	// Change the item's details so that the avatar will display properly (as we currently have a comma-separated list of values for each member.)
-	$item["fromMemberId"] = substr($item["fromMemberId"], 0, strpos($item["fromMemberId"], ","));
-	$item["avatarFormat"] = substr($item["avatarFormat"], 0, strpos($item["avatarFormat"], ","));
-
 	return array(
-		sprintf(T($item["start"] ? "%s invited you to %s." : "%s posted in %s."), (count($members) > 1 ? sprintf(T("%s and %s"), $members[0], $members[1]) : reset($members)), (!$item["private"] ? "<span class='star starOn'>*</span>" : "<span class='label label-private'>Private</span>")." <strong>".sanitizeHTML($item["title"])."</strong>"),
+		sprintf(T("%s posted in %s."), $item["fromMemberName"], "<span class='star starOn'>*</span> <strong>".sanitizeHTML($item["data"]["title"])."</strong>"),
 		URL(postURL($item["postId"]))
 	);
 }
@@ -544,6 +461,22 @@ public static function mentionEmail($item, $member)
 
 
 /**
+ * Returns a formatted notification item for the "privateAdd" activity type. For example,
+ * '[member1] invited you to [title]'.
+ *
+ * @param array $item The activity item's details.
+ * @return array 0 => notification body, 1 => notification link
+ */
+public static function privateAddNotification(&$item)
+{
+	return array(
+		sprintf(T("%s invited you to %s."), $item["fromMemberName"], "<span class='label label-private'>".T("label.private")."</span> <strong>".sanitizeHTML($item["data"]["title"])."</strong>"),
+		URL(conversationURL($item["conversationId"]))
+	);
+}
+
+
+/**
  * Returns a formatted email subject+body for the "privateAdd" activity type.
  *
  * @see mentionEmail() for parameter and return information.
@@ -562,7 +495,7 @@ public static function privateAddEmail($item, $member)
  *
  * @see mentionEmail() for parameter and return information.
  */
-public static function replyToStarredEmail($item, $member)
+public static function postEmail($item, $member)
 {
 	return array(
 		sprintf(T("email.replyToStarred.subject"), sanitizeHTML($item["data"]["title"])),
@@ -589,8 +522,12 @@ public static function updateAvailableNotification($item)
 
 // Add default activity types.
 ETActivityModel::addType("post", array(
+	"notification" => array("ETActivityModel", "postNotification"),
+	"email" => array("ETActivityModel", "postEmail")
+));
+
+ETActivityModel::addType("postActivity", array(
 	"activity" => array("ETActivityModel", "postActivity"),
-	"notification" => array("ETActivityModel", "postNotification")
 ));
 
 ETActivityModel::addType("groupChange", array(
@@ -609,12 +546,8 @@ ETActivityModel::addType("join", array(
 
 // Define an email to send out when a member is added to a private conversation.
 ETActivityModel::addType("privateAdd", array(
+	"notification" => array("ETActivityModel", "privateAddNotification"),
 	"email" => array("ETActivityModel", "privateAddEmail")
-));
-
-// Define an email to send out when someone replies to a conversation you have starred.
-ETActivityModel::addType("replyToStarred", array(
-	"email" => array("ETActivityModel", "replyToStarredEmail")
 ));
 
 // Notification for when an update to the esoTalk software is available.

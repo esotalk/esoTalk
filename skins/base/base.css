@@ -148,7 +148,7 @@ span.highlight {background:#fdef34; border:1px solid #fcef98; padding:1px 3px; b
 
 
 /* Member online icon */
-.online {background-position:-20px -485px; width:9px; height:9px; text-indent:-9999px; vertical-align:0}
+.online {background-position:-20px -485px; width:9px; height:9px; text-indent:-9999px; vertical-align:middle}
 
 
 /* Avatars */
@@ -366,7 +366,7 @@ negative margins so they overlap the padding of the <li>. */
 .conversationList .col-conversation {width:95%}
 .conversationList .col-star {float:left; width:1em; margin-left:-13em; padding-left:0.5em}
 .conversationList .col-channel {float:left; width:10em; margin-left:-11em; text-align:right}
-.conversationList .col-lastPost {width:20em; margin-right:-30em; margin-left:0; padding-right:0; font-size:85%}
+.conversationList .col-lastPost {width:20em; margin-right:-30em; margin-left:0; padding-right:0; font-size:85%; overflow:hidden; white-space:nowrap}
 .conversationList .col-replies {margin-right:-40em; margin-left:30em; width:10em; padding-left:0}
 .list .col-replies {color:#888; font-size:85%}
 .list .col-replies span {background:url(icons.png) no-repeat -20px -136px; padding-left:20px}
@@ -548,7 +548,7 @@ code {background:#eee}
 /* Member activity */
 .activity {margin-bottom:15px}
 .activity .action {margin-bottom:10px}
-.activityBody {padding:9px 9px 0; overflow:visible}
+.activityBody {padding:9px 9px 1px; overflow:visible}
 .activityBody p {margin-bottom:9px}
 .activityBody:before, .activityBody:after {content:" "; border-top-color:transparent !important; border-right-color:transparent !important; border-left-color:transparent !important; border-style:solid; border-width:5px; height:0; width:0; left:6px; top:-11px; position:absolute}
 .activityBody:after {float:left; top:-10px}

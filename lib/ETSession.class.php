@@ -260,7 +260,7 @@ protected function createPersistentToken($memberId, $series)
  */
 public function setCookie($name, $value, $expire = 0)
 {
-	return setcookie(C("esoTalk.cookie.name")."_".$name, $value, $expire, C("esoTalk.cookie.path", getWebPath()), C("esoTalk.cookie.domain"));
+	return setcookie(C("esoTalk.cookie.name")."_".$name, $value, $expire, C("esoTalk.cookie.path", getWebPath('')), C("esoTalk.cookie.domain"));
 }
 
 

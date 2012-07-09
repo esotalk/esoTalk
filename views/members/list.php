@@ -20,7 +20,7 @@ if (!defined("IN_ESOTALK")) exit;
 <?php
 // Online indicator.
 $lastAction = ET::memberModel()->getLastActionInfo($member["lastActionTime"], $member["lastActionDetail"]);
-if ($lastAction) echo "<".(!empty($lastAction[1]) ? "a href='{$lastAction[1]}'" : "span")." class='online' title='".T("Online").($lastAction[0] ? "(".sanitizeHTML($lastAction[0]).")" : "")."'>".T("Online")."</".(!empty($lastAction[1]) ? "a" : "span").">";
+if ($lastAction) echo "<".(!empty($lastAction[1]) ? "a href='{$lastAction[1]}'" : "span")." class='online' title='".T("Online").($lastAction[0] ? " (".sanitizeHTML($lastAction[0]).")" : "")."'>".T("Online")."</".(!empty($lastAction[1]) ? "a" : "span").">";
 ?>
 
 <span class='group subText'><?php echo memberGroup($member["account"], $member["groups"]); ?></span>

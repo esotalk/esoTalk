@@ -635,6 +635,8 @@ $.fn.tooltip = function(options) {
 			left = Math.max(left, 0);
 			top += options.offset ? options.offset[1] || 0 : 0;
 
+			top = Math.max($(document).scrollTop(), top); 
+
 			// ...and position it!
 			tooltip.css({left: left, top: top});
 

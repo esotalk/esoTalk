@@ -191,7 +191,7 @@ public function links()
 {
 	// Convert normal links - http://www.example.com, www.example.com - using a callback function.
 	$this->content = preg_replace_callback(
-		"/(?<=\s|^|>)(\w+:\/\/)?([\w\-\.]+\.(?:com|net|org|gov|edu|co|biz|info|tv|mil|cn|jp|ru|eu|nz|ca|uk|de)[^\s<]*?)(?=[\s\.,?!>\)]*(?:\s|>|\)|$))/i",
+		"/(?<=\s|^|>|\()(\w+:\/\/)?([\w\-\.]+\.(?:com|net|org|gov|edu|co|biz|info|tv|mil|cn|jp|ru|eu|nz|ca|uk|de)[^\s<]*?)(?=[\s\.,?!>\)]*(?:\s|>|\)|$))/i",
 		array($this, "linksCallback"), $this->content);
 
 	// Convert email links.
@@ -301,8 +301,8 @@ public function makeQuote($text, $citation = "")
  */
 public function removeQuotes()
 {
-	while (preg_match("`(.*)\[quote(\=[^\]]+)?\].*?\[/quote\]`", $this->content))
-		$this->content = preg_replace("`(.*)\[quote(\=[^\]]+)?\].*?\[/quote\]`", "$1", $this->content);
+	while (preg_match("`(.*)\[quote(\=[^\]]+)?\].*?\[/quote\]`si", $this->content))
+		$this->content = preg_replace("`(.*)\[quote(\=[^\]]+)?\].*?\[/quote\]`si", "$1", $this->content);
 
 	return $this;
 }
@@ -317,7 +317,7 @@ public function mentions()
 {
 	$this->content = preg_replace(
 		'/(^|[\s,\.:])@(\w{3,20})\b/ie',
-		"'$1<a href=\''.URL('member?name='.urlencode('$2')).'\'>$2</a>'",
+		"'$1<a href=\''.URL('member/name/'.urlencode('$2')).'\'>$2</a>'",
 		$this->content
 	);
 

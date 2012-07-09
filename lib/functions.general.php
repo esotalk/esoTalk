@@ -115,8 +115,8 @@ function file_force_contents($file, $contents){
 	$file = array_pop($parts);
 	$dir = "";
 	foreach($parts as $part)
-		if (!is_dir($dir .= "/$part")) mkdir($dir);
-	return file_put_contents("$dir/$file", $contents);
+		if (!is_dir($dir .= "$part/")) mkdir($dir);
+	return file_put_contents("$dir$file", $contents);
 }
 
 
@@ -188,8 +188,12 @@ function minifyJS($js)
  */
 function sendEmail($to, $subject, $body)
 {
+	if (($return = ET::trigger("sendEmailBefore", array(&$to, &$subject, &$body))) and !empty($return)) return reset($return);
+
 	$headers = "From: ".sanitizeForHTTP(C("esoTalk.forumTitle")." <".C("esoTalk.emailFrom").">")."\r\n".
-		"Content-Type: text/plain; charset=".T("charset")." format=flowed";
+		'X-Mailer: esoTalk' . "\r\n".
+		'MIME-Version: 1.0' . "\r\n".
+		"Content-Type: text/plain; charset=".T("charset")."";
 
 	return mail($to, $subject, $body, $headers);
 }
@@ -244,7 +248,7 @@ function parseRequest($parts, $controllers)
 			// Search for a plugin with this method. If found, use that.
 			$found = false;
 			foreach (ET::$plugins as $plugin) {
-				if (method_exists($plugin, "controller_".$c."_".$method)) {
+				if (method_exists($plugin, $c."Controller_".$method)) {
 					$found = true;
 					break;
 				}
@@ -610,6 +614,8 @@ function json_decode($json)
  */
 function URL($url = "", $absolute = false)
 {
+	if (strpos($url, "http://") === 0) return $url;
+	
 	// Strip off the hash.
 	$hash = strstr($url, "#");
 	if ($hash) $url = substr($url, 0, -strlen($hash));
@@ -788,7 +794,7 @@ function relativeTime($then, $precise = false)
 	}
 
 	// If this happened over two months ago, return "x months ago".
-	elseif ($ago >= ($period = 60 * 60 * 24 * (365.25 / 12) * 2)) {
+	elseif ($ago >= ($period = 60 * 60 * 24 * (365.25 / 12)) * 2) {
 		$months = floor($ago / $period);
 		return Ts("%d month ago", "%d months ago", $months);
 	}

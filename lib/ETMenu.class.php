@@ -16,14 +16,14 @@ class ETMenu {
  * A list of menu items.
  * @var array
  */
-protected $items = array();
+public $items = array();
 
 
 /**
  * A list of menu item keys to highlight.
  * @var array
  */
-protected $highlight = array();
+public $highlight = array();
 
 
 /**

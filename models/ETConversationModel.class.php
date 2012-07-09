@@ -579,6 +579,13 @@ public function create($data, $membersAllowed = array(), $isDraft = false)
 		->where("memberId", ET::$session->userId)
 		->exec();
 
+	// Update the channel's converastion count.
+	ET::SQL()
+		->update("channel")
+		->set("countConversations", "countConversations + 1", false)
+		->where("channelId", $data["channelId"])
+		->exec();
+
 	// Whip up a little array fo conversation details for this model's functions to work with.
 	$conversation = array(
 		"conversationId" => $conversationId,
@@ -682,12 +689,13 @@ public function addReply(&$conversation, $content)
 	$members = ET::memberModel()->getWithSQL($sql);
 
 	$data = array(
-		"conversationId" => $conversation["id"],
+		"conversationId" => $conversation["conversationId"],
+		"postId" => $postId,
 		"title" => $conversation["title"]
 	);
 
 	foreach ($members as $member) {
-		ET::activityModel()->create("replyToStarred", $member, ET::$session->user, $data);
+		ET::activityModel()->create("post", $member, ET::$session->user, $data);
 	}
 
 	// Update the conversation post count.
@@ -717,12 +725,20 @@ public function addReply(&$conversation, $content)
  */
 public function delete($wheres = array())
 {
+	// Get conversation IDs that match these WHERE conditions.
+	$ids = array();
+	$result = ET::SQL()->select("conversationId")->from("conversation c")->where($wheres)->exec();
+	while ($row = $result->nextRow()) $ids[] = $row["conversationId"];
+
+	// Delete the conversation, posts, member_conversation, and activity rows.
 	ET::SQL()
 		->delete("c, m, p")
 		->from("conversation c")
 		->from("member_conversation m", "m.conversationId=c.conversationId", "left")
 		->from("post p", "p.conversationId=c.conversationId", "left")
-		->where($wheres)
+		->from("activity a", "a.conversationId=c.conversationId", "left")
+		->where("c.conversationId IN (:conversationIds)")
+		->bind(":conversationIds", $ids)
 		->exec();
 
 	return true;
@@ -944,9 +960,27 @@ public function setChannel(&$conversation, $channelId)
 
 	if ($this->errorCount()) return false;
 
+	// Decrease the conversation/post count of the old channel.
+	ET::SQL()->update("channel")
+		->set("countConversations", "countConversations - 1", false)
+		->set("countPosts", "countPosts - :posts", false)
+		->bind(":posts", $conversation["countPosts"])
+		->where("channelId=:channelId")
+		->bind(":channelId", $conversation["channelId"])
+		->exec();
+
 	$this->updateById($conversation["conversationId"], array(
 		"channelId" => $channelId
 	));
+
+	// Increase the conversation/post count of the new channel.
+	ET::SQL()->update("channel")
+		->set("countConversations", "countConversations + 1", false)
+		->set("countPosts", "countPosts + :posts", false)
+		->bind(":posts", $conversation["countPosts"])
+		->where("channelId=:channelId")
+		->bind(":channelId", $channelId)
+		->exec();
 
 	$conversation["channelId"] = $channelId;
 

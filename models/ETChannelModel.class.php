@@ -141,7 +141,13 @@ public function get($permission = "view")
 public function joinUserData(&$channels)
 {
 	// If there's no user logged in, we don't need to add anything.
-	if (!ET::$session->userId) return;
+	if (!ET::$session->userId) {
+		foreach ($channels as &$channel) {
+			if ($channel["attributes"]["defaultUnsubscribed"])
+				$channel["unsubscribed"] = true;
+		}
+		return;
+	}
 
 	// Get the user data from the database for all channel IDs in the array.
 	$result = ET::SQL()
@@ -297,7 +303,7 @@ public function update($values, $wheres = array())
 		$this->validate("slug", $values["slug"], array($this, "validateSlug"));
 
 	// Collapse the attributes.
-	if (isset($values["attributes"])) $values["attributes"] = serialize($value["attributes"]);
+	if (isset($values["attributes"])) $values["attributes"] = serialize($values["attributes"]);
 
 	if ($this->errorCount()) return false;
 

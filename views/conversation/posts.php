@@ -28,7 +28,7 @@ $thisPostTime = relativeTime($post["time"]);
 <?php
 // If the post before this one has a different relative time string to this one, output a 'time marker'.
 if (!isset($prevPost["time"]) or relativeTime($prevPost["time"]) != $thisPostTime): ?>
-<div class='timeMarker'><?php echo $thisPostTime; ?></div>
+<div class='timeMarker'<?php if ($thisPostTime == T("just now")): ?> data-now='1'<?php endif; ?>><?php echo $thisPostTime; ?></div>
 <?php endif; ?>
 <?php $this->renderView("conversation/post", array("post" => $formattedPost)); ?>
 </li>

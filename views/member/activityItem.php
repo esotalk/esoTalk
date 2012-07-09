@@ -21,7 +21,7 @@ $member = $data["member"];
 <?php endif; ?>
 </div>
 <div class='action'>
-<?php echo avatar($activity["fromMemberId"], $activity["avatarFormat"], "thumb"); ?>
+<?php echo avatar($activity["fromMemberId"], $activity["avatarFormat"], "thumb"), "\n"; ?>
 <?php echo $activity["description"]; ?>
 </div>
 <?php if (!empty($activity["body"])): ?>

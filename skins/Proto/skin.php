@@ -15,8 +15,8 @@ ET::$skinInfo["Proto"] = array(
 	"description" => "The default esoTalk skin.",
 	"version" => ESOTALK_VERSION,
 	"author" => "esoTalk Team",
-	"authorEmail" => "support@esotalk.com",
-	"authorURL" => "http://esotalk.com",
+	"authorEmail" => "support@esotalk.org",
+	"authorURL" => "http://esotalk.org",
 	"license" => "GPLv2"
 );
 
@@ -35,7 +35,7 @@ public function handler_init($sender)
 	$sender->addCSSFile($this->getResource("styles.css"), true);
 
 	// If we're viewing from a mobile browser, add the mobile CSS and change the master view.
-	if (isMobileBrowser()) {
+	if ($isMobile = isMobileBrowser()) {
 		$sender->addCSSFile($this->getResource("mobile.css"), true);
 		$sender->masterView = "mobile.master";
 		$sender->addToHead("<meta name='viewport' content='width=device-width; initial-scale=1.0; maximum-scale=1.0;'>");
@@ -71,7 +71,7 @@ public function handler_init($sender)
 	}
 
 	// If a custom body background image has been set...
-	if ($img = C("skin.Proto.bodyImage"))
+	if (($img = C("skin.Proto.bodyImage")) and !$isMobile)
 		$styles[] = "body {background-image:url(".getWebPath($img)."); background-position:top center; background-attachment:fixed}";
 	
 	// Do we want this background image to not repeat?

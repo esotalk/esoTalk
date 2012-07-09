@@ -7,8 +7,8 @@ here if necessary.
 
 
 /* Global */
-body {font-size:13px; margin:0; overflow-y:scroll; background:#f4f4f4}
-body, input, textarea, select {font-family:helvetica,arial,sans-serif}
+body {font-size:12px; margin:0; overflow-y:scroll; background:#f4f4f4}
+body, input, textarea, select {font-family:lucida grande,lucida sans unicode,helvetica,arial,sans-serif}
 input, textarea, select {font-size:100%}
 
 

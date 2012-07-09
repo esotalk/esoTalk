@@ -109,3 +109,5 @@ foreach ($letters as $letter) {
 </ul>
 
 <?php endif; ?>
+
+</div>

@@ -56,6 +56,8 @@ public function getWithSQL($sql)
 		->groupBy("p.postId")
 		->orderBy("p.time ASC");
 
+	$this->trigger("getPostsBefore", array($sql));
+
 	$result = $sql->exec();
 
 	// Loop through the results and compile them into an array of posts.
@@ -66,6 +68,8 @@ public function getWithSQL($sql)
 		$posts[] = $post;
 
 	}
+
+	$this->trigger("getPostsAfter", array(&$posts));
 
 	return $posts;
 }
@@ -206,6 +210,13 @@ public function create($conversationId, $memberId, $content, $title = "")
 		->where("memberId", $memberId)
 		->exec();
 
+	// Update the channel's post count.
+	ET::SQL()
+		->update("channel")
+		->set("countPosts", "countPosts + 1", false)
+		->where("channelId", ET::SQL()->select("channelId")->from("conversation")->where("conversationId=:conversationId")->bind(":conversationId", $conversationId)->exec()->result())
+		->exec();
+
 	// Parse the post content for @mentions, and notify any members who were mentioned.
 	if (C("esoTalk.format.mentions")) {
 
@@ -222,6 +233,7 @@ public function create($conversationId, $memberId, $content, $title = "")
 			$members = ET::memberModel()->getWithSQL($sql);
 
 			$data = array(
+				"conversationId" => $conversationId,
 				"postId" => (int)$id,
 				"title" => $title
 			);

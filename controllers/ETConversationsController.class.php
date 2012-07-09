@@ -142,7 +142,7 @@ function index($channelSlug = false)
 		$this->canonicalURL = URL($url, true);
 
 		// Add a link to the RSS feed in the bar.
-		$this->addToMenu("meta", "feed", "<a href='".URL(str_replace("conversations/", "conversations/index.atom/", $url))."' id='feed'>".T("Feed")."</a>");
+		// $this->addToMenu("meta", "feed", "<a href='".URL(str_replace("conversations/", "conversations/index.atom/", $url))."' id='feed'>".T("Feed")."</a>");
 
 		// Construct a list of keywords to use in the meta tags.
 		$keywords = array();
@@ -186,7 +186,7 @@ function index($channelSlug = false)
 		// ...and show them in the footer.
 		foreach ($stats as $k => $v) {
 			$stat = Ts("statistic.$k", "statistic.$k.plural", number_format($v));
-			if ($k == "member") $stat = "<a href='".URL("members")."'>$stat</a>";
+			if ($k == "member" and (C("esoTalk.members.visibleToGuests") or ET::$session->user)) $stat = "<a href='".URL("members")."'>$stat</a>";
 			$this->addToMenu("statistics", "statistic-$k", $stat, array("before" => "statistic-online"));
 		}
 
@@ -329,6 +329,7 @@ public function update($channelSlug = "", $query = "")
 	}
 
 	if (!count($conversationIds)) return;
+	$conversationIds = array_slice((array)$conversationIds, 0, 20);
 
 	// Get the full result data for these conversations, and construct an array of rendered conversation rows.
 	$results = ET::searchModel()->getResults($conversationIds, true);
@@ -355,7 +356,7 @@ public function update($channelSlug = "", $query = "")
 
 	// Get the difference of the two sets of conversationId's.
 	$diff = array_diff((array)$newConversationIds, (array)$conversationIds);
-	if (count($diff)) $this->message(T("message.newSearchResults"));
+	if (count($diff)) $this->message(sprintf(T("message.newSearchResults"), "javascript:ETSearch.showNewActivity();void(0)"));
 
 	$this->render();
 }

@@ -2,6 +2,31 @@
 // Copyright 2011 Toby Zerner, Simon Zerner
 // This file is part of esoTalk. Please see the included license file for usage information.
 
+function db_connect($dsn, $username = '', $password = '', $driver_options = array(), $path = './phppdo')
+{
+    $driver = strtolower(trim(substr($dsn, 0, strpos($dsn, ':'))));
+    
+    if($driver && class_exists('PDO') && extension_loaded('pdo_' . $driver))
+    {
+        $class = 'PDO';
+    }
+    else
+    {
+        require_once($path . '/phppdo.php');
+        $class = 'PHPPDO';
+    }
+    
+    return new $class($dsn, $username, $password, $driver_options);
+}
+
+try
+{
+    $db = db_connect('mysql:dbname=DB1E389', 'DB1E389', 'f60df7hB.9#Dm', array(), $_SERVER['DOCUMENT_ROOT'].'/phppdo');
+} catch(PDOException $e)
+{
+    die($e->getMessage());
+}
+
 if (!defined("IN_ESOTALK")) exit;
 
 /**
@@ -12,7 +37,7 @@ if (!defined("IN_ESOTALK")) exit;
  */
 
 // The version of the code.
-define("ESOTALK_VERSION", "1.0.0g1");
+define("ESOTALK_VERSION", "1.0.0g2");
 
 // Define response type constants.
 if (!defined("RESPONSE_TYPE_DEFAULT")) define("RESPONSE_TYPE_DEFAULT", "default");
@@ -72,7 +97,7 @@ $config["esoTalk.meta.description"] = null;
 $config["esoTalk.skin"] = "Proto"; // The active skin.
 $config["esoTalk.mobileSkin"] = "Proto"; // The active skin for mobile devices.
 $config["esoTalk.adminSkin"] = "Proto"; // The active skin for the administrator section.
-$config["esoTalk.enabledPlugins"] = array("BBCode"); // A list of enabled plugins.
+$config["esoTalk.enabledPlugins"] = array("BBCode", "ReportBug"); // A list of enabled plugins.
 
 // Login and registration settings.
 $config["esoTalk.badLoginsPerMinute"] = 10;
@@ -113,6 +138,7 @@ $config["esoTalk.conversation.updateIntervalMultiplier"] = 1.5; // Each time we 
 $config["esoTalk.conversation.updateIntervalLimit"] = 512; // The maximum number of seconds between checking for new posts.
 
 // Member list settings.
+$config["esoTalk.members.visibleToGuests"] = false;
 $config["esoTalk.members.membersPerPage"] = 30;
 
 // Post formatting settings.

@@ -30,7 +30,7 @@ function ETAutoCompletePopup(field, character, clickHandler) {
 
 			// From the selection position, go back up to 20 characters, searching for the start character.
 			for (var i = selection.start; i > selection.start - 20; i--) {
-				if (value.substr(i, 1) == " " || value.substr(i, 1) == "]") break;
+				if (i != selection.start && (value.substr(i, 1) == " " || value.substr(i, 1) == "]")) break;
 				if (value.substr(i, ac.character.length) == ac.character) {
 					nameStart = i + ac.character.length;
 					break;
@@ -101,7 +101,7 @@ function ETAutoCompletePopup(field, character, clickHandler) {
 					var nameStart = 0;
 					if (selection.length == 0) {
 						for (var i = selection.start; i > selection.start - 20; i--) {
-							if (value.substr(i, 1) == " " || value.substr(i, 1) == "]") break;
+							if (i != selection.start && (value.substr(i, 1) == " " || value.substr(i, 1) == "]")) break;
 							if (value.substr(i, ac.character.length) == ac.character) {
 								nameStart = i + ac.character.length;
 								break;

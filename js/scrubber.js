@@ -58,11 +58,11 @@ init: function() {
 
 		// If we're past the normal top position of the scrubber, make it fixed.
 		if (y >= scrubberTop && !ET.disableFixedPositions) {
-			ETScrubber.scrubber.css({position: "fixed", top: ETScrubber.header.outerHeight() + 10, zIndex: 100});
+			ETScrubber.scrubber.addClass("floating").css({position: "fixed", top: ETScrubber.header.outerHeight() + 10, zIndex: 100});
 		}
 		// Otherwise, put it back to normal.
 		else {
-			ETScrubber.scrubber.css({position: "", top: ""});
+			ETScrubber.scrubber.removeClass("floating").css({position: "", top: ""});
 		}
 
 		// Now we need to work out where we are in the content and highlight the appropriate
@@ -270,6 +270,12 @@ addItems: function(startFrom, items, moreItem, animate) {
 	// Now that we have an array of items, convert it to a jQuery collection.
 	items = $(items);
 
+	// If we already have a "Just now" time marker anywhere in our posts, remove any "Just now" time markers
+	// from these new posts.
+	if ($("div.timeMarker[data-now]", ETScrubber.body).length) {
+		items.find("div.timeMarker[data-now]").remove();
+	}
+
 	// Add the items to the page before/after/replacing the "more" block, depending on the type of "more" block.
 	if (moreItem.is(".scrubberPrevious"))
 		moreItem.after(items);
@@ -298,7 +304,7 @@ addItems: function(startFrom, items, moreItem, animate) {
 
 	// If we don't have the item immediately AFTER the LAST item that we just loaded (ie. there's a gap), we
 	// need to put a "more" block there.
-	if (ETScrubber.loadedItems.indexOf(startFrom + items.length + 1) == -1 && items.last().next().is("li:not(.scrubberMore)")) {
+	if (ETScrubber.loadedItems.indexOf(startFrom + items.length) == -1 && items.last().next().is("li:not(.scrubberMore)")) {
 		scrubberMore = scrubberMore.clone();
 		items.last().after(scrubberMore);
 

@@ -91,7 +91,7 @@ public function info()
 
 	// Set some default values.
 	$form->setValue("mysqlHost", "localhost");
-	$form->setValue("tablePrefix", "et_");
+	$form->setValue("tablePrefix", "et");
 
 	// If we have values stored in the session, use them.
 	if ($values = ET::$session->get("install")) $form->setValues($values);
@@ -184,7 +184,7 @@ public function install()
 		"esoTalk.database.user" => $info["mysqlUser"],
 		"esoTalk.database.password" => $info["mysqlPass"],
 		"esoTalk.database.dbName" => $info["mysqlDB"],
-		"esoTalk.database.prefix" => $info["tablePrefix"],
+		"esoTalk.database.prefix" => $info["tablePrefix"]."_",
 		"esoTalk.forumTitle" => $info["forumTitle"],
 		"esoTalk.baseURL" => $info["baseURL"],
 		"esoTalk.emailFrom" => "do_not_reply@{$_SERVER["HTTP_HOST"]}",

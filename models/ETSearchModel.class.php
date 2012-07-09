@@ -288,6 +288,8 @@ public function getConversationIDs($channelIDs = array(), $searchString = "", $o
 {
 	$this->reset();
 
+	$this->trigger("getConversationIDsBefore", array(&$channelIDs, &$searchString, &$orderBySticky));
+
 	if ($searchString and ($seconds = $this->isFlooding())) {
 		$this->error("search", sprintf(T("message.waitToSearch"), $seconds));
 		return false;

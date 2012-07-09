@@ -120,8 +120,8 @@ public function toggle($plugin = "")
 			$pluginObject = new $className;
 
 			// Call the plugin's setup function. If the setup failed, show a message.
-			if (!$pluginObject->setup()) {
-				$this->message(T("message.pluginCannotBeEnabled"), "warning");
+			if (($msg = $pluginObject->setup()) !== true) {
+				$this->message(sprintf(T("message.pluginCannotBeEnabled"), $plugin, $msg), "warning");
 				$this->redirect(URL("admin/plugins"));
 				return;
 			}

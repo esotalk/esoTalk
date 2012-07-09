@@ -27,7 +27,11 @@ $form = $data["form"];
 <li>
 <label><?php echo T("Channel title"); ?></label>
 <?php echo $form->input("title"); ?>
-<small><?php echo URL("conversations/<span id='channelSlug'>".@$channel["slug"]."</span>", true); ?></small>
+</li>
+
+<li>
+<label><?php echo T("Channel slug"); ?></label>
+<?php echo $form->input("slug", "text", array("id" => "channelSlug")); ?>
 </li>
 
 <li class='sep'></li>

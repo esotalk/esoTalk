@@ -39,6 +39,7 @@ public function index($conversationId = false, $year = false, $month = false)
 	if ($searchString) {
 
 		$conversation["countPosts"] = ET::postModel()->getSearchResultsCount($conversation["conversationId"], $searchString);
+		$conversation["searching"] = true;
 
 		// Add the keywords in $this->searchString to be highlighted. Make sure we keep ones "in quotes" together.
 		$words = array();
@@ -104,9 +105,12 @@ public function index($conversationId = false, $year = false, $month = false)
 			$year = (int)$year;
 			$month = (int)$month;
 
-			// Make a timestamp out of this date.
-			$timestamp = mktime(0, 0, 0, min($month, 2038), 1, $year);
+			// Bit of a hacky way of loading posts from the last page.
+			if ($year == 9999 and $month == 99) $timestamp = PHP_INT_MAX;
 
+			// Make a timestamp out of this date.
+			else $timestamp = mktime(0, 0, 0, min($month, 12), 1, min($year, 2038));
+			
 			// Find the closest post that's after this timestamp, and find its position within the conversation.
 			$position = ET::SQL()
 				->select("COUNT(postId)", "position")
@@ -137,6 +141,11 @@ public function index($conversationId = false, $year = false, $month = false)
 
 		// Update the user's last read.
 		ET::conversationModel()->setLastRead($conversation, ET::$session->userId, $startFrom + C("esoTalk.conversation.postsPerPage"));
+
+		// If we're on the last page, mark any notifications related to this conversation as read.
+		if ($startFrom + C("esoTalk.conversation.postsPerPage") >= $conversation["countPosts"]) {
+			ET::activityModel()->markNotificationsAsRead($conversation["conversationId"]);
+		}
 
 		// Update the user's last action.
 		ET::memberModel()->updateLastAction("viewingConversation", $conversation["private"] ? null : array(
@@ -201,7 +210,7 @@ public function index($conversationId = false, $year = false, $month = false)
 		$this->addJSFile("js/conversation.js");
 
 		// Add the RSS feed button.
-		$this->addToMenu("meta", "feed", "<a href='".URL("conversation/index.atom/".$url)."' id='feed'>".T("Feed")."</a>");
+		// $this->addToMenu("meta", "feed", "<a href='".URL("conversation/index.atom/".$url)."' id='feed'>".T("Feed")."</a>");
 
 		$controls = ETFactory::make("menu");
 
@@ -341,6 +350,8 @@ public function start($member = false)
 		$this->addJSFile("js/scrubber.js");
 		$this->addJSFile("js/autocomplete.js");
 		$this->addJSFile("js/conversation.js");
+		$this->addJSVar("mentions", C("esoTalk.format.mentions"));
+		$this->addJSLanguage("message.confirmLeave", "message.confirmDiscardReply");
 
 		// If there's a member name in the querystring, make the conversation that we're starting private
 		// with them and redirect.
@@ -1175,7 +1186,8 @@ protected function formatPostForTemplate($post, $conversation)
 		"body" => !$post["deleteMemberId"] ? $this->displayPost($post["content"]) : false,
 
 		"data" => array(
-			"id" => $post["postId"]
+			"id" => $post["postId"],
+			"memberid" => $post["memberId"]
 		)
 	);
 
@@ -1188,7 +1200,7 @@ protected function formatPostForTemplate($post, $conversation)
 		$date = date("M j", $post["time"]);
 
 	// Add the date/time to the post info as a permalink.
-	$formatted["info"][] = "<a href='".URL(postURL($post["postId"]))."' class='time' title='".date(T("date.full"), $post["time"])."'>$date</a>";
+	$formatted["info"][] = "<a href='".URL(postURL($post["postId"]))."' class='time' title='".date(T("date.full"), $post["time"])."'>".(!empty($conversation["searching"]) ? T("Context") : $date)."</a>";
 
 	// If the post isn't deleted, add a lot of stuff!
 	if (!$post["deleteMemberId"]) {
@@ -1226,6 +1238,8 @@ protected function formatPostForTemplate($post, $conversation)
 		if ($canEdit)
 			$formatted["controls"][] = "<a href='".URL("conversation/restorePost/".$post["postId"]."?token=".ET::$session->token)."' title='".T("Restore")."' class='control-restore'>".T("Restore")."</a>";
 	}
+
+	$this->trigger("formatPostForTemplate", array(&$formatted, $post, $conversation));
 
 	return $formatted;
 }
