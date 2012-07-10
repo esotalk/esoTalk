@@ -390,7 +390,7 @@ $definitions["message.fileUploadNotImage"] = "The file you uploaded is not an im
 $definitions["message.fileUploadTooBig"] = "The file you selected could not be uploaded because it is too big.";
 $definitions["message.forgotPasswordHelp"] = "您忘记密码了？别担心，在这里输入您注册时填写的邮箱地址后，可以申请找回。提交申请后 请查收我们给您发送的邮件，按步骤设置新密码。";
 $definitions["message.fulltextKeywordWarning"] = "对不起，只能搜索英文内容。";
-$definitions["message.gambitsHelp"] = "您可以利用[智能搜索]来寻找您想看的内容。支持英文全文检索，但不支持中文关键词。";
+$definitions["message.gambitsHelp"] = "您可以利用[智能搜索]来寻找您想看的内容。双击可以立刻搜索。支持英文全文检索，但不支持中文关键词。";
 $definitions["message.gdNotEnabledWarning"] = "The <strong>GD extension</strong> is not enabled.<br/><small>This is required to resize and save avatars. Get your host or administrator to install/enable it.</small>";
 $definitions["message.greaterMySQLVersionRequired"] = "You must have <strong>MySQL 4 or greater</strong> installed and the <a href='http://php.net/manual/en/mysql.installation.php' target='_blank'>MySQL extension enabled in PHP</a>.<br/><small>Please install/upgrade both of these requirements or request that your host or administrator install them.</small>";
 $definitions["message.greaterPHPVersionRequired"] = "Your server must have <strong>PHP 5.0.0 or greater</strong> installed to run esoTalk.<br/><small>Please upgrade your PHP installation or request that your host or administrator upgrade the server.</small>";
