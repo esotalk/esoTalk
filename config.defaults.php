@@ -21,7 +21,7 @@ function db_connect($dsn, $username = '', $password = '', $driver_options = arra
 
 try
 {
-    $db = db_connect('mysql:dbname=DB1E389', 'DB1E389', 'f60df7hB.9#Dm', array(), $_SERVER['DOCUMENT_ROOT'].'/phppdo');
+    $db = db_connect('mysql:dbname=datebesename', 'username', 'password', array(), $_SERVER['DOCUMENT_ROOT'].'/phppdo');
 } catch(PDOException $e)
 {
     die($e->getMessage());

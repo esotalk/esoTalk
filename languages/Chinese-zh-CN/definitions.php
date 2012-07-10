@@ -275,10 +275,11 @@ $definitions["Recent posts"] = "Recent posts";
 $definitions["Recover Password"] = "重置密码";
 $definitions["Registration"] = "成员注册";
 $definitions["Remove avatar"] = "移除头像";
-$definitions["Rename Member"] = "Rename Member";
+$definitions["Rename Member"] = "将该用户重命名";
 $definitions["Reply"] = "回复";
 $definitions["Require users to confirm their email address"] = "要求验证用户邮箱";
-$definitions["restore"] = "restore";
+$definitions["restore"] = "恢复";
+$definitions["Restore"] = "恢复";
 $definitions["Registered members"] = "已注册用户";
 
 $definitions["Save Changes"] = "保存修改";
@@ -402,7 +403,7 @@ $definitions["message.installerMySQLHelp"] = "esoTalk needs access to a MySQL da
 $definitions["message.installerWelcome"] = "<p>Welcome to the esoTalk installer! We need a few details from you so we can get your forum set up and ready to go.</p>\n<p>If you have any trouble, get help on the <a href='%s'>esoTalk support forum</a>.</p>";
 $definitions["message.invalidChannel"] = "You selected an invalid channel!";
 $definitions["message.invalidEmail"] = "请输入有效的邮箱地址。";
-$definitions["message.invalidUsername"] = "用户名需要在3-20个字符之间，相当于2-10个汉字。请勿输入空格等特殊字符。";
+$definitions["message.invalidUsername"] = "用户名需要在4-20个字符之间，相当于2-7个汉字。请勿输入空格等特殊字符。";
 $definitions["message.javascriptRequired"] = "This page requires JavaScript to function properly. Please enable it!";
 $definitions["message.languageUninstalled"] = "The language was uninstalled.";
 $definitions["message.locked"] = "Hm, looks like this conversation is <strong>locked</strong>, so you can't reply to it.";
