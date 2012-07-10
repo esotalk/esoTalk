@@ -265,7 +265,7 @@ public function install($info)
 
 	// Create the General Discussion channel.
 	$id = ET::channelModel()->create(array(
-		"title" => "普通讨论",
+		"title" => "普通会话",
 		"slug" => slug("General Discussion")
 	));
 	ET::channelModel()->setPermissions($id, array(
