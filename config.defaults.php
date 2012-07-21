@@ -2,31 +2,6 @@
 // Copyright 2011 Toby Zerner, Simon Zerner
 // This file is part of esoTalk. Please see the included license file for usage information.
 
-function db_connect($dsn, $username = '', $password = '', $driver_options = array(), $path = './phppdo')
-{
-    $driver = strtolower(trim(substr($dsn, 0, strpos($dsn, ':'))));
-    
-    if($driver && class_exists('PDO') && extension_loaded('pdo_' . $driver))
-    {
-        $class = 'PDO';
-    }
-    else
-    {
-        require_once($path . '/phppdo.php');
-        $class = 'PHPPDO';
-    }
-    
-    return new $class($dsn, $username, $password, $driver_options);
-}
-
-try
-{
-    $db = db_connect('mysql:dbname=datebesename', 'username', 'password', array(), $_SERVER['DOCUMENT_ROOT'].'/phppdo');
-} catch(PDOException $e)
-{
-    die($e->getMessage());
-}
-
 if (!defined("IN_ESOTALK")) exit;
 
 /**

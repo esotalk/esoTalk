@@ -177,8 +177,9 @@ public function index($conversationId = false, $year = false, $month = false)
 		$this->canonicalURL = URL($url, true);
 
 		// If the slug in the URL is not the same as the actual slug, redirect.
+		// https://github.com/oneplace/esoTalk/commit/7633b228873847e1fa92e167ba651b27b2eb2a93
 		$slug = slug($conversation["title"]);
-		if ($slug and (strpos($conversationId, "-") === false or substr($conversationId, strpos($conversationId, "-") + 1) != $slug)) {
+		if ($slug and (strpos($conversationId, "-") === false or slug(substr($conversationId, strpos($conversationId, "-") + 1)) != $slug)) {
 			redirect(URL($url), 301);
 		}
 

@@ -114,7 +114,7 @@ public function connection()
 {
 	if (!$this->pdoConnection) {
 		$dsn = "mysql:host=".$this->host.";dbname=".$this->dbName;
-		$this->pdoConnection = @new PHPPDO($dsn, $this->user, $this->password, $this->connectionOptions);
+		$this->pdoConnection = @new PDO($dsn, $this->user, $this->password, $this->connectionOptions);
 	}
 	return $this->pdoConnection;
 }
