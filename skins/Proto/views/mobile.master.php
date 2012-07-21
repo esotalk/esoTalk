@@ -52,7 +52,7 @@ $(function() {
 
 <ul id='userMenu' class='menu'>
 <?php echo $data["userMenuItems"]; ?>
-<li><a href='<?php echo URL("conversation/start"); ?>' class='link-newConversation'>New conversation</a></li>
+<li><a href='<?php echo URL("conversation/start"); ?>' class='link-newConversation'><?php echo T("New conversation"); ?></a></li>
 </ul>
 
 <h1 id='forumTitle'><a href='<?php echo URL(""); ?>'><?php echo C("esoTalk.forumTitle"); ?></a></h1>
