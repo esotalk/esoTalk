@@ -357,19 +357,16 @@ function isMobileBrowser()
  *
  * @param string $string The string to convert.
  * @return string The slug.
+ * https://github.com/oneplace/esoTalk/commit/2aa617628da271d6b297e692d178c876a94f95e4
  */
 function slug($string)
 {
-	// Convert special latin letters and other characters to HTML entities.
-	$slug = htmlentities($string, ENT_NOQUOTES, "UTF-8");
-
-	// With those HTML entities, either convert them back to a normal letter, or remove them.
-	$slug = preg_replace(array("/&([a-z]{1,2})(acute|cedil|circ|grave|lig|orn|ring|slash|th|tilde|uml);/i", "/&[^;]{2,6};/"), array("$1", " "), $slug);
-
-	// Now replace non-alphanumeric characters with a hyphen, and remove multiple hyphens.
-	$slug = strtolower(trim(preg_replace(array("/[^0-9a-z]/i", "/-+/"), "-", $slug), "-"));
-
-	return substr($slug, 0, 63);
+$string = strip_tags(html_entity_decode($string, ENT_COMPAT, 'UTF-8'));
+$string = preg_replace('`([^\PP.\-_])`u', '', $string); // get rid of punctuation
+$string = preg_replace('`([^\PS+])`u', '', $string); // get rid of symbols
+$string = preg_replace('`[\s\-/+]+`u', '-', $string); // replace certain characters with dashes
+$string = rawurlencode(strtolower($string));
+return $string;
 }
 
 
