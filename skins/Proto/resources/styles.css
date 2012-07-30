@@ -38,7 +38,7 @@ p, ul, pre {line-height:1.5em}
 
 
 /* Menus (inline lists) */
-.menu {font-size:95%; list-style-type:none; margin-top:0; margin-bottom:0; padding:0; line-height:1}
+.menu {font-size:120%; list-style-type:none; margin-top:0; margin-bottom:0; padding:0; line-height:1}
 .menu > li {display:inline-block}
 
 

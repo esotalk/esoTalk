@@ -2,7 +2,7 @@
 
 /* Layout - set the page width and remove borders/padding on some common elements. */
 html {-webkit-text-size-adjust:none}
-body {font-size:12px}
+body {font-size:14px}
 #hdr-content, #body-content, #ftr-content {min-width:0; padding:0; max-width:none}
 .bodyHeader {padding:10px}
 .area {border-width:1px 0; -webkit-border-radius:0}
