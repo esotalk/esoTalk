@@ -296,7 +296,7 @@ public function init()
 		$stat = "<a href='".URL("members/online")."' class='link-membersOnline'>$stat</a>";
 		$this->addToMenu("statistics", "statistic-online", $stat);
 
-		$this->addToMenu("meta", "copyright", "<a href='http://esotalk.com/'>Powered by esoTalk".(ET::$session->isAdmin() ? " ".ESOTALK_VERSION : "")."</a>");
+		$this->addToMenu("meta", "copyright", "<a href='http://esotalk.org/'>Powered by esoTalk".(ET::$session->isAdmin() ? " ".ESOTALK_VERSION : "")."</a>");
 
 		// Set up some default JavaScript files and language definitions.
 		$this->addJSFile("js/lib/jquery.js", true);
