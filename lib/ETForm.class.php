@@ -156,7 +156,7 @@ public function open()
 	$this->addHidden("token", ET::$session->token, true);
 	$hidden = "";
 	foreach ($this->hiddenInputs as $field => $value)
-		$hidden .= "<input type='hidden' name='$field' value='$value'/>\n";
+		$hidden .= "<input type='hidden' name='$field' value='".htmlentities($value, ENT_QUOTES, "UTF-8")."'/>\n";
 
 	return "<form action='$this->action' method='post' enctype='multipart/form-data'>\n".$hidden;
 }
