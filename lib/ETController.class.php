@@ -455,7 +455,7 @@ public function render($view = "")
 			$logo = C("esoTalk.forumLogo");
 			$title = C("esoTalk.forumTitle");
 			if ($logo) $size = getimagesize($logo);
-			$data["forumTitle"] = $logo ? "<img src='".URL($logo)."' {$size[3]} alt='$title'/>" : $title;
+			$data["forumTitle"] = $logo ? "<img src='".getWebPath($logo)."' {$size[3]} alt='$title'/>" : $title;
 
 			// Add the details for the "back" button.
 			$data["backButton"] = ET::$session->getNavigation($this->navigationId);
