@@ -114,8 +114,10 @@ public function handler_conversationController_formatPostForTemplate($sender, &$
 
 	$members = $this->getNames($post["likes"]);
 
+	$likeText = isset(ET::$session->userId) ? ($liked ? "Unlike" : "Like") : "";
+
 	$likes = "<p class='likes".($liked ? " liked" : "")."'>
-		<a href='#' class='like-button'>".($liked ? "Unlike" : "Like")."</a>
+		<a href='#' class='like-button'>$likeText</a>
 		<span class='like-members'>$members</span>
 	</p>";
 
