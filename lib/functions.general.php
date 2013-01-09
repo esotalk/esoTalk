@@ -636,7 +636,7 @@ function URL($url = "", $absolute = false)
 
 	// If we're not using mod_rewrite, we need to prepend "index.php/" to the link.
 	if (C("esoTalk.urls.friendly") and !C("esoTalk.urls.rewrite")) $link = "index.php/$link";
-	return $absolute ? C("esoTalk.baseURL").$link : getWebPath($link);
+	return $absolute ? rtrim(C("esoTalk.baseURL"), "/")."/".$link : getWebPath($link);
 }
 
 
