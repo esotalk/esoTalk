@@ -201,7 +201,7 @@ public function errorCount()
  * @param string $code The error code.
  * @return void
  */
-protected function error($field, $code = null)
+public function error($field, $code = null)
 {
 	if ($code !== null) $field = array($field => $code);
 	$this->errors = array_merge($this->errors, (array)$field);
@@ -217,7 +217,7 @@ protected function error($field, $code = null)
  * @param mixed $callback The validation callback function to run.
  * @return void
  */
-protected function validate($field, $value, $callback)
+public function validate($field, $value, $callback)
 {
 	if ($message = call_user_func($callback, $value))
 		$this->error($field, $message);
