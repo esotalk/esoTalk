@@ -681,7 +681,7 @@ function getWebPath($path)
  * @param string $path The absolute path to the resource.
  * @return string The relative path or URL to the given resource.
  */
-function getResource($path)
+function getResource($path, $absolute = false)
 {
 	if (strpos($path, "://") === false) {
 
@@ -691,7 +691,7 @@ function getResource($path)
 		// Prepend the web path.
 		$path = ltrim($path, "/");
 		if ($c = C("esoTalk.resourceURL")) $path = $c.$path;
-		else $path = ET::$webPath."/".$path;
+		else $path = $absolute ? rtrim(C("esoTalk.baseURL"), "/")."/".$path : ET::$webPath."/".$path;
 
 	}
 	return $path;
