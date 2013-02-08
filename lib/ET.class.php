@@ -306,11 +306,12 @@ public static function revertLanguageState()
  *
  * @param string $key The definition key.
  * @param string $value The definition value.
+ * @param bool $override If true, this new definition will be set regardless of if it is already set.
  * @return void
  */
-public static function define($key, $value)
+public static function define($key, $value, $override = false)
 {
-	if (isset(self::$definitions[$key])) return false;
+	if (isset(self::$definitions[$key]) and !$override) return false;
 	self::$definitions[$key] = $value;
 }
 
