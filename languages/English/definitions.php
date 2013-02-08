@@ -325,6 +325,7 @@ $definitions["Use for mobile"] = "Use for mobile";
 $definitions["Use friendly URLs"] = "Use friendly URLs";
 $definitions["Used to verify your account and subscribe to conversations"] = "Used to verify your account and subscribe to conversations";
 $definitions["Username"] = "Username";
+$definitions["Username or Email"] = "Username or Email";
 
 $definitions["View %s's profile"] = "View %s's profile";
 $definitions["View all notifications"] = "View all notifications";
