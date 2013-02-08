@@ -196,6 +196,9 @@ public function loginWithMemberId($memberId)
  */
 public function login($name, $password, $remember = false)
 {
+	$return = reset($this->trigger("login", array($name, $password, $remember)));
+	if ($return !== null) return $return;
+
 	// Get the member with this username or email.
 	$sql = ET::SQL()
 		->where("m.username=:username OR m.email=:email")
@@ -213,16 +216,7 @@ public function login($name, $password, $remember = false)
 	$return = $this->processLogin($member);
 
 	// Set a persistent login "remember me" cookie?
-	// We use this implementation: http://jaspan.com/improved_persistent_login_cookie_best_practice
-	if ($return === true and $remember) {
-
-		// Generate a new series identifier, and a token.
-		$series = md5(generateRandomString(32));
-		$token = $this->createPersistentToken($this->userId, $series);
-
-		// Set the cookie.
-		$this->setCookie("persistent", $this->userId.$series.$token, time() + C("esoTalk.cookie.expire"));
-	}
+	if ($return === true and $remember) $this->setRememberCookie($this->userId);
 
 	return $return;
 }
@@ -261,6 +255,24 @@ protected function createPersistentToken($memberId, $series)
 public function setCookie($name, $value, $expire = 0)
 {
 	return setcookie(C("esoTalk.cookie.name")."_".$name, $value, $expire, C("esoTalk.cookie.path", getWebPath('')), C("esoTalk.cookie.domain"));
+}
+
+
+/**
+ * Set a cookie to remember a user.
+ *
+ * @param int $userId The ID of the user to remember.
+ */
+public function setRememberCookie($userId)
+{
+	// We use this implementation: http://jaspan.com/improved_persistent_login_cookie_best_practice
+
+	// Generate a new series identifier, and a token.
+	$series = md5(generateRandomString(32));
+	$token = $this->createPersistentToken($userId, $series);
+
+	// Set the cookie.
+	$this->setCookie("persistent", $userId.$series.$token, time() + C("esoTalk.cookie.expire"));
 }
 
 
