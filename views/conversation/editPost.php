@@ -32,7 +32,7 @@ $post = array(
 	"controls" => $data["controls"],
 	"class" => "edit",
 	"body" => $body,
-	"avatar" => avatar($post["memberId"], $post["avatarFormat"])
+	"avatar" => avatar($post)
 );
 
 $this->renderView("conversation/post", array("post" => $post));

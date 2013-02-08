@@ -273,6 +273,7 @@ public function autocomplete($input = "")
 		->select("memberId AS id")
 		->select("username AS name")
 		->select("avatarFormat")
+		->select("email")
 		->from("member")
 		->where("username LIKE :username")
 		->bind(":username", $input."%")
@@ -283,8 +284,9 @@ public function autocomplete($input = "")
 
 	// Loop through the results and generate avatar HTML for each one.
 	foreach ($results as $k => $v) {
-		$results[$k]["avatar"] = avatar($v["id"], $v["avatarFormat"], "thumb");
+		$results[$k]["avatar"] = avatar($v, "thumb");
 		unset($results[$k]["avatarFormat"]);
+		unset($results[$k]["email"]);
 	}
 
 	$this->json("results", $results);

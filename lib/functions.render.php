@@ -81,15 +81,15 @@ if (!function_exists("avatar")) {
 /**
  * Return an image tag containing a member's avatar.
  *
- * @param int $memberId The member's ID.
+ * @param array $member An array of the member's details. (memberId is required in this implementation.)
  * @param string $avatarFormat The format of the member's avatar (as stored in the database - jpg|gif|png.)
  * @param string $className CSS class names to apply to the avatar.
  */
-function avatar($memberId = 0, $avatarFormat = "", $className = "")
+function avatar($member = array(), $className = "")
 {
 	// Otherwise, construct the avatar path from the provided information.
-	if ($memberId and $avatarFormat) {
-		$file = "uploads/avatars/$memberId.$avatarFormat";
+	if (!empty($member["memberId"]) and !empty($member["avatarFormat"])) {
+		$file = "uploads/avatars/{$member["memberId"]}.{$member["avatarFormat"]}";
 		$url = getWebPath($file);
 	}
 

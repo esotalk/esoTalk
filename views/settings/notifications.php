@@ -21,7 +21,7 @@ if (!defined("IN_ESOTALK")) exit;
 foreach ($data["notifications"] as $k => $notification): ?>
 <li class='notification-<?php echo $notification["type"]; ?><?php if ($notification["unread"]): ?> unread<?php endif; ?>'>
 <a href='<?php echo @$notification["link"]; ?>'>
-<?php echo avatar($notification["fromMemberId"], $notification["avatarFormat"], "thumb"); ?>
+<?php echo avatar($notification + array("memberId" => $notification["fromMemberId"]), "thumb"); ?>
 <small class='time'><?php echo ucfirst(relativeTime($notification["time"], true)); ?></small>
 <div class='action'><?php echo $notification["body"]; ?></div>
 </a>

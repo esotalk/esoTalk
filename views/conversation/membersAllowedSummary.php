@@ -24,7 +24,7 @@ foreach ($conversation["membersAllowedSummary"] as $member) {
 	// displayed at the start of the list.
 	if ($member["type"] == "member") {
 		$names[] = "<span class='name'>".memberLink($member["id"], $member["name"])."</span>";
-		if (count($avatars) < 3) $avatars[] = avatar($member["id"], $member["avatarFormat"], "thumb");
+		if (count($avatars) < 3) $avatars[] = avatar($member + array("memberId" => $member["id"]), "thumb");
 	}
 
 	// For groups, just display a plain ol' group name.

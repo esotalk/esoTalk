@@ -30,8 +30,10 @@ $post = array(
 	"controls" => $data["controls"],
 	"class" => "edit",
 	"body" => $body,
-	"avatar" => avatar(ET::$session->userId, ET::$session->user["avatarFormat"])
+	"avatar" => avatar(ET::$session->user)
 );
+
+$this->trigger("renderReplyBox", array(&$post, $conversation));
 
 $this->renderView("conversation/post", array("post" => $post));
 

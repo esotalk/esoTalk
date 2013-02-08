@@ -349,6 +349,7 @@ public function getMembersAllowed($conversation)
 		->select("'member'", "type")
 		->select("CAST(".($conversation["conversationId"] ? "s.id" : "m.memberId")." AS SIGNED)")
 		->select("m.username")
+		->select("m.email")
 		->select("m.avatarFormat")
 		->select("m.account")
 		->select("GROUP_CONCAT(g.groupId)")
@@ -358,6 +359,7 @@ public function getMembersAllowed($conversation)
 		->select("'group'", "type")
 		->select("s.id", "id")
 		->select("g.name")
+		->select("NULL")
 		->select("NULL")
 		->select("NULL")
 		->select("NULL");
@@ -376,7 +378,7 @@ public function getMembersAllowed($conversation)
 				if ($member["id"] == GROUP_ID_ADMINISTRATOR or $member["id"] == GROUP_ID_MEMBER) {
 					if ($member["id"] == GROUP_ID_ADMINISTRATOR) $name = ACCOUNT_ADMINISTRATOR;
 					elseif ($member["id"] == GROUP_ID_MEMBER) $name = ACCOUNT_MEMBER;
-					$membersAllowed[] = array("type" => "group", "id" => $member["id"], "name" => $name, "avatarFormat" => null, "groups" => null);
+					$membersAllowed[] = array("type" => "group", "id" => $member["id"], "name" => $name, "email" => null, "avatarFormat" => null, "groups" => null);
 				}
 
 				else $groups[] = $member["id"];
@@ -417,13 +419,13 @@ public function getMembersAllowed($conversation)
 
 	// Go through the results and construct our final "members allowed" array.
 	while ($entity = $result->nextRow()) {
-		list($type, $id, $name, $avatarFormat, $account, $groups) = array_values($entity);
+		list($type, $id, $name, $email, $avatarFormat, $account, $groups) = array_values($entity);
 		$groups = ET::groupModel()->getGroupIds($account, explode(",", $groups));
 		if ($type == "group") {
 			if ($id == GROUP_ID_ADMINISTRATOR) $name = ACCOUNT_ADMINISTRATOR;
 			elseif ($id == GROUP_ID_MEMBER) $name = ACCOUNT_MEMBER;
 		}
-		$membersAllowed[] = array("type" => $type, "id" => $id, "name" => $name, "avatarFormat" => $avatarFormat, "groups" => $groups);
+		$membersAllowed[] = array("type" => $type, "id" => $id, "name" => $name, "email" => $email, "avatarFormat" => $avatarFormat, "groups" => $groups);
 	}
 
 	// Sort the entities by name.

@@ -60,7 +60,11 @@ $channel = $data["channelInfo"][$conversation["channelId"]];
 echo "<a href='".URL(searchURL("", $channel["slug"]))."' class='channel channel-{$conversation["channelId"]}' data-channel='{$channel["slug"]}'>{$channel["title"]}</a>";
 ?></div>
 <div class='col-lastPost'><?php
-echo "<span class='action'>".avatar($conversation["lastPostMemberId"], $conversation["lastPostMemberAvatarFormat"], "thumb"), " ",
+echo "<span class='action'>".avatar(array(
+		"memberId" => $conversation["lastPostMemberId"],
+		"avatarFormat" => $conversation["lastPostMemberAvatarFormat"],
+		"email" => $conversation["lastPostMemberEmail"]
+	), "thumb"), " ",
 	sprintf(T("%s posted %s"),
 		"<span class='lastPostMember name'>".memberLink($conversation["lastPostMemberId"], $conversation["lastPostMember"])."</span>",
 		"<span class='lastPostTime'>".relativeTime($conversation["lastPostTime"], true)."</span>"),

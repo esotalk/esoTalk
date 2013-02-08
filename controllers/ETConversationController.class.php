@@ -158,8 +158,8 @@ public function index($conversationId = false, $year = false, $month = false)
 	// Get the posts in the conversation.
 	$options = array(
 		"startFrom" => $startFrom,
-		"limit" => C("esoTalk.conversation.postsPerPage"
-	));
+		"limit" => C("esoTalk.conversation.postsPerPage")
+	);
 	if ($searchString) $options["search"] = $searchString;
 	if ($startFrom < $conversation["countPosts"]) $posts = ET::postModel()->getByConversation($conversation["conversationId"], $options);
 	else $posts = array();
@@ -1173,7 +1173,7 @@ public function restorePost($postId = false)
 protected function formatPostForTemplate($post, $conversation)
 {
 	$canEdit = $this->canEditPost($post, $conversation);
-	$avatar = avatar($post["memberId"], $post["avatarFormat"]);
+	$avatar = avatar($post);
 
 	// Construct the post array for use in the post view (conversation/post).
 	$formatted = array(

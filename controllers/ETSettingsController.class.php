@@ -81,6 +81,8 @@ protected function profile($pane = "")
 	// Add a link to go back to the user's member profile.
 	$actions->add("viewProfile", "<a href='".URL("member/me")."'>".T("View your profile")."</a>");
 
+	$this->trigger("init", array($panes, $controls, $actions));
+
 	// Pass along these menus to the view.
 	$this->data("member", $member);
 	$this->data("panes", $panes);
@@ -130,6 +132,8 @@ public function general()
 	$form->setValue("starOnReply", ET::$session->preference("starOnReply"));
 	$form->addField("notifications", "starOnReply", array($this, "fieldStarOnReply"), array($this, "saveBoolPreference"));
 
+	$this->trigger("initGeneral", array($form));
+
 	// If the save button was clicked...
 	if ($form->validPostBack("save")) {
 
@@ -174,7 +178,7 @@ public function general()
 public function fieldAvatar($form)
 {
 	return "<div class='avatarChooser'>".
-		avatar(ET::$session->userId, ET::$session->user["avatarFormat"]).
+		avatar(ET::$session->user).
 		$form->input("avatar", "file").
 		"<small>".sprintf(T("Maximum size of %s. %s."), (ET::uploader()->maxUploadSize() / (1024*1024))." MB", "JPG, GIF, PNG")."</small>".
 		(ET::$session->user["avatarFormat"] ? $form->button("removeAvatar", T("Remove avatar")) : "").

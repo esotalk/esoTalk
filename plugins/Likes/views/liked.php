@@ -20,7 +20,7 @@ if (count($data["members"])): ?>
 <?php foreach ($data["members"] as $memberId => $member): ?>
 <li>
 <span class='action'>
-<?php echo avatar($memberId, $member["avatarFormat"], "thumb"), " ", memberLink($memberId, $member["username"]), " "; ?>
+<?php echo avatar($member, "thumb"), " ", memberLink($memberId, $member["username"]), " "; ?>
 </span>
 </li>
 <?php endforeach; ?>

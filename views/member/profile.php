@@ -15,7 +15,7 @@ $member = $data["member"];
 
 <div class='bodyHeader clearfix' id='memberProfile'>
 
-<?php echo avatar($member["memberId"], $member["avatarFormat"]); ?>
+<?php echo avatar($member); ?>
 
 <div id='memberInfo'>
 

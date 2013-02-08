@@ -274,8 +274,6 @@ ET::loadLanguage(ET::$session->preference("language"));
 
 //***** 10. SET UP CONTROLLER
 
-require PATH_LIBRARY."/functions.render.php";
-
 // If the first part of the request is "admin", presume we're in the admin section.
 if ($requestParts[0] == "admin") {
 	$controllers = ETFactory::$adminControllers;
@@ -304,6 +302,9 @@ ET::$controller->responseType = $responseType;
 
 // Initialize plugins.
 foreach (ET::$plugins as $plugin) $plugin->init();
+
+// Include render functions. We do this after we initialize plugins so that they can override any functions if they want.
+require PATH_LIBRARY."/functions.render.php";
 
 // Initialize the controller.
 ET::$controller->init();

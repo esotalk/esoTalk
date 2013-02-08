@@ -240,7 +240,11 @@ public function notificationMessages($notifications)
 		// If we've already shown this notification as a message before, don't show it again.
 		if ($notification["time"] <= ET::$session->preference("notificationCheckTime")) continue;
 
-		$avatar = avatar($notification["fromMemberId"], $notification["avatarFormat"], "thumb");
+		$avatar = avatar(array(
+			"memberId" => $notification["fromMemberId"],
+			"avatarFormat" => $notification["avatarFormat"],
+			"email" => $notification["email"]
+		), "thumb");
 		$this->message("<a href='".$notification["link"]."' class='messageLink'><span class='action'>".$avatar.$notification["body"]."</span></a>", "popup autoDismiss hasSprite");
 	}
 
@@ -274,7 +278,7 @@ public function init()
 
 		// If the user IS logged in, we want to display their name and appropriate links.
 		else {
-			$this->addToMenu("user", "user", "<a href='".URL("member/me")."'>".avatar(ET::$session->userId, ET::$session->user["avatarFormat"], "thumb").name(ET::$session->user["username"])."</a>");
+			$this->addToMenu("user", "user", "<a href='".URL("member/me")."'>".avatar(ET::$session->user, "thumb").name(ET::$session->user["username"])."</a>");
 
 			$this->addToMenu("user", "settings", "<a href='".URL("settings")."' class='link-settings'>".T("Settings")."</a>");
 
@@ -563,7 +567,13 @@ public function getViewContents($view, $data = array())
  */
 public function renderView($view, $data = array())
 {
+	ob_start();
 	include $this->getViewPath($view);
+	$content = ob_get_clean();
+
+	$this->trigger("renderView", array($view, &$content, $data));
+
+	echo $content;
 }
 
 

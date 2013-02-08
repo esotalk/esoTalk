@@ -28,7 +28,7 @@ foreach ($conversation["membersAllowed"] as $member) {
 	}
 
 	// Add the avatar.
-	$name = "<span class='name'>".avatar($member["id"], $member["avatarFormat"], "thumb");
+	$name = "<span class='name'>".avatar($member + array("memberId" => $member["id"]), "thumb");
 
 	// If we're able to remove entities from the list, wrap the name in links that will remove them.
 	if (!empty($data["editable"])) {
