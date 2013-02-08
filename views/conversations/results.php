@@ -31,7 +31,7 @@ else:
 <div id='conversationsFooter'>
 
 <?php if (ET::$session->user and !$data["currentChannels"]): ?>
-<a href='<?php echo URL("search/markAllAsRead"); ?>' class='button markAllAsRead'><?php echo T("Mark all as read"); ?></a>
+<a href='<?php echo URL("conversations/markAllAsRead"); ?>' class='button markAllAsRead'><?php echo T("Mark all as read"); ?></a>
 <?php endif;
 
 if ($data["showViewMoreLink"]): ?>
