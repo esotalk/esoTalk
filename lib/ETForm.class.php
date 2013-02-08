@@ -80,6 +80,19 @@ public function addSection($id, $title = "", $position = false)
 
 
 /**
+ * Remove a section and all of its fields from a form.
+ * 
+ * @param string $id The name of the section to remove.
+ * @return void
+ */
+public function removeSection($id)
+{
+	unset($this->sections[$id]);
+	unset($this->fields[$id]);
+}
+
+
+/**
  * Add a field to the form.
  *
  * @param string $section The name of the section to add this field to.
@@ -97,6 +110,19 @@ public function addField($section, $id, $renderCallback, $processCallback, $posi
 		"renderCallback" => $renderCallback,
 		"processCallback" => $processCallback
 	), $position);
+}
+
+
+/**
+ * Remove a field from a form.
+ * 
+ * @param string $id The name of the section to remove this field from.
+ * @param string $id The name of the field.
+ * @return void
+ */
+public function removeField($section, $id)
+{
+	unset($this->fields[$section][$id]);
 }
 
 

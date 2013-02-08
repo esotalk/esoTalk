@@ -42,6 +42,18 @@ public function add($id, $html, $position = false)
 
 
 /**
+ * Remove an item from this menu collection.
+ *
+ * @param string $id The name of the menu item.
+ * @return void
+ */
+public function remove($id)
+{
+	unset($this->items[$id]);
+}
+
+
+/**
  * Add a separator item to this menu collection.
  *
  * @param mixed $position The position to put the menu item, relative to other menu items.
