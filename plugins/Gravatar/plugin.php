@@ -29,7 +29,8 @@ class ETPlugin_Gravatar extends ETPlugin {
 		 */
 		function avatar($member = array(), $className = "")
 		{
-			$default = C("plugin.Gravatar.default", getResource("skins/base/avatar.png", true));
+			$default = C("plugin.Gravatar.default");
+			if (!$default or empty($member)) $default = getResource("skins/base/avatar.png", true);
 
 			$url = "http://www.gravatar.com/avatar/".md5(strtolower(trim($member["email"])))."?d=".urlencode($default)."&s=64";
 
