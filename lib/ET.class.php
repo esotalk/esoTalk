@@ -130,7 +130,8 @@ public static function trigger($event, $parameters = array())
 	$returns = array();
 	foreach (self::$plugins as $plugin) {
 		if (method_exists($plugin, "handler_$event")) {
-			$returns[] = call_user_func_array(array($plugin, "handler_$event"), $parameters);
+			$return = call_user_func_array(array($plugin, "handler_$event"), $parameters);
+			if ($return !== null) $returns[] = $return;
 		}
 	}
 	return $returns;

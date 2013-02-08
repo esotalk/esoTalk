@@ -196,8 +196,8 @@ public function loginWithMemberId($memberId)
  */
 public function login($name, $password, $remember = false)
 {
-	$return = reset($this->trigger("login", array($name, $password, $remember)));
-	if ($return !== null) return $return;
+	$return = $this->trigger("login", array($name, $password, $remember));
+	if (count($return)) return reset($return);
 
 	// Get the member with this username or email.
 	$sql = ET::SQL()
