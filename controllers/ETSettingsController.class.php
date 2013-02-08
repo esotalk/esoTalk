@@ -125,8 +125,8 @@ public function general()
 	$form->addField("notifications", "privateAdd", array($this, "fieldEmailPrivateAdd"), array($this, "saveEmailPreference"));
 
 	// Add the "email me when someone replies to a conversation I have starred" field.
-	$form->setValue("replyToStarred", ET::$session->preference("email.replyToStarred"));
-	$form->addField("notifications", "replyToStarred", array($this, "fieldEmailReplyToStarred"), array($this, "saveEmailPreference"));
+	$form->setValue("post", ET::$session->preference("email.post"));
+	$form->addField("notifications", "post", array($this, "fieldEmailReplyToStarred"), array($this, "saveEmailPreference"));
 
 	// Add the "automatically star conversations I reply to" field.
 	$form->setValue("starOnReply", ET::$session->preference("starOnReply"));
@@ -238,7 +238,7 @@ public function fieldEmailPrivateAdd($form)
  */
 public function fieldEmailReplyToStarred($form)
 {
-	return "<label class='checkbox'>".$form->checkbox("replyToStarred")." <span class='star starOn'>*</span> ".T("Email me when someone posts in a conversation I have starred")."</label>";
+	return "<label class='checkbox'>".$form->checkbox("post")." <span class='star starOn'>*</span> ".T("Email me when someone posts in a conversation I have starred")."</label>";
 }
 
 
