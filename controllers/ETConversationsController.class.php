@@ -128,18 +128,18 @@ function index($channelSlug = false)
 	$this->data("fulltextString", implode(" ", $search->fulltext));
 	$this->data("gambits", $gambits);
 
+	// Construct a canonical URL and add to the breadcrumb stack.
+	$slugs = array();
+	foreach ($currentChannels as $channel) $slugs[] = $channelInfo[$channel]["slug"];
+	$url = "conversations/".urlencode(($k = implode(" ", $slugs)) ? $k : "all").($searchString ? "?search=".urlencode($searchString) : "");
+	$this->pushNavigation("conversations", "search", URL($url));
+	$this->canonicalURL = URL($url, true);
+
 	// If we're loading the page in full...
 	if ($this->responseType === RESPONSE_TYPE_DEFAULT) {
 
 		// Update the user's last action.
 		ET::memberModel()->updateLastAction("search");
-
-		// Construct a canonical URL and add to the breadcrumb stack.
-		$slugs = array();
-		foreach ($currentChannels as $channel) $slugs[] = $channelInfo[$channel]["slug"];
-		$url = "conversations/".urlencode(($k = implode(" ", $slugs)) ? $k : "all").($searchString ? "?search=".urlencode($searchString) : "");
-		$this->pushNavigation("conversations", "search", URL($url));
-		$this->canonicalURL = URL($url, true);
 
 		// Add a link to the RSS feed in the bar.
 		// $this->addToMenu("meta", "feed", "<a href='".URL(str_replace("conversations/", "conversations/index.atom/", $url))."' id='feed'>".T("Feed")."</a>");
