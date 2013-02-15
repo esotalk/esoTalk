@@ -93,8 +93,8 @@ if (PATH_CONFIG != PATH_ROOT."/config" and file_exists($file = PATH_ROOT."/confi
 // Include the real config file.
 if (file_exists($file = PATH_CONFIG."/config.php")) ET::loadConfig($file);
 
-// In debug mode, show all errors.
-if (C("esoTalk.debug")) error_reporting(E_ALL);
+// In debug mode, show all errors (except for strict standards).
+if (C("esoTalk.debug")) error_reporting(E_ALL ^ E_STRICT);
 
 // Do we want to force HTTPS?
 if (C("esoTalk.https") and $_SERVER["HTTPS"] != "on") {
