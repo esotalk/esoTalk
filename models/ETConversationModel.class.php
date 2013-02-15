@@ -732,6 +732,24 @@ public function delete($wheres = array())
 	$result = ET::SQL()->select("conversationId")->from("conversation c")->where($wheres)->exec();
 	while ($row = $result->nextRow()) $ids[] = $row["conversationId"];
 
+	// Decrease channel and member conversation counts for these conversations.
+	// There might be a more efficient way to do this than one query per conversation... but good enough for now!
+	foreach ($ids as $id) {
+		ET::SQL()
+			->update("member")
+			->set("countConversations", "GREATEST(0, CAST(countConversations AS SIGNED) - 1)", false)
+			->where("memberId = (".ET::SQL()->select("startMemberId")->from("conversation")->where("conversationId", $id)->get().")")
+			->exec();
+
+		ET::SQL()
+			->update("channel")
+			->set("countConversations", "GREATEST(0, CAST(countConversations AS SIGNED) - 1)", false)
+			->where("channelId = (".ET::SQL()->select("channelId")->from("conversation")->where("conversationId", $id)->get().")")
+			->exec();
+	}
+
+	// Really, we should decrease post counts as well, but I'll leave that for now.
+	
 	// Delete the conversation, posts, member_conversation, and activity rows.
 	ET::SQL()
 		->delete("c, m, p")
