@@ -700,7 +700,7 @@ protected function aggregateFiles($files, $type)
 	$filenames = array();
 	$lastModTime = 0;
 	foreach ($files as $filename) {
-		$filenames[] = pathinfo($filename, PATHINFO_FILENAME);
+		$filenames[] = str_replace(".", "", pathinfo($filename, PATHINFO_FILENAME));
 		$lastModTime = max($lastModTime, filemtime(PATH_ROOT."/".$filename));
 	}
 
