@@ -235,6 +235,12 @@ public function create()
  */
 public function online()
 {
+	// Check if we have permission to view the online list.
+	if (!C("esoTalk.members.visibleToGuests") and !ET::$session->user) {
+		$this->render404(T("message.pageNotFound"));
+		return false;
+	}
+
 	// Set the title and make sure this page isn't indexed.
 	$this->title = T("Online Members");
 	$this->addToHead("<meta name='robots' content='noindex, noarchive'/>");

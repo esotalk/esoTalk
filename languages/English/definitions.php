@@ -204,6 +204,7 @@ $definitions["Lock"] = "Lock";
 $definitions["Log In"] = "Log In";
 $definitions["Log Out"] = "Log Out";
 
+$definitions["Make member and online list visible to:"] = "Make member and online list visible to:";
 $definitions["Manage Groups"] = "Manage Groups";
 $definitions["Manage Languages"] = "Manage Languages";
 $definitions["Mark as read"] = "Mark as read";
@@ -211,6 +212,7 @@ $definitions["Mark all as read"] = "Mark all as read";
 $definitions["Maximum size of %s. %s."] = "Maximum size of %s. %s.";
 $definitions["Member groups"] = "Member groups";
 $definitions["Member List"] = "Member List";
+$definitions["Member privacy"] = "Member privacy";
 $definitions["Members Allowed to View this Conversation"] = "Members Allowed to View this Conversation";
 $definitions["Members Online"] = "Members Online";
 $definitions["Members"] = "Members";

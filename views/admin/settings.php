@@ -74,8 +74,8 @@ $(function() {
 <li class='sep'></li>
 
 <li>
-<label><?php echo T("Member list"); ?></label>
-<div class='subText'><?php echo T("Make member list visible to:"); ?></div>
+<label><?php echo T("Member privacy"); ?></label>
+<div class='subText'><?php echo T("Make member and online list visible to:"); ?></div>
 <div class='checkboxGroup'>
 <label class='radio'><?php echo $form->radio("memberListVisibleToGuests", 0); ?> <?php echo T("Registered members"); ?></label>
 <label class='radio'><?php echo $form->radio("memberListVisibleToGuests", 1); ?> <?php echo T("Everyone"); ?></label>

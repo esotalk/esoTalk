@@ -289,16 +289,18 @@ public function init()
 		}
 
 		// Get the number of members currently online and add it as a statistic.
-		$online = ET::SQL()
-			->select("COUNT(*)")
-			->from("member")
-			->where("UNIX_TIMESTAMP()-:seconds<lastActionTime")
-			->bind(":seconds", C("esoTalk.userOnlineExpire"))
-			->exec()
-			->result();
-		$stat = Ts("statistic.online", "statistic.online.plural", number_format($online));
-		$stat = "<a href='".URL("members/online")."' class='link-membersOnline'>$stat</a>";
-		$this->addToMenu("statistics", "statistic-online", $stat);
+		if (C("esoTalk.members.visibleToGuests") or ET::$session->user) {
+			$online = ET::SQL()
+				->select("COUNT(*)")
+				->from("member")
+				->where("UNIX_TIMESTAMP()-:seconds<lastActionTime")
+				->bind(":seconds", C("esoTalk.userOnlineExpire"))
+				->exec()
+				->result();
+			$stat = Ts("statistic.online", "statistic.online.plural", number_format($online));
+			$stat = "<a href='".URL("members/online")."' class='link-membersOnline'>$stat</a>";
+			$this->addToMenu("statistics", "statistic-online", $stat);
+		}
 
 		$this->addToMenu("meta", "copyright", "<a href='http://esotalk.org/'>Powered by esoTalk".(ET::$session->isAdmin() ? " ".ESOTALK_VERSION : "")."</a>");
 
