@@ -967,8 +967,10 @@ function addToArrayString(&$array, $key, $value, $position = false)
 	$values = array_values($array);
 
 	// If the position is "before" or "after" a certain key, find that key in the array and record the index.
+	// If the key doesn't exist, then we'll add the element to the end of the array.
 	if (is_array($position)) {
 		$index = array_search(reset($position), $keys, true);
+		if ($index === false) $index = count($array);
 		if (key($position) == "after") $index++;
 	}
 	// If the position is just an integer, then we already have the index.
