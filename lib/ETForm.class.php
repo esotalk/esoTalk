@@ -103,7 +103,7 @@ public function removeSection($id)
  * @see addArrayToString
  * @return void
  */
-public function addField($section, $id, $renderCallback, $processCallback, $position = false)
+public function addField($section, $id, $renderCallback, $processCallback = null, $position = false)
 {
 	if (!isset($this->fields[$section])) $this->fields[$section] = array();
 	addToArrayString($this->fields[$section], $id, array(
@@ -165,7 +165,7 @@ public function runFieldCallbacks(&$collector)
 {
 	foreach ($this->fields as $fields) {
 		foreach ($fields as $k => $callbacks) {
-			call_user_func_array($callbacks["processCallback"], array($k, $this, &$collector));
+			if ($callbacks["processCallback"] !== null) call_user_func_array($callbacks["processCallback"], array($k, $this, &$collector));
 		}
 	}
 }
