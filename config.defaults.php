@@ -62,6 +62,7 @@ $config["esoTalk.debug"] = false; // Debug mode will show advanced information i
 $config["esoTalk.aggregateCSS"] = true;
 $config["esoTalk.aggregateJS"] = true;
 $config["esoTalk.gzipOutput"] = true; // Whether or not to compress the page output with gzip.
+$config["esoTalk.https"] = false; // Whether or not to force HTTPS.
 $config["esoTalk.cache"] = false; // What type of cache to use.
 
 // Meta information.

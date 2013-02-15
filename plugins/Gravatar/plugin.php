@@ -32,7 +32,8 @@ class ETPlugin_Gravatar extends ETPlugin {
 			$default = C("plugin.Gravatar.default");
 			if (!$default or empty($member)) $default = getResource("skins/base/avatar.png", true);
 
-			$url = "http://www.gravatar.com/avatar/".md5(strtolower(trim($member["email"])))."?d=".urlencode($default)."&s=64";
+			$protocol = C("esoTalk.https") ? "https" : "http";
+			$url = "$protocol://www.gravatar.com/avatar/".md5(strtolower(trim($member["email"])))."?d=".urlencode($default)."&s=64";
 
 			return "<img src='$url' alt='' class='avatar $className'/>";
 		}
