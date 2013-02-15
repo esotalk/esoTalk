@@ -31,7 +31,7 @@ if (!defined("IN_ESOTALK")) exit;
 $linkPrefix = "conversations/".$data["channelSlug"]."/?search=".urlencode(((!empty($data["searchString"]) ? $data["searchString"]." + " : "")));
 ksort($data["gambits"]);
 foreach ($data["gambits"] as $k => $v)
-	echo "<a href='".URL($linkPrefix.$k)."' class='$v'>$k</a>\n";
+	echo "<a href='".URL($linkPrefix.urlencode("#".$k))."' class='$v'>$k</a>\n";
 ?></div>
 
 </div>

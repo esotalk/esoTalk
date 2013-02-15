@@ -98,7 +98,7 @@ init: function() {
 		ETSearch.formInput.keyup();
 	}).dblclick(function(e) {
 		e.preventDefault();
-		ETSearch.search((e.shiftKey ? "!" : "") + desanitize($(this).html()));
+		ETSearch.search((e.shiftKey ? "!" : "") + "#" + desanitize($(this).html()));
 		ETSearch.formInput.blur().keyup();
 	})
 
@@ -411,6 +411,9 @@ showNewActivity: function() {
 
 // Add (or take away) a gambit from the search input.
 gambit: function(gambit, negative) {
+
+	// Prepend a hashtag to the gambit.
+	gambit = "#"+gambit;
 
 	// Get the initial length of the search text.
 	var initialLength = $.trim(ETSearch.formInput.val()).length;

@@ -316,15 +316,19 @@ public function getConversationIDs($channelIDs = array(), $searchString = "", $o
 		$term = trim($term);
 		if ($negate = ($term[0] == "!")) $term = trim($term, "! ");
 
-		// If the term is an alias, translate it into the appropriate gambit.
-		if (array_key_exists($term, self::$aliases)) $term = self::$aliases[$term];
+		if ($term[0] == "#") {
+			$term = ltrim($term, "#");
 
-		// Find a matching gambit by evaluating each gambit's condition, and run its callback function.
-		foreach (self::$gambits as $gambit) {
-			list($condition, $function) = $gambit;
-			if (eval($condition)) {
-				call_user_func_array($function, array(&$this, $term, $negate));
-				continue 2;
+			// If the term is an alias, translate it into the appropriate gambit.
+			if (array_key_exists($term, self::$aliases)) $term = self::$aliases[$term];
+
+			// Find a matching gambit by evaluating each gambit's condition, and run its callback function.
+			foreach (self::$gambits as $gambit) {
+				list($condition, $function) = $gambit;
+				if (eval($condition)) {
+					call_user_func_array($function, array(&$this, $term, $negate));
+					continue 2;
+				}
 			}
 		}
 
