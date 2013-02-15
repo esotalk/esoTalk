@@ -356,7 +356,7 @@ public function update($channelSlug = "", $query = "")
 
 	// Get the difference of the two sets of conversationId's.
 	$diff = array_diff((array)$newConversationIds, (array)$conversationIds);
-	if (count($diff)) $this->message(sprintf(T("message.newSearchResults"), "javascript:ETSearch.showNewActivity();void(0)"));
+	if (count($diff)) $this->message(sprintf(T("message.newSearchResults"), "javascript:ETSearch.showNewActivity();void(0)"), array("id" => "newSearchResults"));
 
 	$this->render();
 }

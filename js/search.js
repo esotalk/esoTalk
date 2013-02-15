@@ -407,6 +407,7 @@ update: function() {
 // Show new activity - an alias for reperforming the current search.
 showNewActivity: function() {
 	ETSearch.search(ETSearch.currentSearch);
+	ETMessages.hideMessage("newSearchResults");
 },
 
 // Add (or take away) a gambit from the search input.
