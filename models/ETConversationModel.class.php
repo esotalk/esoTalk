@@ -588,7 +588,7 @@ public function create($data, $membersAllowed = array(), $isDraft = false)
 		->where("channelId", $data["channelId"])
 		->exec();
 
-	// Whip up a little array fo conversation details for this model's functions to work with.
+	// Whip up a little array of conversation details for this model's functions to work with.
 	$conversation = array(
 		"conversationId" => $conversationId,
 		"title" => $data["title"],
@@ -624,6 +624,10 @@ public function create($data, $membersAllowed = array(), $isDraft = false)
 			->setOnDuplicateKey("allowed", 1)
 			->exec();
 	}
+
+	// If the user has the "star on reply" preference checked, star the conversation.
+	if (ET::$session->preference("starOnReply"))
+		$this->setStatus($conversation, ET::$session->userId, array("starred" => true));
 
 	return array($conversationId, $postId);
 }
