@@ -128,6 +128,11 @@ $config["esoTalk.userOnlineExpire"] = 300; // Number of seconds a user's 'last s
 $config["esoTalk.sitemapCacheTime"] = 3600; // Keep sitemaps for at least 1 hour.
 $config["esoTalk.updateCheckInterval"] = 86400; // How often esoTalk should ping esotalk.org to check for a new version. Default = 1 day. Set to 0 to disable update checking.
 
+// Default user preferences.
+$config["esoTalk.preferences.email.privateAdd"] = true;
+$config["esoTalk.preferences.email.post"] = true;
+$config["esoTalk.preferences.starOnReply"] = false;
+
 // Avatar dimensions (in pixels)
 $config["esoTalk.avatars.width"] = 64;
 $config["esoTalk.avatars.height"] = 64;

@@ -59,6 +59,15 @@ public function create(&$values)
 	$oldHash = isset($values["resetPassword"]) ? $values["resetPassword"] : null;
 	if (isset($values["resetPassword"])) $values["resetPassword"] = md5($values["resetPassword"]);
 
+	// Set default preferences.
+	if (empty($values["preferences"])) {
+		$preferences = array("email.privateAdd", "email.post", "starOnReply");
+		foreach ($preferences as $p) {
+			$values["preferences"][$p] = C("esoTalk.preferences.".$p);
+		}
+	}
+	$values["preferences"] = serialize($values["preferences"]);
+
 	if ($this->errorCount()) return false;
 
 	// Delete any members with the same email or username but who haven't confirmed their email address.
@@ -117,6 +126,9 @@ public function update($values, $wheres = array())
 		$this->validate("password", $values["password"], array($this, "validatePassword"));
 		$values["password"] = $this->hashPassword($values["password"]);
 	}
+
+	// Serialize preferences.
+	if (isset($values["preferences"])) $values["preferences"] = serialize($values["preferences"]);
 
 	// MD5 the "reset password" hash for storage (for extra safety).
 	if (isset($values["resetPassword"])) $values["resetPassword"] = md5($values["resetPassword"]);
@@ -400,7 +412,6 @@ public function setGroups($member, $account, $groups = array())
 /**
  * Set a member's preferences.
  *
- * @todo Probably merge this into update().
  * @param array $member An array of the member's details.
  * @param array $preferences A key => value array of preferences to set.
  * @return array The member's new preferences array.
@@ -411,7 +422,7 @@ public function setPreferences($member, $preferences)
 	$preferences = array_merge((array)$member["preferences"], $preferences);
 
 	$this->updateById($member["memberId"], array(
-		"preferences" => serialize($preferences)
+		"preferences" => $preferences
 	));
 
 	return $preferences;
