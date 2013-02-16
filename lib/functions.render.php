@@ -94,7 +94,7 @@ function avatar($member = array(), $className = "")
 	}
 
 	// If the user doesn't have an avatar, return the skin's default one.
-	if (!$avatarFormat) $url = getResource("skins/base/avatar.png");
+	if (!$member["avatarFormat"]) $url = getResource("skins/base/avatar.png");
 
 	return "<img src='$url' alt='' class='avatar $className'/>";
 }
