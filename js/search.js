@@ -176,7 +176,7 @@ init: function() {
 	// Add a click handler to the view more button.
 	$("#conversationsFooter .viewMore a").live("click", function(e) {
 		e.preventDefault();
-		ETSearch.search((ETSearch.currentSearch ? ETSearch.currentSearch + " + " : "") + T("gambit.more results"));
+		ETSearch.search((ETSearch.currentSearch ? ETSearch.currentSearch + " + " : "") + "#"+T("gambit.more results"));
 	});
 
 	// Add click handlers to the channels.
