@@ -350,9 +350,10 @@ a.channel:hover {text-decoration:none; border-color:#aaa}
 .conversationList .labels {margin-left:3px}
 .conversationList .title {font-weight:normal}
 .conversationList .title a {color:#000}
+.conversationList .title a:visited {color:#666}
 .conversationList .unread .title {font-weight:bold}
 .conversationList .starred {background-color:#fffbdb}
-.conversationList .justVisited {background-color:#ebf5fa}
+.conversationList .justVisited {background-color:#F5FAFC}
 .conversationList .controls {margin-left:10px}
 .conversationList .controls a {margin-right:5px}
 .conversationList .action * {font-weight:normal}

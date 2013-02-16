@@ -146,7 +146,7 @@ init: function() {
 		var scrollTop = $.cookie("scrollTop"),
 			cid = $.cookie("cid");
 		if (scrollTop) $.scrollTo(scrollTop);
-		if (cid) $("#c" + cid).addClass("justVisited").delay(1000).removeClass("justVisited", 2000);
+		if (cid) $("#c" + cid).addClass("justVisited");
 		$.cookie("scrollTop", null, {path: "/"});
 		$.cookie("cid", null, {path: "/"});
 	}, 1);
