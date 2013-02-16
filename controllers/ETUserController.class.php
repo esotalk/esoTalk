@@ -14,6 +14,14 @@ class ETUserController extends ETController {
 
 
 /**
+ * A message to display on the login form.
+ * This is useful to set in the ETController::render404 method where we create a user controller
+ * in order to display a login form without redirecting.
+ * @var string
+ */
+public $loginMessage;
+
+/**
  * There's no index method for this controller, so redirect back to the index.
  *
  * @return void
@@ -61,6 +69,7 @@ public function login()
 	}
 
 	$this->data("form", $form);
+	$this->data("message", $this->loginMessage);
 	$this->render("user/login");
 }
 

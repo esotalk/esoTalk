@@ -39,7 +39,7 @@ init: function() {
 	this.header = $("#hdr");
 	var headerTop = this.header.offset().top;
 	var headerWidth = this.header.width();
-	var scrubberTop = this.scrubber.length && (this.scrubber.offset().top - this.header.outerHeight() - 10);
+	var scrubberTop = this.scrubber.length && (this.scrubber.offset().top - this.header.outerHeight() - 20);
 
 	// Whenever the user scrolls within the window...
 	$(window).scroll(function() {
@@ -47,7 +47,7 @@ init: function() {
 
 		// If we're past the normal top position of the scrubber, make it fixed.
 		if (y >= scrubberTop && !ET.disableFixedPositions) {
-			ETScrubber.scrubber.addClass("floating").css({position: "fixed", top: ETScrubber.header.outerHeight() + 10, zIndex: 100});
+			ETScrubber.scrubber.addClass("floating").css({position: "fixed", top: ETScrubber.header.outerHeight() + 20, zIndex: 100});
 		}
 		// Otherwise, put it back to normal.
 		else {

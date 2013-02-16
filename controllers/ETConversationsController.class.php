@@ -88,7 +88,7 @@ function index($channelSlug = false)
 
 	// Store the currently selected channel in the session, so that it can be automatically selected
 	// if "New conversation" is clicked.
-	if (!empty($currentChannels)) ET::$session->store("channelId", $currentChannels[0]);
+	if (!empty($currentChannels)) ET::$session->store("searchChannelId", $currentChannels[0]);
 
 	// Get the search string request value.
 	$searchString = R("search");

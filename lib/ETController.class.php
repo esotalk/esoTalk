@@ -518,10 +518,25 @@ public function renderMessage($title, $message)
  * @param string $message The message text.
  * @return void
  */
-public function render404($message = "")
+public function render404($message = "", $showLogin = false)
 {
 	header("HTTP/1.1 404 Not Found");
-	$this->renderMessage(T("Page Not Found"), $message);
+
+	// If the user isn't logged in, we might want to show a login form to them.
+	// To do this, we create an ETUserController instance, set a message to display on the login form,
+	// and then run the "login" method.
+	if (!ET::$session->user and $showLogin) {
+		$_GET["return"] = $this->selfURL;
+		$controller = ETFactory::make("userController");
+		$controller->init();
+		$controller->loginMessage = $message;
+		$controller->dispatch("login", array());
+	}
+
+	// If they are logged in, however, we'll just show a page not found message.
+	else {
+		$this->renderMessage(T("Page Not Found"), $message);
+	}
 }
 
 

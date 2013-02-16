@@ -26,8 +26,10 @@ echo $form->open(); ?>
 <h1 id='conversationTitle'><?php echo $form->input("title", "text", array("placeholder" => T("Enter a conversation title"), "tabindex" => 100)); ?></h1>
 <?php
 
-// Channel ?>
-<a href='<?php echo URL("conversations/".$conversation["channelSlug"]); ?>' class='channel channel-<?php echo $conversation["channelId"]; ?>' title='<?php echo sanitizeHTML($conversation["channelDescription"]); ?>'><?php echo sanitizeHTML($conversation["channelTitle"]); ?></a>
+// Channel 
+$this->renderView("conversation/channelPath", array("conversation" => $conversation));
+?>
+
 <a href='<?php echo URL("conversation/changeChannel/".$conversation["conversationId"]); ?>' id='control-changeChannel'><?php echo T("Change channel"); ?></a>
 
 </div>

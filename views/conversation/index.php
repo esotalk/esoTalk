@@ -46,12 +46,8 @@ endif;
 ?></h1>
 <?php
 
-// Channel ?>
-<a href='<?php echo URL("conversations/".$conversation["channelSlug"]); ?>' class='channel channel-<?php echo $conversation["channelId"]; ?>' title='<?php echo sanitizeHTML($conversation["channelDescription"]); ?>'><?php echo sanitizeHTML($conversation["channelTitle"]); ?></a>
-<?php
-
-// Star
-echo star($conversation["conversationId"], $conversation["starred"])."\n";
+// Channel
+$this->renderView("conversation/channelPath", array("conversation" => $conversation));
 
 // Labels ?>
 <span class='labels'>
@@ -101,6 +97,13 @@ if ($data["searchString"] and !$conversation["countPosts"]): ?>
 
 <div class='scrubberColumn'>
 <div class='scrubberContent'>
+
+<?php
+// Star
+echo starButton($conversation["conversationId"], $conversation["starred"], "button starButton")."\n";
+?>
+
+<a href='#reply' class='button<?php if (!$conversation["canReply"] and ET::$session->user): ?> disabled<?php endif; ?>' id='jumpToReply'><span class='icon-add'></span> <?php echo T("Post a Reply"); ?></a>
 
 <?php if (!$data["searchString"]): ?>
 <!-- Timeline scrubber -->
@@ -187,8 +190,6 @@ foreach ($recentMonths as $month) {
 // If the latest post was in today's month, output a "Now" item. ?>
 <li class='scrubber-now' data-index='last'<?php if ($latestYear != $currentYear or $latestMonth != $currentMonth): ?> style='display:none'<?php endif; ?>><a href='<?php echo URL(makeURL("last")); ?>'><?php echo T("Now"); ?></a></li>
 </ul>
-
-<a href='#reply' class='button<?php if (!$conversation["canReply"] and ET::$session->user): ?> disabled<?php endif; ?>' id='jumpToReply'><span class='icon-add'></span> <?php echo T("Post a Reply"); ?></a>
 <?php endif; ?>
 
 </div>

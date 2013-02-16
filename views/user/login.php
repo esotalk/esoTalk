@@ -18,6 +18,12 @@ $form = $data["form"];
 
 <h3><?php echo T("Log In"); ?></h3>
 
+<?php if (!empty($data["message"])): ?>
+<div class='section help'>
+<?php echo $data["message"]; ?>
+</div>
+<?php endif; ?>
+
 <?php echo $form->open(); ?>
 
 <div class='section'>

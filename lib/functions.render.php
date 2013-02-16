@@ -188,7 +188,32 @@ function star($conversationId, $starred)
 	else {
 		$conversationId = (int)$conversationId;
 		$url = URL("conversation/star/".$conversationId."?token=".ET::$session->token."&return=".urlencode(ET::$controller->selfURL));
-		return "<a href='$url' class='star".($starred ? " starOn" : "")."' title='".T("Star to receive notifications")."' data-id='$conversationId'>".($starred ? T("Starred") : T("Unstarred"))."</a>";
+		return "<a href='$url' class='star".($starred ? " starOn" : "")."' title='".T("Follow to receive notifications")."' data-id='$conversationId'>".($starred ? T("Following") : T("Follow"))."</a>";
+	}
+}
+
+}
+
+
+if (!function_exists("starButton")) {
+
+/**
+ * Return a star BUTTON for a certain conversation that can be clicked to toggle the starred that of that conversation.
+ *
+ * @param int $conversationId The ID of the conversation that this star is for.
+ * @param bool $starred Whether or not the conversation is currently starred.
+ * @return stiring
+ */
+function starButton($conversationId, $starred)
+{
+	// If the user is not logged in, don't return anything.
+	if (!ET::$session->user) return "";
+
+	// Otherwise, return a clickable star!
+	else {
+		$conversationId = (int)$conversationId;
+		$url = URL("conversation/star/".$conversationId."?token=".ET::$session->token."&return=".urlencode(ET::$controller->selfURL));
+		return "<a href='$url' class='button starButton' title='".T("Follow to receive notifications")."' data-id='$conversationId'><span class='star".($starred ? " starOn" : "")."'></span> <span>".($starred ? T("Following") : T("Follow"))."</span></a>";
 	}
 }
 

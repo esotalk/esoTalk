@@ -30,7 +30,7 @@ init: function() {
 		this.searchString = ET.conversation.searchString;
 
 		// Make the controls into a popup button.
-		$("#conversationHeader").prepend($("#conversationControls").popup({alignment: "right"}));
+		$("#conversationBody .scrubberContent").prepend($("#conversationControls").popup({alignment: "left"}));
 
 		// Set up the timeline scrubber.
 		ETScrubber.body = $("#conversation");
@@ -161,7 +161,7 @@ init: function() {
 	});
 
 	// Make sure channels always have tooltips.
-	$(".channel").tooltip({alignment: "left", delay: 250, className: "withArrow withArrowBottom"});
+	$(".channels a").tooltip({alignment: "left", delay: 250, className: "withArrow withArrowBottom"});
 
 	// Set up a members allowed popup if there's a "x others" link in the list.
 	ETMembersAllowedTooltip.init($("#conversationPrivacy .allowedList .showMore"), function() {return ETConversation.id;}, true);
@@ -889,7 +889,7 @@ changeChannel: function() {
 
 					// Replace the conversation's channel with the new one.
 					ETConversation.channel = channelId;
-					$("#conversationHeader .channel").replaceWith("<a href='" + data.channel.link + "' class='channel channel-" + ETConversation.channel + "' title='" + data.channel.description + "'>" + data.channel.title + "</a>");
+					$("#conversationHeader .channels").replaceWith(data.channelPath);
 
 					ETSheet.hideSheet("changeChannelSheet");
 				}

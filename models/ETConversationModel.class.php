@@ -146,6 +146,8 @@ public function get($wheres = array())
 		->select("ch.title", "channelTitle")
 		->select("ch.description", "channelDescription")
 		->select("ch.slug", "channelSlug")
+		->select("ch.lft", "channelLft")
+		->select("ch.rgt", "channelRgt")
 
 		// Get the groups that are allowed to view this channel, and the names of those groups.
 		->select("GROUP_CONCAT(pv.groupId)", "channelPermissionView")
@@ -274,6 +276,8 @@ public function getEmptyConversation()
 		->select("c.title")
 		->select("c.description")
 		->select("c.slug")
+		->select("c.lft")
+		->select("c.rgt")
 		->select("GROUP_CONCAT(pv.groupId)", "channelPermissionView")
 		->select("GROUP_CONCAT(IF(pvg.name IS NOT NULL, pvg.name, ''))", "channelPermissionViewNames")
 		->from("channel c")
@@ -285,7 +289,7 @@ public function getEmptyConversation()
 		->groupBy("pv.channelId")
 		->limit(1)
 		->exec();
-	list($conversation["channelTitle"], $conversation["channelDescription"], $conversation["channelSlug"], $conversation["channelPermissionView"], $channelPermissionViewNames) = array_values($result->firstRow());
+	list($conversation["channelTitle"], $conversation["channelDescription"], $conversation["channelSlug"], $conversation["channelLft"], $conversation["channelRgt"], $conversation["channelPermissionView"], $channelPermissionViewNames) = array_values($result->firstRow());
 
 	// Convert the separate groups who have permission to view this channel ID/name fields into one.
 	$conversation["channelPermissionView"] = $this->formatGroupsAllowed($conversation["channelPermissionView"], $channelPermissionViewNames);
@@ -499,14 +503,14 @@ public function getMembersAllowedSummary($conversation, $membersAllowed = array(
 
 	// If members are allowed to view this conversation, just show that (as members covers all members.)
 	if (isset($groups[GROUP_ID_MEMBER])) {
-		$membersAllowedSummary[] = array("type" => "group", "id" => GROUP_ID_MEMBER, "name" => ACCOUNT_MEMBER);
+		$membersAllowedSummary[] = array("type" => "group", "id" => GROUP_ID_MEMBER, "name" => ACCOUNT_MEMBER, "email" => null);
 	}
 
 	else {
 
 		// Loop through the groups allowed and add them to the summary.
 		foreach ($groups as $id => $name) {
-			$membersAllowedSummary[] = array("type" => "group", "id" => $id, "name" => $name);
+			$membersAllowedSummary[] = array("type" => "group", "id" => $id, "name" => $name, "email" => null);
 		}
 
 		// Loop through the members allowed and add them to the summary.
@@ -524,6 +528,26 @@ public function getMembersAllowedSummary($conversation, $membersAllowed = array(
 
 	// Whew! All done. Hopefully that wasn't too confusing.
 	return $membersAllowedSummary;
+}
+
+
+/**
+ * Get a breadcrumb of channels leading to and including the channel that a conversation is in.
+ *
+ * @param array The conversation details.
+ * @return array An array containing the tree of channels and sub-channels that the conversation is in.
+ */
+public function getChannelPath($conversation)
+{
+	$channels = ET::channelModel()->getAll();
+	$path = array();
+
+	foreach ($channels as $channel) {
+		if ($channel["lft"] <= $conversation["channelLft"] and $channel["rgt"] >= $conversation["channelRgt"])
+			$path[] = $channel;
+	}
+
+	return $path;
 }
 
 

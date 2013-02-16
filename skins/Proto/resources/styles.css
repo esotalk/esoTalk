@@ -31,7 +31,6 @@ p, ul, pre {line-height:1.5em}
 
 /* Layout */
 #hdr-content, #body-content, #ftr-content {margin:0 auto; min-width:760px; max-width:1100px; padding:0 20px}
-#body, #body-content {background:url(shadow.png) repeat-x}
 #body-content {background-color:#fff}
 #body-content {padding-bottom:20px; padding-top:1px; border:solid #ddd; border-width:0 1px 2px; border-radius:0 0 3px 3px}
 #hdr-content, #ftr-content {max-width:1140px}
@@ -44,10 +43,11 @@ p, ul, pre {line-height:1.5em}
 
 
 /* Header */
-#hdr {background:#333 url(header.png) repeat-x bottom; color:#fff; text-shadow:rgba(0, 0, 0, 0.5) 0 -1px; padding:20px 0 14px; position:fixed; width:100%; z-index:350}
+#hdr {background:#333 url(header.png) repeat-x bottom; color:#fff; text-shadow:rgba(0, 0, 0, 0.5) 0 -1px; padding:20px 0 14px; position:fixed; width:100%; z-index:350; box-shadow:0 1px 2px rgba(0, 0, 0, 0.2);}
 #hdr h1 {display:inline; font-size:120%; font-weight:bold; margin:0}
 #hdr h1 img {margin:-20px 0 -14px; display:inline; border:0}
 #hdr a {color:#fff}
+#backButton {margin-right:10px; font-size:20px; line-height:1px; vertical-align:-2px; text-decoration:none}
 
 #mainMenu {margin-left:30px; display:inline}
 #userMenu {text-align:right; margin-top:-20px !important; margin-left:350px}

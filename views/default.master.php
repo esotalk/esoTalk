@@ -35,12 +35,13 @@ if (!defined("IN_ESOTALK")) exit;
 <div id='hdr'>
 <div id='hdr-content'>
 
+<?php if ($data["backButton"]): ?>
+<a href='<?php echo $data["backButton"]["url"]; ?>' id='backButton' title='<?php echo T("Back to {$data["backButton"]["type"]}"); ?>'>&larr;</a>
+<?php endif; ?>
+
 <h1 id='forumTitle'><a href='<?php echo URL(""); ?>'><?php echo $data["forumTitle"]; ?></a></h1>
 
 <ul id='mainMenu' class='menu'>
-<?php if ($data["backButton"]): ?>
-<li><a href='<?php echo $data["backButton"]["url"]; ?>' id='backButton'>&laquo;<span> <?php echo T("Back to {$data["backButton"]["type"]}"); ?><span></a></li>
-<?php endif; ?>
 <?php if (!empty($data["mainMenuItems"])) echo $data["mainMenuItems"]; ?>
 </ul>
 

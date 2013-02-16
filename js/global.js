@@ -565,7 +565,7 @@ $.fn.popup = function(options) {
 
 	// Construct the popup wrapper and button.
 	var wrapper = $("<div class='popupWrapper'></div>");
-	var button = $("<a href='#' class='popupButton button' id='"+popup.attr("id")+"-button'><span class='icon-settings'>Controls</span> <span class='icon-dropdown'></span></a>");
+	var button = $("<a href='#' class='popupButton button' id='"+popup.attr("id")+"-button'><span class='icon-settings'></span> Controls <span class='icon-dropdown'></span></a>");
 	wrapper.append(button).append(popup);
 
 	// Remove whatever class is on the popup contents and make it into a popup menu.
@@ -777,6 +777,8 @@ $(function() {
 		}
 	});
 
+	$("#backButton").tooltip({alignment: "left", offset: [25, 25]});
+
 	// Start off with the "go to top" link hidden, and add a click handler.
 	$("#goToTop a").click(function(e) {
 		e.preventDefault();
@@ -815,7 +817,7 @@ $(function() {
 	});
 
 	// Add click handlers to stars.
-	$(".star").live("click", function(e) {
+	$("a.star, .starButton").live("click", function(e) {
 		toggleStar($(this).data("id"));
 		e.preventDefault();
 	});
@@ -855,10 +857,11 @@ function showOnlineSheet()
 // Toggle the state of a star.
 function toggleStar(conversationId) {
 	$.ETAjax({url: "conversation/star.json/" + conversationId});
-	var star = $(".star[data-id=" + conversationId + "]");
+	var star = $(".star[data-id=" + conversationId + "], .starButton[data-id=" + conversationId + "] .star");
+	var text = star.parent().is(".starButton") ? star.parent().find("span:not(.star)") : star;
 	var on = !star.hasClass("starOn");
 	star.toggleClass("starOn", on);
-	star.html(T(on ? "Starred" : "Unstarred"));
+	text.html(T(on ? "Following" : "Follow"));
 	$("#c" + conversationId).toggleClass("starred", on);
 };
 

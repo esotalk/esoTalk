@@ -62,10 +62,6 @@ span.highlight {background:#fdef34; border:1px solid #fcef98; padding:1px 3px; b
 /* "Go to top" and "back to ..." links (when they're floating) */
 .floatingLink {position:fixed; background:#eee; background:rgba(238, 238, 238, 0.75); border:1px solid #ccc; border-color:rgba(0, 0, 0, 0.15); font-size:120%; z-index:500; border-radius:3px; color:#444 !important; text-shadow:none}
 #goToTop a.floatingLink {bottom:-4px; right:10px; padding:5px 12px 9px}
-#backButton.floatingLink {top:15px; left:0; padding:3px; border-radius:0 2px 2px 0}
-#backButton.floatingLink span {display:none}
-#backButton.floatingLink:hover {text-decoration:none; padding-right:5px}
-#backButton.floatingLink:hover span {display:inline}
 
 
 /* Loading indicators */
@@ -262,9 +258,10 @@ span.highlight {background:#fdef34; border:1px solid #fcef98; padding:1px 3px; b
 .tabs .pathItem a {position:relative; float:right; padding-left:15px}
 .tabs .pathItem.selected a {border-radius:3px 0 0 3px}
 .tabs .pathItem a:last-child {padding-left:7px}
-.tabs .pathItem.selected a:before, .tabs .pathItem.selected a:after {content:" "; border:0.95em solid transparent; height:0; width:0; right:-1.9em; top:-0.06em; position:absolute; border-left-color:#d5d5d5}
-.tabs .pathItem.selected a:after {float:left; border-left-color:#fff; right:-1.81em}
-
+.tabs .pathItem.selected a:before, .tabs .pathItem.selected a:after {content:" "; border:10px solid transparent; height:0; width:0; right:-21px; top:-1px; position:absolute; border-left-color:#d5d5d5}
+.tabs .pathItem.selected a:after {float:left; border-left-color:#fff; right:-18px; border-width:9px; top:0}
+.tabs .pathEnd.selected a:first-child {border-radius:3px;}
+.tabs .pathEnd.selected a:first-child:before, .tabs .pathEnd.selected a:first-child:after {display:none}
 
 /* Channels */
 .channel {background:#fff; text-decoration:none; color:#666; border-radius:3px; font-size:85%; border:1px solid #d5d5d5; white-space:nowrap; -webkit-box-shadow:0 1px 0 rgba(0, 0, 0, 0.04); box-shadow:0 1px 0 rgba(0, 0, 0, 0.04); padding:2px 5px}
@@ -381,7 +378,7 @@ negative margins so they overlap the padding of the <li>. */
 #conversationHeader {margin-bottom:0}
 #conversationHeader .star {vertical-align:-2px; margin-left:10px}
 #conversationHeader .labels {margin-left:10px}
-#conversationHeader .channel {margin-left:15px}
+#conversationHeader .channels {margin-left:15px; display:inline-block; margin-bottom:-7px;}
 #conversationHeader > #control-changeChannel {font-size:85%; margin-left:10px}
 
 #conversationTitle {margin:0; line-height:1.4em; vertical-align:-2px}
@@ -418,12 +415,14 @@ a.deleteLink:hover {color:#f00 !important; text-decoration:line-through}
 #conversationBody {margin-top:20px; clear:both}
 #conversationReply {margin:60px 0 30px; clear:left}
 
+#conversationBody .scrubberContent .button {width:100px; text-align:center; margin-bottom:10px; display:block}
+
 
 /* Scrubber */
 .hasScrubber {margin-right:170px}
 .scrubberColumn {float:right; margin-right:-170px; width:150px}
 
-.scrubber {margin:0 0 20px; padding:0; list-style-type:none}
+.scrubber {margin:20px 0 20px; padding:0; list-style-type:none}
 .scrubber > li {border-left:5px solid #eee; margin-bottom:1px}
 .scrubber > li:hover {border-left-color:#ddd}
 .scrubber > li a {color:#888}
@@ -625,7 +624,7 @@ input.error, input.error:focus {border-color:#f59e79 !important}
 
 
 /* Buttons */
-.button {height:23px; cursor:pointer; padding:1px 10px 3px; border:1px solid #bbb; border-radius:3px; line-height:19px; margin:0; font-size:85%}
+.button {height:23px; cursor:pointer; padding:1px 10px 3px; border:1px solid #bbb; border-radius:3px; line-height:19px; margin:0}
 .button.big {height:26px; font-size:100%; padding:0 10px 2px; line-height:25px}
 
 .button span {margin:-3px 2px -1px -2px; vertical-align:middle}

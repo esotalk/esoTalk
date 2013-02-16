@@ -30,7 +30,7 @@ public function index($conversationId = false, $year = false, $month = false)
 
 	// Stop here with a 404 header if the conversation wasn't found.
 	if (!$conversation) {
-		$this->render404(T("message.conversationNotFound"));
+		$this->render404(T("message.conversationNotFound"), true);
 		return false;
 	}
 
@@ -192,6 +192,9 @@ public function index($conversationId = false, $year = false, $month = false)
 		$conversation["membersAllowed"] = ET::conversationModel()->getMembersAllowed($conversation);
 		$conversation["membersAllowedSummary"] = ET::conversationModel()->getMembersAllowedSummary($conversation, $conversation["membersAllowed"]);
 
+		// Get the channel path of this conversation.
+		$conversation["channelPath"] = ET::conversationModel()->getChannelPath($conversation);
+
 		// Add essential variables and language definitions to be accessible through JavaScript.
 		if ($conversation["canModerate"]) {
 			$this->addJSLanguage("Lock", "Unlock", "Sticky", "Unsticky", "message.confirmDelete");
@@ -324,7 +327,7 @@ public function start($member = false)
 
 	// Get a list of channels so that we can check to make sure a valid channel is selected.
 	$channels = ET::channelModel()->get("start");
-	$channelId = ET::$session->get("channelId");
+	$channelId = ET::$session->get("channelId", ET::$session->get("searchChannelId"));
 	if (!isset($channels[$channelId])) ET::$session->store("channelId", reset(array_keys($channels)));
 
 	// Get an empty conversation.
@@ -332,6 +335,7 @@ public function start($member = false)
 	$conversation = $model->getEmptyConversation();
 	$conversation["membersAllowed"] = $model->getMembersAllowed($conversation);
 	$conversation["membersAllowedSummary"] = $model->getMembersAllowedSummary($conversation, $conversation["membersAllowed"]);
+	$conversation["channelPath"] = $model->getChannelPath($conversation);
 
 	// Set up a form.
 	$form = ETFactory::make("form");
@@ -375,7 +379,7 @@ public function start($member = false)
 
 		$result = $model->create(array(
 			"title" => $_POST["title"],
-			"channelId" => $_SESSION["channelId"],
+			"channelId" => ET::$session->get("channelId"),
 			"content" => $_POST["content"],
 		), ET::$session->get("membersAllowed"), $form->isPostBack("saveDraft"));
 
@@ -387,6 +391,7 @@ public function start($member = false)
 			list($conversationId, $postId) = $result;
 
 			ET::$session->remove("membersAllowed");
+			ET::$session->remove("channelId");
 
 			if ($this->responseType === RESPONSE_TYPE_JSON) {
 				$this->json("url", URL(conversationURL($conversationId, $form->getValue("title"))));
@@ -697,7 +702,9 @@ public function save($conversationId = false)
 	// depending on what groups have permission to view the channel.)
 	$conversation["membersAllowed"] = $model->getMembersAllowed($conversation);
 	$conversation["membersAllowedSummary"] = $model->getMembersAllowedSummary($conversation, $conversation["membersAllowed"]);
+	$conversation["channelPath"] = $model->getChannelPath($conversation);
 	$this->json("allowedSummary", $this->getViewContents("conversation/membersAllowedSummary", array("conversation" => $conversation)));
+	$this->json("channelPath", $this->getViewContents("conversation/channelPath", array("conversation" => $conversation)));
 
 	// Also return the details of the new channel.
 	$this->json("channel", array(
