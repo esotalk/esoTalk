@@ -301,8 +301,8 @@ a.channel:hover {text-decoration:none; border-color:#aaa}
 .channelList .description {display:inline; margin-left:10px; font-size:85%; line-height:2em; color:#888}
 .channelList .stats {float:right; font-size:85%}
 .channelList .stats span {margin-right:10px}
-.channelList .subscription {float:right; margin:-1px 0}
-.channelList .button {width:80px; text-align:center}
+.channelList .subscription {float:right; margin:-2px 0}
+.channelList .button {width:100px; text-align:center}
 .channelList .unsubscribed {opacity:0.5}
 
 .channelList .depth0 {padding:10px 0}
