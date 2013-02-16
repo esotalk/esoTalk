@@ -137,7 +137,7 @@ public function create($type, $member, $fromMember = null, $data = null)
 
 		// Load the member's language into esoTalk's memory.
 		ET::saveLanguageState();
-		ET::loadLanguage($member["preferences"]["language"]);
+		ET::loadLanguage(@$member["preferences"]["language"]);
 
 		// Get the email content by calling the type's email projection function.
 		list($subject, $body) = call_user_func($projections[self::PROJECTION_EMAIL], $activity, $member);
