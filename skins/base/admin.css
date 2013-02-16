@@ -61,9 +61,9 @@
 #pluginList img {opacity:0.5; vertical-align:top; margin-right:10px}
 #pluginList > li.enabled img {opacity:1}
 
-#pluginList > li .pluginControls {margin:-2px 0 0; float:right; font-size:100%}
+#pluginList > li .pluginControls {margin:-3px -2px 0; float:right; font-size:100%}
 #pluginList > li .pluginControls > a {display:inline-block}
-#pluginList .toggle {width:60px; text-align:center}
+#pluginList .toggle {width:80px; text-align:center}
 
 #pluginList > li .popupWrapper {display:none}
 #pluginList > li:hover .popupWrapper, #pluginList .popupWrapper.active {display:inline-block}
