@@ -36,6 +36,7 @@ init: function() {
 	// Make the header and the scrubber's position fixed when we scroll down the page.
 	// Get the normal top position of the header and of the scrubber. If the scrollTop is greater than
 	// this, we know we'll need to make it fixed.
+	this.header = $("#hdr");
 	var headerTop = this.header.offset().top;
 	var headerWidth = this.header.width();
 	var scrubberTop = this.scrubber.length && (this.scrubber.offset().top - this.header.outerHeight() - 10);
@@ -43,18 +44,6 @@ init: function() {
 	// Whenever the user scrolls within the window...
 	$(window).scroll(function() {
 		var y = $(this).scrollTop();
-
-		// If we're past the normal top position of the header, make it fixed.
-		if (y >= headerTop && !ET.disableFixedPositions) {
-			ETScrubber.body.css({paddingTop: ETScrubber.header.outerHeight()});
-			ETScrubber.header.addClass("floating").css({position: "fixed", top: 0, width: headerWidth, zIndex: 110});
-		}
-		// Otherwise, put it back to normal.
-		else {
-			ETScrubber.body.css({paddingTop: 0});
-			ETScrubber.header.removeClass("floating").css({position: "", top: "", width: ""});
-			headerWidth = ETScrubber.header.width();
-		}
 
 		// If we're past the normal top position of the scrubber, make it fixed.
 		if (y >= scrubberTop && !ET.disableFixedPositions) {
@@ -75,9 +64,10 @@ init: function() {
 			else {
 
 				// This must be the first item within our viewport. Get the index of it and highlight
-				// it that index in the scrubber, then break out of the loop.
+				// that index in the scrubber, then break out of the loop.
 				$(".scrubber li").removeClass("selected");
 				var index = item.data("index");
+				if ($(document).scrollTop() <= 0 && ETScrubber.loadedItems.indexOf(0) != -1) index = "op";
 				$(".scrubber-"+index, ETScrubber.scrubber).addClass("selected").parents("li").addClass("selected");
 				return false;
 
@@ -208,7 +198,7 @@ init: function() {
 
 // Scroll to a specific position, applying an animation and taking the fixed header into account.
 scrollTo: function(position) {
-	$.scrollTo(position - ETScrubber.header.outerHeight() + 1, "slow");
+	$.scrollTo(position, "slow");
 },
 
 // Scroll to the item on or before an index combination.
@@ -234,7 +224,7 @@ scrollToIndex: function(index) {
 	});
 
 	// Scroll to it.
-	if (item) ETScrubber.scrollTo($(item).offset().top);
+	if (item) ETScrubber.scrollTo(index == 0 ? 0 : $(item).offset().top);
 
 	if (typeof ETScrubber.scrollToIndexCallback == "function") ETScrubber.scrollToIndexCallback(index);
 

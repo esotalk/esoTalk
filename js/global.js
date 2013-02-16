@@ -403,6 +403,7 @@ showSheet: function(id, content, callback) {
 
 	// Position the page wrapper so that the browser scrollbars will no longer affect it. The browser scrollbars will become connected to the sheet content.
 	$("#wrapper").addClass("sheetActive").css({position: "fixed", top: -$(document).scrollTop(), width: "100%"});
+	$("#hdr").css("top", $(document).scrollTop());
 
 	// Position the sheet.
 	sheet.addClass("active").css({position: "absolute", left: "50%", marginLeft: -sheet.width() / 2});
@@ -448,6 +449,7 @@ hideSheet: function(id, callback) {
 	else {
 		var scrollTop = -parseInt($("#wrapper").css("top"));
 		$("#wrapper").removeClass("sheetActive").css({position: "", top: 0, width: "auto"});
+		$("#hdr").css("top", "");
 		$.scrollTo(scrollTop);
 
 		$(".sheetOverlay").remove();
@@ -767,10 +769,10 @@ $(function() {
 	// Add scrolling handlers to automatically float the "go to top" and "back to search" links.
 	$(window).scroll(function() {
 		if ($(document).scrollTop() > $("#hdr").outerHeight() && !ETSheet.sheetStack.length && !ET.disableFixedPositions) {
-			$("#backButton, #goToTop a").addClass("floatingLink");
+			$("#goToTop a").addClass("floatingLink");
 			$("#goToTop").show().css("position", "absolute");
 		} else {
-			$("#backButton, #goToTop a").removeClass("floatingLink");
+			$("#goToTop a").removeClass("floatingLink");
 			$("#goToTop").hide();
 		}
 	});

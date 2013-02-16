@@ -60,7 +60,6 @@ init: function() {
 	.focus(function() {
 		$("#gambits").addClass("popup withArrow withArrowTop withArrowTopRight").css({
 			position: "absolute",
-			zIndex: 4000,
 			top: $("#search").offset().top + $("#search").outerHeight() + 5,
 			left: $("#search").offset().left + $("#search").outerWidth() - $("#gambits").outerWidth()
 		}).fadeIn("fast");
@@ -182,6 +181,7 @@ init: function() {
 
 	// Add click handlers to the channels.
 	$("#channels a:not(.channel-list)").live("click", function(e) {
+		if (e.metaKey || e.ctrlKey) return;
 		e.preventDefault();
 		ETSearch.changeChannel($(this).data("channel"), e.shiftKey);
 	});

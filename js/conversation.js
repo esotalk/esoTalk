@@ -33,7 +33,6 @@ init: function() {
 		$("#conversationHeader").prepend($("#conversationControls").popup({alignment: "right"}));
 
 		// Set up the timeline scrubber.
-		ETScrubber.header = $("#conversationHeader");
 		ETScrubber.body = $("#conversation");
 		ETScrubber.scrubber = $("#conversationBody .scrubberContent");
 		ETScrubber.items = $("#conversationPosts");
@@ -122,6 +121,19 @@ init: function() {
 				ETConversation.scrollTo($("#"+hash).offset().top - 10);
 			}, 100);
 		}
+
+		// If we scroll below the header, pop the conversation title up in the forum header.
+		$(window).scroll(function() {
+			var y = $(this).scrollTop();
+			var title = $("#forumTitle");
+			if (y > $("#hdr").height()) {
+				if (!title.data("old")) {
+					title.data("old", title.html()).html("<a href='#'>"+ETConversation.title+"</a>");
+				}
+			} else if (title.data("old")) {
+				title.html(title.data("old")).data("old", null);
+			}
+		});
 
 	}
 

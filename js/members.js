@@ -11,7 +11,6 @@ init: function() {
 	});
 
 	// Set up the letter scrubber.
-	ETScrubber.header = $("#memberListFilter");
 	ETScrubber.body = $("#memberListBody");
 	ETScrubber.scrubber = $("#memberListBody .scrubberContent");
 	ETScrubber.items = $("#memberList");
