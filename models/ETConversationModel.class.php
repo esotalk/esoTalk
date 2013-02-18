@@ -159,7 +159,7 @@ public function get($wheres = array())
 		->from("channel_group pv", "c.channelId=pv.channelId AND pv.view=1", "left")
 		->from("group pvg", "pv.groupId=pvg.groupId", "left")
 		->from("member_conversation s", "s.conversationId=c.conversationId AND type='member' AND s.id=:userId", "left")->bind(":userId", ET::$session->userId)
-		->from("member sm", "sm.memberId=c.startMemberId", "inner")
+		->from("member sm", "sm.memberId=c.startMemberId", "left")
 
 		->where($wheres)
 		->groupBy("c.channelId")
