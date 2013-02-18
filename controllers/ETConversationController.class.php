@@ -325,10 +325,14 @@ public function start($member = false)
 		return;
 	}
 
+	// Set up a form.
+	$form = ETFactory::make("form");
+	$form->action = URL("conversation/start");
+
 	// Get a list of channels so that we can check to make sure a valid channel is selected.
 	$channels = ET::channelModel()->get("start");
-	$channelId = ET::$session->get("channelId", ET::$session->get("searchChannelId"));
-	if (!isset($channels[$channelId])) ET::$session->store("channelId", reset(array_keys($channels)));
+	$channelId = $form->validPostBack("content") ? ET::$session->get("channelId") : ET::$session->get("searchChannelId");
+	ET::$session->store("channelId", isset($channels[$channelId]) ? $channelId : reset(array_keys($channels)));
 
 	// Get an empty conversation.
 	$model = ET::conversationModel();
@@ -336,10 +340,6 @@ public function start($member = false)
 	$conversation["membersAllowed"] = $model->getMembersAllowed($conversation);
 	$conversation["membersAllowedSummary"] = $model->getMembersAllowedSummary($conversation, $conversation["membersAllowed"]);
 	$conversation["channelPath"] = $model->getChannelPath($conversation);
-
-	// Set up a form.
-	$form = ETFactory::make("form");
-	$form->action = URL("conversation/start");
 
 	if ($this->responseType === RESPONSE_TYPE_DEFAULT) {
 
