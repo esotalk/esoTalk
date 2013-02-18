@@ -351,7 +351,7 @@ a.channel:hover {text-decoration:none; border-color:#aaa}
 .conversationList .title {font-weight:normal}
 .conversationList .title a {color:#000}
 .conversationList .title a:visited {color:#777}
-.conversationList .unread .title {font-weight:bold}
+.conversationList .unread .title a {font-weight:bold; color:#000}
 .conversationList .starred {background-color:#fffbdb}
 .conversationList .justVisited {background-color:#F5FAFC}
 .conversationList .controls {margin-left:10px}

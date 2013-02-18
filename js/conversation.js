@@ -30,7 +30,8 @@ init: function() {
 		this.searchString = ET.conversation.searchString;
 
 		// Make the controls into a popup button.
-		$("#conversationBody .scrubberContent").prepend($("#conversationControls").popup({alignment: "left"}));
+		if ($("#conversationControls").length)
+			$("#conversationBody .scrubberContent").prepend($("#conversationControls").popup({alignment: "left"}).find(".button").addClass("big").end());
 
 		// Set up the timeline scrubber.
 		ETScrubber.body = $("#conversation");

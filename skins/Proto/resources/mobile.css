@@ -10,11 +10,12 @@ body {font-size:12px}
 
 
 /* Header - center the title and float the buttons. */
-#hdr {padding:13px 5px}
+#hdr {padding:13px 0 8px}
+#hdr-content {padding:0 5px}
 #hdr #forumTitle {text-align:center; display:block; width:150px; margin:0 auto; white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
 #hdr .button {padding:8px; margin:-6px 0 0}
 #hdr .popupWrapper {float:right; margin:0 0 0 7px}
-#hdr #backButton {float:left}
+#hdr #backButton {float:left; line-height:1em}
 #userMenu {margin:0 !important; text-align:left;}
 #hdr #notifications {padding-top:7px; padding-bottom:7px; width:2em; margin-top:-5px}
 
@@ -46,6 +47,7 @@ body {font-size:12px}
 .popupMenu {padding:0}
 .popupMenu li > a, .popupMenu li > span {padding:8px 30px 8px 20px; border-bottom:1px solid #ddd; font-size:110%}
 .popupMenu li.sep {display:none}
+.popupButton .text {display:none}
 
 
 /* ...But don't let these changes affect the notifications menu. */
@@ -100,7 +102,10 @@ body {font-size:12px}
 
 /* Hide scrubbers. */
 .hasScrubber {margin-right:0}
-.scrubberColumn {display:none}
+.scrubberColumn {float:none; margin:0; padding:0 10px; width:auto}
+#conversationBody .scrubberContent .button {display:inline-block; width:auto; margin-right:10px}
+#conversationBody .scrubberContent .popupWrapper {display:inline-block}
+.scrubber {display:none}
 
 
 /* Make time markers horizontal. */

@@ -565,7 +565,7 @@ $.fn.popup = function(options) {
 
 	// Construct the popup wrapper and button.
 	var wrapper = $("<div class='popupWrapper'></div>");
-	var button = $("<a href='#' class='popupButton button' id='"+popup.attr("id")+"-button'><span class='icon-settings'></span> Controls <span class='icon-dropdown'></span></a>");
+	var button = $("<a href='#' class='popupButton button' id='"+popup.attr("id")+"-button'><span class='icon-settings'></span> <span class='text'>Controls</span> <span class='icon-dropdown'></span></a>");
 	wrapper.append(button).append(popup);
 
 	// Remove whatever class is on the popup contents and make it into a popup menu.

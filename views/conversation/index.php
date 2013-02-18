@@ -100,10 +100,10 @@ if ($data["searchString"] and !$conversation["countPosts"]): ?>
 
 <?php
 // Star
-echo starButton($conversation["conversationId"], $conversation["starred"], "button starButton")."\n";
+echo starButton($conversation["conversationId"], $conversation["starred"])."\n";
 ?>
 
-<a href='#reply' class='button<?php if (!$conversation["canReply"] and ET::$session->user): ?> disabled<?php endif; ?>' id='jumpToReply'><span class='icon-add'></span> <?php echo T("Post a Reply"); ?></a>
+<a href='#reply' class='button big<?php if (!$conversation["canReply"] and ET::$session->user): ?> disabled<?php endif; ?>' id='jumpToReply'><span class='icon-add'></span> <?php echo T("Post a Reply"); ?></a>
 
 <?php if (!$data["searchString"]): ?>
 <!-- Timeline scrubber -->
