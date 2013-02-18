@@ -681,7 +681,7 @@ public static function gambitAuthor(&$search, $term, $negate)
 	}
 
 	// Apply the condition.
-	$search->sql->where("c.startMemberId".($negate ? "!" : "")."=$q");
+	$search->sql->where("c.startMemberId".($negate ? " NOT" : "")." IN $q");
 }
 
 
@@ -708,7 +708,7 @@ public static function gambitContributor(&$search, $term, $negate)
 	$sql = ET::SQL()
 		->select("DISTINCT conversationId")
 		->from("post")
-		->where("memberId=$q");
+		->where("memberId IN $q");
 	$search->addIDFilter($sql, $negate);
 }
 
