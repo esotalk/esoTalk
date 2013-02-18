@@ -125,7 +125,7 @@ public function groupIdsAllowedInGroupIds($groupIds, $allowedGroupIds, $adminAlw
 	if (in_array(GROUP_ID_GUEST, $allowedGroupIds)) return true;
 
 	// Return whether or not any of the group IDs in each array match.
-	return (bool)count(array_intersect($groupIds, $allowedGroupIds));
+	return (bool)count(array_intersect((array)$groupIds, $allowedGroupIds));
 }
 
 
