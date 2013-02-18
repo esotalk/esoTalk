@@ -22,6 +22,8 @@ if (!function_exists("highlight")) {
  * @param string $text The text to highlight words in.
  * @param array $words The words to highlight.
  * @return string The highlighted text.
+ *
+ * @package esoTalk
  */
 function highlight($text, $words)
 {
@@ -47,6 +49,8 @@ if (!function_exists("memberLink")) {
  * @param int $memberId The ID of the member.
  * @param string $username The username of the member.
  * @return string
+ *
+ * @package esoTalk
  */
 function memberLink($memberId, $username = "")
 {
@@ -66,6 +70,8 @@ if (!function_exists("name")) {
  *
  * @param string $username The member's username.
  * @return string
+ *
+ * @package esoTalk
  */
 function name($username)
 {
@@ -84,6 +90,8 @@ if (!function_exists("avatar")) {
  * @param array $member An array of the member's details. (memberId is required in this implementation.)
  * @param string $avatarFormat The format of the member's avatar (as stored in the database - jpg|gif|png.)
  * @param string $className CSS class names to apply to the avatar.
+ *
+ * @package esoTalk
  */
 function avatar($member = array(), $className = "")
 {
@@ -94,7 +102,7 @@ function avatar($member = array(), $className = "")
 	}
 
 	// If the user doesn't have an avatar, return the skin's default one.
-	if (!$member["avatarFormat"]) $url = getResource("skins/base/avatar.png");
+	if (empty($member["avatarFormat"])) $url = getResource("skins/base/avatar.png");
 
 	return "<img src='$url' alt='' class='avatar $className'/>";
 }
@@ -112,6 +120,8 @@ if (!function_exists("memberGroup")) {
  * @param bool $showMember Whether or not to show "Member" if the member's account is Member and they aren't
  * 		in any groups, or to just show nothing.
  * @return string
+ *
+ * @package esoTalk
  */
 function memberGroup($account, $groups = array(), $showMember = false)
 {
@@ -144,6 +154,8 @@ if (!function_exists("groupName")) {
  * @param string $group The name of the group.
  * @param bool $plural Whether or not a plurala version of the name should be used (if such a translation exists.)
  * @return string
+ *
+ * @package esoTalk
  */
 function groupName($group, $plural = false)
 {
@@ -161,6 +173,8 @@ if (!function_exists("groupLink")) {
  *
  * @param string $group The name of the group.
  * @return string
+ *
+ * @package esoTalk
  */
 function groupLink($group)
 {
@@ -178,6 +192,8 @@ if (!function_exists("star")) {
  * @param int $conversationId The ID of the conversation that this star is for.
  * @param bool $starred Whether or not the conversation is currently starred.
  * @return stiring
+ *
+ * @package esoTalk
  */
 function star($conversationId, $starred)
 {
@@ -203,6 +219,8 @@ if (!function_exists("starButton")) {
  * @param int $conversationId The ID of the conversation that this star is for.
  * @param bool $starred Whether or not the conversation is currently starred.
  * @return stiring
+ *
+ * @package esoTalk
  */
 function starButton($conversationId, $starred)
 {
@@ -213,7 +231,7 @@ function starButton($conversationId, $starred)
 	else {
 		$conversationId = (int)$conversationId;
 		$url = URL("conversation/star/".$conversationId."?token=".ET::$session->token."&return=".urlencode(ET::$controller->selfURL));
-		return "<a href='$url' class='button starButton' title='".T("Follow to receive notifications")."' data-id='$conversationId'><span class='star".($starred ? " starOn" : "")."'></span> <span>".($starred ? T("Following") : T("Follow"))."</span></a>";
+		return "<a href='$url' class='button big starButton' title='".T("Follow to receive notifications")."' data-id='$conversationId'><span class='star".($starred ? " starOn" : "")."'></span> <span>".($starred ? T("Following") : T("Follow"))."</span></a>";
 	}
 }
 

@@ -21,6 +21,8 @@ if (!defined("E_USER_DEPRECATED")) define('E_USER_DEPRECATED', E_USER_WARNING);
  * @param string $oldFunction The name of the deprecated function.
  * @param string $newFunction The name of a function that should be used instead.
  * @return void
+ *
+ * @package esoTalk
  */
 function deprecated($oldFunction, $newFunction = false)
 {
@@ -34,6 +36,8 @@ function deprecated($oldFunction, $newFunction = false)
  * Shortcut function for ET::translate().
  *
  * @see ET::translate()
+ *
+ * @package esoTalk
  */
 function T($string, $default = false)
 {
@@ -47,6 +51,8 @@ function T($string, $default = false)
  * @param string $string The string to translate (singular).
  * @param string $pluralString The string to translate (plurular).
  * @param int $amount The amount.
+ *
+ * @package esoTalk
  */
 function Ts($string, $pluralString, $amount)
 {
@@ -58,6 +64,8 @@ function Ts($string, $pluralString, $amount)
  * Shortcut function for ET::config().
  *
  * @see ET::config()
+ *
+ * @package esoTalk
  */
 function C($string, $default = false)
 {
@@ -72,6 +80,8 @@ function C($string, $default = false)
  * @param string $key The request input key.
  * @param mixed $default The fallback value.
  * @return mixed
+ *
+ * @package esoTalk
  */
 function R($key, $default = "")
 {
@@ -86,6 +96,8 @@ function R($key, $default = "")
  *
  * @param string $dir The path to the directory.
  * @return bool Whether or not the remove succeeded.
+ *
+ * @package esoTalk
  */
 function rrmdir($dir)
 {
@@ -109,6 +121,8 @@ function rrmdir($dir)
  * @param string $file The filepath to write to.
  * @param string $contents The contents to write.
  * @return int
+ *
+ * @package esoTalk
  */
 function file_force_contents($file, $contents){
 	$parts = explode("/", $file);
@@ -125,6 +139,8 @@ function file_force_contents($file, $contents){
  *
  * @param string $value The value of the php.ini directive.
  * @return int The equivalent number of bytes.
+ *
+ * @package esoTalk
  */
 function iniToBytes($value)
 {
@@ -152,6 +168,8 @@ function iniToBytes($value)
  *
  * @param string $css The CSS to minify.
  * @return string The minified result.
+ *
+ * @package esoTalk
  */
 function minifyCSS($css)
 {
@@ -170,6 +188,8 @@ function minifyCSS($css)
  *
  * @param string $js The JavaScript to minify.
  * @return string The minified result.
+ *
+ * @package esoTalk
  */
 function minifyJS($js)
 {
@@ -185,6 +205,8 @@ function minifyJS($js)
  * @param string $subject The subject of the email.
  * @param string $body The body of the email.
  * @return bool Whether or not the mailing succeeded.
+ *
+ * @package esoTalk
  */
 function sendEmail($to, $subject, $body)
 {
@@ -212,6 +234,8 @@ function sendEmail($to, $subject, $body)
  * 		2 => the method to dispatch
  * 		3 => the arguments to pass when dispatching
  * 		4 => the response type to use
+ *
+ * @package esoTalk
  */
 function parseRequest($parts, $controllers)
 {
@@ -271,6 +295,8 @@ function parseRequest($parts, $controllers)
  *
  * @param string $string The string to sanitize.
  * @return string The sanitized string.
+ *
+ * @package esoTalk
  */
 function sanitizeHTML($value)
 {
@@ -283,6 +309,8 @@ function sanitizeHTML($value)
  *
  * @param string $string The string to sanitize.
  * @return string The sanitized string.
+ *
+ * @package esoTalk
  */
 function sanitizeForHTTP($value)
 {
@@ -295,6 +323,8 @@ function sanitizeForHTTP($value)
  *
  * @param string $string The string to sanitize.
  * @return string The sanitized string.
+ *
+ * @package esoTalk
  */
 function sanitizeFileName($value)
 {
@@ -311,6 +341,8 @@ function sanitizeFileName($value)
  * @param bool $natSort Whether or not to use the natsort function.
  * @param bool $caseSensitive Whether or not to use case-sensitive sort functions.
  * @return array The sorted array.
+ *
+ * @package esoTalk
  */
 function sort2d($array, $index, $order = "asc", $natSort = false, $caseSensitive = false)
 {
@@ -335,6 +367,8 @@ function sort2d($array, $index, $order = "asc", $natSort = false, $caseSensitive
  * Returns whether or not the user is using a mobile device.
  *
  * @return bool
+ *
+ * @package esoTalk
  */
 function isMobileBrowser()
 {
@@ -357,6 +391,8 @@ function isMobileBrowser()
  *
  * @param string $string The string to convert.
  * @return string The slug.
+ *
+ * @package esoTalk
  */
 function slug($string)
 {
@@ -378,6 +414,8 @@ function slug($string)
  *
  * @param int $numOfChars The length of the random string.
  * @return string The random string.
+ *
+ * @package esoTalk
  */
 function generateRandomString($numOfChars)
 {
@@ -393,6 +431,8 @@ function generateRandomString($numOfChars)
  *
  * @param mixed $value The value to undo magic quotes on.
  * @return mixed
+ *
+ * @package esoTalk
  */
 function undoMagicQuotes($value)
 {
@@ -408,6 +448,8 @@ function undoMagicQuotes($value)
  * is on.
  *
  * @return void
+ *
+ * @package esoTalk
  */
 function undoRegisterGlobals()
 {
@@ -427,6 +469,8 @@ function undoRegisterGlobals()
  *
  * @param array $rgb The RGB triplet.
  * @return array The HSL triplet.
+ *
+ * @package esoTalk
  */
 function rgb2hsl($rgb)
 {
@@ -463,6 +507,8 @@ function rgb2hsl($rgb)
  *
  * @param array $hsl The HSL triplet.
  * @return array The RGB triplet.
+ *
+ * @package esoTalk
  */
 function hsl2rgb($hsl)
 {
@@ -479,6 +525,8 @@ function hsl2rgb($hsl)
 
 /**
  * Helper function for hsl2rgb().
+ *
+ * @package esoTalk
  */
 function hue2rgb($m1, $m2, $h)
 {
@@ -496,6 +544,8 @@ function hue2rgb($m1, $m2, $h)
  * @param string $hex The hex color value (with a leading #).
  * @param bool $normalize Whether or not the values of the RGB triplet should be 0-255 or 0-1.
  * @return array The RGB triplet.
+ *
+ * @package esoTalk
  */
 function colorUnpack($hex, $normalize = false)
 {
@@ -516,6 +566,8 @@ function colorUnpack($hex, $normalize = false)
  * @param array $rgb The RGB triplet.
  * @param bool $normalize Whether or not the values of the RGB triplet are 0-255 or 0-1.
  * @return The hex color, with a leading #.
+ *
+ * @package esoTalk
  */
 function colorPack($rgb, $normalize = false)
 {
@@ -611,6 +663,8 @@ function json_decode($json)
  * @param string $url The request path (eg. conversations/all). May include a query string/hash.
  * @param bool $absolute Whether or not to return an absolute URL.
  * @return string
+ *
+ * @package esoTalk
  */
 function URL($url = "", $absolute = false)
 {
@@ -645,6 +699,8 @@ function URL($url = "", $absolute = false)
  *
  * @param string $path The file path.
  * @return string The path relative to the esoTalk root directory.
+ *
+ * @package esoTalk
  */
 function getRelativePath($path)
 {
@@ -658,6 +714,8 @@ function getRelativePath($path)
  *
  * @param string $path The path to convert.
  * @return string The web path for the specified path.
+ *
+ * @package esoTalk
  */
 function getWebPath($path)
 {
@@ -680,6 +738,8 @@ function getWebPath($path)
  *
  * @param string $path The absolute path to the resource.
  * @return string The relative path or URL to the given resource.
+ *
+ * @package esoTalk
  */
 function getResource($path, $absolute = false)
 {
@@ -704,6 +764,8 @@ function getResource($path, $absolute = false)
  * @param int $conversationId The ID of the conversation.
  * @param string $title The title of the conversation.
  * @return string The URL to the conversation (to be used in the URL function.)
+ *
+ * @package esoTalk
  */
 function conversationURL($conversationId, $title = "")
 {
@@ -718,6 +780,8 @@ function conversationURL($conversationId, $title = "")
  * @param string $username The member's username.
  * @param string $pane The profile pane to go to.
  * @return string The URL to the member's profile (to be used in the URL function.)
+ *
+ * @package esoTalk
  */
 function memberURL($memberId, $username = "", $pane = "")
 {
@@ -730,6 +794,8 @@ function memberURL($memberId, $username = "", $pane = "")
  *
  * @param int $postId The ID of the post.
  * @return string The URL to the post (to be used in the URL function.)
+ *
+ * @package esoTalk
  */
 function postURL($postId)
 {
@@ -743,6 +809,8 @@ function postURL($postId)
  * @param string $search The search string.
  * @param string $channel The channel slug ('all' if not specified.)
  * @return string The URL to the search page (to be used in the URL function.)
+ *
+ * @package esoTalk
  */
 function searchURL($search, $channel = "all")
 {
@@ -756,6 +824,8 @@ function searchURL($search, $channel = "all")
  * @param string $destination The location to redirect to.
  * @param int $code The HTTP code to send with the redirection.
  * @return void
+ *
+ * @package esoTalk
  */
 function redirect($destination, $code = 302)
 {
@@ -775,6 +845,8 @@ function redirect($destination, $code = 302)
  * @param int $then UNIX timestamp of the time to work out how much time has passed since.
  * @param bool $precise Whether or not to return "x minutes/seconds", or just "a few minutes".
  * @return string A human-friendly time string.
+ *
+ * @package esoTalk
  */
 function relativeTime($then, $precise = false)
 {
@@ -841,6 +913,8 @@ function relativeTime($then, $precise = false)
  *
  * @param string $filename The filepath to the ZIP file.
  * @return array An array of files and their details/contents.
+ *
+ * @package esoTalk
  */
 function unzip($filename)
 {
@@ -918,6 +992,8 @@ function unzip($filename)
  * @param mixed $add The element to add.
  * @param int $position The index to add the element at.
  * @return void
+ *
+ * @package esoTalk
  */
 function addToArray(&$array, $add, $position = false)
 {
@@ -953,6 +1029,8 @@ function addToArray(&$array, $add, $position = false)
  * 		at that index. If this is an array with the first key as "before" or "after", the element will be added
  * 		before or after the specified key.
  * @return void
+ *
+ * @package esoTalk
  */
 function addToArrayString(&$array, $key, $value, $position = false)
 {
@@ -995,6 +1073,8 @@ if (function_exists("lcfirst") === false) {
  * 
  * @param string $str The input string.
  * @return string 
+ *
+ * @package esoTalk
  */
 function lcfirst($str)
 {
