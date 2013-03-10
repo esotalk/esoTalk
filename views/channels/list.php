@@ -14,20 +14,21 @@ if (!defined("IN_ESOTALK")) exit;
 
 <?php foreach ($data["channels"] as $channel): ?>
 
-<li class='depth<?php echo $channel["depth"]; ?><?php if ($channel["lft"] + 1 < $channel["rgt"]): ?> hasChildren<?php endif; ?>' id='channel-<?php echo $channel["channelId"]; ?>'>
+<li class='depth<?php echo $channel["depth"]; ?><?php if ($channel["lft"] + 1 < $channel["rgt"]): ?> hasChildren<?php endif; ?><?php if (!empty($channel["unsubscribed"])): ?> unsubscribed<?php endif; ?>' id='channel-<?php echo $channel["channelId"]; ?>'>
 
 <?php if (ET::$session->user): ?>
-<div class='subscription'>
-<a href='<?php echo URL("channels/subscribe/".$channel["channelId"]."?token=".ET::$session->token); ?>' class='button <?php if (!empty($channel["unsubscribed"])): ?>un<?php endif; ?>subscribed' data-id='<?php echo $channel["channelId"]; ?>'><?php echo empty($channel["unsubscribed"]) ? "<span class='icon-tick'></span> ".T("Subscribed") : T("Subscribe"); ?></a>
+<ul class='controls' id='channelControls-<?php echo $channel["channelId"]; ?>'>
+<li><a href='<?php echo URL("channels/subscribe/".$channel["channelId"]."?token=".ET::$session->token); ?>' data-id='<?php echo $channel["channelId"]; ?>'><?php echo empty($channel["unsubscribed"]) ? T("Hide") : T("Unhide"); ?></a></li>
+</ul>
+
+<div class='channelControls'>
+<?php $this->trigger("renderChannelControls", array($channel)); ?>
 </div>
 <?php endif; ?>
 
-<div class='stats subText'>
-<span><?php echo Ts("%s conversation", "%s conversations", $channel["countConversations"]); ?></span>
-</div>
-
 <div class='info'>
 <a href='<?php echo URL("conversations/".$channel["slug"]); ?>' class='channel channel-<?php echo $channel["channelId"]; ?>'><?php echo $channel["title"]; ?></a>
+<span class='stats'><?php echo Ts("%s conversation", "%s conversations", $channel["countConversations"]); ?></span>
 <?php if (!empty($channel["description"])): ?><p class='description'><?php echo $channel["description"]; ?></p><?php endif; ?>
 </div>
 </li>

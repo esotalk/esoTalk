@@ -31,6 +31,7 @@ foreach ($data["plugins"] as $k => $plugin): ?>
 
 <ul class='controls' id='pluginControls-<?php echo $k; ?>'>
 <li><span><?php printf(T("By %s"), "<a href='{$plugin["info"]["authorURL"]}'>{$plugin["info"]["author"]}</a>"); ?></span></li>
+<li><span><?php printf(T("Version %s"), $plugin["info"]["version"]); ?></span></li>
 <li class='sep'></li>
 <li><a href='<?php echo URL("admin/plugins/uninstall/$k?token=".ET::$session->token); ?>'><?php echo T("Uninstall"); ?></a></li>
 </ul>
@@ -38,13 +39,12 @@ foreach ($data["plugins"] as $k => $plugin): ?>
 <div class='controls pluginControls'>
 <span class='buttonGroup'>
 <?php if ($plugin["settingsView"]): ?><a href='<?php echo URL("admin/plugins/settings/$k"); ?>' class='button pluginSettings' data-plugin='<?php echo $k; ?>'><?php echo T("Settings"); ?></a> <?php endif; ?>
-<a href='<?php echo URL("admin/plugins/toggle/$k?token=".ET::$session->token); ?>' class='button toggle'><?php echo $plugin["loaded"] ? "<span class='icon-tick'></span> ".T("Disable") : T("Enable"); ?></a>
+<a href='<?php echo URL("admin/plugins/toggle/$k?token=".ET::$session->token); ?>' class='button toggle'><?php echo $plugin["loaded"] ? "<span class='icon-tick'></span> ".T("Enabled") : T("Enable"); ?></a>
 </span>
 </div>
 
 <?php if (file_exists(PATH_PLUGINS."/$k/icon.png")): ?><img src='<?php echo getResource("plugins/$k/icon.png"); ?>' alt=''/><?php endif; ?>
 <strong><?php echo $plugin["info"]["name"]; ?></strong>
-<small class='version'><?php echo $plugin["info"]["version"]; ?></small>
 <small class='description'><?php echo $plugin["info"]["description"]; ?></small>
 
 </li>

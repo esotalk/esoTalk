@@ -192,6 +192,7 @@ span.highlight {background:#fdef34; border:1px solid #fcef98; padding:1px 3px; b
 /* Popup buttons */
 .popupButton {border:solid transparent; border-width:1px 1px 0}
 .popupWrapper.active .popupButton {border:1px solid #666 !important; border-bottom:0 !important; position:relative; z-index:301; border-radius:2px 2px 0 0 !important; background:#fff !important; -webkit-box-shadow:none !important; box-shadow:none !important; margin-bottom:2px}
+.popupWrapper {display:inline-block}
 
 
 /* Tooltips */
@@ -233,10 +234,10 @@ span.highlight {background:#fdef34; border:1px solid #fcef98; padding:1px 3px; b
 
 /* Generic lists */
 .list {margin:0; border-bottom:1px solid #e1e1e1; line-height:1.5em; padding:0; list-style-type:none}
-.list li {border-top:1px solid #e1e1e1; padding:6px 0}
-.list li:hover {background-color:#f6f6f6}
+.list > li {border-top:1px solid #e1e1e1; border-bottom:1px solid #e1e1e1; padding:6px 0; margin:-1px 0}
+.list > li:hover {background-color:#f6f6f6}
 .list .controls {visibility:hidden}
-.list li:hover .controls {visibility:visible}
+.list > li:hover .controls {visibility:visible}
 
 
 /* Tabs */
@@ -295,27 +296,24 @@ a.channel:hover {text-decoration:none; border-color:#aaa}
 
 
 /* Channel list */
-#channelList {margin-top:-11px}
-.channelList li {padding:6px 0}
-.channelList .channel {padding:3px 6px}
-.channelList .description {display:inline; margin-left:10px; font-size:85%; line-height:2em; color:#888}
-.channelList .stats {float:right; font-size:85%}
-.channelList .stats span {margin-right:10px}
-.channelList .subscription {float:right; margin:-2px 0}
-.channelList .button {width:100px; text-align:center}
-.channelList .unsubscribed {opacity:0.5}
+#channelList {margin-top:-11px; background:#f5f5f5;}
+.channelList > li {padding:15px 10px; background:#fff}
+.channelList .channel {padding:3px 6px; font-size:100%; font-weight:bold;}
+.channelList .description {display:block; margin-top:10px; color:#888; margin-bottom:0}
+.channelList .stats {font-size:85%; margin-left:10px; color:#888}
+.channelList .channelControls {float:right; margin:-3px 0}
+.channelList .unsubscribed {background:#f5f5f5}
+.channelList .unsubscribed .channel {opacity:0.75}
+.channelList .unsubscribed * {color:#bbb}
+.channelList .button .text {display:none}
+.channelList .button {margin-left:5px}
 
-.channelList .depth0 {padding:10px 0}
-.channelList .depth0 .info {font-size:100%}
-.channelList .depth0 .channel {font-weight:bold; font-size:100%; vertical-align:-1px}
-.channelList .depth0 .description {color:#000}
-
-.depth1 {padding-left:25px !important}
-.depth2 {padding-left:50px !important}
-.depth3 {padding-left:75px !important}
-.depth4 {padding-left:100px !important}
-.depth5 {padding-left:125px !important}
-.depth6 {padding-left:150px !important}
+.depth1 {margin-left:25px !important}
+.depth2 {margin-left:50px !important}
+.depth3 {margin-left:75px !important}
+.depth4 {margin-left:100px !important}
+.depth5 {margin-left:125px !important}
+.depth6 {margin-left:150px !important}
 
 
 /* Change channel sheet */
