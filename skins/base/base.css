@@ -298,9 +298,9 @@ a.channel:hover {text-decoration:none; border-color:#aaa}
 /* Channel list */
 #channelList {margin-top:-11px}
 .channelList {background:#f5f5f5}
-.channelList > li {padding:15px 10px; background:#fff}
-.channelList .channel {padding:3px 6px; font-size:100%; font-weight:bold;}
-.channelList .description {display:block; margin-top:10px; color:#888; margin-bottom:0}
+.channelList > li {padding:10px; background:#fff}
+.channelList .channel {padding:3px 6px; font-size:85%; font-weight:bold;}
+.channelList .description {font-size:85%; margin-top:10px; color:#888; margin-bottom:0}
 .channelList .stats {font-size:85%; margin-left:10px; color:#888}
 .channelList .channelControls {float:right; margin:-3px 0}
 .channelList .unsubscribed {background:#f5f5f5}
@@ -308,6 +308,9 @@ a.channel:hover {text-decoration:none; border-color:#aaa}
 .channelList .unsubscribed * {color:#bbb}
 .channelList .button .text {display:none}
 .channelList .button {margin-left:5px}
+
+.channelList .depth0 {padding:15px 10px}
+.channelList .depth0 .channel, .channelList .depth0 .description {font-size:100%}
 
 .depth1 {margin-left:25px !important}
 .depth2 {margin-left:50px !important}
