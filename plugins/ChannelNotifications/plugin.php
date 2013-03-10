@@ -16,7 +16,18 @@ ET::$pluginInfo["ChannelNotifications"] = array(
 
 class ETPlugin_ChannelNotifications extends ETPlugin {
 
-	function init()
+	// Setup: add a follow column to the member_channel table.
+	public function setup($oldVersion = "")
+	{
+		$structure = ET::$database->structure();
+		$structure->table("member_channel")
+			->column("follow", "bool", 0)
+			->exec(false);
+
+		return true;
+	}
+
+	public function init()
 	{
 		// Add the postChannel activity type.
 		ET::activityModel();
@@ -29,35 +40,8 @@ class ETPlugin_ChannelNotifications extends ETPlugin {
 		ET::define("email.postChannel.subject", "There is a new post in '%1\$s'");
 	}
 
-	/**
-	 * Returns a formatted notification item for the "postChannel" activity type. For example, '[member]
-	 * posted in [*channel] [title]'.
-	 *
-	 * @param array $item The activity item's details.
-	 * @return array 0 => notification body, 1 => notification link
-	 */
-	public static function postChannelNotification(&$item)
-	{
-		return array(
-			sprintf(T("%s posted in %s."), $item["fromMemberName"], "<span class='channel channel-".$item["data"]["channelId"]."'><span class='star starOn'>*</span> ".$item["data"]["channelTitle"]."</span> <strong>".sanitizeHTML($item["data"]["title"])."</strong>"),
-			URL(postURL($item["postId"]))
-		);
-	}
-
-	/**
-	 * Returns a formatted email subject+body for the "postChannel" activity type.
-	 *
-	 * @see mentionEmail() for parameter and return information.
-	 */
-	public static function postChannelEmail($item, $member)
-	{
-		return array(
-			sprintf(T("email.postChannel.subject"), sanitizeHTML($item["data"]["channelTitle"])),
-			sprintf(T("email.postChannel.body"), name($item["fromMemberName"]), sanitizeHTML($item["data"]["title"]), URL(conversationURL($item["data"]["conversationId"], $item["data"]["title"])."/unread", true))
-		);
-	}
-
-	function handler_channelsController_renderChannelControls($sender, $channel)
+	// Add a follow button to each channel in the channels list.
+	public function handler_channelsController_renderChannelControls($sender, $channel)
 	{
 		if (!ET::$session->user or @$channel["unsubscribed"]) return;
 
@@ -67,12 +51,7 @@ class ETPlugin_ChannelNotifications extends ETPlugin {
 		echo "<a href='$url' class='button' title='".T("Follow to receive notifications")."' data-id='{$channel["channelId"]}'><span class='star".($starred ? " starOn" : "")."'></span> <span>".($starred ? T("Following") : T("Follow"))."</span></a>";
 	}
 
-	/**
-	 * Toggle the user's subscription to a channel.
-	 *
-	 * @param int $channelId The ID of the channel to toggle subscription to.
-	 * @return void
-	 */
+	// Add an action to toggle the follow status of a channel.
 	public function channelsController_follow($controller, $channelId = "")
 	{
 		if (!ET::$session->user or !$controller->validateToken()) return;
@@ -100,9 +79,9 @@ class ETPlugin_ChannelNotifications extends ETPlugin {
 		$controller->render();
 	}
 
+	// Send out notifications to people who have starred the channel that a conversation is in.
 	public function handler_conversationModel_addReplyAfter($sender, $conversation, $postId, $content)
 	{
-		// Send out notifications to people who have starred the channel that this conversation is in.
 		// We get all members who have starred the channel and have no unread posts in the conversation.
 		$sql = ET::SQL()
 			->from("member_channel ch", "ch.channelId=:channelId AND ch.memberId=m.memberId AND ch.follow=1 AND ch.memberId!=:userId", "inner")
@@ -127,9 +106,9 @@ class ETPlugin_ChannelNotifications extends ETPlugin {
 		}
 	}
 
+	// Add the "email me when someone replies to a conversation in a channel I have followed" field to the settings page.
 	public function handler_settingsController_initGeneral($sender, $form)
 	{
-		// Add the "email me when someone replies to a conversation in a channel I have followed" field.
 		$form->setValue("postChannel", ET::$session->preference("email.postChannel"));
 		$form->addField("notifications", "postChannel", array(__CLASS__, "fieldEmailPostChannel"), array($sender, "saveEmailPreference"), array("after" => "post"));
 	}
@@ -139,14 +118,22 @@ class ETPlugin_ChannelNotifications extends ETPlugin {
 		return "<label class='checkbox'>".$form->checkbox("postChannel")." <span class='star starOn'>*</span> ".T("Email me when someone posts in a channel I have followed")."</label>";
 	}
 
-	public function setup($oldVersion = "")
+	// Format the postChannel notification.
+	public static function postChannelNotification(&$item)
 	{
-		$structure = ET::$database->structure();
-		$structure->table("member_channel")
-			->column("follow", "bool", 0)
-			->exec(false);
+		return array(
+			sprintf(T("%s posted in %s."), $item["fromMemberName"], "<span class='channel channel-".$item["data"]["channelId"]."'><span class='star starOn'>*</span> ".$item["data"]["channelTitle"]."</span> <strong>".sanitizeHTML($item["data"]["title"])."</strong>"),
+			URL(postURL($item["postId"]))
+		);
+	}
 
-		return true;
+	// Format the postChannel email.
+	public static function postChannelEmail($item, $member)
+	{
+		return array(
+			sprintf(T("email.postChannel.subject"), sanitizeHTML($item["data"]["channelTitle"])),
+			sprintf(T("email.postChannel.body"), name($item["fromMemberName"]), sanitizeHTML($item["data"]["title"]), URL(conversationURL($item["data"]["conversationId"], $item["data"]["title"])."/unread", true))
+		);
 	}
 
 }
