@@ -156,6 +156,12 @@ public function getWithSQL($sql)
 		->from("group g", "g.groupId=mg.groupId", "left")
 		->groupBy("m.memberId");
 
+	if (ET::$session and ET::$session->user) {
+		$sql->select("mm.*")
+			->from("member_member mm", "mm.memberId2=m.memberId AND mm.memberId1=:userId", "left")
+			->bind(":userId", ET::$session->userId);
+	}
+
 	$members = $sql->exec()->allRows();
 
 	// Expand the member data.
@@ -426,6 +432,24 @@ public function setPreferences($member, $preferences)
 	));
 
 	return $preferences;
+}
+
+
+/**
+ * Set a member's status entry for another member (their record in the member_member table.)
+ *
+ * @param int $memberId1 The ID of the primary member (usually the currently-logged-in user).
+ * @param int $memberId2 The ID of the other member to set the status about.
+ * @param array $data An array of key => value data to save to the database.
+ * @return void
+ */
+public function setStatus($memberId1, $memberId2, $data)
+{
+	$keys = array(
+		"memberId1" => $memberId1,
+		"memberId2" => $memberId2
+	);
+	ET::SQL()->insert("member_member")->set($keys + $data)->setOnDuplicateKey($data)->exec();
 }
 
 
