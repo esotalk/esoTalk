@@ -88,7 +88,7 @@ public function handler_postModel_getPostsAfter($sender, &$posts)
 	if (!count($postsById)) return;
 
 	$result = ET::SQL()
-		->select("postId, m.memberId, username, avatarFormat")
+		->select("postId, m.memberId, m.email, username, avatarFormat")
 		->from("like l")
 		->from("member m", "m.memberId=l.memberId", "left")
 		->where("postId IN (:ids)")
@@ -96,7 +96,7 @@ public function handler_postModel_getPostsAfter($sender, &$posts)
 		->exec();
 
 	while ($row = $result->nextRow()) {
-		$postsById[$row["postId"]]["likes"][$row["memberId"]] = array("username" => $row["username"], "avatarFormat" => $row["avatarFormat"]);
+		$postsById[$row["postId"]]["likes"][$row["memberId"]] = array("username" => $row["username"], "email" => $row["email"], "avatarFormat" => $row["avatarFormat"]);
 	}
 }
 
