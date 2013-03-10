@@ -127,9 +127,6 @@ $.ETAjax = function(options) {
 	// If this request has an ID, abort any other requests with the same ID.
 	if (options.id) $.ETAjax.abort(options.id);
 
-	// Prepend the full path to this forum to the URL.
-	options.url = ET.webPath + "/?p=" + options.url;
-
 	// Set up the error handler. If we get an error, inform the user of the "disconnection".
 	var handlerError = function(XMLHttpRequestObject, textStatus, errorThrown) {
 		if (!errorThrown || errorThrown == "abort") return;
@@ -193,6 +190,9 @@ $.ETAjax = function(options) {
 	newOptions.success = handlerSuccess;
 	if (ET.userId) newOptions.data.userId = ET.userId;
 	if (ET.token) newOptions.data.token = ET.token;
+
+	// Prepend the full path to this forum to the URL.
+	newOptions.url = ET.webPath + "/?p=" + options.url;
 
 	var result = $.ajax(newOptions);
 	if (options.id) $.ETAjax.requests[options.id] = result;
