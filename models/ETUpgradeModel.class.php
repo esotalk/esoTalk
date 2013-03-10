@@ -191,6 +191,14 @@ protected function structure($drop = false)
 		->key(array("memberId", "groupId"), "primary")
 		->exec($drop);
 
+	// Member-user table.
+	$structure
+		->table("member_member")
+		->column("memberId1", "int(11) unsigned", false)
+		->column("memberId2", "int(11) unsigned", false)
+		->key(array("memberId1", "memberId2"), "primary")
+		->exec($drop);
+
 	// Post table.
 	$structure
 		->table("post", "MyISAM")
