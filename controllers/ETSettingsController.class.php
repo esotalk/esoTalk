@@ -238,7 +238,7 @@ public function fieldEmailPrivateAdd($form)
  */
 public function fieldEmailReplyToStarred($form)
 {
-	return "<label class='checkbox'>".$form->checkbox("post")." <span class='star starOn'>*</span> ".T("Email me when someone posts in a conversation I have starred")."</label>";
+	return "<label class='checkbox'>".$form->checkbox("post")." <span class='star starOn'>*</span> ".T("Email me when someone posts in a conversation I have followed")."</label>";
 }
 
 
@@ -251,7 +251,7 @@ public function fieldEmailReplyToStarred($form)
  */
 public function fieldStarOnReply($form)
 {
-	return "<label class='checkbox'>".$form->checkbox("starOnReply")." ".T("Automatically star conversations that I reply to")."</label>";
+	return "<label class='checkbox'>".$form->checkbox("starOnReply")." ".T("Automatically follow conversations that I reply to")."</label>";
 }
 
 
