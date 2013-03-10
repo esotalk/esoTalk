@@ -16,7 +16,7 @@ $conversation = $data["conversation"];
 <div class='sheet' id='changeChannelSheet'>
 <div class='sheetContent'>
 
-<h3><?php echo T("Change Channel"); ?>: <?php echo sanitizeHTML($conversation["title"]); ?></h3>
+<h3><?php echo $conversation["conversationId"] ? T("Change Channel").": ".sanitizeHTML($conversation["title"]) : T("Choose a Channel"); ?></h3>
 
 <?php echo $form->open(); ?>
 

@@ -37,10 +37,12 @@
 #adminChannels .channelList div:hover .controls {visibility:visible}
 #adminChannels .channelList li  {padding:0}
 
+#adminChannels .list li {border:solid #e1e1e1; border-width:1px 0 0; padding:6px 0; margin:-1px 0}
+
 #adminChannels .channelList li > div {padding:6px 0; cursor:move}
 #adminChannels .channelList > li > div {padding:10px 0;}
 #adminChannels .channelList > li > div .channel {font-weight:bold}
-#adminChannels .channelList li:hover {background:none}
+#adminChannels .channelList > li:hover {background-color:#fff}
 #adminChannels .channelList li.placeholder {background:#eee; border-top:1px solid #ccc}
 
 

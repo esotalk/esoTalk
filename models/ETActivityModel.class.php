@@ -371,7 +371,7 @@ public static function postActivity($item, $member)
 
 
 /**
- * Returns a formatted notification item for the "post" activity type. For example, '[member1] and [member2]
+ * Returns a formatted notification item for the "post" activity type. For example, '[member]
  * posted in [title]'.
  *
  * @param array $item The activity item's details.
@@ -494,15 +494,15 @@ public static function privateAddEmail($item, $member)
 
 
 /**
- * Returns a formatted email subject+body for the "replyToStarred" activity type.
+ * Returns a formatted email subject+body for the "post" activity type.
  *
  * @see mentionEmail() for parameter and return information.
  */
 public static function postEmail($item, $member)
 {
 	return array(
-		sprintf(T("email.replyToStarred.subject"), sanitizeHTML($item["data"]["title"])),
-		sprintf(T("email.replyToStarred.body"), name($item["fromMemberName"]), sanitizeHTML($item["data"]["title"]), URL(conversationURL($item["data"]["conversationId"], $item["data"]["title"])."/unread", true))
+		sprintf(T("email.post.subject"), sanitizeHTML($item["data"]["title"])),
+		sprintf(T("email.post.body"), name($item["fromMemberName"]), sanitizeHTML($item["data"]["title"]), URL(conversationURL($item["data"]["conversationId"], $item["data"]["title"])."/unread", true))
 	);
 }
 

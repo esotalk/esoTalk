@@ -232,6 +232,14 @@ public static $definitions = array();
 
 
 /**
+ * An array of language definitions defined at runtime (by plugins and such.)
+ * We need to store these so we can re-define them if we switch languages using saveLanguageState() and loadLanguage().
+ * @var array
+ */
+public static $runtimeDefinitions = array();
+
+
+/**
  * The language state can be saved with saveLanguageState() and reverted back to what it was before with
  * reverLanguageState(). These variables store the old language information so it can be restored upon revert.
  */
@@ -262,6 +270,10 @@ public static function loadLanguage($language = "")
 		if (file_exists($file = "$languagePath/definitions.".sanitizeFileName($plugin).".php"))
 			self::loadDefinitions($file);
 	}
+
+	// Re-define runtime definitions.
+	foreach (self::$runtimeDefinitions as $k => $v)
+		ET::define($k, $v);
 }
 
 
@@ -312,6 +324,8 @@ public static function revertLanguageState()
  */
 public static function define($key, $value, $override = false)
 {
+	self::$runtimeDefinitions[$key] = $value;
+
 	if (isset(self::$definitions[$key]) and !$override) return false;
 	self::$definitions[$key] = $value;
 }
@@ -327,7 +341,7 @@ public static function define($key, $value, $override = false)
  */
 public static function translate($string, $default = false)
 {
-	return isset(ET::$definitions[$string]) ? ET::$definitions[$string] : ($default ? $default : $string);
+	return isset(self::$definitions[$string]) ? self::$definitions[$string] : ($default ? $default : $string);
 }
 
 

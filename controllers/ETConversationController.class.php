@@ -619,7 +619,11 @@ public function changeChannel($conversationId = "")
 	$channels = ET::channelModel()->get();
 	$groupModel = ET::groupModel();
 	$groupIds = ET::$session->getGroupIds();
-	foreach ($channels as &$channel) {
+	foreach ($channels as $k => &$channel) {
+		if (!empty($channel["unsubscribed"])) {
+			unset($channels[$k]);
+			continue;
+		}
 		$channel["start"] = $groupModel->groupIdsAllowedInGroupIds($groupIds, $channel["permissions"]["start"], true);
 	}
 

@@ -741,6 +741,8 @@ public function addReply(&$conversation, $content)
 		$this->privateAddNotification($conversation, $memberIds, true);
 	}
 
+	$this->trigger("addReplyAfter", array($conversation, $postId, $content));
+
 	ET::activityModel()->endNotificationGroup();
 
 	return $postId;

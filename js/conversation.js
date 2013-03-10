@@ -149,6 +149,9 @@ init: function() {
 		}).trigger("update");
 
 		$("#membersAllowedSheet").parents("form").remove();
+
+		// Show the "change channel" sheet straight away!
+		ETConversation.changeChannel();
 	}
 
 	// Add click handlers to change the channel and members allowed.
