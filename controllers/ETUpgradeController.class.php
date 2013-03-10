@@ -40,8 +40,10 @@ public function index()
 		// Run the upgrade process.
 		ET::upgradeModel()->upgrade(C("esoTalk.version"));
 
-		// Update the version in the config file.
-		ET::writeConfig(array("esoTalk.version" => ESOTALK_VERSION));
+		// Update the version and serial in the config file.
+		ET::writeConfig(array(
+			"esoTalk.version" => ESOTALK_VERSION
+		));
 
 		// Show a success message and redirect.
 		$this->message(T("message.upgradeSuccessful"), "success");

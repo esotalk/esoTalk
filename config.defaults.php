@@ -12,7 +12,7 @@ if (!defined("IN_ESOTALK")) exit;
  */
 
 // The version of the code.
-define("ESOTALK_VERSION", "1.0.0g2");
+define("ESOTALK_VERSION", "1.0.0g3");
 
 // Define response type constants.
 if (!defined("RESPONSE_TYPE_DEFAULT")) define("RESPONSE_TYPE_DEFAULT", "default");
