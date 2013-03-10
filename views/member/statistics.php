@@ -21,12 +21,12 @@ $member = $data["member"];
 
 <li><label><?php echo T("Conversations started"); ?></label> <div>
 <?php echo number_format($statistics["conversationsStarted"]); ?>
-<a href='<?php echo URL(searchURL("author:".$member["username"])); ?>' class='control-search'><?php echo T("Search"); ?></a>
+<a href='<?php echo URL(searchURL("#author:".$member["username"])); ?>' class='control-search'><?php echo T("Search"); ?></a>
 </div></li>
 
 <li><label><?php echo T("Conversations participated in"); ?></label> <div>
 <?php echo number_format($statistics["conversationsParticipated"]); ?>
-<a href='<?php echo URL(searchURL("contributor:".$member["username"])); ?>' class='control-search'><?php echo T("Search"); ?></a>
+<a href='<?php echo URL(searchURL("#contributor:".$member["username"])); ?>' class='control-search'><?php echo T("Search"); ?></a>
 </div></li>
 
 <li><label><?php echo T("First posted"); ?></label> <div><?php echo ucfirst(relativeTime($statistics["firstPosted"])); ?></div></li>
