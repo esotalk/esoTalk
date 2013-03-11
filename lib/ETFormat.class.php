@@ -131,6 +131,9 @@ public function clip($characters)
  */
 public function closeTags()
 {
+	// Remove any half-opened HTML tags at the end.
+	$this->content = preg_replace('#<[^>]*$#i', "", $this->content);
+	
 	// Put all opened tags into an array.
     preg_match_all('#<(?!meta|img|br|hr|input\b)\b([a-z]+)(?: .*)?(?<![/|/ ])>#iU', $this->content, $result);
 	$openedTags = $result[1];
@@ -153,9 +156,6 @@ public function closeTags()
 		else
 			unset($closedTags[array_search($openedTags[$i], $closedTags)]);
 	}
-
-	// Remove any half-opened HTML tags at the end.
-	$this->content = preg_replace('#<[^>]*$#i', "", $this->content);
 
 	return $this;
 }
@@ -277,13 +277,13 @@ public function makeQuote($text, $citation = "")
 {
 	// If there is a citation and it has a : in it, split it into a post ID and the rest.
 	if ($citation and strpos($citation, ":") !== false)
-		list($postId, $citation) = explode(":", $citation);
+		list($postId, $citation) = explode(":", $citation, 2);
 
 	// Construct the quote.
 	$quote = "<blockquote><p>";
 
 	// If we extracted a post ID from the citation, add a "find this post" link.
-	if (!empty($postId)) $quote .= "<a href='".URL(postURL($postId))."' rel='post' data-id='$postId' class='control-search postRef'>".T("Find this post")."</a> ";
+	if (!empty($postId)) $quote .= "<a href='".URL(postURL($postId), true)."' rel='post' data-id='$postId' class='control-search postRef'>".T("Find this post")."</a> ";
 
 	// If there is a citation, add it.
 	if (!empty($citation)) $quote .= "<cite>$citation</cite> ";
@@ -317,7 +317,7 @@ public function mentions()
 {
 	$this->content = preg_replace(
 		'/(^|[\s,\.:])@(\w{3,20})\b/ie',
-		"'$1<a href=\''.URL('member/name/'.urlencode('$2')).'\'>$2</a>'",
+		"'$1<a href=\''.URL('member/name/'.urlencode('$2'), true).'\'>$2</a>'",
 		$this->content
 	);
 
