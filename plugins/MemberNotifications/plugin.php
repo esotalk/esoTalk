@@ -37,8 +37,8 @@ class ETPlugin_MemberNotifications extends ETPlugin {
 		));
 
 		// Define the postMember email language text.
-		ET::define("email.postMember.body", "%1\$s has posted in a conversation: '%2\$s'.\n\nTo view the new activity, check out the following link:\n%3\$s");
-		ET::define("email.postMember.subject", "There is a new post by '%1\$s'");
+		ET::define("email.postMember.body", "<p><strong>%1\$s</strong> has posted in a conversation: <strong>%2\$s</strong></p><hr>%3\$s<hr><p>To view the new activity, check out the following link:<br>%4\$s</p>");
+		ET::define("email.postMember.subject", "There is a new post by %1\$s");
 	}
 
 	// Add a follow button to each member's profile.
@@ -57,15 +57,17 @@ class ETPlugin_MemberNotifications extends ETPlugin {
 	{
 		if (!ET::$session->user or !$controller->validateToken()) return;
 
+		// Make sure the member that we're trying to follow exists.
+		if (!ET::SQL()->select("memberId")->from("member")->where("memberId", (int)$memberId)->exec()->numRows()) return;
+
 		// Work out if we're already followed or not, and switch to the opposite of that.
-		$result = ET::SQL()
+		$followed = !ET::SQL()
 			->select("follow")
 			->from("member_member")
 			->where("memberId1", ET::$session->userId)
 			->where("memberId2", (int)$memberId)
-			->exec();
-		if (!$result->numRows()) return;
-		$followed = !$result->result();
+			->exec()
+			->result();
 
 		// Write to the database.
 		ET::memberModel()->setStatus(ET::$session->userId, $memberId, array("follow" => $followed));
@@ -96,10 +98,26 @@ class ETPlugin_MemberNotifications extends ETPlugin {
 			"postId" => $postId,
 			"title" => $conversation["title"]
 		);
+		$emailData = array("content" => $content);
 
 		foreach ($members as $member) {
-			ET::activityModel()->create("postMember", $member, ET::$session->user, $data);
+
+			// Check if this member is allowed to view this conversation before sending them a notification.
+			$sql = ET::SQL()
+				->select("conversationId")
+				->from("conversation c")
+				->where("conversationId", $conversation["conversationId"]);
+			ET::conversationModel()->addAllowedPredicate($sql, $member);
+			if (!$sql->exec()->numRows()) continue;
+
+			ET::activityModel()->create("postMember", $member, ET::$session->user, $data, $emailData);
 		}
+	}
+
+	public function handler_conversationModel_createAfter($sender, $conversation, $postId, $content)
+	{
+		if (!$postId) return; // the conversation is a draft
+		$this->handler_conversationModel_addReplyAfter($sender, $conversation, $postId, $content);
 	}
 
 	// Add the "email me when someone replies to a conversation in a channel I have followed" field to the settings page.
@@ -118,7 +136,7 @@ class ETPlugin_MemberNotifications extends ETPlugin {
 	public static function postMemberNotification(&$item)
 	{
 		return array(
-			sprintf(T("%s posted in %s."), "<span class='star starOn'>*</span> ".$item["fromMemberName"], "<strong>".sanitizeHTML($item["data"]["title"])."</strong>"),
+			sprintf(T("%s posted in %s."), "<span class='star starOn'>*</span> ".name($item["fromMemberName"]), "<strong>".sanitizeHTML($item["data"]["title"])."</strong>"),
 			URL(postURL($item["postId"]))
 		);
 	}
@@ -126,9 +144,10 @@ class ETPlugin_MemberNotifications extends ETPlugin {
 	// Format the postMember email.
 	public static function postMemberEmail($item, $member)
 	{
+		$content = ET::formatter()->init($item["data"]["content"])->basic(true)->format()->get();
 		return array(
-			sprintf(T("email.postMember.subject"), sanitizeHTML($item["fromMemberName"])),
-			sprintf(T("email.postMember.body"), name($item["fromMemberName"]), sanitizeHTML($item["data"]["title"]), URL(conversationURL($item["data"]["conversationId"], $item["data"]["title"])."/unread", true))
+			sprintf(T("email.postMember.subject"), name($item["fromMemberName"], false)),
+			sprintf(T("email.postMember.body"), name($item["fromMemberName"]), sanitizeHTML($item["data"]["title"]), $content, URL(conversationURL($item["data"]["conversationId"], $item["data"]["title"])."/unread", true))
 		);
 	}
 

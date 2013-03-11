@@ -36,7 +36,7 @@ class ETPlugin_ChannelNotifications extends ETPlugin {
 			"email" => array(__CLASS__, "postChannelEmail")
 		));
 
-		ET::define("email.postChannel.body", "%1\$s has posted in a conversation in a channel which you followed: '%2\$s'.\n\nTo view the new activity, check out the following link:\n%3\$s");
+		ET::define("email.postChannel.body", "<p><strong>%1\$s</strong> has posted in a conversation in a channel which you followed: <strong>%2\$s</strong></p><hr>%3\$s<hr><p>To view the new activity, check out the following link:<br>%4\$s</p>");
 		ET::define("email.postChannel.subject", "There is a new post in '%1\$s'");
 	}
 
@@ -100,10 +100,17 @@ class ETPlugin_ChannelNotifications extends ETPlugin {
 			"channelId" => $conversation["channelId"],
 			"channelTitle" => $conversation["channelTitle"]
 		);
+		$emailData = array("content" => $content);
 
 		foreach ($members as $member) {
-			ET::activityModel()->create("postChannel", $member, ET::$session->user, $data);
+			ET::activityModel()->create("postChannel", $member, ET::$session->user, $data, $emailData);
 		}
+	}
+
+	public function handler_conversationModel_createAfter($sender, $conversation, $postId, $content)
+	{
+		if (!$postId) return; // the conversation is a draft
+		$this->handler_conversationModel_addReplyAfter($sender, $conversation, $postId, $content);
 	}
 
 	// Add the "email me when someone replies to a conversation in a channel I have followed" field to the settings page.
@@ -122,7 +129,7 @@ class ETPlugin_ChannelNotifications extends ETPlugin {
 	public static function postChannelNotification(&$item)
 	{
 		return array(
-			sprintf(T("%s posted in %s."), $item["fromMemberName"], "<span class='channel channel-".$item["data"]["channelId"]."'><span class='star starOn'>*</span> ".$item["data"]["channelTitle"]."</span> <strong>".sanitizeHTML($item["data"]["title"])."</strong>"),
+			sprintf(T("%s posted in %s."), name($item["fromMemberName"]), "<span class='channel channel-".$item["data"]["channelId"]."'><span class='star starOn'>*</span> ".$item["data"]["channelTitle"]."</span> <strong>".sanitizeHTML($item["data"]["title"])."</strong>"),
 			URL(postURL($item["postId"]))
 		);
 	}
@@ -130,9 +137,10 @@ class ETPlugin_ChannelNotifications extends ETPlugin {
 	// Format the postChannel email.
 	public static function postChannelEmail($item, $member)
 	{
+		$content = ET::formatter()->init($item["data"]["content"])->basic(true)->format()->get();
 		return array(
-			sprintf(T("email.postChannel.subject"), sanitizeHTML($item["data"]["channelTitle"])),
-			sprintf(T("email.postChannel.body"), name($item["fromMemberName"]), sanitizeHTML($item["data"]["title"]), URL(conversationURL($item["data"]["conversationId"], $item["data"]["title"])."/unread", true))
+			sprintf(T("email.postChannel.subject"), $item["data"]["channelTitle"]),
+			sprintf(T("email.postChannel.body"), name($item["fromMemberName"]), sanitizeHTML($item["data"]["title"]), $content, URL(conversationURL($item["data"]["conversationId"], $item["data"]["title"])."/unread", true))
 		);
 	}
 
