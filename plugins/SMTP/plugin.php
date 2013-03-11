@@ -16,14 +16,10 @@ ET::$pluginInfo["SMTP"] = array(
 
 class ETPlugin_SMTP extends ETPlugin {
 
-	function handler_sendEmailBefore(&$to, &$subject, &$body)
+	function handler_sendEmailBefore($mail, &$to, &$subject, &$body)
 	{
-		$phpmailer = dirname(__FILE__).'/class.phpmailer.php';
-		require_once($phpmailer);
-
 		if (!C("plugin.SMTP.server")) return;
 
-		$mail = new PHPMailer(true);
 		$mail->IsSMTP();
 		$mail->SMTPAuth   = true;
 		if (C("plugin.SMTP.auth")) $mail->SMTPSecure = C("plugin.SMTP.auth");
@@ -31,11 +27,6 @@ class ETPlugin_SMTP extends ETPlugin {
 		$mail->Port       = C("plugin.SMTP.port");
 		$mail->Username   = C("plugin.SMTP.username");
 		$mail->Password   = C("plugin.SMTP.password");
-		$mail->AddAddress($to);
-		$mail->SetFrom(C("esoTalk.emailFrom"), sanitizeForHTTP(C("esoTalk.forumTitle")));
-		$mail->Subject = sanitizeForHTTP($subject);
-		$mail->Body = $body;
-		return $mail->Send();
 	}
 
 	/**
