@@ -210,14 +210,20 @@ function minifyJS($js)
  */
 function sendEmail($to, $subject, $body)
 {
-	if (($return = ET::trigger("sendEmailBefore", array(&$to, &$subject, &$body))) and !empty($return)) return reset($return);
+	$phpmailer = PATH_LIBRARY.'/vendor/class.phpmailer.php';
+	require_once($phpmailer);
+	$mail = new PHPMailer(true);
 
-	$headers = "From: ".sanitizeForHTTP(C("esoTalk.forumTitle")." <".C("esoTalk.emailFrom").">")."\r\n".
-		'X-Mailer: esoTalk' . "\r\n".
-		'MIME-Version: 1.0' . "\r\n".
-		"Content-Type: text/plain; charset=".T("charset")."";
+	if (($return = ET::trigger("sendEmailBefore", array($mail, &$to, &$subject, &$body))) and !empty($return))
+		return reset($return);
 
-	return mail($to, $subject, $body, $headers);
+	$mail->IsHTML(true);
+	$mail->AddAddress($to);
+	$mail->SetFrom(C("esoTalk.emailFrom"), sanitizeForHTTP(C("esoTalk.forumTitle")));
+	$mail->Subject = sanitizeForHTTP($subject);
+	$mail->Body = $body;
+
+	return $mail->Send();
 }
 
 
