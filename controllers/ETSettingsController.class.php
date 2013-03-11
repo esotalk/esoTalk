@@ -128,6 +128,10 @@ public function general()
 	$form->setValue("post", ET::$session->preference("email.post"));
 	$form->addField("notifications", "post", array($this, "fieldEmailReplyToStarred"), array($this, "saveEmailPreference"));
 
+	// Add the "email me when mentions me in a post" field.
+	$form->setValue("mention", ET::$session->preference("email.mention"));
+	$form->addField("notifications", "mention", array($this, "fieldEmailMention"), array($this, "saveEmailPreference"));
+
 	// Add the "automatically star conversations I reply to" field.
 	$form->setValue("starOnReply", ET::$session->preference("starOnReply"));
 	$form->addField("notifications", "starOnReply", array($this, "fieldStarOnReply"), array($this, "saveBoolPreference"));
@@ -239,6 +243,19 @@ public function fieldEmailPrivateAdd($form)
 public function fieldEmailReplyToStarred($form)
 {
 	return "<label class='checkbox'>".$form->checkbox("post")." <span class='star starOn'>*</span> ".T("Email me when someone posts in a conversation I have followed")."</label>";
+}
+
+
+/**
+ * Return the HTML to render the "email me when someone mentions me in a post" field in the general
+ * settings form.
+ *
+ * @param ETForm $form The form object.
+ * @return string
+ */
+public function fieldEmailMention($form)
+{
+	return "<label class='checkbox'>".$form->checkbox("mention")." ".T("Email me when someone mentions me in a post")."</label>";
 }
 
 
