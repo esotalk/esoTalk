@@ -117,8 +117,8 @@ public function clip($characters)
 	$this->content = substr($this->content, 0, strrpos($this->content, " "));
 
 	// Append "...", and close all opened HTML tags.
-	$this->content .= " ...";
 	$this->closeTags();
+	$this->content .= " ...";
 
 	return $this;
 }
@@ -132,17 +132,14 @@ public function clip($characters)
 public function closeTags()
 {
 	// Put all opened tags into an array.
-	preg_match_all("#<([a-z]+)( .*)?(?!/)>#iU", $this->content, $result);
+    preg_match_all('#<(?!meta|img|br|hr|input\b)\b([a-z]+)(?: .*)?(?<![/|/ ])>#iU', $this->content, $result);
 	$openedTags = $result[1];
 
 	// Put all closed tags into an array.
-	preg_match_all("#</([a-z]+)>#iU", $this->content, $result);
+    preg_match_all('#</([a-z]+)>#iU', $this->content, $result);
 	$closedTags = $result[1];
 
 	$numOpened = count($openedTags);
-
-	// If there are the same number of opened tags as there are closed tags, we'll assume that they're all closed.
-	if (count($closedTags) == $numOpened) return $this;
 
 	// Go through the opened tags backwards, and close them one-by-one until we have no unclosed tags left.
 	$openedTags = array_reverse($openedTags);
@@ -156,6 +153,9 @@ public function closeTags()
 		else
 			unset($closedTags[array_search($openedTags[$i], $closedTags)]);
 	}
+
+	// Remove any half-opened HTML tags at the end.
+	$this->content = preg_replace('#<[^>]*$#i', "", $this->content);
 
 	return $this;
 }
