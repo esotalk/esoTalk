@@ -586,6 +586,10 @@ public function create($data, $membersAllowed = array(), $isDraft = false)
 	// Did we encounter any errors? Don't continue.
 	if ($this->errorCount()) return false;
 
+	// Start a notification group. This means that for all notifications sent out until endNotifcationGroup
+	// is called, each individual user will receive a maximum of one.
+	ET::activityModel()->startNotificationGroup();
+
 	// Add some more data fields to insert into the database.
 	$time = time();
 	$data["startMemberId"] = ET::$session->userId;
@@ -612,13 +616,8 @@ public function create($data, $membersAllowed = array(), $isDraft = false)
 		->where("channelId", $data["channelId"])
 		->exec();
 
-	// Whip up a little array of conversation details for this model's functions to work with.
-	$conversation = array(
-		"conversationId" => $conversationId,
-		"title" => $data["title"],
-		"canReply" => true,
-		"labels" => array()
-	);
+	// Get our newly created conversation.
+	$conversation = $this->getById($conversationId);
 
 	// Add the first post or save the draft.
 	$postId = null;
@@ -653,6 +652,10 @@ public function create($data, $membersAllowed = array(), $isDraft = false)
 	if (ET::$session->preference("starOnReply"))
 		$this->setStatus($conversation, ET::$session->userId, array("starred" => true));
 
+	$this->trigger("createAfter", array($conversation, $postId, $content));
+
+	ET::activityModel()->endNotificationGroup();
+
 	return array($conversationId, $postId);
 }
 
@@ -682,7 +685,7 @@ public function addReply(&$conversation, $content)
 
 	// Create the post. If there were validation errors, get them from the post model and add them to this model.
 	$postModel = ET::postModel();
-	$postId = $postModel->create($conversation["conversationId"], ET::$session->userId, $content);
+	$postId = $postModel->create($conversation["conversationId"], ET::$session->userId, $content, $conversation["title"]);
 	if (!$postId) $this->error($postModel->errors());
 
 	// Did we encounter any errors? Don't continue.
@@ -723,9 +726,10 @@ public function addReply(&$conversation, $content)
 		"postId" => $postId,
 		"title" => $conversation["title"]
 	);
+	$emailData = array("content" => $content);
 
 	foreach ($members as $member) {
-		ET::activityModel()->create("post", $member, ET::$session->user, $data);
+		ET::activityModel()->create("post", $member, ET::$session->user, $data, $emailData);
 	}
 
 	// Update the conversation post count.

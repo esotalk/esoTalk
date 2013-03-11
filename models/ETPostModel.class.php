@@ -238,6 +238,7 @@ public function create($conversationId, $memberId, $content, $title = "")
 				"postId" => (int)$id,
 				"title" => $title
 			);
+			$emailData = array("content" => $content);
 
 			$i = 0;
 			foreach ($members as $member) {
@@ -253,7 +254,7 @@ public function create($conversationId, $memberId, $content, $title = "")
 				ET::conversationModel()->addAllowedPredicate($sql, $member);
 				if (!$sql->exec()->numRows()) continue;
 
-				ET::activityModel()->create("mention", $member, ET::$session->user, $data);
+				ET::activityModel()->create("mention", $member, ET::$session->user, $data, $emailData);
 			}
 		}
 

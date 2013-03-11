@@ -448,17 +448,17 @@ $definitions["message.waitToSearch"] = "Woah, slow down! Looks like you're tryin
 
 
 // Emails.
-$definitions["email.confirmEmail.body"] = "Someone (hopefully you!) has signed up to the forum '%1\$s' with this email address.\n\nIf this was you, simply visit the following link and your account will be activated:\n%2\$s";
+$definitions["email.confirmEmail.body"] = "<p>Someone (hopefully you!) has signed up to the forum '%1\$s' with this email address.</p><p>If this was you, simply visit the following link and your account will be activated:<br>%2\$s</p>";
 $definitions["email.confirmEmail.subject"] = "%1\$s, please confirm your email address";
-$definitions["email.footer"] = "\n\n(If you don't want to receive any emails of this kind again, <a href='%s'>click here</a>.)";
-$definitions["email.forgotPassword.body"] = "Someone (hopefully you!) has submitted a forgotten password request for your account on the forum '%1\$s'. If you do not wish to change your password, just ignore this email and nothing will happen.\n\nHowever, if you did forget your password and wish to set a new one, visit the following link:\n%2\$s";
+$definitions["email.footer"] = "<p>(If you don't want to receive any emails like this again, you can <a href='%s'>change your notification preferences</a>.)</p>";
+$definitions["email.forgotPassword.body"] = "<p>Someone (hopefully you!) has submitted a forgotten password request for your account on the forum '%1\$s'. If you do not wish to change your password, just ignore this email and nothing will happen.</p><p>However, if you did forget your password and wish to set a new one, visit the following link:<br>%2\$s</p>";
 $definitions["email.forgotPassword.subject"] = "Did you forget your password, %1\$s?";
-$definitions["email.header"] = "Hey %s!\n\n";
-$definitions["email.mention.body"] = "%1\$s mentioned you in a post in the conversation '%2\$s'.\n\nTo view the post, check out the following link:\n%3\$s";
+$definitions["email.header"] = "<p>Hey %s!</p>";
+$definitions["email.mention.body"] = "<p><strong>%1\$s</strong> mentioned you in a post in the conversation <strong>%2\$s</strong>.</p><hr>%3\$s<hr><p>To view the post in context, check out the following link:<br>%4\$s</p>";
 $definitions["email.mention.subject"] = "%1\$s mentioned you in a post";
-$definitions["email.privateAdd.body"] = "You have been added to a private conversation titled '%1\$s'.\n\nTo view this conversation, check out the following link:\n%2\$s";
+$definitions["email.privateAdd.body"] = "<p>You have been added to a private conversation titled <strong>%1\$s</strong>.</p><hr>%2\$s<hr><p>To view this conversation, check out the following link:<br>%3\$s</p>";
 $definitions["email.privateAdd.subject"] = "You have been added to a private conversation";
-$definitions["email.post.body"] = "%1\$s has replied to a conversation which you followed: '%2\$s'.\n\nTo view the new activity, check out the following link:\n%3\$s";
+$definitions["email.post.body"] = "<p><strong>%1\$s</strong> has replied to a conversation which you followed: <strong>%2\$s</strong></p><hr>%3\$s<hr><p>To view the new activity, check out the following link:<br>%4\$s</p>";
 $definitions["email.post.subject"] = "There is a new reply to '%1\$s'";
 
 
