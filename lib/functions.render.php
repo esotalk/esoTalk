@@ -69,14 +69,15 @@ if (!function_exists("name")) {
  * has been deleted, and "[deleted]" is returned.
  *
  * @param string $username The member's username.
+ * @param bool $sanitize Whether or not to sanitize the name for HTML output.
  * @return string
  *
  * @package esoTalk
  */
-function name($username)
+function name($username, $sanitize = true)
 {
 	if (!$username) $username = "[".T("deleted")."]";
-	return sanitizeHTML($username);
+	return $sanitize ? sanitizeHTML($username) : $username;
 }
 
 }
