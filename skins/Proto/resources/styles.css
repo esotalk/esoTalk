@@ -5,10 +5,12 @@ wrapper (header + footer). Interface-specific styles are included in skins/base/
 here if necessary.
 */
 
+@import url(http://fonts.googleapis.com/css?family=Open+Sans:400italic,700italic,400,700);
+
 
 /* Global */
-body {font-size:12px; margin:0; overflow-y:scroll; background:#f4f4f4}
-body, input, textarea, select {font-family:lucida grande,lucida sans unicode,helvetica,arial,sans-serif}
+body {font-size:13px; margin:0; overflow-y:scroll; background:#D6D8E6; color:#555}
+body, input, textarea, select {font-family:open sans,lucida grande,lucida sans unicode,helvetica,arial,sans-serif}
 input, textarea, select {font-size:100%}
 
 
@@ -30,10 +32,9 @@ p, ul, pre {line-height:1.5em}
 
 
 /* Layout */
-#hdr-content, #body-content, #ftr-content {margin:0 auto; min-width:760px; max-width:1100px; padding:0 20px}
-#body-content {background-color:#fff}
-#body-content {padding-bottom:20px; padding-top:1px; border:solid #ddd; border-width:0 1px 2px; border-radius:0 0 3px 3px}
-#hdr-content, #ftr-content {max-width:1140px}
+#hdr-content, #body-content, #ftr-content {margin:0 auto; min-width:760px; max-width:1100px; padding:0 30px}
+#body-content, #ftr-content {background-color:#fff}
+#body-content {padding-bottom:20px; padding-top:10px}
 #body {padding-top:48px}
 
 
@@ -43,7 +44,7 @@ p, ul, pre {line-height:1.5em}
 
 
 /* Header */
-#hdr {background:#333 url(header.png) repeat-x bottom; color:#fff; text-shadow:rgba(0, 0, 0, 0.5) 0 -1px; padding:20px 0 14px; position:fixed; width:100%; z-index:350; box-shadow:0 1px 2px rgba(0, 0, 0, 0.2);}
+#hdr {background:#364159; color:#fff; padding:20px 0 14px; position:fixed; width:100%; z-index:350}
 #hdr h1 {display:inline; font-size:120%; font-weight:bold; margin:0}
 #hdr h1 img {margin:-20px 0 -14px; display:inline; border:0}
 #hdr a {color:#fff}
@@ -60,22 +61,19 @@ p, ul, pre {line-height:1.5em}
 
 
 /* If a light header color is chosen, make the header text dark. */
-.lightHdr #hdr, .lightHdr #hdr .button {text-shadow:rgba(255, 255, 255, 0.3) 0 1px}
+.lightHdr #hdr .button {text-shadow:rgba(255, 255, 255, 0.3) 0 1px}
 .lightHdr #hdr .button {border-color:rgba(0, 0, 0, 0.3)}
 .lightHdr #hdr, .lightHdr #hdr a {color:rgba(0, 0, 0, 0.7)}
-.lightHdr #hdr .popupButton {background-color:rgba(0, 0, 0, 0.1); color:rgba(0, 0, 0, 0.3); border-bottom:1px solid rgba(0, 0, 0, 0.1)}
+.lightHdr #hdr .popupButton, .lightHdr #hdr #notifications {background-color:rgba(0, 0, 0, .1); color:rgba(0, 0, 0, 0.3)}
 
 
 /* Footer */
 #ftr {font-size:90%; color:#888; color:rgba(0, 0, 0, 0.5)}
-#ftr-content {padding:20px 10px 35px}
+#ftr-content {padding-top:20px; padding-bottom:20px; background:#fff}
 #ftr li {margin-right:10px}
 #ftr a {color:#444; color:rgba(0, 0, 0, 0.75);}
 #ftr .item-copyright {float:right; margin:0}
 #ftr .item-copyright a {color:#bbb; color:rgba(0, 0, 0, 0.3)}
-
-.darkBody #ftr {color:#ccc; color:rgba(255, 255, 255, 0.7)}
-.darkBody #ftr a {color:#bbb; color:rgba(255, 255, 255, 0.5)}
 
 
 /* Text inputs */

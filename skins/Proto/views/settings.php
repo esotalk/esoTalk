@@ -98,7 +98,7 @@ $(function() {
 	colorPicker("headerColor", function(color, picker) {
 
 		// If no color is selected, use the default one.
-		color = color ? color : "#333333";
+		color = color ? color : "#364159";
 
 		// Change the header's background color.
 		$("#hdr").css("backgroundColor", color);
@@ -114,7 +114,7 @@ $(function() {
 	colorPicker("bodyColor", function(color, picker) {
 
 		// If no color is selected, use the default one.
-		color = color ? color : "#f4f4f4";
+		color = color ? color : "#D6D8E6";
 
 		// Change the body's background color.
 		$("body").attr("style", "background-color:"+color+" !important");

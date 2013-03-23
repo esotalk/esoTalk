@@ -48,14 +48,14 @@ span.highlight {background:#fdef34; border:1px solid #fcef98; padding:1px 3px; b
 
 
 /* Body */
-.bodyHeader {padding:15px 0 12px; border:0; border-bottom:1px solid #ddd; margin-bottom:10px}
+.bodyHeader {padding:15px 0 12px; margin-bottom:10px}
 .bodyHeader.floating {-webkit-box-shadow:0 1px 1px rgba(0, 0, 0, 0.05); box-shadow:0 1px 1px rgba(0, 0, 0, 0.05); background:#fff; margin-left:-20px; margin-right:-20px; padding-left:20px; padding-right:20px}
 
 
 /* Notifications button */
 #hdr .popupWrapper {margin:-5px 0; display:inline-block}
 #hdr .popupButton:hover {text-decoration:none}
-#hdr #notifications {width:1.8em; height:1.1em; padding:4px 0; text-align:center; display:inline-block; text-shadow:none; font-weight:bold; border-radius:2px; background-color:#666; background-color:rgba(255, 255, 255, 0.1); color:#444; color:rgba(0, 0, 0, 0.3); border-bottom:1px solid rgba(0, 0, 0, 0.3)}
+#hdr #notifications {width:1.8em; height:1.1em; padding:4px 0; text-align:center; display:inline-block; text-shadow:none; font-weight:bold; border-radius:2px; background-color:#666; background-color:rgba(255, 255, 255, 0.1); color:#444; color:rgba(0, 0, 0, 0.3)}
 #hdr #notifications.new, #hdr .popupButton.active {background-color:#fff; color:#444; border-bottom-color:transparent}
 
 
@@ -71,7 +71,7 @@ span.highlight {background:#fdef34; border:1px solid #fcef98; padding:1px 3px; b
 
 
 /* Generic areas */
-.area, .sheet {border:1px solid #e1e1e1; border-radius:3px; margin-bottom:20px; margin-top:0; background:#fbfbfb}
+.area, .sheet {border-radius:3px; margin-bottom:20px; margin-top:0; background:#f6f6f6}
 .area {padding:15px}
 .area.help {padding-top:10px}
 .area h3 {font-size:110%}
@@ -171,7 +171,7 @@ span.highlight {background:#fdef34; border:1px solid #fcef98; padding:1px 3px; b
 
 /* Popups */
 .popup {text-shadow:none; background:#fff; color:#000; border:1px solid #666; -webkit-box-shadow:0 3px 6px rgba(0, 0, 0, 0.15); box-shadow:0 3px 6px rgba(0, 0, 0, 0.15); border-radius:2px; z-index:300}
-.popup h3 {margin:0; padding:7px 10px}
+.popup h3 {margin:0; padding:10px}
 .withArrow.popup:before {border-color:#666}
 .withArrow.popup:after {border-color:#fff}
 
@@ -181,12 +181,12 @@ span.highlight {background:#fdef34; border:1px solid #fcef98; padding:1px 3px; b
 
 /* Popup menus */
 .popupMenu {list-style-type:none; padding:4px 0; margin:0}
-.popupMenu li > a, .popupMenu li > span {display:block; padding:2px 25px 2px 20px; overflow:hidden; white-space:nowrap}
+.popupMenu li > a, .popupMenu li > span {display:block; padding:3px 25px 3px 20px; overflow:hidden; white-space:nowrap}
 .popupMenu li > a {color:#444 !important}
 .popupMenu li > span {color:#888 !important}
-.popupMenu li > a:hover, ul.popupMenu li.selected > a {text-decoration:none; background:#3276ce; color:#fff !important; text-shadow:0 -1px #1c408e}
+.popupMenu li > a:hover, ul.popupMenu li.selected > a {text-decoration:none; background:#3276ce; color:#fff !important}
 .popupMenu li > a:hover *, ul.popupMenu li.selected > a * {color:#fff}
-.popupMenu li.sep {border-top:1px solid #ccc; margin:4px 5px}
+.popupMenu li.sep {border-top:1px solid #ccc; margin:5px}
 
 
 /* Popup buttons */
@@ -234,7 +234,7 @@ span.highlight {background:#fdef34; border:1px solid #fcef98; padding:1px 3px; b
 
 /* Generic lists */
 .list {margin:0; border-bottom:1px solid #e1e1e1; line-height:1.5em; padding:0; list-style-type:none}
-.list > li {border:solid #e1e1e1; border-width:1px 0; padding:6px 0; margin:-1px 0}
+.list > li {border:solid #e1e1e1; border-width:1px 0; padding:8px 0; margin:-1px 0}
 .list > li:hover {background-color:#f6f6f6}
 .list .controls {visibility:hidden}
 .list > li:hover .controls {visibility:visible}
@@ -277,10 +277,10 @@ a.channel:hover {text-decoration:none; border-color:#aaa}
 
 
 /* Notifications popup + list */
-#notificationsPopup {width:350px; font-size:100%}
+#notificationsPopup {width:450px; font-size:100%}
 #notificationsPopup ul {padding:0}
 #notificationsPopup .help {padding:10px}
-.notificationsList li {padding:0 !important; font-size:105%; line-height:1.75em;}
+.notificationsList li {padding:0 !important; line-height:1.75em;}
 .notificationsList li > a {display:block; padding:7px 10px 7px 40px !important; white-space:normal}
 .notificationsList li a .avatar {float:left; margin-left:-30px}
 .notificationsList li .star {vertical-align:-2px}
@@ -385,8 +385,8 @@ negative margins so they overlap the padding of the <li>. */
 #conversationHeader .channels {margin-left:15px; display:inline-block; margin-bottom:-7px;}
 #conversationHeader > #control-changeChannel {font-size:85%; margin-left:10px}
 
-#conversationTitle {margin:0; line-height:1.4em; vertical-align:-2px}
-#conversationTitle input.text {font-weight:bold}
+#conversationTitle {margin:0; line-height:1.4em; vertical-align:-2px; font-weight:300; font-size:22px}
+#conversationTitle input.text {font-weight:300}
 #conversationTitle a {cursor:text; padding:1px; color:#000; text-decoration:none}
 #conversationTitle a.editing, #conversationTitle a.editing:hover {padding:0; border:0}
 #conversationTitle a:hover {border:1px dotted #ccc; padding:0px}
@@ -424,7 +424,7 @@ a.deleteLink:hover {color:#f00 !important; text-decoration:line-through}
 
 /* Scrubber */
 .hasScrubber {margin-right:170px}
-.scrubberColumn {float:right; margin-right:-170px; width:150px}
+.scrubberColumn {float:right; margin-right:-180px; width:150px}
 
 .scrubber {margin:20px 0 20px; padding:0; list-style-type:none}
 .scrubber > li {border-left:5px solid #eee; margin-bottom:1px}
