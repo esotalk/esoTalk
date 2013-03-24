@@ -78,7 +78,7 @@ span.highlight {background:#fdef34; border:1px solid #fcef98; padding:1px 3px; b
 
 
 /* "Things" - distinguishable items such as posts, activity items, plugins, and skins. */
-.thing {border:1px solid #ccc; border-width:1px; border-style:solid; border-radius:3px; background:#fff; -webkit-box-shadow:0 1px 1px rgba(0, 0, 0, 0.08); box-shadow:0 1px 1px rgba(0, 0, 0, 0.08); position:relative}
+.thing {border:1px solid #ccc; border-width:1px; border-style:solid; border-radius:3px; background:#fff; box-shadow:0 1px 2px rgba(0, 0, 0, 0.1); position:relative}
 .thing:before {border-color:#ccc}
 .thing:after {border-color:#fff}
 
@@ -134,7 +134,7 @@ span.highlight {background:#fdef34; border:1px solid #fcef98; padding:1px 3px; b
 
 
 /* Conversation labels */
-.label {font-size:70%; white-space:nowrap; text-transform:uppercase}
+.label {font-size:70%; font-weight:bold; white-space:nowrap; text-transform:uppercase}
 .label-locked, #gambits .gambit-locked {color:#555}
 .label-muted, #gambits .gambit-muted {color:#aaa}
 .label-private, #gambits .gambit-private {color:#a43fe7}
@@ -170,7 +170,7 @@ span.highlight {background:#fdef34; border:1px solid #fcef98; padding:1px 3px; b
 
 
 /* Popups */
-.popup {text-shadow:none; background:#fff; color:#000; border:1px solid #666; -webkit-box-shadow:0 3px 6px rgba(0, 0, 0, 0.15); box-shadow:0 3px 6px rgba(0, 0, 0, 0.15); border-radius:2px; z-index:300}
+.popup {text-shadow:none; background:#fff; color:#000; border:1px solid #666; border-bottom-width:2px; border-radius:2px; z-index:300}
 .popup h3 {margin:0; padding:10px}
 .withArrow.popup:before {border-color:#666}
 .withArrow.popup:after {border-color:#fff}
@@ -218,7 +218,7 @@ span.highlight {background:#fdef34; border:1px solid #fcef98; padding:1px 3px; b
 
 /* Sheets */
 .sheet {margin:30px auto; width:600px; padding:1px}
-.sheet.active {background:#555; background:rgba(50, 50, 50, 0.5); border:1px solid rgba(50, 50, 50, 0.75); border-radius:5px; -webkit-box-shadow:0 3px 7px rgba(0, 0, 0, 0.35); box-shadow:0 3px 7px rgba(0, 0, 0, 0.35); top:80px; margin:0; z-index:200}
+.sheet.active {background:#555; background:rgba(50, 50, 50, 0.5); border:1px solid rgba(50, 50, 50, 0.75); border-radius:5px; top:80px; margin:0; z-index:200}
 .sheet.active .sheetContent {background:#fff; border-radius:2px; border:1px solid #555; margin:5px}
 .sheetOverlay {background:rgba(0, 0, 0, 0.2); z-index:150; position:fixed; top:0; left:0; bottom:0; right:0}
 
@@ -238,6 +238,7 @@ span.highlight {background:#fdef34; border:1px solid #fcef98; padding:1px 3px; b
 .list > li:hover {background-color:#f6f6f6}
 .list .controls {visibility:hidden}
 .list > li:hover .controls {visibility:visible}
+.popup .list > li:last-child {border-bottom:0}
 
 
 /* Tabs */
@@ -265,7 +266,7 @@ span.highlight {background:#fdef34; border:1px solid #fcef98; padding:1px 3px; b
 .tabs .pathEnd.selected a:first-child:before, .tabs .pathEnd.selected a:first-child:after {display:none}
 
 /* Channels */
-.channel {background:#fff; text-decoration:none; color:#666 !important; text-shadow:none; border-radius:3px; font-size:85%; border:1px solid #d5d5d5; white-space:nowrap; -webkit-box-shadow:0 1px 0 rgba(0, 0, 0, 0.04); box-shadow:0 1px 0 rgba(0, 0, 0, 0.04); padding:2px 5px}
+.channel {background:#fff; text-decoration:none; color:#666 !important; text-shadow:none; border-radius:3px; font-size:85%; border:1px solid #d5d5d5; white-space:nowrap; box-shadow:0 1px 0 rgba(0, 0, 0, 0.04); padding:2px 5px}
 a.channel:hover {text-decoration:none; border-color:#aaa}
 
 
@@ -281,10 +282,10 @@ a.channel:hover {text-decoration:none; border-color:#aaa}
 #notificationsPopup ul {padding:0}
 #notificationsPopup .help {padding:10px}
 .notificationsList li {padding:0 !important; line-height:1.75em;}
-.notificationsList li > a {display:block; padding:7px 10px 7px 40px !important; white-space:normal}
-.notificationsList li a .avatar {float:left; margin-left:-30px}
+.notificationsList li > a {display:block; padding:7px 10px 7px 60px !important; white-space:normal}
+.notificationsList li > a:hover {text-decoration:none}
+.notificationsList li a .avatar {float:left; margin-left:-50px; width:40px; height:40px;}
 .notificationsList li .star {vertical-align:-2px}
-.notificationsList li .time {float:right; margin-left:10px}
 .notificationsList li.unread {background-color:#ebf5fa}
 #memberContent .notificationsList li {padding:0}
 #memberContent .notificationsList li a:hover {text-decoration:none}
@@ -398,7 +399,7 @@ negative margins so they overlap the padding of the <li>. */
 
 
 /* Conversation privacy */
-#conversationPrivacy {float:left; margin:10px 0 40px; line-height:1.5em}
+#conversationPrivacy {margin:10px 0 40px; padding:10px 15px;}
 #control-changeMembersAllowed {font-size:85%; margin-left:5px}
 
 
@@ -453,8 +454,8 @@ a.deleteLink:hover {color:#f00 !important; text-decoration:line-through}
 
 .timeMarker {padding:7px 13px; text-transform:uppercase; font-size:85%; letter-spacing:1px; background:#f7f7f7; color:#aaa; display:inline-block; clear:both; border-radius:3px; margin-bottom:15px}
 
-.post {margin-bottom:15px; padding-left:74px; padding-bottom:2px; position:relative; overflow:hidden}
-.post div.avatar {float:left; margin-left:-74px}
+.post {margin-bottom:15px; padding-left:79px; padding-bottom:2px; position:relative; overflow:hidden}
+.post div.avatar {float:left; margin-left:-79px}
 .postContent:before, .postContent:after {content:" "; border-top-color:transparent !important; border-bottom-color:transparent !important; border-left-color:transparent !important; border-style:solid; border-width:5px; height:0; width:0; left:-11px; top:8px; position:absolute}
 .postContent:after {float:left; left:-10px}
 

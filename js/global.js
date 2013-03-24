@@ -952,7 +952,7 @@ init: function() {
 					success: function(data) {
 
 						// Put the new contents into the notifications popup.
-						$("#notificationsPopup div").html(data).removeClass("loading").find("ul").addClass("popupMenu");
+						$("#notificationsPopup div").html(data).removeClass("loading");
 
 						// We no longer need to reload the notifications.
 						ETNotifications.reloadNotifications = false;
