@@ -723,8 +723,8 @@ var ETMembersAllowedTooltip = {
 			// Start a timer, which when finished, will load the members allowed list and show it.
 			ETMembersAllowedTooltip.showTimer = setTimeout(function() {
 
-				// Position the tooltip, but keep it hidden.
-				ETMembersAllowedTooltip.tooltip.css({position: "absolute", top: $(self).offset().top + $(self).height() + 5, left: $(self).offset().left}).hide();
+				// Position and show the tooltip.
+				ETMembersAllowedTooltip.tooltip.css({position: "absolute", top: $(self).offset().top + $(self).height() + 5, left: $(self).offset().left}).show();
 
 				// Load the members allowed.
 				$.ETAjax({
@@ -734,7 +734,7 @@ var ETMembersAllowedTooltip = {
 					success: function(data) {
 
 						// Show the tooltip.
-						ETMembersAllowedTooltip.tooltip.html(data).show();
+						ETMembersAllowedTooltip.tooltip.html(data);
 
 						// Cut off the first 3 names if necessary.
 						if (cutFirst3) $(".name", ETMembersAllowedTooltip.tooltip).slice(0, 3).remove();
