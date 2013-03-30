@@ -544,14 +544,20 @@ initPosts: function() {
 	// Collapse quotes and add expand buttons.
 	$("#conversationPosts .postBody blockquote:not(.collapsed)")
 		.addClass("collapsed")
-		.append(function(post) {
+		.each(function() {
+			console.log($(this)[0].scrollHeight, $(this).innerHeight());
+			if ($(this)[0].scrollHeight <= $(this).innerHeight()) {
+				$(this).removeClass("collapsed");
+				return;
+			}
+
 			var link = $("<a href='#' class='expand'>...</a>");
 			link.click(function(e) {
 				e.preventDefault();
 				$(this).parents("blockquote").removeClass("collapsed");
 				$(this).remove();
 			});
-			return link;
+			$(this).append(link);
 		});
 },
 
