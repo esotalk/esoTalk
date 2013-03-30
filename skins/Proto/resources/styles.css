@@ -27,7 +27,7 @@ small {font-size:85%}
 /* Block styles */
 h2 {font-size:160%; font-weight:normal}
 h3 {font-size:115%; font-weight:bold}
-p, ul, pre {line-height:1.5em}
+p, ul, pre {line-height:1.6em}
 .bodyHeader h1 {line-height:1.5em; font-size:140%; font-weight:bold}
 
 
@@ -77,12 +77,12 @@ p, ul, pre {line-height:1.5em}
 
 
 /* Text inputs */
-input.text, textarea {background:#fff; border:#bbb 1px solid; padding:3px; border-radius:3px; vertical-align:-1px; margin:0}
+input.text, textarea {background:#fff; border:#ccc 1px solid; padding:3px; border-radius:3px; vertical-align:-1px; margin:0}
 input.text:focus, textarea:focus {border-color:#999; outline:0; -webkit-box-shadow:inset 0 1px 2px rgba(0, 0, 0, 0.15); box-shadow:inset 0 1px 2px rgba(0, 0, 0, 0.15)}
 
 
 /* Buttons */
-.button {background:#e0e0e0 url(button.png) repeat-x; text-shadow:#fff 0 1px; color:#333; font-weight:bold; border:1px solid #bbb; -webkit-box-shadow:0 1px 0 rgba(0, 0, 0, 0.06); box-shadow:0 1px 0 rgba(0, 0, 0, 0.06); margin-bottom:1px}
-.button:hover, .button:active {border-color:#bbb}
+.button {background:#e0e0e0 url(button.png) repeat-x; text-shadow:#fff 0 1px; color:#333; font-weight:bold; border:1px solid #ccc; box-shadow:0 1px 0 rgba(0, 0, 0, 0.04); margin-bottom:1px}
+.button:hover, .button:active {border-color:#ccc}
 .button:active {background-color:#d3d3d3; background-position:0 -40px; color:#333}
-.button.disabled {border-color:#ccc !important; background:#f2f2f2 !important; color:#999 !important; -webkit-box-shadow:none !important; box-shadow:none !important}
+.button.disabled {border-color:#ccc !important; background:#f2f2f2 !important; color:#999 !important; box-shadow:none !important}
