@@ -27,7 +27,7 @@ if ($conversation["startMemberId"] == ET::$session->user) $className .= " mine";
 $conversationURL = conversationURL($conversation["conversationId"], $conversation["title"]);
 
 // Output the conversation title, highlighting search keywords.
-echo "<strong class='title'><a href='".URL($conversationURL)."'>".highlight(sanitizeHTML($conversation["title"]), ET::$session->get("highlight"))."</a></strong> ";
+echo "<strong class='title'><a href='".URL($conversationURL.(ET::$session->user and $conversation["unread"] ? "/unread" : ""))."'>".highlight(sanitizeHTML($conversation["title"]), ET::$session->get("highlight"))."</a></strong> ";
 
 // Output the conversation's labels.
 echo "<span class='labels'>";
@@ -40,10 +40,10 @@ echo "</span> ";
 echo "<span class='controls'>";
 
 // A Jump to last/unread link, depending on the user and the unread state.
-if (ET::$session->user and $conversation["unread"])
-	echo "<a href='".URL($conversationURL."/unread")."' class='jumpToUnread'>".T("Jump to unread")."</a>";
-else
-	echo "<a href='".URL($conversationURL."/last")."' class='jumpToLast'>".T("Jump to last")."</a>";
+// if (ET::$session->user and $conversation["unread"])
+// 	echo "<a href='".URL($conversationURL."/unread")."' class='jumpToUnread'>".T("Jump to unread")."</a>";
+// else
+// 	echo "<a href='".URL($conversationURL."/last")."' class='jumpToLast'>".T("Jump to last")."</a>";
 
 // If we're highlighting search terms (i.e. if we did a fulltext search), then output a "show matching posts" link.
 if (ET::$session->get("highlight"))
