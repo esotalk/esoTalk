@@ -36,10 +36,6 @@ foreach ($conversation["labels"] as $label) {
 }
 echo "</span> ";
 
-// Output an "unread indicator", showing the number of unread posts.
-if (ET::$session->user and $conversation["unread"])
-	echo "<a href='".URL("conversation/markAsRead/".$conversation["conversationId"]."?token=".ET::$session->token."&return=".urlencode(ET::$controller->selfURL))."' class='unreadIndicator' title='".T("Mark as read")."'>".$conversation["unread"]."</a> ";
-
 // Output controls which apply to this conversation.
 echo "<span class='controls'>";
 
@@ -59,6 +55,14 @@ echo "</span>";
 $channel = $data["channelInfo"][$conversation["channelId"]];
 echo "<a href='".URL(searchURL("", $channel["slug"]))."' class='channel channel-{$conversation["channelId"]}' data-channel='{$channel["slug"]}'>{$channel["title"]}</a>";
 ?></div>
+<div class='col-replies'><?php
+echo "<span>".Ts("%s reply", "%s replies", $conversation["replies"])."</span>";
+
+// Output an "unread indicator", showing the number of unread posts.
+if (ET::$session->user and $conversation["unread"])
+	echo " <a href='".URL("conversation/markAsRead/".$conversation["conversationId"]."?token=".ET::$session->token."&return=".urlencode(ET::$controller->selfURL))."' class='unreadIndicator' title='".T("Mark as read")."'>".$conversation["unread"]." new</a> ";
+
+?></div>
 <div class='col-lastPost'><?php
 echo "<span class='action'>".avatar(array(
 		"memberId" => $conversation["lastPostMemberId"],
@@ -67,10 +71,7 @@ echo "<span class='action'>".avatar(array(
 	), "thumb"), " ",
 	sprintf(T("%s posted %s"),
 		"<span class='lastPostMember name'>".memberLink($conversation["lastPostMemberId"], $conversation["lastPostMember"])."</span>",
-		"<span class='lastPostTime'>".relativeTime($conversation["lastPostTime"], true)."</span>"),
+		"<a href='".URL($conversationURL."/unread")."' class='lastPostTime'>".relativeTime($conversation["lastPostTime"], true)."</a>"),
 	"</span>";
-?></div>
-<div class='col-replies'><?php
-echo "<span>".Ts("%s reply", "%s replies", $conversation["replies"])."</span>";
 ?></div>
 </li>

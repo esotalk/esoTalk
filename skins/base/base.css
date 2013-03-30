@@ -349,8 +349,8 @@ a.channel:hover {text-decoration:none; border-color:#aaa}
 
 /* Conversation list */
 #conversations {margin-top:-11px}
-.conversationList li {overflow:hidden; padding-right:23em; padding-left:13em}
-.conversationList li > div {display:inline-block}
+.conversationList li {overflow:hidden; padding-right:30em; padding-left:13em}
+/*.conversationList li > div {float:left}*/
 .conversationList .labels {margin-left:3px}
 .conversationList .title {font-weight:normal}
 .conversationList .title a {color:#000}
@@ -365,24 +365,24 @@ a.channel:hover {text-decoration:none; border-color:#aaa}
 
 /* Conversation list column layout. The conversation column is almost 100% width, then the others have
 negative margins so they overlap the padding of the <li>. */
-.conversationList .col-conversation {width:95%}
+.conversationList .col-conversation {width:95%; display:inline-block}
 .conversationList .col-star {float:left; width:1em; margin-left:-13em; padding-left:0.5em}
 .conversationList .col-channel {float:left; width:10em; margin-left:-11em; text-align:right}
-.conversationList .col-lastPost {width:20em; margin-right:-30em; margin-left:0; padding-right:0; font-size:85%; overflow:hidden; white-space:nowrap}
-.conversationList .col-replies {margin-right:-40em; margin-left:30em; width:10em; padding-left:0}
+.conversationList .col-replies {float:right; margin-right:-13em; width:13em}
+.conversationList .col-lastPost {float:right; width:20em; margin-right:-33em; font-size:85%; overflow:hidden; white-space:nowrap}
 .list .col-replies {color:#888; font-size:85%}
 .list .col-replies span {background:url(icons.png) no-repeat -20px -136px; padding-left:20px}
 
 
 /* Unread indicators */
-.unreadIndicator {padding:2px 4px; font-size:11px; vertical-align:1px; background:#fff5a0; color:#a06a00; border-bottom:1px solid #f6e235; margin-left:5px; border-radius:2px}
+.unreadIndicator {padding:2px 4px; font-size:11px; vertical-align:1px; background:#fff5a0; color:#a06a00; border:1px solid #f6e235; margin-left:5px; border-radius:2px}
+.unreadIndicator:hover {text-decoration:none}
 .unreadIndicator:active {background:#f6e235 !important; color:#000 !important}
 
 
 /* Conversation header */
 #conversationHeader {margin-bottom:0}
 #conversationHeader .star {vertical-align:-2px; margin-left:10px}
-#conversationHeader .labels {margin-left:10px}
 #conversationHeader .channels {margin-left:15px; display:inline-block; margin-bottom:-7px;}
 #conversationHeader > #control-changeChannel {font-size:85%; margin-left:10px}
 

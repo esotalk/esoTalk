@@ -202,6 +202,8 @@ initSearchResults: function() {
 	ETMembersAllowedTooltip.showDelay = 500;
 	$("#conversations .label-private").css("cursor", "pointer");
 
+	$("#conversations .unreadIndicator").tooltip({alignment: "left", className: "withArrow withArrowBottom"});
+
 },
 
 // Mark a single conversation as read, hiding its unread indicator.
