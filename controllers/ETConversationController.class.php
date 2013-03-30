@@ -82,7 +82,7 @@ public function index($conversationId = false, $year = false, $month = false)
 		}
 
 		// Redirect to the last post in the conversation.
-		elseif ($year == "last") {
+		if ($year == "unread" or $year == "last") {
 
 			// Fetch the post ID of the last post in the conversation.
 			$id = ET::SQL()
