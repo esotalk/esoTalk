@@ -198,7 +198,7 @@ init: function() {
 
 // Scroll to a specific position, applying an animation and taking the fixed header into account.
 scrollTo: function(position) {
-	$.scrollTo(position, "slow");
+	$.scrollTo(position - ETScrubber.header.outerHeight(), "slow");
 },
 
 // Scroll to the item on or before an index combination.
