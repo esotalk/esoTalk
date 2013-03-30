@@ -349,7 +349,7 @@ a.channel:hover {text-decoration:none; border-color:#aaa}
 
 /* Conversation list */
 #conversations {margin-top:-11px}
-.conversationList li {overflow:hidden; padding-right:30em; padding-left:13em}
+.conversationList li {overflow:hidden; padding-right:31em; padding-left:13em}
 /*.conversationList li > div {float:left}*/
 .conversationList .labels {margin-left:3px}
 .conversationList .title {font-weight:normal}
@@ -368,8 +368,8 @@ negative margins so they overlap the padding of the <li>. */
 .conversationList .col-conversation {width:95%; display:inline-block}
 .conversationList .col-star {float:left; width:1em; margin-left:-13em; padding-left:0.5em}
 .conversationList .col-channel {float:left; width:10em; margin-left:-11em; text-align:right}
-.conversationList .col-replies {float:right; margin-right:-13em; width:13em}
-.conversationList .col-lastPost {float:right; width:20em; margin-right:-33em; font-size:85%; overflow:hidden; white-space:nowrap}
+.conversationList .col-replies {float:right; margin-right:-14em; width:14em}
+.conversationList .col-lastPost {float:right; width:20em; margin-right:-34em; font-size:85%; overflow:hidden; white-space:nowrap}
 .list .col-replies {color:#888; font-size:85%}
 .list .col-replies span {background:url(icons.png) no-repeat -20px -136px; padding-left:20px}
 
