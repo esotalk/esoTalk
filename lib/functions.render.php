@@ -96,14 +96,13 @@ if (!function_exists("avatar")) {
  */
 function avatar($member = array(), $className = "")
 {
-	// Otherwise, construct the avatar path from the provided information.
+	$url = getResource("skins/base/avatar.png");
+
+	// Construct the avatar path from the provided information.
 	if (!empty($member["memberId"]) and !empty($member["avatarFormat"])) {
 		$file = "uploads/avatars/{$member["memberId"]}.{$member["avatarFormat"]}";
 		$url = getWebPath($file);
 	}
-
-	// If the user doesn't have an avatar, return the skin's default one.
-	if (empty($member["avatarFormat"])) $url = getResource("skins/base/avatar.png");
 
 	return "<img src='$url' alt='' class='avatar $className'/>";
 }

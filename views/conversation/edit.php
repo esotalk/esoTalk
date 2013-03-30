@@ -45,7 +45,7 @@ if ($conversation["conversationId"]): ?>
 // Members allowed list (if starting a conversation)
 if (!$conversation["conversationId"]): ?>
 
-<div id='conversationPrivacy'>
+<div id='conversationPrivacy' class='area'>
 <span class='allowedList action'><?php $this->renderView("conversation/membersAllowedSummary", $data); ?></span>
 <a href='#membersAllowedSheet' id='control-changeMembersAllowed'><?php echo T("Change"); ?></a>
 </div>

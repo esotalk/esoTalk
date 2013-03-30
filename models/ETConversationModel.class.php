@@ -633,7 +633,7 @@ public function create($data, $membersAllowed = array(), $isDraft = false)
 			foreach ($membersAllowed as $member) {
 				if ($member["type"] == "member") $memberIds[] = $member["id"];
 			}
-			ET::conversationModel()->privateAddNotification($conversation, $memberIds, true);
+			ET::conversationModel()->privateAddNotification($conversation, $memberIds, true, $content);
 		}
 	}
 
@@ -1205,7 +1205,7 @@ public function removeMember(&$conversation, $member)
  * 		added to this conversation before.
  * @return void
  */
-protected function privateAddNotification($conversation, $memberIds, $notifyAll = false)
+protected function privateAddNotification($conversation, $memberIds, $notifyAll = false, $content = null)
 {
 	$memberIds = (array)$memberIds;
 
@@ -1229,7 +1229,8 @@ protected function privateAddNotification($conversation, $memberIds, $notifyAll 
 
 	$data = array(
 		"conversationId" => $conversation["conversationId"],
-		"title" => $conversation["title"]
+		"title" => $conversation["title"],
+		"content" => $content
 	);
 
 	foreach ($members as $member) {

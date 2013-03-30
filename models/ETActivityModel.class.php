@@ -124,7 +124,7 @@ public function create($type, $member, $fromMember = null, $data = null, $emailD
 	}
 
 	// Set some more information about the activity.
-	$activity["data"] = $data + $emailData;
+	$activity["data"] = (array)$data + (array)$emailData;
 	$activity["fromMemberName"] = $fromMember ? $fromMember["username"] : null;
 	$activity["activityId"] = $activityId;
 
