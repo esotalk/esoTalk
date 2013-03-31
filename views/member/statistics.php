@@ -13,7 +13,7 @@ if (!defined("IN_ESOTALK")) exit;
 $statistics = $data["statistics"];
 $member = $data["member"];
 ?>
-<div id='memberStatistics' class='area'>
+<div id='memberStatistics'>
 
 <ul class='form'>
 

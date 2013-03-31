@@ -54,7 +54,7 @@ if ($data["controls"]->count()): ?>
 </ul>
 <?php endif; ?>
 
-<ul id='memberPanes' class='tabs big'>
+<ul id='memberPanes' class='area tabs big'>
 <?php echo $data["panes"]->getContents(); ?>
 </ul>
 

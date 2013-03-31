@@ -180,11 +180,11 @@ span.highlight {background:#fdef34; border:1px solid #fcef98; padding:1px 3px; b
 
 
 /* Popup menus */
-.popupMenu {list-style-type:none; padding:4px 0; margin:0}
-.popupMenu li > a, .popupMenu li > span {display:block; padding:3px 25px 3px 20px; overflow:hidden; white-space:nowrap}
+.popupMenu {list-style-type:none; padding:6px 0; margin:0}
+.popupMenu li > a, .popupMenu li > span {display:block; padding:3px 25px 3px 25px; overflow:hidden; white-space:nowrap}
 .popupMenu li > a {color:#444 !important}
 .popupMenu li > span {color:#888 !important}
-.popupMenu li > a:hover, ul.popupMenu li.selected > a {text-decoration:none; background:#3276ce; color:#fff !important}
+.popupMenu li > a:hover, ul.popupMenu li.selected > a {text-decoration:none; background:#364159; color:#fff !important}
 .popupMenu li > a:hover *, ul.popupMenu li.selected > a * {color:#fff}
 .popupMenu li.sep {border-top:1px solid #ccc; margin:5px}
 
@@ -253,6 +253,8 @@ span.highlight {background:#fdef34; border:1px solid #fcef98; padding:1px 3px; b
 .tabs.big {font-size:120%}
 .tabs.big li a {padding:5px 10px}
 .tabs.big li.selected a {font-weight:bold}
+
+.tabs.area {padding:6px 10px 10px}
 
 
 /* The channel breadcrumb tab */
@@ -326,7 +328,7 @@ a.channel:hover {text-decoration:none; border-color:#aaa}
 #changeChannelSheet .section {padding:0}
 .changeChannelList {margin:-1px 0}
 .changeChannelList label {display:block; padding-top:1px; padding-bottom:2px; white-space:nowrap; text-overflow:ellipsis; padding-right:10px}
-.changeChannelList .selected {background:#3276ce !important; color:#fff}
+.changeChannelList .selected {background:#364159 !important; color:#fff}
 .changeChannelList .selected .description {color:#fff}
 .changeChannelList .disabled {background:transparent !important; opacity:0.5}
 .changeChannelList .description {display:inline; margin-left:10px}
@@ -506,7 +508,7 @@ code {background:#eee}
 .post .postBody .preview {padding:0 12px}
 .post .editButtons {padding:3px 7px 7px; text-align:right; overflow:hidden}
 .post .editButtons > .button {float:right; margin-left:7px}
-.post .editButtons .buttonGroup {float:left; margin:3px 5px 0 0}
+.post .editButtons .buttonGroup {float:left}
 .post .previewCheckbox {margin:0 5px; white-space:nowrap}
 
 
@@ -554,8 +556,8 @@ code {background:#eee}
 
 
 /* Member activity */
-.activity {margin-bottom:15px}
-.activity .action {margin-bottom:10px}
+.activity {margin-bottom:30px}
+.activity .action {margin-bottom:5px}
 .activityBody {padding:9px 12px 1px; overflow:auto; max-height:100px; margin-left:26px}
 .activityBody p {margin-bottom:9px}
 

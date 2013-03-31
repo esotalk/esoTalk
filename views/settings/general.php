@@ -13,7 +13,7 @@ if (!defined("IN_ESOTALK")) exit;
 
 $form = $data["form"];
 ?>
-<div id='settings-general' class='area'>
+<div id='settings-general'>
 
 <?php echo $form->open(); ?>
 
