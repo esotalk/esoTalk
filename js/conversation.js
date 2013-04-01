@@ -647,56 +647,62 @@ editPost: function(postId) {
 		},
 		success: function(data) {
 			if (data.messages) return;
-			ETConversation.editingPosts++;
+			ETConversation.updateEditPost(postId, data.view);
+		}
+	});
+},
 
-			var startHeight = $(".postContent", post).height();
+updateEditPost: function(postId, html) {
+	var post = $("#p" + postId);
 
-			// Replace the post HTML with the new stuff we just got.
-			post.replaceWith($(data.view).find(".post"));
-			var newPost = $("#p" + postId);
-			var textarea = $("textarea", newPost);
+	ETConversation.editingPosts++;
 
-			// Save the old post HTML for later.
-			newPost.data("oldPost", post);
+	var startHeight = $(".postContent", post).height();
 
-			// Set up the text area.
-			var len = textarea.val().length;
-			textarea.TextAreaExpander(200, 700).focus().selectRange(len, len);
-			new ETAutoCompletePopup(textarea, "@");
+	// Replace the post HTML with the new stuff we just got.
+	post.replaceWith($(html).find(".post"));
+	var newPost = $("#p" + postId);
+	var textarea = $("textarea", newPost);
 
-			// Add click handlers to the cancel/submit buttons.
-			$(".cancel", newPost).click(function(e) {
-				e.preventDefault();
-				ETConversation.cancelEditPost(postId);
-			});
-			$(".submit", newPost).click(function(e) {
-				e.preventDefault();
-				ETConversation.saveEditPost(postId, textarea.val());
-			});
+	// Save the old post HTML for later.
+	newPost.data("oldPost", post);
 
-			// Animate the post's height.
-			var newHeight = $(".postContent", newPost).height();
-			$(".postContent", newPost).height(startHeight).animate({height: newHeight}, "fast", function() {
-				$(this).height("");
-			});
+	// Set up the text area.
+	var len = textarea.val().length;
+	textarea.TextAreaExpander(200, 700).focus().selectRange(len, len);
+	new ETAutoCompletePopup(textarea, "@");
 
-			ETConversation.redisplayAvatars();
+	// Add click handlers to the cancel/submit buttons.
+	$(".cancel", newPost).click(function(e) {
+		e.preventDefault();
+		ETConversation.cancelEditPost(postId);
+	});
+	$(".submit", newPost).click(function(e) {
+		e.preventDefault();
+		ETConversation.saveEditPost(postId, textarea.val());
+	});
 
-			// Scroll to the bottom of the edit area if necessary.
-			var scrollTo = newPost.offset().top + newHeight - $(window).height() + 10;
-			if ($(document).scrollTop() < scrollTo) $.scrollTo(scrollTo, "slow");
+	// Animate the post's height.
+	var newHeight = $(".postContent", newPost).height();
+	$(".postContent", newPost).height(startHeight).animate({height: newHeight}, "fast", function() {
+		$(this).height("");
+	});
 
-			// Regsiter the Ctrl+Enter and Escape shortcuts on the post's textarea.
-			textarea.keydown(function(e) {
-				if (e.ctrlKey && e.which == 13) {
-					ETConversation.saveEditPost(postId, this.value);
-					e.preventDefault();
-				}
-				if (e.which == 27) {
-					ETConversation.cancelEditPost(postId);
-					e.preventDefault();
-				}
-			});
+	ETConversation.redisplayAvatars();
+
+	// Scroll to the bottom of the edit area if necessary.
+	var scrollTo = newPost.offset().top + newHeight - $(window).height() + 10;
+	if ($(document).scrollTop() < scrollTo) $.scrollTo(scrollTo, "slow");
+
+	// Regsiter the Ctrl+Enter and Escape shortcuts on the post's textarea.
+	textarea.keydown(function(e) {
+		if (e.ctrlKey && e.which == 13) {
+			ETConversation.saveEditPost(postId, this.value);
+			e.preventDefault();
+		}
+		if (e.which == 27) {
+			ETConversation.cancelEditPost(postId);
+			e.preventDefault();
 		}
 	});
 },

@@ -35,6 +35,8 @@ $post = array(
 	"avatar" => avatar($post)
 );
 
+$this->trigger("renderEditBox", array(&$post));
+
 $this->renderView("conversation/post", array("post" => $post));
 
 ?>

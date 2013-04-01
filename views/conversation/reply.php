@@ -19,8 +19,8 @@ $body = $form->input("content", "textarea", array("cols" => "200", "rows" => "20
 	<div class='editButtons'>".
 	$form->button("postReply", !$conversation["conversationId"] ? T("Start Conversation") : T("Post a Reply"), array("class" => "big submit postReply", "tabindex" => 300)).
 	"<span class='buttonGroup'>".
-	$form->button("saveDraft", T("Save Draft"), array("class" => "saveDraft", "tabindex" => 400))." ".
-	$form->button("discardDraft", T("Discard Draft"), array("class" => "discardDraft")).
+	$form->button("saveDraft", T("Save Draft"), array("class" => "big saveDraft", "tabindex" => 400))." ".
+	$form->button("discardDraft", T("Discard Draft"), array("class" => "big discardDraft")).
 	"</span></div>";
 
 // Construct an array for use in the conversation/post view.

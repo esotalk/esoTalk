@@ -132,7 +132,7 @@ protected function profile($member, $pane = "")
 
 	// Add the rename control.
 	if ($model->canRename($member))
-	 	$controls->add("rename", "<a href='".URL("member/rename/".$member["memberId"])."' id='renameLink'>".T("Change name")."</a>");
+	 	$controls->add("rename", "<a href='".URL("member/rename/".$member["memberId"])."' id='renameLink'>".T("Change username")."</a>");
 
 	// Add the delete control.
 	if ($model->canDelete($member)) {
