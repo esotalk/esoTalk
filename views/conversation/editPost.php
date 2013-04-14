@@ -26,7 +26,7 @@ $body = $form->input("content", "textarea", array("cols" => "200", "rows" => "20
 	$form->cancelButton()."</div>";
 
 // Construct an array for use in the conversation/post view.
-$post = array(
+$formatted = array(
 	"id" => "p".$post["postId"],
 	"title" => name($post["username"]),
 	"controls" => $data["controls"],
@@ -35,9 +35,9 @@ $post = array(
 	"avatar" => avatar($post)
 );
 
-$this->trigger("renderEditBox", array(&$post));
+$this->trigger("renderEditBox", array(&$formatted, $post));
 
-$this->renderView("conversation/post", array("post" => $post));
+$this->renderView("conversation/post", array("post" => $formatted));
 
 ?>
 
