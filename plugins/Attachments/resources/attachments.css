@@ -1,0 +1,52 @@
+.attachments {
+	border-top:1px solid #eee;
+	padding:0 12px 10px;
+	margin:30px -11px 1px;
+	color:#666;
+}
+.attachments ul {
+	margin:0;
+	padding-left:10px;
+	list-style-type:none;
+}
+.attachments h4 {
+	margin-top:-10px;
+	margin-left:-5px;
+	margin-bottom:5px;
+	font-size:11px;
+	font-weight:bold;
+	text-transform:uppercase;
+	color:#aaa;
+}
+.attachments h4 span {
+	background:#fff;
+	padding:0 5px;
+}
+
+
+.attachments-edit {
+	padding:5px 10px;
+	border-bottom:1px solid #eee;
+	margin-bottom:5px;
+}
+.attachments-edit ul {
+	margin:0;
+	padding:0;
+	list-style-type:none;
+}
+.attachments-edit li {
+	margin-bottom:5px;
+}
+.attachments-edit li .control-delete {
+	margin:-8px -2px;
+}
+.attachments-edit li.attachment-uploading {
+	background:url(fineuploader/loading.gif) no-repeat 0 2px;
+	padding-left:23px;
+	color:#aaa;
+}
+.attachments-button {
+	margin-top:10px;
+	padding-left:23px;
+	background:url(attachment.png) no-repeat;
+}
