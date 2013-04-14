@@ -856,6 +856,8 @@ public function setDraft(&$conversation, $memberId, $draft = null)
 	$this->addOrRemoveLabel($conversation, "draft", $draft !== null);
 	$conversation["draft"] = $draft;
 
+	$this->trigger("setDraftAfter", array($conversation, $memberId, $draft));
+
 	return true;
 }
 
