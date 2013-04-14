@@ -1097,6 +1097,8 @@ public function editPost($postId = false)
 
 		ET::postModel()->editPost($post, $form->getValue("content"));
 
+		$this->trigger("editPostAfter", array(&$post));
+
 		// Normally, redirect back to the conversation.
 		if ($this->responseType === RESPONSE_TYPE_DEFAULT) {
 			redirect(URL(R("return", postURL($postId))));
