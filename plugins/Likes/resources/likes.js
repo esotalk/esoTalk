@@ -14,6 +14,7 @@ $(function() {
 			url: "conversation/"+(area.hasClass("liked") ? "unlike" : "like")+".json/"+area.parents(".post").data("id"),
 			success: function(data) {
 				area.find(".like-members").html(data.names);
+				area.find(".like-separator").toggle(!!data.names);
 				area.toggleClass("liked");
 			}
 		})

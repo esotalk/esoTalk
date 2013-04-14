@@ -1,2 +1,10 @@
-.likes {border-top:1px solid #eee; font-size:11px; padding:5px 12px; margin:0 -11px 1px; color:#666}
-.likes a {color:#6096ea}
+.likes {
+	border-top:1px solid #eee;
+	font-size:11px;
+	padding:5px 12px;
+	margin:0 -11px 1px;
+	color:#666;
+}
+.likes a {
+	color:#6096ea;
+}

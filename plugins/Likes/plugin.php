@@ -113,11 +113,13 @@ public function handler_conversationController_formatPostForTemplate($sender, &$
 	$liked = array_key_exists(ET::$session->userId, $post["likes"]);
 
 	$members = $this->getNames($post["likes"]);
+	if ( ! ET::$session->userId and ! $members) return;
 
 	$likeText = isset(ET::$session->userId) ? ($liked ? "Unlike" : "Like") : "";
 
 	$likes = "<p class='likes".($liked ? " liked" : "")."'>
 		<a href='#' class='like-button'>$likeText</a>
+		<span class='like-separator'".( (! ET::$session->userId or ! $members) ? " style='display:none'" : "").">&nbsp;&middot;&nbsp;</span>
 		<span class='like-members'>$members</span>
 	</p>";
 
@@ -152,7 +154,7 @@ public function getNames($likes)
 		$members = "";
 	}
 
-	return $members ? " &nbsp;&middot;&nbsp; $members" : "";
+	return $members;
 }
 
 public function setup($oldVersion = "")
