@@ -299,6 +299,12 @@ hideReply: function() {
 	ETConversation.editingReply = false;
 },
 
+resetReply: function() {
+	$("#reply textarea").val("");
+	ETConversation.togglePreview("reply", false);
+	ETConversation.hideReply();
+},
+
 // Add a reply.
 addReply: function() {
 	var content = $("#reply textarea").val();
@@ -325,9 +331,7 @@ addReply: function() {
 
 			// Hide the draft label, clear the textarea, and initialize the reply area again.
 			$("#conversationHeader .labels .label-draft").remove();
-			$("#reply textarea").val("");
-			ETConversation.togglePreview("reply", false);
-			ETConversation.hideReply();
+			ETConversation.resetReply();
 
 			ETConversation.postCount++;
 
@@ -447,9 +451,7 @@ discardDraft: function() {
 
 			// Hide the draft label and collapse the reply area.
 			$("#conversationHeader .labels").html(data.labels);
-			$("#reply textarea").val("");
-			ETConversation.togglePreview("reply", false);
-			ETConversation.hideReply();
+			ETConversation.resetReply();
 
 		}
 	});
@@ -503,25 +505,25 @@ initPosts: function() {
 	$("#conversationPosts .online").tooltip({alignment: "left", offset: [-9, 0], className: "withArrow withArrowBottom"}).css("cursor", "pointer");
 
 	// Add click handlers to the post controls.
-	$("#conversationPosts .control-edit").live("click", function(e) {
+	$("#conversationPosts .controls .control-edit").live("click", function(e) {
 		var postId = $(this).parents(".post").data("id");
 		ETConversation.editPost(postId);
 		e.preventDefault();
 	});
 
-	$("#conversationPosts .control-delete").live("click", function(e) {
+	$("#conversationPosts .controls .control-delete").live("click", function(e) {
 		var postId = $(this).parents(".post").data("id");
 		ETConversation.deletePost(postId);
 		e.preventDefault();
 	});
 
-	$("#conversationPosts .control-restore").live("click", function(e) {
+	$("#conversationPosts .controls .control-restore").live("click", function(e) {
 		var postId = $(this).parents(".post").data("id");
 		ETConversation.restorePost(postId);
 		e.preventDefault();
 	});
 
-	$("#conversationPosts .post:not(.edit) .control-quote").live("click", function(e) {
+	$("#conversationPosts .post:not(.edit) .controls .control-quote").live("click", function(e) {
 		var postId = $(this).parents(".post").data("id");
 		ETConversation.quotePost(postId, e.shiftKey);
 		e.preventDefault();
