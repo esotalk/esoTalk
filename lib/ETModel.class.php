@@ -142,6 +142,22 @@ public function count($wheres = array())
 
 
 /**
+ * Get records given an SQL query (which can specify WHERE conditions, for example.)
+ *
+ * @param ETSQLQuery $sql The SQL query to use as a basis.
+ * @return array An array of records.
+ */
+public function getWithSQL($sql)
+{
+	return $sql
+		->select("*")
+		->from($this->table)
+		->exec()
+		->allRows();
+}
+
+
+/**
  * Fetch record(s) from the model's table.
  *
  * @param array $wheres An array of where conditions to match.
