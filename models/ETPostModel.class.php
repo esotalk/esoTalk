@@ -292,6 +292,8 @@ public function editPost(&$post, $content)
 	$post["editMemberName"] = ET::$session->user["username"];
 	$post["editTime"] = $time;
 
+	$this->trigger("editPostAfter", array($post));
+
 	return true;
 }
 
