@@ -360,4 +360,26 @@ public function validateContent($content)
 	if (!strlen($content)) return "emptyPost";
 }
 
+
+/**
+ * Returns whether or not a user has permission to edit a post, based on its details and context.
+ *
+ * @param array $post The post array.
+ * @param array $conversation The details of the conversation which the post is in.
+ * @return bool Whether or not the user can edit the post.
+ */
+public function canEditPost($post, $conversation)
+{
+	// If the user can moderate the conversation, they can always edit any post.
+	if ($conversation["canModerate"]) return true;
+
+	if (!$conversation["locked"] // If the conversation isn't locked...
+		and !ET::$session->isSuspended() // And the user isn't suspended...
+		and $post["memberId"] == ET::$session->userId // And this post is authored by the current user...
+		and (!$post["deleteMemberId"] or $post["deleteMemberId"] == ET::$session->userId)) // And the post hasn't been deleted, or was deleted by the current user...
+		return true; // Then they can edit!
+
+	return false;
+}
+
 }

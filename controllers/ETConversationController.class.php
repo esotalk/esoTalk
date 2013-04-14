@@ -1185,7 +1185,7 @@ public function restorePost($postId = false)
  */
 protected function formatPostForTemplate($post, $conversation)
 {
-	$canEdit = $this->canEditPost($post, $conversation);
+	$canEdit = ET::postModel()->canEditPost($post, $conversation);
 	$avatar = avatar($post);
 
 	// Construct the post array for use in the post view (conversation/post).
@@ -1255,28 +1255,6 @@ protected function formatPostForTemplate($post, $conversation)
 	$this->trigger("formatPostForTemplate", array(&$formatted, $post, $conversation));
 
 	return $formatted;
-}
-
-
-/**
- * Returns whether or not a user has permission to edit a post, based on its details and context.
- *
- * @param array $post The post array.
- * @param array $conversation The details of the conversation which the post is in.
- * @return bool Whether or not the user can edit the post.
- */
-private function canEditPost($post, $conversation)
-{
-	// If the user can moderate the conversation, they can always edit any post.
-	if ($conversation["canModerate"]) return true;
-
-	if (!$conversation["locked"] // If the conversation isn't locked...
-		and !ET::$session->isSuspended() // And the user isn't suspended...
-		and $post["memberId"] == ET::$session->userId // And this post is authored by the current user...
-		and (!$post["deleteMemberId"] or $post["deleteMemberId"] == ET::$session->userId)) // And the post hasn't been deleted, or was deleted by the current user...
-		return true; // Then they can edit!
-
-	return false;
 }
 
 
@@ -1377,7 +1355,7 @@ protected function getPostForEditing($postId)
 	$post = ET::postModel()->getById($postId);
 
 	// Stop here with an error if the user isn't allowed to edit this post.
-	if (!$this->canEditPost($post, $conversation)) {
+	if (!ET::postModel()->canEditPost($post, $conversation)) {
 		$this->renderMessage(T("Error"), T("message.noPermission"));
 		return false;
 	}
