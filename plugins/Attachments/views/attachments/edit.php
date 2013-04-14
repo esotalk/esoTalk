@@ -2,7 +2,7 @@
 	<ul>
 		<?php foreach ($data["attachments"] as $attachment): ?>
 		<li id='attachment-<?php echo $attachment["attachmentId"]; ?>'>
-			<a href='<?php echo URL("attachment/remove/".$attachment["attachmentId"]); ?>' class='control-delete' data-id='<?php echo $attachment["attachmentId"]; ?>'>Delete</a>
+			<a href='<?php echo URL("attachment/remove/".$attachment["attachmentId"]."?token=".ET::$session->token); ?>' class='control-delete' data-id='<?php echo $attachment["attachmentId"]; ?>'>Delete</a>
 			<strong><?php echo $attachment["filename"]; ?></strong>
 		</li>
 		<?php endforeach; ?>

@@ -16,19 +16,31 @@ ET::$pluginInfo["Attachments"] = array(
 
 class ETPlugin_Attachments extends ETPlugin {
 
-	// Setup: add a follow column to the member_channel table.
+	// Setup: create the attachments table in the database and set up the filesystem for attachment storage.
 	public function setup($oldVersion = "")
 	{
 		$structure = ET::$database->structure();
 		$structure->table("attachment")
-			// ->column("follow", "bool", 0)
+			->column("attachmentId", "varchar(13)", false)
+			->column("filename", "varchar(255)", false)
+			->column("secret", "varchar(13)", false)			
+			->column("postId", "int(11) unsigned")
+			->column("draftMemberId", "int(11) unsigned")
+			->column("draftConversationId", "int(11) unsigned")
+			->key("attachmentId", "primary")
 			->exec(false);
 
 		// Make the uploads/attachments folder, and put in an index.html to prevent directory listing
+		if ((!file_exists(PATH_UPLOADS."/attachments") and !@mkdir(PATH_UPLOADS."/attachments"))
+			or (!is_writable(PATH_UPLOADS."/attachments") and !@chmod(PATH_UPLOADS."/attachments", 0777)))
+			return "The uploads/attachments directory does not exist or is not writeable.";
+
+		file_put_contents(PATH_UPLOADS."/attachments/index.html", "");
 
 		return true;
 	}
 
+	// Register the attachment model/controller.
 	public function __construct($rootDirectory)
 	{
 		parent::__construct($rootDirectory);
@@ -37,11 +49,13 @@ class ETPlugin_Attachments extends ETPlugin {
 		ETFactory::registerController("attachment", "AttachmentController", dirname(__FILE__)."/AttachmentController.class.php");
 	}
 
+	// Define some language stuff.
 	public function init()
 	{
-		
+		ET::define("message.attachmentNotFound", "For some reason this attachment cannot be viewed. It may not exist, or you may not have permission to view it.");
 	}
 
+	// Add the attachments/fineuploader JS/CSS to the conversation view.
 	public function handler_conversationController_renderBefore($sender)
 	{
 		$sender->addCSSFile($this->getResource("fineuploader/fineuploader.css"));
@@ -50,6 +64,7 @@ class ETPlugin_Attachments extends ETPlugin {
         $sender->addJSFile($this->getResource("attachments.js"));
 	}
 
+	// When we render the reply box, add the attachments area to the bottom of it.
 	public function handler_conversationController_renderReplyBox($sender, &$formatted, $conversation)
 	{
 		// Get "draft" attachments for this member/conversation.
@@ -58,17 +73,26 @@ class ETPlugin_Attachments extends ETPlugin {
 			->where("draftConversationId", $conversation["conversationId"]);
 		$attachments = ET::getInstance("attachmentModel")->getWithSQL($sql);
 
+		$this->appendEditAttachments($sender, $formatted, $attachments);
+	}
+
+	// When we render an edit post box, add the attachments area to the bottom of it.
+	public function handler_conversationController_renderEditBox($sender, &$formatted, $post)
+	{
+		// Clear attachment session data for this post.
+		ET::getInstance("attachmentModel")->extractFromSession("p".$post["postId"]);
+
+		$this->appendEditAttachments($sender, $formatted, $post["attachments"]);
+	}
+
+	// Get the contents of the "edit attachments" view and append it before the editButtons div.
+	protected function appendEditAttachments($sender, &$formatted, $attachments)
+	{
 		$view = $sender->getViewContents("attachments/edit", array("attachments" => $attachments));
 		$formatted["body"] = substr_replace($formatted["body"], $view, strpos($formatted["body"], "<div class='editButtons'>"), 0);
 	}
 
-	public function handler_conversationController_renderEditBox($sender, &$formatted, $post)
-	{
-		$view = $sender->getViewContents("attachments/edit", array("attachments" => $post["attachments"]));
-		$formatted["body"] = substr_replace($formatted["body"], $view, strpos($formatted["body"], "<div class='editButtons'>"), 0);
-	}
-
-	// Hook onto PostModel::getPosts and get attachment data for all posts being displayed and "attach" it to each post array
+	// Hook onto PostModel::getPosts and get attachment data for all posts being displayed and "attach" it to each post array. (Pun totally intended)
 	public function handler_postModel_getPostsAfter($sender, &$posts)
 	{
 		// Loop through the array of posts and get post IDs.
@@ -83,7 +107,8 @@ class ETPlugin_Attachments extends ETPlugin {
 		// Fetch all the attachments for these posts.
 		$sql = ET::SQL()
 			->where("postId IN (:postIds)")
-			->bind(":postIds", $postIds);
+			->bind(":postIds", $postIds)
+			->orderBy("filename ASC");
 		$attachments = ET::getInstance("attachmentModel")->getWithSQL($sql);
 
 		// Now loop through the attachments and add them to appropriate posts.
@@ -93,22 +118,19 @@ class ETPlugin_Attachments extends ETPlugin {
 		}
 	}
 
+	// Hook onto ConversationController::editPost and refresh the attachment data for this post.
+	// We must do this because after a post is saved (and attachments with it), we re-render the post so we need up-to-date data.
 	public function handler_conversationController_editPostAfter($sender, &$post)
 	{
-		// Fetch all the attachments for this posts.
 		$sql = ET::SQL()->where("postId", $post["postId"]);
 		$attachments = ET::getInstance("attachmentModel")->getWithSQL($sql);
-
-		// Now loop through the attachments and add them to appropriate posts.
-		$post["attachments"] = array();
-		foreach ($attachments as $attachment) {
-			$post["attachments"][] = $attachment;
-		}
+		$post["attachments"] = $attachments;
 	}
 
-	// Hook onto ConversationController::formatPostForTemplate and add the attachment/list view to the bottom of each post
+	// Hook onto ConversationController::formatPostForTemplate and add the attachment/list view to the bottom of each post.
 	public function handler_conversationController_formatPostForTemplate($sender, &$formatted, $post, $conversation)
 	{
+		// If the post has been deleted or has no attachments, stop!
 		if ($post["deleteMemberId"] or empty($post["attachments"])) return;
 
 		$view = $sender->getViewContents("attachments/list", array("attachments" => $post["attachments"]));
@@ -119,35 +141,14 @@ class ETPlugin_Attachments extends ETPlugin {
 		$formatted["body"] = substr_replace($formatted["body"], $view, $pos, 0);
 	}
 
-	// Hook onto ConversationModel::addReply and commit attachments from the session to the database+filesystem, remove draft ones
+	// Hook onto ConversationModel::addReply and commit attachments from the session to the database.
 	public function handler_conversationModel_addReplyAfter($sender, $conversation, $postId, $content)
 	{
-		// Go through the session and find all attachments attached to the "reply" post.
-		$attachments = array();
-		$session = (array)ET::$session->get("attachments");
-		foreach ($session as $id => $attachment) {
-			if ($attachment["postId"] == "c".$conversation["conversationId"]) {
-				$attachments[$id] = $attachment;
-				unset($session[$id]);
-			}
-		}
-		ET::$session->store("attachments", $session);
+		$model = ET::getInstance("attachmentModel");
+		$attachments = $model->extractFromSession("c".$conversation["conversationId"]);
+		if (!empty($attachments)) $model->insertAttachments($attachments, array("postId" => $postId));
 
-		if (!empty($attachments)) {
-
-			$inserts = array();
-			$fields = array("attachmentId", "postId", "filename", "secret");
-			foreach ($attachments as $id => $attachment)
-				$inserts[] = array($id, $postId, $attachment["name"], $attachment["secret"]);
-
-			ET::SQL()
-				->insert("attachment")
-				->setMultiple($fields, $inserts)
-				->exec();
-
-		}
-
-		// update draft attachment entries from the database
+		// Update draft attachment entries in the database and assign them to this post.
 		ET::SQL()
 			->update("attachment")
 			->set("postId", $postId)
@@ -158,38 +159,26 @@ class ETPlugin_Attachments extends ETPlugin {
 			->exec();
 	}
 
-	// Hook onto ConversationModel::create and commit attachments from the session to the database+filesystem, remove draft ones
+	// Hook onto ConversationModel::create and commit attachments from the session to the database.
 	public function handler_conversationModel_createAfter($sender, $conversation, $postId, $content)
 	{
-		// Go through the session and find all attachments attached to the "reply" post.
-		$attachments = array();
-		$session = (array)ET::$session->get("attachments");
-		foreach ($session as $id => $attachment) {
-			if ($attachment["postId"] == "c0") {
-				$attachments[$id] = $attachment;
-				unset($session[$id]);
-			}
-		}
-		ET::$session->store("attachments", $session);
-
-		if (!empty($attachments)) {
-
-			$inserts = array();
-			$fields = array("attachmentId", "postId", "filename", "secret");
-			foreach ($attachments as $id => $attachment)
-				$inserts[] = array($id, $postId, $attachment["name"], $attachment["secret"]);
-
-			ET::SQL()
-				->insert("attachment")
-				->setMultiple($fields, $inserts)
-				->exec();
-
-		}
+		$model = ET::getInstance("attachmentModel");
+		$attachments = $model->extractFromSession("c0");
+		if (!empty($attachments)) $model->insertAttachments($attachments, array("postId" => $postId));
 	}
 
-	// Hook onto ConversationModel::setDraft and commit attachments from the session to the database+filesystem
+	// Hook onto PostModel::editPost and commit attachments from the session to the database.
+	public function handler_postModel_editPostAfter($sender, $post)
+	{
+		$model = ET::getInstance("attachmentModel");
+		$attachments = $model->extractFromSession("p".$post["postId"]);
+		if (!empty($attachments)) $model->insertAttachments($attachments, array("postId" => $post["postId"]));
+	}
+
+	// Hook onto ConversationModel::setDraft and commit attachments from the session to the database.
 	public function handler_conversationModel_setDraftAfter($sender, $conversation, $memberId, $draft)
 	{
+		// If we're discarding the draft, delete all relevant attachments from the database.
 		if ($draft === null) {
 
 			ET::SQL()
@@ -199,73 +188,22 @@ class ETPlugin_Attachments extends ETPlugin {
 				->where("draftConversationId", $conversation["conversationId"])
 				->exec();
 
+			// TODO: delete them from the filesystem as well.
 		}
+
+		// If we're saving a draft, commit attachments from the session to the database.
 		else {
+			$model = ET::getInstance("attachmentModel");
+			$attachments = $model->extractFromSession(ET::$controller->controllerMethod == "start" ? "c0" : "c".$conversation["conversationId"]);
 
-			// Go through the session and find all attachments attached to the "reply" post.
-			$attachments = array();
-			$session = (array)ET::$session->get("attachments");
-			foreach ($session as $id => $attachment) {
-				if ($attachment["postId"] == (ET::$controller->controllerMethod == "start" ? "c0" : "c".$conversation["conversationId"])) {
-					$attachments[$id] = $attachment;
-					unset($session[$id]);
-				}
-			}
-			ET::$session->store("attachments", $session);
-
-			if (!empty($attachments)) {
-
-				$inserts = array();
-				$fields = array("attachmentId", "draftMemberId", "draftConversationId", "filename", "secret");
-				foreach ($attachments as $id => $attachment)
-					$inserts[] = array($id, $memberId, $conversation["conversationId"], $attachment["name"], $attachment["secret"]);
-
-				ET::SQL()
-					->insert("attachment")
-					->setMultiple($fields, $inserts)
-					->exec();
-
-			}
-
+			if (!empty($attachments)) $model->insertAttachments($attachments, array(
+				"draftMemberId" => $memberId,
+				"draftConversationId" => $conversation["conversationId"]
+			));
 		}
 	}
 
-	// Hook onto PostModel::editPost and commit attachments from the session to the database+filesystem
-	public function handler_postModel_editPostAfter($sender, $post)
-	{
-		// Go through the session and find all attachments attached to this post.
-		$attachments = array();
-		$session = (array)ET::$session->get("attachments");
-		foreach ($session as $id => $attachment) {
-			if ($attachment["postId"] == "p".$post["postId"]) {
-				$attachments[$id] = $attachment;
-				unset($session[$id]);
-			}
-		}
-		ET::$session->store("attachments", $session);
-
-		if (!empty($attachments)) {
-
-			$inserts = array();
-			$fields = array("attachmentId", "postId", "filename", "secret");
-			foreach ($attachments as $id => $attachment)
-				$inserts[] = array($id, $post["postId"], $attachment["name"], $attachment["secret"]);
-
-			ET::SQL()
-				->insert("attachment")
-				->setMultiple($fields, $inserts)
-				->exec();
-
-		}
-	}
-
-
-	/**
-	 * Construct and process the settings form.
-	 * 
-	 * @param ETController $sender The page controller.
-	 * @return string The path to the settings view to render.
-	 */
+	// Construct and process the settings form.
 	public function settings($sender)
 	{
 		// Set up the settings form.
