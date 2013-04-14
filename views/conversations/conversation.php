@@ -32,7 +32,10 @@ echo "<strong class='title'><a href='".URL($conversationURL.(ET::$session->user 
 // Output the conversation's labels.
 echo "<span class='labels'>";
 foreach ($conversation["labels"] as $label) {
-	echo "<span class='label label-$label'>".T("label.$label")."</span> ";
+	if ($label == "draft")
+		echo "<a href='".URL($conversationURL."#reply")."' class='label label-$label'>".T("label.$label")."</a> ";
+	else
+		echo "<span class='label label-$label'>".T("label.$label")."</span> ";
 }
 echo "</span> ";
 
