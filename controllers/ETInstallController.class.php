@@ -212,9 +212,9 @@ public function install()
 
 	// Write custom.css and index.html as empty files (if they're not already there.)
 	if (!file_exists(PATH_CONFIG."/custom.css")) file_put_contents(PATH_CONFIG."/custom.css", "");
-	if (!file_exists(PATH_CONFIG."/index.html")) file_put_contents(PATH_CONFIG."/index.html", "");
-	if (!file_exists(PATH_UPLOADS."/index.html")) file_put_contents(PATH_UPLOADS."/index.html", "");
-	if (!file_exists(PATH_UPLOADS."/avatars/index.html")) file_put_contents(PATH_UPLOADS."/avatars/index.html", "");
+	file_put_contents(PATH_CONFIG."/index.html", "");
+	file_put_contents(PATH_UPLOADS."/index.html", "");
+	file_put_contents(PATH_UPLOADS."/avatars/index.html", "");
 
 	// Write a .htaccess file if they are using friendly URLs (and mod_rewrite).
 	if (C("esoTalk.urls.rewrite")) {
