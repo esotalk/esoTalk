@@ -5,13 +5,13 @@
 if (!defined("IN_ESOTALK")) exit;
 
 /**
- * Proto skin file.
+ * Default skin file.
  * 
  * @package esoTalk
  */
 
-ET::$skinInfo["Proto"] = array(
-	"name" => "Proto",
+ET::$skinInfo["Default"] = array(
+	"name" => "Default",
 	"description" => "The default esoTalk skin.",
 	"version" => ESOTALK_VERSION,
 	"author" => "esoTalk Team",
@@ -20,7 +20,7 @@ ET::$skinInfo["Proto"] = array(
 	"license" => "GPLv2"
 );
 
-class ETSkin_Proto extends ETSkin {
+class ETSkin_Default extends ETSkin {
 
 
 /**
@@ -45,7 +45,7 @@ public function handler_init($sender)
 	$styles = array();
 
 	// If a custom header color has been set...
-	if ($c = C("skin.Proto.headerColor")) {
+	if ($c = C("skin.Default.headerColor")) {
 		$styles[] = "#hdr {background-color:$c}";
 
 		// If the header color is in the top half of the lightness spectrum, add the "lightHdr" class to the body.
@@ -55,7 +55,7 @@ public function handler_init($sender)
 	}
 
 	// If a custom body color has been set...
-	if ($c = C("skin.Proto.bodyColor")) {
+	if ($c = C("skin.Default.bodyColor")) {
 		$styles[] = "body, .scrubberMore {background-color:$c !important}";
 
 		// If the body color is in the bottom half of the lightness spectrum, add the "darkBody" class to the body.
@@ -71,11 +71,11 @@ public function handler_init($sender)
 	}
 
 	// If a custom body background image has been set...
-	if (($img = C("skin.Proto.bodyImage")) and !$isMobile)
+	if (($img = C("skin.Default.bodyImage")) and !$isMobile)
 		$styles[] = "body {background-image:url(".getWebPath($img)."); background-position:top center; background-attachment:fixed}";
 	
 	// Do we want this background image to not repeat?
-	if ($img and C("skin.Proto.noRepeat"))
+	if ($img and C("skin.Default.noRepeat"))
 		$styles[] = "body {background-repeat:no-repeat}";
 
 	// If we have any custom styles at all, add them to the page head.
@@ -95,23 +95,23 @@ public function settings($sender)
 	// Set up the settings form.
 	$form = ETFactory::make("form");
 	$form->action = URL("admin/appearance");
-	$form->setValue("headerColor", C("skin.Proto.headerColor"));
-	$form->setValue("bodyColor", C("skin.Proto.bodyColor"));
-	$form->setValue("noRepeat", (bool)C("skin.Proto.noRepeat"));
-	$form->setValue("bodyImage", (bool)C("skin.Proto.bodyImage"));
+	$form->setValue("headerColor", C("skin.Default.headerColor"));
+	$form->setValue("bodyColor", C("skin.Default.bodyColor"));
+	$form->setValue("noRepeat", (bool)C("skin.Default.noRepeat"));
+	$form->setValue("bodyImage", (bool)C("skin.Default.bodyImage"));
 
 	// If the form was submitted...
 	if ($form->validPostBack("save")) {
 
 		// Construct an array of config options to write.
 		$config = array();
-		$config["skin.Proto.headerColor"] = $form->getValue("headerColor");
-		$config["skin.Proto.bodyColor"] = $form->getValue("bodyColor");
+		$config["skin.Default.headerColor"] = $form->getValue("headerColor");
+		$config["skin.Default.bodyColor"] = $form->getValue("bodyColor");
 
 		// Upload a body bg image if necessary.
-		if ($form->getValue("bodyImage") and !empty($_FILES["bodyImageFile"]["tmp_name"])) $config["skin.Proto.bodyImage"] = $this->uploadBackgroundImage($form);
-		elseif (!$form->getValue("bodyImage")) $config["skin.Proto.bodyImage"] = false;
-		$config["skin.Proto.noRepeat"] = (bool)$form->getValue("noRepeat");
+		if ($form->getValue("bodyImage") and !empty($_FILES["bodyImageFile"]["tmp_name"])) $config["skin.Default.bodyImage"] = $this->uploadBackgroundImage($form);
+		elseif (!$form->getValue("bodyImage")) $config["skin.Default.bodyImage"] = false;
+		$config["skin.Default.noRepeat"] = (bool)$form->getValue("noRepeat");
 
 		if (!$form->errorCount()) {
 
@@ -150,7 +150,7 @@ protected function uploadBackgroundImage($form)
 		$bg = str_replace(PATH_UPLOADS, "uploads", $bg);
 
 		// Delete the old background image (if we didn't just overwrite it.)
-		if ($bg != C("skin.Proto.bodyImage")) @unlink(C("skin.Proto.bodyImage"));
+		if ($bg != C("skin.Default.bodyImage")) @unlink(C("skin.Default.bodyImage"));
 
 		return $bg;
 

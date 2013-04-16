@@ -5,7 +5,7 @@
 if (!defined("IN_ESOTALK")) exit;
 
 /**
- * Displays the settings form for the Proto skin.
+ * Displays the settings form for the Default skin.
  *
  * @package esoTalk
  */
