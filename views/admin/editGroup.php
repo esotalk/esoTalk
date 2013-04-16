@@ -40,6 +40,16 @@ $group = $data["group"];
 <small><?php echo T("You can manage channel-specific permissions on the channels page."); ?></small>
 </li>
 
+<li class='sep'></li>
+
+<li>
+<label><?php echo T("Privacy"); ?></label>
+<div class='checkboxGroup'>
+<label class='checkbox'><?php echo $form->checkbox("private"); ?> <?php echo T("Only allow members of this group to see who else is in it"); ?></label>
+</div>
+<small><?php echo T("Members who are part of this group can be listed by searching for the group name in the member list."); ?></small>
+</li>
+
 </ul>
 
 </div>

@@ -37,6 +37,7 @@ public function getWithSQL($sql)
 		->select("m.account", "account")
 		->select("m.email", "email")
 		->select("m.avatarFormat", "avatarFormat")
+		->select("m.preferences", "preferences")
 		->select("em.memberId", "editMemberId")
 		->select("em.username", "editMemberName")
 		->select("dm.memberId", "deleteMemberId")
@@ -65,7 +66,7 @@ public function getWithSQL($sql)
 	$posts = array();
 	while ($post = $result->nextRow()) {
 
-		$post["groups"] = array_combine(explode(",", $post["groups"]), explode(",", $post["groupNames"]));
+		ET::memberModel()->expand($post);
 		$posts[] = $post;
 
 	}
@@ -376,7 +377,14 @@ public function canEditPost($post, $conversation)
 	if (!$conversation["locked"] // If the conversation isn't locked...
 		and !ET::$session->isSuspended() // And the user isn't suspended...
 		and $post["memberId"] == ET::$session->userId // And this post is authored by the current user...
-		and (!$post["deleteMemberId"] or $post["deleteMemberId"] == ET::$session->userId)) // And the post hasn't been deleted, or was deleted by the current user...
+		and (!$post["deleteMemberId"] or $post["deleteMemberId"] == ET::$session->userId) // And the post hasn't been deleted, or was deleted by the current user...
+		and (
+			C("esoTalk.conversation.editPostTimeLimit") === -1 // And users have permission to edit their posts forever...
+			// Or users have permission to edit their posts until someone replies, and this is the most recent post...
+			or (C("esoTalk.conversation.editPostTimeLimit") === "reply" and $conversation["lastPostTime"] == $post["time"] and $conversation["lastPostMemberId"] == $post["memberId"])
+			// Or users have permission to edit their posts for a certain number of seconds which hasn't yet passed...
+			or (time() - $post["time"] < C("esoTalk.conversation.editPostTimeLimit"))
+		))
 		return true; // Then they can edit!
 
 	return false;

@@ -54,9 +54,9 @@ public function index($orderBy = false, $start = 0)
 		}
 
 		// Did we find any matching groups just before? If so, add a WHERE condition to the query to filter by group.
-		if ($restrictGroup) {
-			if ($restrictGroup < 0) $sql->where("account", $groups[$restrictGroup]["name"]);
-			else $sql
+		if ($restrictGroup < 0) $sql->where("account", $groups[$restrictGroup]["name"]);
+		elseif (!$groups[$restrictGroup]["private"] or ET::groupModel()->groupIdsAllowedInGroupIds(ET::$session->getGroupIds(), $restrictGroup, true)) {
+			$sql
 				->from("member_group mg", "mg.memberId=m.memberId", "left")
 				->where("mg.groupId", $restrictGroup);
 		}
@@ -132,6 +132,15 @@ public function index($orderBy = false, $start = 0)
 	// Finally, fetch the member data for the members with these IDs.
 	if ($ids) $members = ET::memberModel()->getByIds($ids);
 	else $members = array();
+
+	// If we're ordering by last active, filter out members who have opted out of being displayed on the online list.
+	if ($orderBy == "activity") {
+		foreach ($members as $k => $member) {
+			if (!empty($member["preferences"]["hideOnline"])) {
+				unset($members[$k]);
+			}
+		}
+	}
 
 	// If we're doing a normal page load...
 	if ($this->responseType === RESPONSE_TYPE_DEFAULT) {
@@ -253,7 +262,17 @@ public function online()
 	// Pass this query to the member model and get all of these members' data.
 	$members = ET::memberModel()->getWithSQL($sql);
 
+	// Filter out members who have opted out of being displayed on the online list.
+	$hidden = 0;
+	foreach ($members as $k => $member) {
+		if (!empty($member["preferences"]["hideOnline"])) {
+			unset($members[$k]);
+			$hidden++;
+		}
+	}
+
 	$this->data("members", $members);
+	$this->data("hidden", $hidden);
 	$this->render("members/online");
 }
 

@@ -226,10 +226,12 @@ public function expand(&$member)
 {
 	// Make the groups into an array of groupId => names. (Possibly consider using ETGroupModel::getAll()
 	// instead of featching the groupNames in getWithSQL()?)
-	$member["groups"] = array_combine(explode(",", $member["groups"]), explode(",", $member["groupNames"]));
+	if (array_key_exists("groups", $member) and array_key_exists("groupNames", $member))
+		$member["groups"] = array_combine(explode(",", $member["groups"]), explode(",", $member["groupNames"]));
 
 	// Unserialize the member's preferences.
-	$member["preferences"] = unserialize($member["preferences"]);
+	if (isset($member["preferences"]))
+		$member["preferences"] = unserialize($member["preferences"]);
 }
 
 

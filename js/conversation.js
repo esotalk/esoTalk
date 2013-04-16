@@ -648,7 +648,7 @@ editPost: function(postId) {
 			hideLoadingOverlay("p" + postId, true);
 		},
 		success: function(data) {
-			if (data.messages) return;
+			if (data.messages || data.modalMessage) return;
 			ETConversation.updateEditPost(postId, data.view);
 		}
 	});

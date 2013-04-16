@@ -136,6 +136,16 @@ public function general()
 	$form->setValue("starOnReply", ET::$session->preference("starOnReply"));
 	$form->addField("notifications", "starOnReply", array($this, "fieldStarOnReply"), array($this, "saveBoolPreference"));
 
+	// Add the "automatically star private conversations that I'm added to" field.
+	$form->setValue("starPrivate", ET::$session->preference("starPrivate"));
+	$form->addField("notifications", "starPrivate", array($this, "fieldStarPrivate"), array($this, "saveBoolPreference"));
+
+	$form->addSection("privacy", T("Privacy"));
+
+	// Add the "Don't allow other users to see when I am online" field.
+	$form->setValue("hideOnline", ET::$session->preference("hideOnline"));
+	$form->addField("privacy", "hideOnline", array($this, "fieldHideOnline"), array($this, "saveBoolPreference"));
+
 	$this->trigger("initGeneral", array($form));
 
 	// If the save button was clicked...
@@ -271,6 +281,31 @@ public function fieldStarOnReply($form)
 	return "<label class='checkbox'>".$form->checkbox("starOnReply")." ".T("Automatically follow conversations that I reply to")."</label>";
 }
 
+
+/**
+ * Return the HTML to render the "automatically star private conversations that I'm added to'" field in the general
+ * settings form.
+ *
+ * @param ETForm $form The form object.
+ * @return string
+ */
+public function fieldStarPrivate($form)
+{
+	return "<label class='checkbox'>".$form->checkbox("starPrivate")." ".T("Automatically follow private conversations that I'm added to")."</label>";
+}
+
+
+/**
+ * Return the HTML to render the "don't allow other users to see when I am online" field in the general
+ * settings form.
+ *
+ * @param ETForm $form The form object.
+ * @return string
+ */
+public function fieldHideOnline($form)
+{
+	return "<label class='checkbox'>".$form->checkbox("hideOnline")." ".T("Don't allow other users to see when I am online")."</label>";
+}
 
 /**
  * Save the contents of an "email me when ..." field when the general settings form is submitted.

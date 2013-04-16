@@ -17,7 +17,7 @@ if (!defined("IN_ESOTALK")) exit;
 
 <?php
 // If there are members online, list them.
-if (count($data["members"])): ?>
+if (count($data["members"]) or $data["hidden"]): ?>
 
 <div class='section' id='onlineList'>
 
@@ -25,6 +25,7 @@ if (count($data["members"])): ?>
 <?php foreach ($data["members"] as $member): ?>
 <?php $this->renderView("members/onlineMember", $data + array("member" => $member)); ?>
 <?php endforeach; ?>
+<?php if ($data["hidden"] > 0): ?><li class='help'><?php printf(T("%d hidden"), $data["hidden"]); ?></li><?php endif; ?>
 </ul>
 
 </div>

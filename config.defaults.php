@@ -70,9 +70,9 @@ $config["esoTalk.meta.keywords"] = null;
 $config["esoTalk.meta.description"] = null;
 
 // Skins and Plugins.
-$config["esoTalk.skin"] = "Proto"; // The active skin.
-$config["esoTalk.mobileSkin"] = "Proto"; // The active skin for mobile devices.
-$config["esoTalk.adminSkin"] = "Proto"; // The active skin for the administrator section.
+$config["esoTalk.skin"] = "Default"; // The active skin.
+$config["esoTalk.mobileSkin"] = "Default"; // The active skin for mobile devices.
+$config["esoTalk.adminSkin"] = "Default"; // The active skin for the administrator section.
 $config["esoTalk.enabledPlugins"] = array("BBCode", "ReportBug"); // A list of enabled plugins.
 
 // Login and registration settings.
@@ -106,6 +106,7 @@ $config["esoTalk.conversation.postsPerPage"] = 20; // The maximum number of post
 $config["esoTalk.conversation.searchesPerMinute"] = 15; // Users are limited to this many "within conversation" searches every minute.
 $config["esoTalk.conversation.timeBetweenPosts"] = 10; // Posting flood control, in seconds.
 $config["esoTalk.conversation.maxCharsPerPost"] = 10000;
+$config["esoTalk.conversation.editPostTimeLimit"] = -1; // For how long can a user edit their own posts? -1 = forever | "reply" = until someone replies | x seconds
 
 // Conversation ajax-updating intervals. Set all of these to 0 to disable ajax-updating.
 $config["esoTalk.conversation.updateIntervalStart"] = 10; // The initial number of seconds before checking for new posts on the conversation view.
@@ -131,7 +132,10 @@ $config["esoTalk.updateCheckInterval"] = 86400; // How often esoTalk should ping
 // Default user preferences.
 $config["esoTalk.preferences.email.privateAdd"] = true;
 $config["esoTalk.preferences.email.post"] = true;
+$config["esoTalk.preferences.email.mention"] = true;
 $config["esoTalk.preferences.starOnReply"] = false;
+$config["esoTalk.preferences.starPrivate"] = false;
+$config["esoTalk.preferences.hideOnline"] = false;
 
 // Avatar dimensions (in pixels)
 $config["esoTalk.avatars.width"] = 64;

@@ -122,10 +122,10 @@ public function groupIdsAllowedInGroupIds($groupIds, $allowedGroupIds, $adminAlw
 	if (in_array(GROUP_ID_ADMINISTRATOR, (array)$groupIds) and $adminAlwaysAllowed) return true;
 
 	// If guests are allowed, then everyone is allowed!
-	if (in_array(GROUP_ID_GUEST, $allowedGroupIds)) return true;
+	if (in_array(GROUP_ID_GUEST, (array)$allowedGroupIds)) return true;
 
 	// Return whether or not any of the group IDs in each array match.
-	return (bool)count(array_intersect((array)$groupIds, $allowedGroupIds));
+	return (bool)count(array_intersect((array)$groupIds, (array)$allowedGroupIds));
 }
 
 

@@ -94,6 +94,18 @@ echo implode(", ", $groups); ?><br/>
 
 <li class='sep'></li>
 
+<li>
+<label><?php echo T("Editing permissions"); ?></label>
+<div class='subText'><?php echo T("Allow members to edit their own posts:"); ?></div>
+<div class='checkboxGroup'>
+<label class='radio'><?php echo $form->radio("editPostMode", "forever"); ?> <?php echo T("Forever"); ?></label>
+<label class='radio'><?php echo $form->radio("editPostMode", "reply"); ?> <?php echo T("Until someone replies"); ?></label>
+<label class='radio'><?php echo $form->radio("editPostMode", "custom"); ?> <?php printf(T("For %s seconds"), $form->input("editPostTimeLimit", "text", array("style" => "width:3em"))); ?></label>
+</div>
+</li>
+
+<li class='sep'></li>
+
 <li><?php echo $form->saveButton(); ?></li>
 
 </ul>

@@ -130,6 +130,7 @@ protected function structure($drop = false)
 		->column("groupId", "int(11) unsigned", false)
 		->column("name", "varchar(31)", "")
 		->column("canSuspend", "tinyint(1)", 0)
+		->column("private", "tinyint(1)", 0)
 		->key("groupId", "primary")
 		->exec($drop);
 

@@ -43,6 +43,15 @@ public function index()
 	$form->setValue("requireAdminApproval", C("esoTalk.registration.requireAdminApproval"));
 	$form->setValue("requireEmailConfirmation", C("esoTalk.registration.requireEmailConfirmation"));
 
+	$c = C("esoTalk.conversation.editPostTimeLimit");
+	if ($c === -1) $form->setValue("editPostMode", "forever");
+	elseif ($c === "reply") $form->setValue("editPostMode", "reply");
+	else {
+		$form->setValue("editPostMode", "custom");
+		$form->setValue("editPostTimeLimit", $c);
+	}
+	
+
 	// If the save button was clicked...
 	if ($form->validPostBack("save")) {
 
@@ -56,6 +65,12 @@ public function index()
 			"esoTalk.registration.requireEmailConfirmation" => $form->getValue("requireEmailConfirmation"),
 			"esoTalk.members.visibleToGuests" => $form->getValue("memberListVisibleToGuests")
 		);
+
+		switch ($form->getValue("editPostMode")) {
+			case "forever": $config["esoTalk.conversation.editPostTimeLimit"] = -1; break;
+			case "reply": $config["esoTalk.conversation.editPostTimeLimit"] = "reply"; break;
+			case "custom": $config["esoTalk.conversation.editPostTimeLimit"] = (int)$form->getValue("editPostTimeLimit"); break;
+		}
 
 		// Make sure a forum title is present.
 		if (!strlen($config["esoTalk.forumTitle"])) $form->error("forumTitle", T("message.empty"));

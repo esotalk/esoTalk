@@ -817,19 +817,28 @@ public function deleteById($id)
  * used for that.
  *
  * @param array $conversation The conversation to set the member's status for.
- * @param int $memberId The member to set the status for.
+ * @param array|int $memberIds The member(s) to set the status for.
  * @param array $data An array of key => value data to save to the database.
  * @param string $type The entity type (group or member).
  * @return void
  */
-public function setStatus(&$conversation, $memberId, $data, $type = "member")
+public function setStatus(&$conversation, $memberIds, $data, $type = "member")
 {
-	$keys = array(
-		"type" => $type,
-		"id" => $memberId,
-		"conversationId" => $conversation["conversationId"]
-	);
-	ET::SQL()->insert("member_conversation")->set($keys + $data)->setOnDuplicateKey($data)->exec();
+	$memberIds = (array)$memberIds;
+
+	$keys = array_merge(array("type", "id", "conversationId"), array_keys($data));
+	$inserts = array();
+	foreach ($memberIds as $id) {
+		$inserts[] = array_merge(array($type, $id, $conversation["conversationId"]), array_values($data));
+	}
+
+	if (empty($inserts)) return;
+	
+	ET::SQL()
+		->insert("member_conversation")
+		->setMultiple($keys, $inserts)
+		->setOnDuplicateKey($data)
+		->exec();
 }
 
 
@@ -1235,9 +1244,18 @@ protected function privateAddNotification($conversation, $memberIds, $notifyAll 
 		"content" => $content
 	);
 
+	// Create the "privateAdd" activity which will send out a notification and an email if appropriate.
+	// Also get IDs of members who would like to automatically follow this conversation.
+	$followIds = array();
 	foreach ($members as $member) {
 		ET::activityModel()->create("privateAdd", $member, ET::$session->user, $data);
+
+		if (!empty($member["preferences"]["starPrivate"])) $followIds[] = $member["memberId"];
 	}
+
+	// Follow the conversation for the appropriate members.
+	if (!empty($followIds)) $this->setStatus($conversation, $followIds, array("starred" => true));
+
 }
 
 }
