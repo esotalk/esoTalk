@@ -35,7 +35,7 @@ $form = $data["attachmentsSettingsForm"];
 </div>
 
 <div class='buttons'>
-<?php echo $form->saveButton(); ?>
+<?php echo $form->saveButton("attachmentsSave"); ?>
 </div>
 
 <?php echo $form->close(); ?>

@@ -495,9 +495,9 @@ public function button($name, $label = "", $attributes = array())
  *
  * @return string
  */
-public function saveButton()
+public function saveButton($name = "save")
 {
-	return $this->button("save", T("Save Changes"), array("class" => "big submit"));
+	return $this->button($name, T("Save Changes"), array("class" => "big submit"));
 }
 
 
@@ -506,9 +506,9 @@ public function saveButton()
  *
  * @return string
  */
-public function cancelButton()
+public function cancelButton($name = "cancel")
 {
-	return $this->button("cancel", T("Cancel"), array("class" => "big cancel"));
+	return $this->button($cancel, T("Cancel"), array("class" => "big cancel"));
 }
 
 

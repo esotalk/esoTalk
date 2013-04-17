@@ -213,7 +213,7 @@ class ETPlugin_Attachments extends ETPlugin {
 		$form->setValue("maxFileSize", C("plugin.Attachments.maxFileSize"));
 
 		// If the form was submitted...
-		if ($form->validPostBack("save")) {
+		if ($form->validPostBack("attachmentsSave")) {
 
 			// Construct an array of config options to write.
 			$config = array();

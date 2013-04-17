@@ -53,7 +53,7 @@ $form = $data["smtpSettingsForm"];
 </div>
 
 <div class='buttons'>
-<?php echo $form->saveButton(); ?>
+<?php echo $form->saveButton("smtpSave"); ?>
 </div>
 
 <?php echo $form->close(); ?>

@@ -148,9 +148,7 @@ public function settings($plugin = "")
 	if (!$plugin or !array_key_exists($plugin, $plugins)) return;
 	$pluginArray = $plugins[$plugin];
 
-	// Call the plugin's settings function.
-	$pluginArray["settingsView"] = ET::$plugins[$plugin]->settings($this);
-
+	// Render the pluginSettings view, which will render the plugin's settingsView. lol.
 	$this->data("plugin", $pluginArray);
 	$this->render("admin/pluginSettings");
 }

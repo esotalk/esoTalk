@@ -48,7 +48,7 @@ class ETPlugin_SMTP extends ETPlugin {
 		$form->setValue("auth", C("plugin.SMTP.auth"));
 
 		// If the form was submitted...
-		if ($form->validPostBack("save")) {
+		if ($form->validPostBack("smtpSave")) {
 
 			// Construct an array of config options to write.
 			$config = array();

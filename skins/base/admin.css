@@ -68,6 +68,7 @@
 #pluginList .toggle {width:80px; text-align:center}
 
 #pluginList > li .popupWrapper {display:none}
+#pluginList > li .popupButton .text {display:none}
 #pluginList > li:hover .popupWrapper, #pluginList .popupWrapper.active {display:inline-block}
 
 
