@@ -64,6 +64,13 @@ function index($channelSlug = false)
 	// Last, but definitely not least... perform the search!
 	$search = ET::searchModel();
 	$conversationIDs = $search->getConversationIDs($channelIds, $searchString, count($currentChannels));
+
+	// If this page was originally accessed at conversations/markAsRead/all?search=whatever (the
+	// markAsRead method simply calls the index method), then mark the results as read.
+	if ($this->controllerMethod == "markasread" and ET::$session->userId) {
+		ET::conversationModel()->markAsRead($conversationIDs, ET::$session->userId);
+	}
+
 	$results = $search->getResults($conversationIDs);
 
 	// Were there any errors? Show them as messages.
@@ -115,8 +122,8 @@ function index($channelSlug = false)
 
 		// Mark as read controls
 		if (ET::$session->user) {
-			$controls->add("markAllAsRead", "<a href='".URL("conversations/markAllAsRead/?token=".ET::$session->token."&return=".urlencode($this->selfURL))."' id='control-markAllAsRead'>".T("Mark all as read")."</a>");
-			$controls->add("markListedAsRead", "<a href='".URL("conversations/markAllAsRead/?token=".ET::$session->token."&return=".urlencode($this->selfURL))."' id='control-markListedAsRead'>".T("Mark listed conversations as read")."</a>");
+			$controls->add("markAllAsRead", "<a href='".URL("conversations/markAllAsRead/?token=".ET::$session->token."' id='control-markAllAsRead'>".T("Mark all as read")."</a>"));
+			$controls->add("markListedAsRead", "<a href='".URL("conversations/$channelSlug/?search=".urlencode($searchString)."&markAsRead=1&token=".ET::$session->token."' id='control-markListedAsRead'>".T("Mark listed conversations as read")."</a>"));
 		}
 
 		// Add the default gambits to the gambit cloud: gambit text => css class to apply.
@@ -331,6 +338,21 @@ public function markAllAsRead()
 
 	// For an ajax response, just pretend this is a normal search response.
 	$this->index();
+}
+
+
+/**
+ * Perform a search and mark the results as read.
+ *
+ * @return void
+ */
+public function markAsRead($channelSlug = false)
+{
+	// We simply let the index method handle this, because we want to perform a search like normal
+	// but then mark the results as read before we display them. The index method will check if the 
+	// original method called on the controller was "markAsRead" and if it is, mark the results as
+	// read.
+	$this->index($channelSlug);
 }
 
 

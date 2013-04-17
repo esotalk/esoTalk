@@ -177,6 +177,10 @@ init: function() {
 		ETSearch.currentSearch = "";
 		ETSearch.changeChannel("all", false, true);
 	});
+	$("#control-markListedAsRead").live("click", function(e) {
+		e.preventDefault();
+		ETSearch.search(ETSearch.currentSearch, "markAsRead");
+	});
 
 	// Add a click handler to the view more button.
 	$("#conversations .viewMore a").live("click", function(e) {
@@ -274,7 +278,7 @@ changeChannel: function(channel, addChannel, markAllAsRead) {
 	}
 
 	// Perform the search.
-	ETSearch.search(ETSearch.currentSearch, markAllAsRead);
+	ETSearch.search(ETSearch.currentSearch, markAllAsRead ? "markAllAsRead" : "");
 },
 
 // Get a list of slugs of the currently selected channels.
@@ -292,7 +296,7 @@ getCurrentChannelSlugs: function() {
 },
 
 // Perform a search.
-search: function(query, markAllAsRead) {
+search: function(query, customMethod) {
 
 	// Hide the gambits popup.
 	$("#gambits").fadeOut("fast");
@@ -312,7 +316,7 @@ search: function(query, markAllAsRead) {
 	// Make the request.
 	$.ETAjax({
 		id: "search",
-		url: "conversations/"+(markAllAsRead ? "markAllAsRead.ajax" : "index.ajax")+"/"+channelString,
+		url: "conversations/"+(customMethod ? customMethod+".ajax" : "index.ajax")+"/"+channelString,
 		type: "post",
 		global: false,
 		data: {search: query},

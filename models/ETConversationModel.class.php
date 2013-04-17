@@ -650,7 +650,7 @@ public function create($data, $membersAllowed = array(), $isDraft = false)
 
 	// If the user has the "star on reply" preference checked, star the conversation.
 	if (ET::$session->preference("starOnReply"))
-		$this->setStatus($conversation, ET::$session->userId, array("starred" => true));
+		$this->setStatus($conversation["conversationId"], ET::$session->userId, array("starred" => true));
 
 	$this->trigger("createAfter", array($conversation, $postId, $content));
 
@@ -709,7 +709,7 @@ public function addReply(&$conversation, $content)
 	if ($conversation["draft"]) $update["draft"] = null;
 	if (ET::$session->preference("starOnReply")) $update["starred"] = true;
 	if (count($update)) {
-		$this->setStatus($conversation, ET::$session->userId, $update);
+		$this->setStatus($conversation["conversationId"], ET::$session->userId, $update);
 	}
 
 	// Send out notifications to people who have starred this conversation.
@@ -816,20 +816,23 @@ public function deleteById($id)
  * This should not be used directly for setting a draft or 'muted'. setDraft and setMuted should be
  * used for that.
  *
- * @param array $conversation The conversation to set the member's status for.
+ * @param array|int $conversationIds The conversation ID(s) to set the member(s) status for.
  * @param array|int $memberIds The member(s) to set the status for.
  * @param array $data An array of key => value data to save to the database.
  * @param string $type The entity type (group or member).
  * @return void
  */
-public function setStatus(&$conversation, $memberIds, $data, $type = "member")
+public function setStatus($conversationIds, $memberIds, $data, $type = "member")
 {
 	$memberIds = (array)$memberIds;
+	$conversationIds = (array)$conversationIds;
 
 	$keys = array_merge(array("type", "id", "conversationId"), array_keys($data));
 	$inserts = array();
-	foreach ($memberIds as $id) {
-		$inserts[] = array_merge(array($type, $id, $conversation["conversationId"]), array_values($data));
+	foreach ($memberIds as $memberId) {
+		foreach ($conversationIds as $conversationId) {
+			$inserts[] = array_merge(array($type, $memberId, $conversationId), array_values($data));
+		}
 	}
 
 	if (empty($inserts)) return;
@@ -859,7 +862,7 @@ public function setDraft(&$conversation, $memberId, $draft = null)
 	if ($this->errorCount()) return false;
 
 	// Save the draft.
-	$this->setStatus($conversation, $memberId, array("draft" => $draft));
+	$this->setStatus($conversation["conversationId"], $memberId, array("draft" => $draft));
 
 	// Add or remove the draft label.
 	$this->addOrRemoveLabel($conversation, "draft", $draft !== null);
@@ -886,11 +889,48 @@ public function setLastRead(&$conversation, $memberId, $lastRead)
 	if ($lastRead <= $conversation["lastRead"]) return true;
 
 	// Set the last read status.
-	$this->setStatus($conversation, $memberId, array("lastRead" => $lastRead));
+	$this->setStatus($conversation["conversationId"], $memberId, array("lastRead" => $lastRead));
 
 	$conversation["lastRead"] = $lastRead;
 
 	return true;
+}
+
+
+/**
+ * Mark a set of conversations as read for the specified user.
+ *
+ * @param array|int $conversationIds The conversation ID(s) to mark as read.
+ * @param array|int $memberId The member to set the status for.
+ * @return void
+ */
+public function markAsRead($conversationIds, $memberId)
+{
+	$conversationIds = array_values((array)$conversationIds);
+
+	// Get the postCount of all these conversations.
+	$rows = ET::SQL()
+		->select("conversationId")
+		->select("countPosts")
+		->from("conversation")
+		->where("conversationId IN (:conversationIds)")
+		->bind(":conversationIds", $conversationIds)
+		->exec()
+		->allRows();
+
+	$keys = array("type", "id", "conversationId", "lastRead");
+	$inserts = array();
+	foreach ($rows as $row) {
+		$inserts[] = array("member", $memberId, $row["conversationId"], $row["countPosts"]);
+	}
+
+	if (empty($inserts)) return;
+	
+	ET::SQL()
+		->insert("member_conversation")
+		->setMultiple($keys, $inserts)
+		->setOnDuplicateKey("lastRead", "VALUES(lastRead)", false)
+		->exec();
 }
 
 
@@ -907,7 +947,7 @@ public function setMuted(&$conversation, $memberId, $muted)
 {
 	$muted = (bool)$muted;
 
-	$this->setStatus($conversation, $memberId, array("muted" => $muted));
+	$this->setStatus($conversation["conversationId"], $memberId, array("muted" => $muted));
 
 	$this->addOrRemoveLabel($conversation, "muted", $muted);
 	$conversation["muted"] = $muted;
@@ -1131,10 +1171,10 @@ public function addMember(&$conversation, $member)
 		}
 
 		// Allow the member to view the conversation in the status table.
-		$this->setStatus($conversation, $member["id"], array("allowed" => true), $member["type"]);
+		$this->setStatus($conversation["conversationId"], $member["id"], array("allowed" => true), $member["type"]);
 
 		// Make sure the the owner of the conversation is allowed to view it.
-		$this->setStatus($conversation, $conversation["startMemberId"], array("allowed" => true));
+		$this->setStatus($conversation["conversationId"], $conversation["startMemberId"], array("allowed" => true));
 
 	}
 
@@ -1174,7 +1214,7 @@ public function removeMember(&$conversation, $member)
 
 		// Disallow the member to view the conversation in the status table.
 		// Also unstar the conversation so they will no longer receive email notifications.
-		$this->setStatus($conversation, $member["id"], array("allowed" => false, "starred" => false), $member["type"]);
+		$this->setStatus($conversation["conversationId"], $member["id"], array("allowed" => false, "starred" => false), $member["type"]);
 
 	}
 
@@ -1254,7 +1294,7 @@ protected function privateAddNotification($conversation, $memberIds, $notifyAll 
 	}
 
 	// Follow the conversation for the appropriate members.
-	if (!empty($followIds)) $this->setStatus($conversation, $followIds, array("starred" => true));
+	if (!empty($followIds)) $this->setStatus($conversation["conversationId"], $followIds, array("starred" => true));
 
 }
 

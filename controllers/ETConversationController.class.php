@@ -900,7 +900,7 @@ public function star($conversationId = false)
 
 	// Star/unstar the conversation.
 	$starred = !$conversation["starred"];
-	ET::conversationModel()->setStatus($conversation, ET::$session->userId, array("starred" => $starred));
+	ET::conversationModel()->setStatus($conversation["conversationId"], ET::$session->userId, array("starred" => $starred));
 
 	$this->json("starred", $starred);
 
