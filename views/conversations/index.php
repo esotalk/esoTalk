@@ -25,14 +25,22 @@ if (!defined("IN_ESOTALK")) exit;
 <?php $this->renderView("channels/tabs", $data); ?>
 </ul>
 
-<div id='gambits'>
-<p class='help'><?php echo T("message.gambitsHelp"); ?></p>
 <?php
-$linkPrefix = "conversations/".$data["channelSlug"]."/?search=".urlencode(((!empty($data["searchString"]) ? $data["searchString"]." + " : "")));
-ksort($data["gambits"]);
-foreach ($data["gambits"] as $k => $v)
-	echo "<a href='".URL($linkPrefix.urlencode("#".$k))."' class='$v'>$k</a>\n";
-?></div>
+// Controls
+if ($data["controlsMenu"]->count()): ?>
+<ul id='searchControls' class='controls'>
+<?php echo $data["controlsMenu"]->getContents(); ?>
+</ul>
+<?php endif; ?>
+
+<?php
+// Gambits
+if ($data["gambitsMenu"]->count()): ?>
+<div id='gambits'>
+<ul class='popupMenu'>
+<?php echo $data["gambitsMenu"]->getContents(); ?>
+</ul></div>
+<?php endif; ?>
 
 </div>
 

@@ -31,6 +31,10 @@ init: function() {
 	new ETAutoCompletePopup(ETSearch.formInput, "author:");
 	new ETAutoCompletePopup(ETSearch.formInput, "contributor:");
 
+	// Make the controls into a popup button.
+	if ($("#searchControls").length)
+		$("#search fieldset").append($("#searchControls").popup({alignment: "right"}));
+
 	// Add an onclick handler to the search button to perform a search.
 	ETSearch.form.submit(function(e) {
 		ETSearch.search(ETSearch.formInput.val());
@@ -58,10 +62,11 @@ init: function() {
 
 	// Add a handler to show the gambits section when the search input is active.
 	.focus(function() {
-		$("#gambits").addClass("popup withArrow withArrowTop withArrowTopRight").css({
+		var input = $("#search input.text");
+		$("#gambits").addClass("popup").css({
 			position: "absolute",
-			top: $("#search").offset().top + $("#search").outerHeight() + 5,
-			left: $("#search").offset().left + $("#search").outerWidth() - $("#gambits").outerWidth()
+			top: input.offset().top + input.outerHeight() + 5,
+			left: input.offset().left + input.outerWidth() - $("#gambits").outerWidth()
 		}).fadeIn("fast");
 	});
 
@@ -167,14 +172,14 @@ init: function() {
 	ETSearch.initSearchResults();
 
 	// Add a click handler to the mark all as read button.
-	$("#conversationsFooter .markAllAsRead").live("click", function(e) {
+	$("#control-markAllAsRead").live("click", function(e) {
 		e.preventDefault();
 		ETSearch.currentSearch = "";
 		ETSearch.changeChannel("all", false, true);
 	});
 
 	// Add a click handler to the view more button.
-	$("#conversationsFooter .viewMore a").live("click", function(e) {
+	$("#conversations .viewMore a").live("click", function(e) {
 		e.preventDefault();
 		ETSearch.search((ETSearch.currentSearch ? ETSearch.currentSearch + " + " : "") + "#"+T("gambit.more results"));
 	});

@@ -130,16 +130,16 @@ span.highlight {background:#fdef34; border:1px solid #fcef98; padding:1px 3px; b
 .star:hover {background-position:-20px -360px;}
 .starOn, .starOn:hover {background-position:-20px -328px;}
 .star:active, .starOn:active {background-position:-20px -168px;}
-#gambits .gambit-starred {color:#efcb00}
+.gambit-starred {color:#efcb00 !important}
 
 
 /* Conversation labels */
 .label {font-size:70%; font-weight:bold; white-space:nowrap; text-transform:uppercase}
-.label-locked, #gambits .gambit-locked {color:#555}
-.label-muted, #gambits .gambit-muted {color:#aaa}
-.label-private, #gambits .gambit-private {color:#a43fe7}
-.label-sticky, #gambits .gambit-sticky {color:#f90}
-.label-draft, #gambits .gambit-draft {color:#0b2}
+.label-locked, .gambit-locked {color:#555 !important}
+.label-muted, .gambit-muted {color:#aaa !important}
+.label-private, .gambit-private {color:#a43fe7 !important}
+.label-sticky, .gambit-sticky {color:#f90 !important}
+.label-draft, .gambit-draft {color:#0b2 !important}
 .labels .label {margin-right:3px}
 
 
@@ -182,7 +182,7 @@ span.highlight {background:#fdef34; border:1px solid #fcef98; padding:1px 3px; b
 /* Popup menus */
 .popupMenu {list-style-type:none; padding:6px 0; margin:0}
 .popupMenu li > a, .popupMenu li > span {display:block; padding:3px 25px 3px 25px; overflow:hidden; white-space:nowrap}
-.popupMenu li > a {color:#444 !important}
+.popupMenu li > a {color:#444}
 .popupMenu li > span {color:#888 !important}
 .popupMenu li > a:hover, ul.popupMenu li.selected > a {text-decoration:none; background:#364159; color:#fff !important}
 .popupMenu li > a:hover *, ul.popupMenu li.selected > a * {color:#fff}
@@ -274,9 +274,11 @@ a.channel:hover {text-decoration:none; border-color:#aaa}
 
 /* Search boxes */
 .search {float:right}
-.search .text {width:250px; padding-right:30px; padding-left:25px; background:#fff url(icons.png) no-repeat -13px -292px; float:left}
-.search.big .text {height:18px; font-size:100%; background-position:-13px -290px}
-.search .control-reset {margin-top:1px; float:right; margin-left:-25px; margin-right:0}
+.search input.text {width:250px; padding-right:30px; padding-left:25px; background:#fff url(icons.png) no-repeat -13px -292px; float:left}
+.search.big input.text {height:18px; font-size:100%; background-position:-13px -290px}
+.search .control-reset {margin-top:1px; margin-left:-25px; margin-right:0}
+.search .popupButton {margin-left:10px; vertical-align:2px}
+.search .popupButton .text {display:none}
 
 
 /* Notifications popup + list */
@@ -337,16 +339,11 @@ a.channel:hover {text-decoration:none; border-color:#aaa}
 /* Conversations list view */
 #conversationsFilter {padding-bottom:25px}
 #conversationsFilter .search {margin-top:3px}
-#conversationsFooter {margin-top:20px; overflow:hidden}
-#conversationsFooter .viewMore {float:right}
 
 
 /* Gambits */
-#gambits {margin-top:20px; clear:both;}
-#gambits a {line-height:2.1em; margin-right:2px; padding:2px 6px; border-radius:2px; color:#888; border:1px solid #e2e2e2; white-space:nowrap}
-#gambits a:hover {text-decoration:none; border-color:#bbb}
-#gambits a:active {border-color:#888}
-#gambits.popup {width:700px; padding:12px; margin:0}
+#gambits {display:none}
+#gambits.popup {width:305px; height:280px; overflow:auto !important; margin:0}
 
 
 /* Conversation list */
@@ -363,6 +360,8 @@ a.channel:hover {text-decoration:none; border-color:#aaa}
 .conversationList .controls {margin-left:10px}
 .conversationList .controls a {margin-right:5px}
 .conversationList .action * {font-weight:normal}
+.conversationList .viewMore {padding:0}
+.conversationList .viewMore a {text-align:center; display:block; padding:8px}
 
 
 /* Conversation list column layout. The conversation column is almost 100% width, then the others have

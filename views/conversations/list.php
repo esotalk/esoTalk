@@ -18,4 +18,12 @@ foreach ($data["results"] as $conversation):
 $this->renderView("conversations/conversation", $data + array("conversation" => $conversation));
 endforeach;
 
-?></ul>
+?>
+
+<?php if ($data["showViewMoreLink"]): ?>
+<li class='viewMore'>
+<a href='<?php echo URL("conversations/".$data["channelSlug"]."?search=".urlencode($data["searchString"].($data["searchString"] ? " + " : "")."#".T("gambit.more results"))); ?>'><?php echo T("View more"); ?></a>
+</li>
+<?php endif; ?>
+
+</ul>

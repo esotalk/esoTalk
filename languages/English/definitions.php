@@ -474,7 +474,6 @@ $definitions["gambit.contributor:"] = "contributor:";
 $definitions["gambit.member"] = "member";
 $definitions["gambit.myself"] = "myself";
 $definitions["gambit.draft"] = "draft";
-$definitions["gambit.has attachments"] = "has attachments";
 $definitions["gambit.locked"] = "locked";
 $definitions["gambit.order by newest"] = "order by newest";
 $definitions["gambit.order by replies"] = "order by replies";

@@ -21,38 +21,6 @@ class ETConversationsController extends ETController {
  */
 function index($channelSlug = false)
 {
-	// Add the default gambits to the gambit cloud: gambit text => css class to apply.
-	$gambits = array(
-		T("gambit.active last ? hours") => "gambit-activeLastHours",
-		T("gambit.active last ? days") => "gambit-activeLastDays",
-		T("gambit.active today") => "gambit-activeToday",
-		T("gambit.author:").T("gambit.member") => "gambit-author",
-		T("gambit.contributor:").T("gambit.member") => "gambit-contributor",
-		T("gambit.dead") => "gambit-dead",
-		T("gambit.has replies") => "gambit-hasReplies",
-		T("gambit.has >10 replies") => "gambit-replies",
-		T("gambit.locked") => "gambit-locked",
-		T("gambit.more results") => "gambit-more",
-		T("gambit.order by newest") => "gambit-orderByNewest",
-		T("gambit.order by replies") => "gambit-orderByReplies",
-		T("gambit.random") => "gambit-random",
-		T("gambit.reverse") => "gambit-reverse",
-		T("gambit.sticky") => "gambit-sticky",
-	);
-
-	// Add some more personal gambits if there is a user logged in.
-	if (ET::$session->user) {
-		$gambits += array(
-			T("gambit.contributor:").T("gambit.myself") => "gambit-contributorMyself",
-			T("gambit.author:").T("gambit.myself") => "gambit-authorMyself",
-			T("gambit.draft") => "gambit-draft",
-			T("gambit.muted") => "gambit-muted",
-			T("gambit.private") => "gambit-private",
-			T("gambit.starred") => "gambit-starred",
-			T("gambit.unread") => "gambit-unread"
-		);
-	}
-
 	list($channelInfo, $currentChannels, $channelIds, $includeDescendants) = $this->getSelectedChannels($channelSlug);
 
 	// Now we need to construct some arrays to determine which channel "tabs" to show in the view.
@@ -123,10 +91,9 @@ function index($channelSlug = false)
 	$this->data("channelTabs", $channels);
 	$this->data("currentChannels", $currentChannels);
 	$this->data("channelInfo", $channelInfo);
-	$this->data("channelSlug", $channelSlug ? $channelSlug : "all");
+	$this->data("channelSlug", $channelSlug = $channelSlug ? $channelSlug : "all");
 	$this->data("searchString", $searchString);
 	$this->data("fulltextString", implode(" ", $search->fulltext));
-	$this->data("gambits", $gambits);
 
 	// Construct a canonical URL and add to the breadcrumb stack.
 	$slugs = array();
@@ -143,6 +110,68 @@ function index($channelSlug = false)
 
 		// Add a link to the RSS feed in the bar.
 		// $this->addToMenu("meta", "feed", "<a href='".URL(str_replace("conversations/", "conversations/index.atom/", $url))."' id='feed'>".T("Feed")."</a>");
+
+		$controls = ETFactory::make("menu");
+
+		// Mark as read controls
+		if (ET::$session->user) {
+			$controls->add("markAllAsRead", "<a href='".URL("conversations/markAllAsRead/?token=".ET::$session->token."&return=".urlencode($this->selfURL))."' id='control-markAllAsRead'>".T("Mark all as read")."</a>");
+			$controls->add("markListedAsRead", "<a href='".URL("conversations/markAllAsRead/?token=".ET::$session->token."&return=".urlencode($this->selfURL))."' id='control-markListedAsRead'>".T("Mark listed conversations as read")."</a>");
+		}
+
+		// Add the default gambits to the gambit cloud: gambit text => css class to apply.
+		$gambits = array(
+			"main" => array(
+				T("gambit.sticky") => "gambit-sticky",
+			),
+			"time" => array(
+				T("gambit.order by newest") => "gambit-orderByNewest",
+				T("gambit.active last ? hours") => "gambit-activeLastHours",
+				T("gambit.active last ? days") => "gambit-activeLastDays",
+				T("gambit.active today") => "gambit-activeToday",
+				T("gambit.dead") => "gambit-dead",
+				T("gambit.locked") => "gambit-locked",
+			),
+			"member" => array(
+				T("gambit.author:").T("gambit.member") => "gambit-author",
+				T("gambit.contributor:").T("gambit.member") => "gambit-contributor",
+			),
+			"replies" => array(
+				T("gambit.has replies") => "gambit-hasReplies",
+				T("gambit.has >10 replies") => "gambit-replies",
+				T("gambit.order by replies") => "gambit-orderByReplies",
+			),
+			"misc" => array(
+				T("gambit.random") => "gambit-random",
+				T("gambit.reverse") => "gambit-reverse",
+			)
+		);
+
+		// Add some more personal gambits if there is a user logged in.
+		if (ET::$session->user) {
+			addToArrayString($gambits["main"], T("gambit.private"), "gambit-private", 1);
+			addToArrayString($gambits["main"], T("gambit.starred"), "gambit-starred", 2);
+			addToArrayString($gambits["main"], T("gambit.draft"), "gambit-draft", 3);
+			addToArrayString($gambits["main"], T("gambit.muted"), "gambit-muted", 4);
+			addToArrayString($gambits["time"], T("gambit.unread"), "gambit-unread", 0);
+			addToArrayString($gambits["member"], T("gambit.contributor:").T("gambit.myself"), "gambit-contributorMyself");
+			addToArrayString($gambits["member"], T("gambit.author:").T("gambit.myself"), "gambit-authorMyself");
+		}
+
+		// Construct the gambits menu based on the above arrays.
+		$gambitsMenu = ETFactory::make("menu");
+		$linkPrefix = "conversations/".$channelSlug."/?search=".urlencode(((!empty($searchString) ? $searchString." + " : "")));
+
+		foreach ($gambits as $section => $items) {
+			foreach ($items as $gambit => $class) {
+				$gambitsMenu->add($gambit, "<a href='".URL($linkPrefix.urlencode("#".$gambit))."' class='$class'>$gambit</a>");
+			}
+			end($gambits);
+			if ($section !== key($gambits)) $gambitsMenu->separator();
+		}
+
+		$this->data("controlsMenu", $controls);
+		$this->data("gambitsMenu", $gambitsMenu);
 
 		// Construct a list of keywords to use in the meta tags.
 		$keywords = array();

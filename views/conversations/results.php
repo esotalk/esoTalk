@@ -27,19 +27,4 @@ if (!$data["results"]): ?>
 else:
 ?>
 <?php $this->renderView("conversations/list", $data); ?>
-
-<div id='conversationsFooter'>
-
-<?php if (ET::$session->user and !$data["currentChannels"]): ?>
-<a href='<?php echo URL("conversations/markAllAsRead"); ?>' class='button markAllAsRead'><?php echo T("Mark all as read"); ?></a>
-<?php endif;
-
-if ($data["showViewMoreLink"]): ?>
-<div class='viewMore'>
-<small><?php echo sprintf(T("Your search found more than %s conversations."), C("esoTalk.search.results")); ?></small>
-<a href='<?php echo URL("conversations/".$data["channelSlug"]."?search=".urlencode($data["searchString"].($data["searchString"] ? " + " : "")."#".T("gambit.more results"))); ?>' class='button'><?php echo T("View more"); ?></a>
-</div>
-<?php endif; ?>
-
-</div>
 <?php endif; ?>
