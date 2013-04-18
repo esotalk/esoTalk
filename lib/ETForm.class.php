@@ -508,7 +508,7 @@ public function saveButton($name = "save")
  */
 public function cancelButton($name = "cancel")
 {
-	return $this->button($cancel, T("Cancel"), array("class" => "big cancel"));
+	return $this->button($name, T("Cancel"), array("class" => "big cancel"));
 }
 
 
