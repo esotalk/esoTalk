@@ -791,7 +791,7 @@ public function addMember($conversationId = false)
 	if (!$conversationId) $conversation = $model->getEmptyConversation();
 	elseif (!($conversation = $this->getConversation($conversationId))) return;
 
-	if ($name = R("member")) {
+	if ($name = str_replace("\xc2\xa0", " ", R("member"))) {
 
 		// Get an entity's details by parsing the member name.
 		if (!($member = $model->getMemberFromName($name))) {
