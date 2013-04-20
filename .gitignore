@@ -3,10 +3,7 @@
 .project
 .settings
 .htaccess
-!cache/index.html
 cache/*
 config/*
-robots.txt
-
-#For Toby's own repo (should really clean these up on my comp):
 uploads/*
+robots.txt
