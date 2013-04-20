@@ -316,7 +316,7 @@ public function removeQuotes()
 public function mentions()
 {
 	$this->content = preg_replace(
-		'/(^|[\s,\.:])@([\w&;]{3,20})\b/ieu',
+		'/(^|[\s,\.:\]])@([\w&;]{3,20})\b/ieu',
 		"'$1<a href=\''.URL('member/name/'.urlencode(str_replace('&nbsp;', ' ', '$2')), true).'\'>$2</a>'",
 		$this->content
 	);
@@ -333,7 +333,7 @@ public function mentions()
  */
 public function getMentions($content)
 {
-	preg_match_all('/(^|[\s,\.:])@([\w&;]{3,20})\b/iu', $content, $matches, PREG_SET_ORDER);
+	preg_match_all('/(^|[\s,\.:\]])@([\w&;]{3,20})\b/iu', $content, $matches, PREG_SET_ORDER);
 	$names = array();
 	foreach ($matches as $k => $v) $names[] = str_replace("&nbsp;", " ", $v[2]);
 

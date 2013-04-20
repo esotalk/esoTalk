@@ -1315,8 +1315,15 @@ protected function getPostForQuoting($postId, $conversationId)
 		->bind(":postId", $postId)
 		->bind(":conversationId", $conversationId)
 		->exec();
-	if ($result->numRows()) return $result->firstRow();
-	return false;
+	if (!$result->numRows()) return false;
+	$result = $result->firstRow();
+
+	// Convert spaces in the member name to non-breaking spaces.
+	// (Spaces aren't usually allowed in esoTalk usernames, so this is a bit of a "hack" for 
+	// certain esoTalk installations that do allow them.)
+	$result["username"] = str_replace(" ", "\xc2\xa0", $result["username"]);
+
+	return $result;
 }
 
 

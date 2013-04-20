@@ -670,7 +670,7 @@ public function gambitActive(&$search, $term, $negate)
 public static function gambitAuthor(&$search, $term, $negate)
 {
 	// Get the name of the member.
-	$term = trim(substr($term, strlen(T("gambit.author:"))));
+	$term = trim(str_replace("\xc2\xa0", " ", substr($term, strlen(T("gambit.author:")))));
 
 	// If the user is referring to themselves, then we already have their member ID.
 	if ($term == T("gambit.myself")) $q = (int)ET::$session->userId;
@@ -694,7 +694,7 @@ public static function gambitAuthor(&$search, $term, $negate)
 public static function gambitContributor(&$search, $term, $negate)
 {
 	// Get the name of the member.
-	$term = trim(substr($term, strlen(T("gambit.contributor:"))));
+	$term = trim(str_replace("\xc2\xa0", " ", substr($term, strlen(T("gambit.contributor:")))));
 
 	// If the user is referring to themselves, then we already have their member ID.
 	if ($term == T("gambit.myself")) $q = (int)ET::$session->userId;
