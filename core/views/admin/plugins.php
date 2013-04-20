@@ -43,7 +43,7 @@ foreach ($data["plugins"] as $k => $plugin): ?>
 </span>
 </div>
 
-<?php if (file_exists(PATH_PLUGINS."/$k/icon.png")): ?><img src='<?php echo getResource("plugins/$k/icon.png"); ?>' alt=''/><?php endif; ?>
+<?php if (file_exists(PATH_PLUGINS."/$k/icon.png")): ?><img src='<?php echo getResource("addons/plugins/$k/icon.png"); ?>' alt=''/><?php endif; ?>
 <strong><?php echo $plugin["info"]["name"]; ?></strong>
 <small class='description'><?php echo $plugin["info"]["description"]; ?></small>
 
