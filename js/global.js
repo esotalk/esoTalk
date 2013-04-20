@@ -242,6 +242,19 @@ $(function() {
 	// Set the default AJAX request settings.
 	$.ajaxSetup({timeout: 10000});
 
+	// iOS Safari doesn't update position:fixed elements when the keyboard is up.
+	// So, whenever we focus on an input or textarea, change the header's position to absolute,
+	// and revert it when we lose focus.
+	var iOS = (navigator.userAgent.match(/(iPad|iPhone|iPod)/g) ? true : false);
+	if (iOS) {
+		$("input, textarea").live('focus', function(){
+			$("#hdr").css({position:'absolute'});
+		});
+		$("input, textarea").live('blur', function(){
+			$("#hdr").css({position:''});
+		});
+	}
+
 });
 
 // Plugin to easily set up a form to submit via AJAX.
