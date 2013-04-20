@@ -669,6 +669,7 @@ public function addJSVar($key, $val)
  */
 public function addJSFile($file, $global = false)
 {
+	if (strpos($file, "://") !== false) $key = "remote";
 	$key = $global ? "global" : "local";
 	$this->jsFiles[$key][] = $file;
 }
@@ -685,7 +686,8 @@ public function addJSFile($file, $global = false)
  */
 public function addCSSFile($file, $global = false)
 {
-	$key = $global ? "global" : "local";
+	if (strpos($file, "://") !== false) $key = "remote";
+	else $key = $global ? "global" : "local";
 	$this->cssFiles[$key][] = $file;
 }
 
@@ -756,9 +758,17 @@ public function head()
 	if (!empty($this->canonicalURL))
 		$head .= "<link rel='canonical' href='$this->canonicalURL'>\n";
 
+	// Add remote stylesheets.
+	if (!empty($this->cssFiles["remote"])) {
+		foreach ($this->cssFiles["remote"] as $url) {
+			$head .= "<link rel='stylesheet' href='$url'>\n";
+		}
+	}
+	unset($this->cssFiles["remote"]);
+
 	// Go through CSS stylesheets and aggregate them, then add appropriate tags to the header.
 	// Here we loop through "groups" of CSS files (usually "global" and "local".)
-	foreach ($this->cssFiles as $files) {
+	foreach ($this->cssFiles as $key => $files) {
 
 		// If CSS aggregation is enabled, and there's more than one file in this "group", proceed with aggregation.
 		if (count($files) > 1 and C("esoTalk.aggregateCSS") and !(ET::$controller instanceof ETAdminController))
@@ -773,6 +783,14 @@ public function head()
 			$head .= "<link rel='stylesheet' href='".getResource($file)."?".filemtime($file)."'>\n";
 
 	}
+
+	// Add remote JavaScript.
+	if (!empty($this->jsFiles["remote"])) {
+		foreach ($this->jsFiles["remote"] as $url) {
+			$head .= "<script src='$url'></script>\n";
+		}
+	}
+	unset($this->jsFiles["remote"]);
 
 	// Same thing as above, but with JavaScript!
 	foreach ($this->jsFiles as $files) {

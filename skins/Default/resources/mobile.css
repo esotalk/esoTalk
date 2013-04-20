@@ -7,6 +7,7 @@ body {font-size:12px}
 .bodyHeader {padding:10px}
 .area {border-width:1px 0; -webkit-border-radius:0}
 #body-content {border-left:0; border-right:0; -webkit-border-radius:0}
+#body {padding-top:44px}
 
 
 /* Header - center the title and float the buttons. */
@@ -76,7 +77,7 @@ body {font-size:12px}
 .conversationList .col-star {float:left; margin-left:-28px; margin-top:6px; margin-right:0}
 .conversationList .col-conversation {display:block; margin:5px 0 3px; width:auto}
 .conversationList .col-channel {display:block; padding-right:5px; margin:0; width:auto; text-align:left}
-.conversationList .col-lastPost {padding-right:0}
+.conversationList .col-lastPost {padding-right:0; width:auto; margin-right:0; float:none}
 .conversationList .col-replies {display:none}
 .conversationList .title {font-size:120%}
 .conversationList .avatar {display:none}
