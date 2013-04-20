@@ -91,7 +91,7 @@ protected function getMember($memberId)
  * @param string $pane The name of the active pane.
  * @return array The member details, or false if the member was not found.
  */
-protected function profile($member, $pane = "")
+public function profile($member, $pane = "")
 {
 	// Translate "me" to the currently logged in user. Otherwise, use the member ID provided.
 	if ($member == "me") $memberId = ET::$session->userId;
