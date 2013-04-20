@@ -29,7 +29,7 @@ public function index()
 
 	// Normally, render the channels list page.
 	if ($this->responseType === RESPONSE_TYPE_DEFAULT) {
-		$this->addJSFile("js/channels.js");
+		$this->addJSFile("core/js/channels.js");
 		$this->data("channels", $channels);
 		$this->render("channels/index");
 	}

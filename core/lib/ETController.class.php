@@ -305,11 +305,11 @@ public function init()
 		$this->addToMenu("meta", "copyright", "<a href='http://esotalk.org/'>Powered by esoTalk".(ET::$session->isAdmin() ? " ".ESOTALK_VERSION : "")."</a>");
 
 		// Set up some default JavaScript files and language definitions.
-		$this->addJSFile("js/lib/jquery.js", true);
-		$this->addJSFile("js/lib/jquery.misc.js", true);
-		$this->addJSFile("js/lib/jquery.history.js", true);
-		$this->addJSFile("js/lib/jquery.scrollTo.js", true);
-		$this->addJSFile("js/global.js", true);
+		$this->addJSFile("core/js/lib/jquery.js", true);
+		$this->addJSFile("core/js/lib/jquery.misc.js", true);
+		$this->addJSFile("core/js/lib/jquery.history.js", true);
+		$this->addJSFile("core/js/lib/jquery.scrollTo.js", true);
+		$this->addJSFile("core/js/global.js", true);
 		$this->addJSLanguage("message.ajaxRequestPending", "message.ajaxDisconnected", "Loading...", "Notifications");
 		$this->addJSVar("notificationCheckInterval", C("esoTalk.notificationCheckInterval"));
 

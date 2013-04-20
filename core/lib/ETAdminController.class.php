@@ -38,8 +38,8 @@ public function init()
 	$this->defaultMenu->highlight(ET::$controllerName);
 	$this->menu->highlight(ET::$controllerName);
 
-	$this->addJSFile("js/admin.js");
-	$this->addCSSFile("skins/base/admin.css");
+	$this->addJSFile("core/js/admin.js");
+	$this->addCSSFile("core/skin/admin.css");
 }
 
 

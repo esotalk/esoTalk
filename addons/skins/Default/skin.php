@@ -32,7 +32,7 @@ class ETSkin_Default extends ETSkin {
 public function handler_init($sender)
 {
 	$sender->addCSSFile("http://fonts.googleapis.com/css?family=Open+Sans:400italic,700italic,400,700");
-	$sender->addCSSFile("skins/base/base.css", true);
+	$sender->addCSSFile("core/skin/base.css", true);
 	$sender->addCSSFile($this->getResource("styles.css"), true);
 
 	// If we're viewing from a mobile browser, add the mobile CSS and change the master view.
@@ -126,8 +126,8 @@ public function settings($sender)
 	}
 
 	$sender->data("skinSettingsForm", $form);
-	$sender->addCSSFile("js/lib/farbtastic/farbtastic.css");
-	$sender->addJSFile("js/lib/farbtastic/farbtastic.js");
+	$sender->addCSSFile("core/js/lib/farbtastic/farbtastic.css");
+	$sender->addJSFile("core/js/lib/farbtastic/farbtastic.js");
 	return $this->getView("settings");
 }
 

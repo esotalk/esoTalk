@@ -20,7 +20,7 @@ class ETInstallController extends ETController {
  */
 public function init()
 {
-	$this->addJSFile("js/lib/jquery.js");
+	$this->addJSFile("core/js/lib/jquery.js");
 
 	// Set the master view to the message master view.
 	$this->masterView = "message.master";
@@ -232,8 +232,7 @@ Crawl-delay: 10
 Disallow: /search/
 Disallow: /members/
 Disallow: /user/
-Disallow: /conversation/start/
-Sitemap: ".C("esoTalk.baseURL")."sitemap.php");
+Disallow: /conversation/start/");
 
 	// Clear the session of install data.
 	ET::$session->remove("install");
@@ -303,7 +302,7 @@ protected function fatalChecks()
 
 	// Check file permissions.
 	$fileErrors = array();
-	$filesToCheck = array("", "uploads", "uploads/avatars", "plugins", "skins", "languages", "config", "cache");
+	$filesToCheck = array("", "uploads", "uploads/avatars", "addons/plugins", "addons/skins", "addons/languages", "config", "cache");
 	sort($filesToCheck);
 
 	// Go through each file (directory)...

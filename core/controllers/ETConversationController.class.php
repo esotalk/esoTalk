@@ -207,10 +207,10 @@ public function index($conversationId = false, $year = false, $month = false)
 		$this->addJSVar("conversationUpdateIntervalLimit", C("esoTalk.conversation.updateIntervalLimit"));
 		$this->addJSVar("mentions", C("esoTalk.format.mentions"));
 		$this->addJSVar("time", time());
-		$this->addJSFile("js/lib/jquery.autogrow.js");
-		$this->addJSFile("js/scrubber.js");
-		$this->addJSFile("js/autocomplete.js");
-		$this->addJSFile("js/conversation.js");
+		$this->addJSFile("core/js/lib/jquery.autogrow.js");
+		$this->addJSFile("core/js/scrubber.js");
+		$this->addJSFile("core/js/autocomplete.js");
+		$this->addJSFile("core/js/conversation.js");
 
 		// Add the RSS feed button.
 		// $this->addToMenu("meta", "feed", "<a href='".URL("conversation/index.atom/".$url)."' id='feed'>".T("Feed")."</a>");
@@ -350,10 +350,10 @@ public function start($member = false)
 
 		// Add a meta tag to the head to prevent search engines from indexing this page.
 		$this->addToHead("<meta name='robots' content='noindex, noarchive'/>");
-		$this->addJSFile("js/lib/jquery.autogrow.js");
-		$this->addJSFile("js/scrubber.js");
-		$this->addJSFile("js/autocomplete.js");
-		$this->addJSFile("js/conversation.js");
+		$this->addJSFile("core/js/lib/jquery.autogrow.js");
+		$this->addJSFile("core/js/scrubber.js");
+		$this->addJSFile("core/js/autocomplete.js");
+		$this->addJSFile("core/js/conversation.js");
 		$this->addJSVar("mentions", C("esoTalk.format.mentions"));
 		$this->addJSLanguage("message.confirmLeave", "message.confirmDiscardReply");
 

@@ -155,8 +155,8 @@ public function index($orderBy = false, $start = 0)
 		$this->pushNavigation("members", "members", URL($url));
 
 		// Add JavaScript files and variables for the page to use.
-		$this->addJSFile("js/scrubber.js");
-		$this->addJSFile("js/members.js");
+		$this->addJSFile("core/js/scrubber.js");
+		$this->addJSFile("core/js/members.js");
 		$this->addJSVar("membersPerPage", C("esoTalk.members.membersPerPage"));
 		$this->addJSVar("countMembers", $count);
 		$this->addJSVar("startFrom", $start);

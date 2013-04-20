@@ -101,7 +101,7 @@ protected function profile($member, $pane = "")
 
 	// Set the title and include relevant JavaScript.
 	$this->title = $member["username"];
-	$this->addJSFile("js/member.js");
+	$this->addJSFile("core/js/member.js");
 	$this->addJSVar("memberId", $member["memberId"]);
 
 	// Sort out what the canonical URL for this page is.

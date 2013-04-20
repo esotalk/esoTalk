@@ -23,8 +23,8 @@ public function index()
 	$channels = ET::channelModel()->getAll();
 
 	// Add necessary JavaScript to enable sorting of the channel list.
-	$this->addJSFile("js/lib/jquery.ui.js");
-	$this->addJSFile("js/lib/jquery.ui.nestedSortable.js");
+	$this->addJSFile("core/js/lib/jquery.ui.js");
+	$this->addJSFile("core/js/lib/jquery.ui.nestedSortable.js");
 
 	$this->title = T("Channels");
 	$this->data("channels", $channels);

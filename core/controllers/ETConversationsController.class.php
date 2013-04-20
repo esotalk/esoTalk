@@ -200,9 +200,9 @@ function index($channelSlug = false)
 		$this->addJSVar("searchUpdateInterval", C("esoTalk.search.updateInterval"));
 		$this->addJSVar("currentSearch", $searchString);
 		$this->addJSVar("currentChannels", $currentChannels);
-		$this->addJSFile("js/lib/jquery.cookie.js");
-		$this->addJSFile("js/autocomplete.js");
-		$this->addJSFile("js/search.js");
+		$this->addJSFile("core/js/lib/jquery.cookie.js");
+		$this->addJSFile("core/js/autocomplete.js");
+		$this->addJSFile("core/js/search.js");
 
 		// Add an array of channels in the form slug => id for the JavaScript to use.
 		$channels = array();
