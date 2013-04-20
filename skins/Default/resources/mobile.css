@@ -3,7 +3,7 @@
 /* Layout - set the page width and remove borders/padding on some common elements. */
 html {-webkit-text-size-adjust:none}
 body {font-size:12px}
-#hdr-content, #body-content, #ftr-content {min-width:0; padding:0; max-width:none}
+#hdr-content, #body-content, #ftr-content {min-width:0; padding:1px; max-width:none}
 .bodyHeader {padding:10px}
 .area {border-width:1px 0; -webkit-border-radius:0}
 #body-content {border-left:0; border-right:0; -webkit-border-radius:0}
