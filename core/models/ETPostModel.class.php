@@ -357,7 +357,7 @@ public function validateContent($content)
 	$content = trim($content);
 
 	// Make sure it's not too long but has at least one character.
-	if (strlen($content) > C("esoTalk.conversation.maxCharsPerPost")) return "postTooLong";
+	if (strlen($content) > C("esoTalk.conversation.maxCharsPerPost")) return sprintf(T("message.postTooLong"), C("esoTalk.conversation.maxCharsPerPost"));
 	if (!strlen($content)) return "emptyPost";
 }
 
