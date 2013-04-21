@@ -224,11 +224,6 @@ markAsRead: function(conversationId) {
 			var row = $("#c" + conversationId);
 			$(row).removeClass("unread");
 			$(".unreadIndicator", row).remove();
-			var link = $(".jumpToUnread", row);
-			link.removeClass("jumpToUnread")
-				.addClass("jumpToLast")
-				.html(T("Jump to last"))
-				.attr("href", link.attr("href").replace("/unread", "/last"));
 		}
 	});
 },
