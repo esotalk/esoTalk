@@ -4,7 +4,7 @@
 
 // English Definitions for the BBCode plugin.
 
-$definitions["Fixed"] = "Fixed";
+$definitions["Code"] = "Code";
 $definitions["Image"] = "Image";
 $definitions["Link"] = "Link";
 $definitions["Strike"] = "Strike";
