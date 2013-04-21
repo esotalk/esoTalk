@@ -547,7 +547,6 @@ initPosts: function() {
 	$("#conversationPosts .postBody blockquote:not(.collapsed)")
 		.addClass("collapsed")
 		.each(function() {
-			console.log($(this)[0].scrollHeight, $(this).innerHeight());
 			if ($(this)[0].scrollHeight <= $(this).innerHeight()) {
 				$(this).removeClass("collapsed");
 				return;
@@ -944,12 +943,9 @@ editTitle: function() {
 		}).trigger("update");
 
 		// Add a key press and blur handler to the field.
-		var handler = function(cancel) {
-			ETConversation.saveTitle(cancel);
-		};
-		$("#conversationTitle input").select().blur(handler).keydown(function(e) {
-			if (e.which == 13) handler(); // Enter
-			if (e.which == 27) handler(true); // Escape
+		$("#conversationTitle input").select().blur(function() { ETConversation.saveTitle(); }).keydown(function(e) {
+			if (e.which == 13) ETConversation.saveTitle(); // Enter
+			if (e.which == 27) ETConversation.saveTitle(true); // Escape
 		});
 	}
 },
