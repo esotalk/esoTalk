@@ -104,14 +104,13 @@ class ETPlugin_ChannelNotifications extends ETPlugin {
 
 		foreach ($members as $member) {
 
-			// Make sure the member is allowed to view the conversation.
+			// Check if this member is allowed to view this conversation before sending them a notification.
 			$sql = ET::SQL()
-				->select("COUNT(1)")
+				->select("conversationId")
 				->from("conversation c")
-				->where("conversationId=:conversationId")
-				->bind(":conversationId", (int)$conversation["conversationId"]);
+				->where("conversationId", $conversation["conversationId"]);
 			ET::conversationModel()->addAllowedPredicate($sql, $member);
-			if (!$sql->exec()->result()) continue;
+			if (!$sql->exec()->numRows()) continue;
 
 			ET::activityModel()->create("postChannel", $member, ET::$session->user, $data, $emailData);
 		}
