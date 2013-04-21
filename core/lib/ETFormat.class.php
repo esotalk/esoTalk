@@ -70,9 +70,9 @@ public function format()
 	$this->trigger("beforeFormat");
 
 	// Format links, mentions, and quotes.
-	$this->links();
 	if (C("esoTalk.format.mentions")) $this->mentions();
 	$this->quotes();
+	$this->links();
 
 	// Format bullet and numbered lists.
 	$this->lists();
