@@ -79,17 +79,7 @@ function index($channelSlug = false)
 	}
 
 	// Add fulltext keywords to be highlighted. Make sure we keep ones "in quotes" together.
-	else {
-		$words = array();
-		foreach ($search->fulltext as $term) {
-			if (preg_match_all('/"(.+?)"/', $term, $matches)) {
-				$words[] = $matches[1];
-				$term = preg_replace('/".+?"/', '', $term);
-			}
-			$words = array_unique(array_merge($words, explode(" ", $term)));
-		}
-		ET::$session->store("highlight", $words);
-	}
+	else $this->highlight($search->fulltext);
 
 	// Pass on a bunch of data to the view.
 	$this->data("results", $results);
@@ -370,8 +360,9 @@ public function update($channelSlug = "", $query = "")
 	$this->responseType = RESPONSE_TYPE_AJAX;
 
 	list($channelInfo, $currentChannels, $channelIds, $includeDescendants) = $this->getSelectedChannels($channelSlug);
+	$search = ET::searchModel();
 
-	// Work out which conversations we need to get details for (according to the input value.)
+	// Work out which conversations we need to get updated details for (according to the input value.)
 	$conversationIds = explode(",", R("conversationIds"));
 
 	// Make sure they are all integers.
@@ -382,34 +373,67 @@ public function update($channelSlug = "", $query = "")
 	if (!count($conversationIds)) return;
 	$conversationIds = array_slice((array)$conversationIds, 0, 20);
 
+	// Work out if there are any new results for this channel/search query.
+
+	// If the "random" gambit is in the search string, then don't go any further (because the results will
+	// obviously differ!)
+	$random = false;
+	$terms = $query ? explode("+", strtolower(str_replace("-", "+!", trim($query, " +-")))) : array();
+	foreach ($terms as $v) {
+		if (trim($v) == T("gambit.random"))	$random = true;
+	}
+
+	if (!$random) {
+
+		// Get a list of conversation IDs for the channel/query.
+		$newConversationIds = $search->getConversationIDs($channelIds, $query, count($currentChannels));
+		$newConversationIds = array_slice((array)$newConversationIds, 0, 20);
+
+		// Get the difference of the two sets of conversationId's.
+		$diff = array_diff((array)$newConversationIds, (array)$conversationIds);
+		if (count($diff)) $this->message(sprintf(T("message.newSearchResults"), "javascript:ETSearch.showNewActivity();void(0)"), array("id" => "newSearchResults"));
+
+	}
+
+	// Add fulltext keywords to be highlighted. Make sure we keep ones "in quotes" together.
+	$this->highlight($search->fulltext);
+	$fulltextString = implode(" ", $search->fulltext);
+
 	// Get the full result data for these conversations, and construct an array of rendered conversation rows.
-	$results = ET::searchModel()->getResults($conversationIds, true);
+	$results = $search->getResults($conversationIds, true);
 	$rows = array();
 	foreach ($results as $conversation) {
-		$rows[$conversation["conversationId"]] = $this->getViewContents("conversations/conversation", array("conversation" => $conversation, "channelInfo" => $channelInfo));
+		$rows[$conversation["conversationId"]] = $this->getViewContents("conversations/conversation", array(
+			"conversation" => $conversation,
+			"channelInfo" => $channelInfo,
+			"fulltextString" => $fulltextString
+		));
 	}
 
 	// Add that to the response.
 	$this->json("conversations", $rows);
 
-	// Now we need to work out if there are any new results for this channel/search query.
-
-	// If the "random" gambit is in the search string, then don't go any further (because the results will
-	// obviously differ!)
-	$terms = $query ? explode("+", strtolower(str_replace("-", "+!", trim($query, " +-")))) : array();
-	foreach ($terms as $v) {
-		if (trim($v) == T("gambit.random"))	return;
-	}
-
-	// Get a list of conversation IDs for the channel/query.
-	$newConversationIds = ET::searchModel()->getConversationIDs($channelIds, $query, count($currentChannels));
-	$newConversationIds = array_slice((array)$newConversationIds, 0, 20);
-
-	// Get the difference of the two sets of conversationId's.
-	$diff = array_diff((array)$newConversationIds, (array)$conversationIds);
-	if (count($diff)) $this->message(sprintf(T("message.newSearchResults"), "javascript:ETSearch.showNewActivity();void(0)"), array("id" => "newSearchResults"));
-
 	$this->render();
+}
+
+
+/**
+ * Add fulltext keywords to be highlighted. Make sure we keep ones "in quotes" together.
+ * 
+ * @param array $terms An array of words to highlight.
+ * @return void
+ */
+protected function highlight($terms)
+{
+	$words = array();
+	foreach ($terms as $term) {
+		if (preg_match_all('/"(.+?)"/', $term, $matches)) {
+			$words[] = $matches[1];
+			$term = preg_replace('/".+?"/', '', $term);
+		}
+		$words = array_unique(array_merge($words, explode(" ", $term)));
+	}
+	ET::$session->store("highlight", $words);
 }
 
 }

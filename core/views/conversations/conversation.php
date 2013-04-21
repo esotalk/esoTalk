@@ -42,12 +42,6 @@ echo "</span> ";
 // Output controls which apply to this conversation.
 echo "<span class='controls'>";
 
-// A Jump to last/unread link, depending on the user and the unread state.
-// if (ET::$session->user and $conversation["unread"])
-// 	echo "<a href='".URL($conversationURL."/unread")."' class='jumpToUnread'>".T("Jump to unread")."</a>";
-// else
-// 	echo "<a href='".URL($conversationURL."/last")."' class='jumpToLast'>".T("Jump to last")."</a>";
-
 // If we're highlighting search terms (i.e. if we did a fulltext search), then output a "show matching posts" link.
 if (ET::$session->get("highlight"))
 	echo " <a href='".URL($conversationURL."/?search=".urlencode($data["fulltextString"]))."' class='showMatchingPosts'>".T("Show matching posts")."</a>";
