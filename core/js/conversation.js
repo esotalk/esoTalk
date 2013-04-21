@@ -936,7 +936,7 @@ editTitle: function() {
 
 		// Replace the title tag with an input.
 		var title = $("#conversationTitle a").html().trim();
-		$("#conversationTitle").html("<input type='text' class='text'/>").addClass("editing");
+		$("#conversationTitle").html("<input type='text' class='text' maxlength='100'/>").addClass("editing");
 		$("#conversationTitle input").val(title).autoGrowInput({
 		    comfortZone: 30,
 		    minWidth: 250,

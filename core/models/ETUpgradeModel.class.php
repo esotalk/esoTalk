@@ -102,7 +102,7 @@ protected function structure($drop = false)
 	$structure
 		->table("conversation", "MyISAM")
 		->column("conversationId", "int(11) unsigned", false)
-		->column("title", "varchar(63)")
+		->column("title", "varchar(100)")
 		->column("channelId", "int(11) unsigned")
 		->column("private", "tinyint(1)", 0)
 		->column("sticky", "tinyint(1)", 0)

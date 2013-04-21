@@ -23,7 +23,7 @@ echo $form->open(); ?>
 <?php
 
 // Title ?>
-<h1 id='conversationTitle'><?php echo $form->input("title", "text", array("placeholder" => T("Enter a conversation title"), "tabindex" => 100)); ?></h1>
+<h1 id='conversationTitle'><?php echo $form->input("title", "text", array("placeholder" => T("Enter a conversation title"), "tabindex" => 100, "maxlength" => 100)); ?></h1>
 <?php
 
 // Channel 
@@ -37,8 +37,8 @@ $this->renderView("conversation/channelPath", array("conversation" => $conversat
 <?php
 // Controls
 if ($conversation["conversationId"]): ?>
-<?php echo $form->saveButton(); ?>
-<a href='<?php echo URL(R("return", conversationURL($conversation["conversationId"], $conversation["title"]))); ?>' class='cancel'><?php echo T("Cancel"); ?></a>
+<?php echo $form->saveButton(); ?> 
+<a href='<?php echo URL(R("return", conversationURL($conversation["conversationId"], $conversation["title"]))); ?>' class='button cancel'><?php echo T("Cancel"); ?></a>
 <?php endif; ?>
 
 <?php
