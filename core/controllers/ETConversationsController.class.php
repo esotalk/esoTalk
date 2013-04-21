@@ -161,8 +161,8 @@ function index($channelSlug = false)
 			addToArrayString($gambits["main"], T("gambit.draft"), "gambit-draft", 3);
 			addToArrayString($gambits["main"], T("gambit.muted"), "gambit-muted", 4);
 			addToArrayString($gambits["time"], T("gambit.unread"), "gambit-unread", 0);
-			addToArrayString($gambits["member"], T("gambit.contributor:").T("gambit.myself"), "gambit-contributorMyself");
-			addToArrayString($gambits["member"], T("gambit.author:").T("gambit.myself"), "gambit-authorMyself");
+			addToArrayString($gambits["member"], T("gambit.author:").T("gambit.myself"), "gambit-authorMyself", 0);
+			addToArrayString($gambits["member"], T("gambit.contributor:").T("gambit.myself"), "gambit-contributorMyself", 2);
 		}
 
 		// Construct the gambits menu based on the above arrays.

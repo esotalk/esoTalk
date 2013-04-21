@@ -677,11 +677,11 @@ public static function gambitAuthor(&$search, $term, $negate)
 
 	// Otherwise, make a query to find the member ID of the specified member name.
 	else {
-		$q = "(".ET::SQL()->select("memberId")->from("member")->where("username=:username")->bind(":username", $term)->get().")";
+		$q = ET::SQL()->select("memberId")->from("member")->where("username=:username")->bind(":username", $term)->get();
 	}
 
 	// Apply the condition.
-	$search->sql->where("c.startMemberId".($negate ? " NOT" : "")." IN $q");
+	$search->sql->where("c.startMemberId".($negate ? " NOT" : "")." IN ($q)");
 }
 
 
@@ -701,14 +701,14 @@ public static function gambitContributor(&$search, $term, $negate)
 
 	// Otherwise, make a query to find the member ID of the specified member name.
 	else {
-		$q = "(".ET::SQL()->select("memberId")->from("member")->where("username=:username")->bind(":username", $term)->get().")";
+		$q = ET::SQL()->select("memberId")->from("member")->where("username=:username")->bind(":username", $term)->get();
 	}
 
 	// Apply the condition.
 	$sql = ET::SQL()
 		->select("DISTINCT conversationId")
 		->from("post")
-		->where("memberId IN $q");
+		->where("memberId IN ($q)");
 	$search->addIDFilter($sql, $negate);
 }
 
