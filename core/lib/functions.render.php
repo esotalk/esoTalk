@@ -96,7 +96,7 @@ if (!function_exists("avatar")) {
  */
 function avatar($member = array(), $className = "")
 {
-	$url = getResource("skins/base/avatar.png");
+	$url = getResource("core/skin/avatar.png");
 
 	// Construct the avatar path from the provided information.
 	if (!empty($member["memberId"]) and !empty($member["avatarFormat"])) {
