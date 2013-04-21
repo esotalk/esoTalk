@@ -329,7 +329,7 @@ a.channel:hover {text-decoration:none; border-color:#aaa}
 #changeChannelSheet {width:700px}
 #changeChannelSheet .section {padding:0}
 .changeChannelList {margin:-1px 0}
-.changeChannelList label {display:block; padding-top:1px; padding-bottom:2px; white-space:nowrap; text-overflow:ellipsis; padding-right:10px}
+.changeChannelList label {display:block; padding-top:4px; padding-bottom:4px; white-space:nowrap; text-overflow:ellipsis; padding-right:10px; overflow:hidden}
 .changeChannelList .selected {background:#364159 !important; color:#fff}
 .changeChannelList .selected .description {color:#fff}
 .changeChannelList .disabled {background:transparent !important; opacity:0.5}
