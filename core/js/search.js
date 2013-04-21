@@ -160,6 +160,7 @@ init: function() {
 	$("#conversations .unreadIndicator").live("click", function(e) {
 		e.preventDefault();
 		ETSearch.markAsRead(ETSearch.getConversationIdForElement(this));
+		$.hideToolTip();
 	});
 
 	// Add click handlers to the channels.
