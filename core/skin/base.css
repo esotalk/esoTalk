@@ -148,7 +148,7 @@ span.highlight {background:#fdef34; border:1px solid #fcef98; padding:1px 3px; b
 
 
 /* Avatars */
-.avatar {width:64px; height:64px; vertical-align:middle; border-radius:1px}
+.avatar {width:64px; height:64px; vertical-align:middle; border-radius:2px}
 .avatar.thumb {width:20px; height:20px}
 
 
