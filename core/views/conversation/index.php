@@ -40,7 +40,7 @@ if ($conversation["startMemberId"] == ET::$session->userId) $classes[] = "mine";
 
 // Title ?>
 <h1 id='conversationTitle'><?php
-if ($conversation["canModerate"]): ?><a href='<?php echo URL("conversation/edit/".$conversation["conversationId"]); ?>'><?php echo sanitizeHTML($conversation["title"]); ?></a><?php
+if ($conversation["canModerate"] or $conversation["startMemberId"] == ET::$session->userId): ?><a href='<?php echo URL("conversation/edit/".$conversation["conversationId"]); ?>'><?php echo sanitizeHTML($conversation["title"]); ?></a><?php
 else: echo sanitizeHTML($conversation["title"]);
 endif;
 ?></h1>

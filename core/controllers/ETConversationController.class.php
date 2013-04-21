@@ -222,13 +222,16 @@ public function index($conversationId = false, $year = false, $month = false)
 			$controls->add("mute", "<a href='".URL("conversation/mute/".$conversation["conversationId"]."/?token=".ET::$session->token."&return=".urlencode($this->selfURL))."' id='control-mute'>".T($conversation["muted"] ? "Unmute conversation" : "Mute conversation")."</a>");
 		}
 
-		// If the user has permission to moderate this conversation...
-		if ($conversation["canModerate"]) {
+		if ($conversation["canModerate"] or $conversation["startMemberId"] == ET::$session->userId) {
 			$controls->separator();
 
 			// Add the change channel control.
 			$controls->add("changeChannel", "<a href='".URL("conversation/changeChannel/".$conversation["conversationId"]."/?return=".urlencode($this->selfURL))."' id='control-changeChannel'>".T("Change channel")."</a>");
+		}
 
+		// If the user has permission to moderate this conversation...
+		if ($conversation["canModerate"]) {
+			
 			// Add the sticky/unsticky control.
 			$controls->add("sticky", "<a href='".URL("conversation/sticky/".$conversation["conversationId"]."/?token=".ET::$session->token."&return=".urlencode($this->selfURL))."' id='control-sticky'>".T($conversation["sticky"] ? "Unsticky" : "Sticky")."</a>");
 
@@ -498,6 +501,12 @@ public function delete($conversationId = false)
 
 	if (!($conversation = $this->getConversation($conversationId))) return;
 
+	// Do we have permission to do this?
+	if (!$conversation["canModerate"]) {
+		$this->renderMessage(T("Error"), T("message.noPermission"));
+		return;
+	}
+
 	// Delete the conversation, then redirect to the index.
 	ET::conversationModel()->deleteById($conversation["conversationId"]);
 	$this->message(T("message.conversationDeleted"), "success dismissable");
@@ -542,6 +551,12 @@ protected function toggle($conversationId, $type)
 
 	if (!($conversation = $this->getConversation($conversationId))) return;
 
+	// Do we have permission to do this?
+	if (!$conversation["canModerate"]) {
+		$this->renderMessage(T("Error"), T("message.noPermission"));
+		return;
+	}
+
 	$function = "set".ucfirst($type);
 	ET::conversationModel()->$function($conversation, !$conversation[$type]);
 
@@ -570,7 +585,7 @@ public function edit($conversationId = false)
 	if (!($conversation = $this->getConversation($conversationId))) return;
 
 	// Do we have permission to do this?
-	if (!$conversation["canModerate"]) {
+	if (!$conversation["canModerate"] and $conversation["startMemberId"] != ET::$session->userId) {
 		$this->renderMessage(T("Error"), T("message.noPermission"));
 		return;
 	}
@@ -583,6 +598,7 @@ public function edit($conversationId = false)
 	// Get a list of the members allowed in this conversation.
 	$conversation["membersAllowed"] = ET::conversationModel()->getMembersAllowed($conversation);
 	$conversation["membersAllowedSummary"] = ET::conversationModel()->getMembersAllowedSummary($conversation, $conversation["membersAllowed"]);
+	$conversation["channelPath"] = ET::conversationModel()->getChannelPath($conversation);
 
 	// Make a form to add members allowed.
 	$membersAllowedForm = ETFactory::make("form");
@@ -610,7 +626,7 @@ public function changeChannel($conversationId = "")
 	elseif (!($conversation = $this->getConversation($conversationId))) return;
 
 	// Do we have permission to do this?
-	if (!$conversation["canModerate"]) {
+	if (!$conversation["canModerate"] and $conversation["startMemberId"] != ET::$session->userId) {
 		$this->renderMessage(T("Error"), T("message.noPermission"));
 		return;
 	}
@@ -655,6 +671,12 @@ public function save($conversationId = false)
 	$model = ET::conversationModel();
 	if (!$conversationId) $conversation = $model->getEmptyConversation();
 	elseif (!($conversation = $this->getConversation($conversationId))) return;
+
+	// Do we have permission to do this?
+	if (!$conversation["canModerate"] and $conversation["startMemberId"] != ET::$session->userId) {
+		$this->renderMessage(T("Error"), T("message.noPermission"));
+		return;
+	}
 
 	// Set up a form to handle input.
 	$form = ETFactory::make("form");
