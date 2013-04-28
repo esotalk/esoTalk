@@ -9,7 +9,8 @@ class AttachmentController extends ETController {
 	// View an attachment.
 	public function index($attachmentId = false)
 	{
-		$attachmentId = explode("_", $attachmentId)[0];
+		$attachmentId = explode("_", $attachmentId);
+        $attachmentId = $attachmentId[0];
 
 		// Find the attachment in the database.
 		$model = ET::getInstance("attachmentModel");
