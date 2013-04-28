@@ -161,11 +161,11 @@ public function getFieldsInSection($section)
  * @param mixed $collector A variable which callback functions can add information to.
  * @return void
  */
-public function runFieldCallbacks(&$collector)
+public function runFieldCallbacks(&$collector = null)
 {
 	foreach ($this->fields as $fields) {
 		foreach ($fields as $k => $callbacks) {
-			if ($callbacks["processCallback"] !== null) call_user_func_array($callbacks["processCallback"], array($k, $this, &$collector));
+			if ($callbacks["processCallback"] !== null) call_user_func_array($callbacks["processCallback"], array($this, $k, &$collector));
 		}
 	}
 }
@@ -351,8 +351,8 @@ public function input($name, $type = "text", $attributes = array())
 	$attributes["name"] = $name;
 
 	// If this is a textarea, a text input, or a password input, add the "text" class.
-	if ($type == "textarea" or $type == "text" or $type == "password")
-		$this->addClass($attributes, "text");
+	// if ($type == "textarea" or $type == "text" or $type == "password")
+	// 	$this->addClass($attributes, "text");
 
 	// If there's an error for this field, add the "error" class.
 	if (!empty($this->errors[$name])) $this->addClass($attributes, "error");

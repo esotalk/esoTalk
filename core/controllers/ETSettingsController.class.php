@@ -217,12 +217,12 @@ public function fieldLanguage($form)
 /**
  * Save the contents of the language field when the general settings form is submitted.
  *
- * @param string $key The name of the field that was submitted.
  * @param ETForm $form The form object.
+ * @param string $key The name of the field that was submitted.
  * @param array $preferences An array of preferences to write to the database.
  * @return string
  */
-public function saveLanguage($key, $form, &$preferences)
+public function saveLanguage($form, $key, &$preferences)
 {
 	$language = $form->getValue($key);
 	if (!in_array($language, ET::getLanguages()) or $language == C("esoTalk.language")) $language = null;
@@ -310,12 +310,12 @@ public function fieldHideOnline($form)
 /**
  * Save the contents of an "email me when ..." field when the general settings form is submitted.
  *
- * @param string $key The name of the field that was submitted.
  * @param ETForm $form The form object.
+ * @param string $key The name of the field that was submitted.
  * @param array $preferences An array of preferences to write to the database.
  * @return string
  */
-public function saveEmailPreference($key, $form, &$preferences)
+public function saveEmailPreference($form, $key, &$preferences)
 {
 	$preferences["email.".$key] = (bool)$form->getValue($key);
 }
@@ -324,12 +324,12 @@ public function saveEmailPreference($key, $form, &$preferences)
 /**
  * Save the contents of a preference when the general settings form is submitted.
  *
- * @param string $key The name of the field that was submitted.
  * @param ETForm $form The form object.
+ * @param string $key The name of the field that was submitted.
  * @param array $preferences An array of preferences to write to the database.
  * @return string
  */
-public function savePreference($key, $form, &$preferences)
+public function savePreference($form, $key, &$preferences)
 {
 	$preferences[$key] = $form->getValue($key);
 }
@@ -338,12 +338,12 @@ public function savePreference($key, $form, &$preferences)
 /**
  * Save the contents of a simple checkbox field when the general settings form is submitted.
  *
- * @param string $key The name of the field that was submitted.
  * @param ETForm $form The form object.
+ * @param string $key The name of the field that was submitted.
  * @param array $preferences An array of preferences to write to the database.
  * @return string
  */
-public function saveBoolPreference($key, $form, &$preferences)
+public function saveBoolPreference($form, $key, &$preferences)
 {
 	$preferences[$key] = (bool)$form->getValue($key);
 }
@@ -352,12 +352,12 @@ public function saveBoolPreference($key, $form, &$preferences)
 /**
  * Save the contents of the avatar field when the general settings form is submitted.
  *
- * @param string $key The name of the field that was submitted.
  * @param ETForm $form The form object.
+ * @param string $key The name of the field that was submitted.
  * @param array $preferences An array of preferences to write to the database.
  * @return string
  */
-public function saveAvatar($key, $form, &$preferences)
+public function saveAvatar($form, $key, &$preferences)
 {
 	if (empty($_FILES[$key]["tmp_name"])) return;
 
