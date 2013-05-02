@@ -27,7 +27,7 @@ if ($conversation["startMemberId"] == ET::$session->user) $className .= " mine";
 $conversationURL = conversationURL($conversation["conversationId"], $conversation["title"]);
 
 // Output the conversation title, highlighting search keywords.
-echo "<strong class='title'><a href='".URL($conversationURL.(ET::$session->user and $conversation["unread"] ? "/unread" : ""))."'>".highlight(sanitizeHTML($conversation["title"]), ET::$session->get("highlight"))."</a></strong> ";
+echo "<strong class='title'><a href='".URL($conversationURL.((ET::$session->user and $conversation["unread"]) ? "/unread" : ""))."'>".highlight(sanitizeHTML($conversation["title"]), ET::$session->get("highlight"))."</a></strong> ";
 
 // Output the conversation's labels.
 echo "<span class='labels'>";
