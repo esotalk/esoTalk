@@ -34,6 +34,13 @@ protected $host;
 
 
 /**
+ * The database port.
+ * @var string
+ */
+protected $port;
+
+
+/**
  * The database user.
  * @var string
  */
@@ -113,7 +120,7 @@ public function SQL()
 public function connection()
 {
 	if (!$this->pdoConnection) {
-		$dsn = "mysql:host=".$this->host.";dbname=".$this->dbName;
+		$dsn = "mysql:host=".$this->host.($this->port ? ";port=".$this->port : "").";dbname=".$this->dbName;
 		$this->pdoConnection = @new PDO($dsn, $this->user, $this->password, $this->connectionOptions);
 	}
 	return $this->pdoConnection;
@@ -143,11 +150,12 @@ public function getVersion()
  * @param array $connectionOptions An array of connection options to use when making the PDO connection.
  * @return void
  */
-public function init($host, $user, $password, $dbName, $tablePrefix = "", $connectionOptions = array())
+public function init($host, $user, $password, $dbName, $tablePrefix = "", $connectionOptions = array(), $port = null)
 {
 	$this->pdoConnection = null;
 
 	$this->host = $host;
+	$this->port = $port;
 	$this->user = $user;
 	$this->password = $password;
 	$this->dbName = $dbName;

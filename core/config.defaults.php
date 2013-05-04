@@ -39,6 +39,7 @@ $config["esoTalk.version"] = "";
 
 // MySQL database details.
 $config["esoTalk.database.host"] = "";
+$config["esoTalk.database.port"] = null;
 $config["esoTalk.database.user"] = "";
 $config["esoTalk.database.password"] = "";
 $config["esoTalk.database.dbName"] = "";
