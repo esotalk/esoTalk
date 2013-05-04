@@ -60,7 +60,7 @@ class ETPlugin_Attachments extends ETPlugin {
 	{
 		$sender->addCSSFile($this->getResource("fineuploader/fineuploader.css"));
 		$sender->addCSSFile($this->getResource("attachments.css"));
-		$sender->addJSFile($this->getResource("fineuploader/jquery.fineuploader.min.js"));
+		$sender->addJSFile($this->getResource("fineuploader/jquery.fineuploader.js"));
         $sender->addJSFile($this->getResource("attachments.js"));
 	}
 

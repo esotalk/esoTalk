@@ -42,6 +42,24 @@ $(function() {
 			}
 		});
 
+		var dragAndDropModule = new qq.DragAndDrop({
+			dropZoneElements: [$post.find(".dropZone")[0]],
+			classes: {
+				dropActive: "dropZoneActive"
+			},
+			hideDropZonesBeforeEnter: true,
+			callbacks: {
+				processingDroppedFiles: function() {
+					//TODO: display some sort of a "processing" or spinner graphic
+				},
+				processingDroppedFilesComplete: function(files) {
+					//TODO: hide spinner/processing graphic
+
+					uploader.addFiles(files); //this submits the dropped files to Fine Uploader
+				}
+			}
+		});
+
 		$post.on("click", ".attachments-edit .control-delete", function(e) {
 			e.preventDefault();
 			$.ETAjax({

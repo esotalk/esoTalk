@@ -17,3 +17,5 @@ if (!defined("IN_ESOTALK")) exit;
 
 	<a href='#' class='attachments-button'>Attach a file</a>
 </div>
+
+<div class='dropZone'>Drop files to upload</div>

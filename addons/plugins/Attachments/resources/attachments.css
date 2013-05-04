@@ -50,3 +50,23 @@
 	padding-left:23px;
 	background:url(attachment.png) no-repeat;
 }
+.dropZone {
+	display:none;
+	position:absolute;
+	left:5px;
+	top:5px;
+	right:5px;
+	bottom:5px;
+	background:#fff;
+	border:2px dashed #ccc;
+	border-radius:5px;
+	text-align:center;
+	padding-top:40px;
+	font-size:20px;
+	color:#ccc;
+}
+.dropZoneActive {
+	border-color:#000;
+	background:#eee;
+	color:#000;
+}
