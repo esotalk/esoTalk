@@ -74,8 +74,8 @@ p, ul, pre {line-height:1.6em}
 
 
 /* Text inputs */
-input.text, textarea {background:#fff; border:#ccc 1px solid; padding:3px; border-radius:3px; vertical-align:-1px; margin:0}
-input.text:focus, textarea:focus {border-color:#999; outline:0; box-shadow:inset 0 1px 2px rgba(0, 0, 0, 0.15)}
+input[type=text], input[type=password], textarea {background:#fff; border:#ccc 1px solid; padding:3px; border-radius:3px; vertical-align:-1px; margin:0}
+input[type=text]:focus, input[type=password]:focus, textarea:focus {border-color:#999; outline:0; box-shadow:inset 0 1px 2px rgba(0, 0, 0, 0.15)}
 .postBody textarea:focus {box-shadow:none}
 
 

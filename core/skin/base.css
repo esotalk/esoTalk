@@ -627,7 +627,7 @@ input.error, input.error:focus {border-color:#f59e79 !important}
 .checkboxGroup {line-height:1.7em}
 .colorSwatch {display:inline-block; height:21px; width:21px; border-radius:3px; margin-right:5px; vertical-align:-8px; border:1px solid rgba(0, 0, 0, 0.2)}
 
-.form input.text, .form select, .form textarea {margin:0 3px 3px 0; width:260px; font-size:110%; padding:5px}
+.form input[type=text], form input[type=password], .form select, .form textarea {margin:0 3px 3px 0; width:260px; font-size:110%; padding:5px}
 .form input.color {font-size:100%; padding:3px; width:60px}
 
 
