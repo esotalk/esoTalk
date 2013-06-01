@@ -117,6 +117,7 @@ public function reorder()
 	foreach ($tree as $k => $v) {
 
 		if ($v["depth"] == -1) continue;
+		if ($v["parent_id"] == "root") $v["parent_id"] = 0;
 
 		ET::channelModel()->updateById($v["item_id"], array(
 			"parentId" => $v["parent_id"],
