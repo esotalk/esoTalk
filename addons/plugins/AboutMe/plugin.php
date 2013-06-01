@@ -47,7 +47,7 @@ class ETPlugin_AboutMe extends ETPlugin {
 
 	public static function fieldAbout($form)
 	{
-		return $form->input("about", "textarea", array("style" => "width:500px; height:150px"))."<br><small>Write something about yourself!</small>";
+		return $form->input("about", "textarea", array("style" => "width:500px; height:150px"))."<br><small>".T("Write something about yourself.")."</small>";
 	}
 
 }
