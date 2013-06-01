@@ -83,6 +83,9 @@ class ETPlugin_MemberNotifications extends ETPlugin {
 	// Send out notifications to people who have starred the member that made a post.
 	public function handler_conversationModel_addReplyAfter($sender, $conversation, $postId, $content)
 	{
+		// Only continue if this is the first post.
+		if ($conversation["countPosts"] > 1) return;
+		
 		// We get all members who have starred the post author and have no unread posts in the conversation.
 		$sql = ET::SQL()
 			->from("member_member mm2", "mm2.memberId2=:userId AND mm2.memberId1=m.memberId AND mm2.follow=1 AND mm2.memberId1!=:userId", "inner")
