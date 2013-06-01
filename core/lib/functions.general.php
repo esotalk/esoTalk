@@ -56,7 +56,8 @@ function T($string, $default = false)
  */
 function Ts($string, $pluralString, $amount)
 {
-	return sprintf(T($amount == 1 ? $string : $pluralString), $amount);
+	$number = (float)str_replace(",", "", $amount);
+	return sprintf(T($number == 1 ? $string : $pluralString), $amount);
 }
 
 
