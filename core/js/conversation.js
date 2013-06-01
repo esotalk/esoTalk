@@ -144,7 +144,7 @@ init: function() {
 		// Auto-grow the title input.
 		$("#conversationTitle input").autoGrowInput({
 		    comfortZone: 30,
-		    minWidth: 250,
+		    minWidth: 300,
 		    maxWidth: 500
 		}).trigger("update");
 
