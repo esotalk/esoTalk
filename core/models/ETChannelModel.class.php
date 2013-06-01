@@ -274,7 +274,7 @@ public function create($values)
 	$values["rgt"] = ++$right;
 
 	// Collapse the attributes.
-	if (isset($values["attributes"])) $values["attributes"] = serialize($value["attributes"]);
+	if (isset($values["attributes"])) $values["attributes"] = serialize($values["attributes"]);
 
 	if ($this->errorCount()) return false;
 
