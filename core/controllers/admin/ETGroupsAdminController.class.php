@@ -53,8 +53,8 @@ public function edit($groupId = "")
 
 		$data = array(
 			"name" => $form->getValue("name"),
-			"canSuspend" => $form->getValue("canSuspend"),
-			"private" => $form->getValue("private")
+			"canSuspend" => (bool)$form->getValue("canSuspend"),
+			"private" => (bool)$form->getValue("private")
 		);
 
 		$model = ET::groupModel();
@@ -92,8 +92,8 @@ public function create()
 
 		$data = array(
 			"name" => $form->getValue("name"),
-			"canSuspend" => $form->getValue("canSuspend"),
-			"private" => $form->getValue("private")
+			"canSuspend" => (bool)$form->getValue("canSuspend"),
+			"private" => (bool)$form->getValue("private")
 		);
 
 		$model = ET::groupModel();
