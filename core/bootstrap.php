@@ -226,10 +226,7 @@ if (empty($request)) $request = C("esoTalk.defaultRoute");
 // If we didn't work it out above, set it to $request and append any GET variables.
 if (empty($selfURL)) {
 	$selfURL = $request;
-	$get = array();
-	foreach ($_GET as $k => $v) $get[] = "$k=".urlencode($v);
-	$get = implode("&", $get);
-	if ($get) $selfURL .= "?$get";
+	if (!empty($_GET)) $selfURL .= "?".http_build_query($_GET);
 }
 
 $requestParts = explode("/", $request);
