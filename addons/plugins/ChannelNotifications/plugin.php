@@ -82,6 +82,9 @@ class ETPlugin_ChannelNotifications extends ETPlugin {
 	// Send out notifications to people who have starred the channel that a conversation is in.
 	public function handler_conversationModel_addReplyAfter($sender, $conversation, $postId, $content)
 	{
+		// Only continue if this is the first post.
+		if ($conversation["countPosts"] > 1) return;
+
 		// We get all members who have starred the channel and have no unread posts in the conversation.
 		$sql = ET::SQL()
 			->from("member_channel ch", "ch.channelId=:channelId AND ch.memberId=m.memberId AND ch.follow=1 AND ch.memberId!=:userId", "inner")
@@ -138,7 +141,7 @@ class ETPlugin_ChannelNotifications extends ETPlugin {
 	public static function postChannelNotification(&$item)
 	{
 		return array(
-			sprintf(T("%s posted in %s."), name($item["fromMemberName"]), "<span class='channel channel-".$item["data"]["channelId"]."'><span class='star starOn'>*</span> ".$item["data"]["channelTitle"]."</span> <strong>".sanitizeHTML($item["data"]["title"])."</strong>"),
+			sprintf(T("%s posted in %s"), name($item["fromMemberName"]), "<span class='channel channel-".$item["data"]["channelId"]."'><span class='star starOn'>*</span> ".$item["data"]["channelTitle"]."</span> <strong>".sanitizeHTML($item["data"]["title"])."</strong>"),
 			URL(postURL($item["postId"]))
 		);
 	}
