@@ -63,8 +63,8 @@ body {font-size:12px}
 
 /* Search - unfloat the search and hide the gambits. */
 .search {float:none; margin-bottom:5px}
-.search .text {width:80%}
-#gambits {display:none !important}
+.search input[type=text] {width:180px}
+#gambits.popup {width:235px; height:100px; overflow:auto !important; margin:0}
 
 
 /* Lists - give them left/right padding and always show controls. */
