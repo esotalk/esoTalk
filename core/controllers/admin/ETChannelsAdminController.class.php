@@ -179,7 +179,7 @@ public function create()
  		$model = ET::channelModel();
  		$channelId = $model->create(array(
  			"title" => $form->getValue("title"),
- 			"slug" => $model->generateSlug($form->getValue("title")),
+ 			"slug" => ($slug = $form->getValue("slug")) ? $slug : $model->generateSlug($form->getValue("title")),
  			"description" => $form->getValue("description"),
  			"attributes" => array("defaultUnsubscribed" => $form->getValue("defaultUnsubscribed"))
 	 	));
