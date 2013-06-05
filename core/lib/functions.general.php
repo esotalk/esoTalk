@@ -413,7 +413,7 @@ function slug($string)
 	// Now replace non-alphanumeric characters with a hyphen, and remove multiple hyphens.
 	$slug = strtolower(trim(preg_replace(array("/[^0-9a-z]/i", "/-+/"), "-", $slug), "-"));
 
-	return substr($slug, 0, 63);
+	return substr($slug, 0, 50);
 }
 
 
