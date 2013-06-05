@@ -218,6 +218,7 @@ function sendEmail($to, $subject, $body)
 	if (($return = ET::trigger("sendEmailBefore", array($mail, &$to, &$subject, &$body))) and !empty($return))
 		return reset($return);
 
+	$mail->CharSet = 'UTF-8';
 	$mail->IsHTML(true);
 	$mail->AddAddress($to);
 	$mail->SetFrom(C("esoTalk.emailFrom"), sanitizeForHTTP(C("esoTalk.forumTitle")));
