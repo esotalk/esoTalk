@@ -29,7 +29,7 @@ class ETPlugin_Gravatar extends ETPlugin {
 		 */
 		function avatar($member = array(), $className = "")
 		{
-			$esoTalkDefault = getResource("skins/base/avatar.png", true);
+			$esoTalkDefault = getResource("core/skin/avatar.png", true);
 			if (empty($member["email"])) $url = $esoTalkDefault;
 			else {
 			
