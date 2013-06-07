@@ -190,8 +190,11 @@ public function whitespace()
 public function links()
 {
 	// Convert normal links - http://www.example.com, www.example.com - using a callback function.
+
+	$use_unicode = C("esoTalk.format.PCRE.UseUnicode");
+
 	$this->content = preg_replace_callback(
-		"/(?<=\s|^|>|\()(\w+:\/\/)?([\w\-\.]+\.(?:com|net|org|gov|edu|co|biz|info|tv|mil|cn|jp|ru|eu|nz|ca|uk|de)[^\s<]*?)(?=[\s\.,?!>\)]*(?:\s|>|\)|$))/i",
+		"/(?<=\s|^|>|\()(\w+:\/\/)?([\w\-\.]+\.(?:".($use_unicode ? "\pL" : "[a-z]" )."{2,4})[^\s<]*?)(?=[\s\.,?!>\)]*(?:\s|>|\)|$))/i".($use_unicode ? "u" : "" ),
 		array($this, "linksCallback"), $this->content);
 
 	// Convert email links.
@@ -211,10 +214,11 @@ public function linksCallback($matches)
 {
 	// If we're not doing basic formatting, YouTube embedding is enabled, and this is a YouTube video link,
 	// then return an embed tag.
-	if (!$this->basic and C("esoTalk.format.youtube") and preg_match("/^(?:www\.)?youtube\.com\/watch\?v=([^&]+)/i", $matches[2], $youtube)) {
+
+	if (!$this->basic and C("esoTalk.format.youtube") and preg_match("/^(?:www\.)?youtube\.com\/watch\?(?:\S*(?:\&|\&amp;)v=|v=)([^&]+)/i", $matches[2], $youtube)) {
 		$id = $youtube[1];
-		$width = 400;
-		$height = 225;
+		$width = 425;
+		$height = 344;
 		return "<div class='video'><object width='$width' height='$height'><param name='movie' value='http://www.youtube.com/v/$id'></param><param name='allowFullScreen' value='true'></param><param name='allowscriptaccess' value='always'></param><embed src='http://www.youtube.com/v/$id' type='application/x-shockwave-flash' allowscriptaccess='always' allowfullscreen='true' width='$width' height='$height'></embed></object></div>";
 	}
 
