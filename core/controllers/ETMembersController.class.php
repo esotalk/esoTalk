@@ -54,11 +54,13 @@ public function index($orderBy = false, $start = 0)
 		}
 
 		// Did we find any matching groups just before? If so, add a WHERE condition to the query to filter by group.
-		if ($restrictGroup < 0) $sql->where("account", $groups[$restrictGroup]["name"]);
-		elseif (!$groups[$restrictGroup]["private"] or ET::groupModel()->groupIdsAllowedInGroupIds(ET::$session->getGroupIds(), $restrictGroup, true)) {
-			$sql
-				->from("member_group mg", "mg.memberId=m.memberId", "left")
-				->where("mg.groupId", $restrictGroup);
+		if ($restrictGroup !== false) {
+			if ($restrictGroup < 0) $sql->where("account", $groups[$restrictGroup]["name"]);
+			elseif (!$groups[$restrictGroup]["private"] or ET::groupModel()->groupIdsAllowedInGroupIds(ET::$session->getGroupIds(), $restrictGroup, true)) {
+				$sql
+					->from("member_group mg", "mg.memberId=m.memberId", "left")
+					->where("mg.groupId", $restrictGroup);
+			}
 		}
 
 		// If there were no matching groups, just perform a normal LIKE search.
