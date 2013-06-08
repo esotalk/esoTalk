@@ -199,7 +199,7 @@ span.highlight {background:#fdef34; border:1px solid #fcef98; padding:1px 3px; b
 .sheetOverlay {background:rgba(0, 0, 0, 0.2); z-index:150; position:fixed; top:0; left:0; bottom:0; right:0}
 
 .sheet h3 {font-weight:normal; font-size:120%; border-bottom:1px solid #d5d5d5; margin-bottom:-1px !important; position:relative}
-.sheet .close {float:right; margin:12px 12px 0 0}
+.sheet .close {float:right; margin:12px 12px 0 0; position:relative; z-index:1}
 .sheet .section, .sheet h3, .sheet .buttons {padding:10px 15px; margin:0}
 .sheet .section, .sheet .buttons {border-top:1px solid #d5d5d5}
 .sheet .section {padding:15px}
