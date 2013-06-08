@@ -301,7 +301,7 @@ search: function(query, customMethod) {
 	ETSearch.currentSearch = ETSearch.formInput.val(query).val();
 
 	// If the search input is blank, hide the reset 'x' button.
-	if (!ETSearch.currentSearch) ETSearch.formReset.css("visibility", "hidden");
+	ETSearch.formReset.css("visibility", ETSearch.currentSearch ? "visible" : "hidden");
 
 	// Get the channel slugs and join them together so we can put them in a URL.
 	var channelString = ETSearch.getCurrentChannelSlugs().join("+");
