@@ -161,7 +161,7 @@ function index($channelSlug = false)
 
 		foreach ($gambits as $section => $items) {
 			foreach ($items as $gambit => $classes) {
-				$gambitsMenu->add($classes[0], "<a href='".URL($linkPrefix.urlencode("#".$gambit))."' class='{$classes[0]}'>".(!empty($classes[1]) ? "<i class='{$classes[1]}'></i> " : "")."$gambit</a>");
+				$gambitsMenu->add($classes[0], "<a href='".URL($linkPrefix.urlencode("#".$gambit))."' class='{$classes[0]}' data-gambit='$gambit'>".(!empty($classes[1]) ? "<i class='{$classes[1]}'></i> " : "")."$gambit</a>");
 			}
 			end($gambits);
 			if ($section !== key($gambits)) $gambitsMenu->separator();

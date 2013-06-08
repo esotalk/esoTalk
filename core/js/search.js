@@ -98,11 +98,11 @@ init: function() {
 	// Add click and double click handlers to all the gambits.
 	$("#gambits a").click(function(e) {
 		e.preventDefault();
-		ETSearch.gambit(desanitize($(this).text()), e.shiftKey);
+		ETSearch.gambit(desanitize($(this).data("gambit")), e.shiftKey);
 		ETSearch.formInput.keyup();
 	}).dblclick(function(e) {
 		e.preventDefault();
-		ETSearch.search((e.shiftKey ? "!" : "") + "#" + desanitize($(this).text()));
+		ETSearch.search((e.shiftKey ? "!" : "") + "#" + desanitize($(this).data("gambit")));
 		ETSearch.formInput.blur().keyup();
 	})
 
