@@ -155,6 +155,8 @@ function index($channelSlug = false)
 			addToArrayString($gambits["member"], T("gambit.contributor:").T("gambit.myself"), array("gambit-contributorMyself", "icon-smile"), 2);
 		}
 
+		$this->trigger("constructGambitsMenu", array(&$gambits));
+
 		// Construct the gambits menu based on the above arrays.
 		$gambitsMenu = ETFactory::make("menu");
 		$linkPrefix = "conversations/".$channelSlug."/?search=".urlencode(((!empty($searchString) ? $searchString." + " : "")));

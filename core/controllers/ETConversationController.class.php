@@ -164,6 +164,8 @@ public function index($conversationId = false, $year = false, $month = false)
 	if ($startFrom < $conversation["countPosts"]) $posts = ET::postModel()->getByConversation($conversation["conversationId"], $options);
 	else $posts = array();
 
+	$this->trigger("conversationIndex", array(&$conversation, &$posts, &$startFrom, &$searchString));
+
 	// Transport some data to the view.
 	$this->data("conversation", $conversation);
 	$this->data("posts", $posts);
@@ -284,9 +286,11 @@ public function index($conversationId = false, $year = false, $month = false)
 		$replyForm = ETFactory::make("form");
 		$replyForm->action = URL("conversation/reply/".$conversation["conversationId"]);
 		$replyForm->setValue("content", $conversation["draft"]);
+
+		$this->trigger("conversationIndexDefault", array(&$conversation, &$controls, &$replyForm, &$replyControls));
+
 		$this->data("replyForm", $replyForm);
 		$this->data("replyControls", $this->getEditControls("reply"));
-
 		$this->data("conversation", $conversation);
 		$this->data("controlsMenu", $controls);
 
