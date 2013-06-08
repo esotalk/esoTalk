@@ -52,8 +52,9 @@ echo "</span>";
 $channel = $data["channelInfo"][$conversation["channelId"]];
 echo "<a href='".URL(searchURL("", $channel["slug"]))."' class='channel channel-{$conversation["channelId"]}' data-channel='{$channel["slug"]}'>{$channel["title"]}</a>";
 ?></div>
-<div class='col-replies'><?php
-echo "<span>".Ts("%s reply", "%s replies", $conversation["replies"])."</span>";
+<div class='col-replies'>
+<i class='icon-comment-alt'></i>
+<?php echo "<span>".Ts("%s reply", "%s replies", $conversation["replies"])."</span>";
 
 // Output an "unread indicator", showing the number of unread posts.
 if (ET::$session->user and $conversation["unread"])

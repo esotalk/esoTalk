@@ -49,7 +49,7 @@ class ETPlugin_MemberNotifications extends ETPlugin {
 		$starred = @$member["follow"];
 		
 		$url = URL("member/follow/".$member["memberId"]."?token=".ET::$session->token."&return=".urlencode(ET::$controller->selfURL));
-		$actions->add("follow", "<a href='$url' class='button' title='".T("Follow to receive notifications")."' data-id='{$member["memberId"]}'><span class='star".($starred ? " starOn" : "")."'></span> <span>".($starred ? T("Following") : T("Follow"))."</span></a>", 0);
+		$actions->add("follow", "<a href='$url' class='button' title='".T("Follow to receive notifications")."' data-id='{$member["memberId"]}'><i class='star icon-star".($starred ? "" : "-empty")."'></span> <span>".($starred ? T("Following") : T("Follow"))."</span></a>", 0);
 	}
 
 	// Add an action to toggle the following status of a member.
@@ -132,14 +132,14 @@ class ETPlugin_MemberNotifications extends ETPlugin {
 
 	public static function fieldEmailPostMember($form)
 	{
-		return "<label class='checkbox'>".$form->checkbox("postMember")." <span class='star starOn'>*</span> ".T("Email me when there is a new post by a member I have followed")."</label>";
+		return "<label class='checkbox'>".$form->checkbox("postMember")." <i class='star icon-star'></i> ".T("Email me when there is a new post by a member I have followed")."</label>";
 	}
 
 	// Format the postMember notification.
 	public static function postMemberNotification(&$item)
 	{
 		return array(
-			sprintf(T("%s posted in %s."), "<span class='star starOn'>*</span> ".name($item["fromMemberName"]), "<strong>".sanitizeHTML($item["data"]["title"])."</strong>"),
+			sprintf(T("%s posted in %s."), "<i class='star icon-star'></i> ".name($item["fromMemberName"]), "<strong>".sanitizeHTML($item["data"]["title"])."</strong>"),
 			URL(postURL($item["postId"]))
 		);
 	}

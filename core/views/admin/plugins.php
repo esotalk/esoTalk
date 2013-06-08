@@ -30,10 +30,10 @@ foreach ($data["plugins"] as $k => $plugin): ?>
 <li id='plugin-<?php echo $k; ?>' class='plugin<?php if ($plugin["loaded"]): ?> thing enabled<?php endif; ?>'>
 
 <ul class='controls' id='pluginControls-<?php echo $k; ?>'>
-<li><span><?php printf(T("By %s"), "<a href='{$plugin["info"]["authorURL"]}'>{$plugin["info"]["author"]}</a>"); ?></span></li>
+<li><span><i class='icon-user'></i><?php printf(T("By %s"), "<a href='{$plugin["info"]["authorURL"]}'>{$plugin["info"]["author"]}</a>"); ?></span></li>
 <li><span><?php printf(T("Version %s"), $plugin["info"]["version"]); ?></span></li>
 <li class='sep'></li>
-<li><a href='<?php echo URL("admin/plugins/uninstall/$k?token=".ET::$session->token); ?>'><?php echo T("Uninstall"); ?></a></li>
+<li><a href='<?php echo URL("admin/plugins/uninstall/$k?token=".ET::$session->token); ?>'><i class='icon-remove'></i><?php echo T("Uninstall"); ?></a></li>
 </ul>
 
 <div class='controls pluginControls'>

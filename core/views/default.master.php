@@ -35,8 +35,10 @@ if (!defined("IN_ESOTALK")) exit;
 <div id='hdr'>
 <div id='hdr-content'>
 
+<div id='hdr-inner'>
+
 <?php if ($data["backButton"]): ?>
-<a href='<?php echo $data["backButton"]["url"]; ?>' id='backButton' title='<?php echo T("Back to {$data["backButton"]["type"]}"); ?>'>&larr;</a>
+<a href='<?php echo $data["backButton"]["url"]; ?>' id='backButton' title='<?php echo T("Back to {$data["backButton"]["type"]}"); ?>'><i class="icon-circle-arrow-left"></i></a>
 <?php endif; ?>
 
 <h1 id='forumTitle'><a href='<?php echo URL(""); ?>'><?php echo $data["forumTitle"]; ?></a></h1>
@@ -50,6 +52,7 @@ if (!defined("IN_ESOTALK")) exit;
 <li><a href='<?php echo URL("conversation/start"); ?>' class='link-newConversation button'><?php echo T("New Conversation"); ?></a></li>
 </ul>
 
+</div>
 </div>
 </div>
 

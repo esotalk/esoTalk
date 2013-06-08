@@ -20,7 +20,7 @@ if (!defined("IN_ESOTALK")) exit;
 </form>
 
 <ul id='channels' class='channels tabs'>
-<li class='selected'><a href='<?php echo URL("channels"); ?>' class='channel-list' data-channel='list' title='<?php echo T("Channel List"); ?>'><?php echo T("Channel List"); ?></a></li>
+<li class='channelListItem selected'><a href='<?php echo URL("channels"); ?>' class='channel-list' data-channel='list' title='<?php echo T("Channel List"); ?>'><i class="icon-list-ul"></i></a></li>
 <?php $this->renderView("channels/tabs", $data); ?>
 </ul>
 

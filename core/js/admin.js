@@ -92,7 +92,7 @@ init: function() {
 	});
 
 	// Give the mobile icon a tooltip.
-	$("#skinList .icon-mobile").tooltip();
+	$("#skinList .icon-mobile-phone").tooltip();
 
 }
 

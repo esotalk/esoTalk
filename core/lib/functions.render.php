@@ -204,7 +204,7 @@ function star($conversationId, $starred)
 	else {
 		$conversationId = (int)$conversationId;
 		$url = URL("conversation/star/".$conversationId."?token=".ET::$session->token."&return=".urlencode(ET::$controller->selfURL));
-		return "<a href='$url' class='star".($starred ? " starOn" : "")."' title='".T("Follow to receive notifications")."' data-id='$conversationId'>".($starred ? T("Following") : T("Follow"))."</a>";
+		return "<a href='$url' class='starButton' title='".T("Follow to receive notifications")."' data-id='$conversationId'><i class='star icon-star".($starred ? "" : "-empty")."'></i></a>";
 	}
 }
 
@@ -231,7 +231,7 @@ function starButton($conversationId, $starred)
 	else {
 		$conversationId = (int)$conversationId;
 		$url = URL("conversation/star/".$conversationId."?token=".ET::$session->token."&return=".urlencode(ET::$controller->selfURL));
-		return "<a href='$url' class='button big starButton' title='".T("Follow to receive notifications")."' data-id='$conversationId'><span class='star".($starred ? " starOn" : "")."'></span> <span>".($starred ? T("Following") : T("Follow"))."</span></a>";
+		return "<a href='$url' class='button big starButton' title='".T("Follow to receive notifications")."' data-id='$conversationId'><i class='star icon-star".($starred ? "" : "-empty")."'></i> <span>".($starred ? T("Following") : T("Follow"))."</span></a>";
 	}
 }
 

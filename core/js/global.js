@@ -327,7 +327,7 @@ showMessage: function(text, options) {
 
 	// If the message is dismissable, add an 'x' control to close it.
 	if (!message.find(".message").hasClass("undismissable")) {
-		var close = $("<a href='#' class='control-delete dismiss'>X</a>").click(function(e) {
+		var close = $("<a href='#' class='control-delete dismiss'><i class='icon-remove'></i></a>").click(function(e) {
 			e.preventDefault();
 			ETMessages.hideMessage(key);
 		});
@@ -398,7 +398,7 @@ showSheet: function(id, content, callback) {
 	// Append the sheet html to the body, add a close button to it.
 	$("body").append(content);
 	var sheet = $("#" + content.attr("id"));
-	sheet.prepend("<a href='javascript:ETSheet.hideSheet(\"" + id + "\")' class='control-delete close'>Close</a>");
+	sheet.prepend("<a href='javascript:ETSheet.hideSheet(\"" + id + "\")' class='control-delete close'><i class='icon-remove'></i></a>");
 
 	// Add an overlay div to dim the rest of the content. Clicking on it will hide all open sheets.
 	if (!ETSheet.sheetStack.length)
@@ -571,6 +571,7 @@ hideAllPopups: function() {
 $.fn.popup = function(options) {
 
 	options = options || {};
+	options.content = options.content || "<i class='icon-cog'></i> <i class='icon-caret-down'></i>";
 
 	// Get the element to use as the popup contents.
 	var popup = $(this).first();
@@ -578,7 +579,7 @@ $.fn.popup = function(options) {
 
 	// Construct the popup wrapper and button.
 	var wrapper = $("<div class='popupWrapper'></div>");
-	var button = $("<a href='#' class='popupButton button' id='"+popup.attr("id")+"-button'><span class='icon-settings'></span> <span class='text'>Controls</span> <span class='icon-dropdown'></span></a>");
+	var button = $("<a href='#' class='popupButton button' id='"+popup.attr("id")+"-button'>"+options.content+"</a>");
 	wrapper.append(button).append(popup);
 
 	// Remove whatever class is on the popup contents and make it into a popup menu.
@@ -830,7 +831,7 @@ $(function() {
 	});
 
 	// Add click handlers to stars.
-	$("a.star, .starButton").live("click", function(e) {
+	$(".starButton").live("click", function(e) {
 		toggleStar($(this).data("id"));
 		e.preventDefault();
 	});
@@ -871,16 +872,16 @@ function showOnlineSheet()
 function toggleStar(conversationId)
 {
 	$.ETAjax({url: "conversation/star.json/"+conversationId});
-	var star = $(".star[data-id="+conversationId+"], .starButton[data-id="+conversationId+"] .star");
-	var on = !star.hasClass("starOn");
+	var star = $(".starButton[data-id="+conversationId+"] .star");
+	var on = !star.hasClass("icon-star");
 	toggleStarState(conversationId, on);
 }
 
 function toggleStarState(conversationId, on)
 {
-	var star = $(".star[data-id="+conversationId+"], .starButton[data-id="+conversationId+"] .star");
-	var text = star.parent().is(".starButton") ? star.parent().find("span:not(.star)") : star;
-	star.toggleClass("starOn", on);
+	var star = $(".starButton[data-id="+conversationId+"] .star");
+	var text = star.parent().find("span:not(.star)");
+	star.toggleClass("icon-star", on).toggleClass("icon-star-empty", !on);
 	text.html(T(on ? "Following" : "Follow"));
 	$("#c"+conversationId).toggleClass("starred", on);
 }

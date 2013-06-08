@@ -39,7 +39,7 @@ function makeURL($startFrom = 0, $searchString = "")
 </ul>
 
 <?php if (ET::$session->isAdmin()): ?>
-<a href='<?php echo URL("members/create"); ?>' class='button' id='createMemberLink'><span class='icon-add'></span> <?php echo T("Create Member"); ?></a>
+<a href='<?php echo URL("members/create"); ?>' class='button' id='createMemberLink'><i class='icon-plus-sign'></i> <?php echo T("Create Member"); ?></a>
 <?php endif; ?>
 
 <form class='search big' id='memberSearch' action='<?php echo URL(makeURL()); ?>' method='get'>

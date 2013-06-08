@@ -252,7 +252,7 @@ public function fieldEmailPrivateAdd($form)
  */
 public function fieldEmailReplyToStarred($form)
 {
-	return "<label class='checkbox'>".$form->checkbox("post")." <span class='star starOn'>*</span> ".T("Email me when someone posts in a conversation I have followed")."</label>";
+	return "<label class='checkbox'>".$form->checkbox("post")." <i class='star icon-star'></i> ".T("Email me when someone posts in a conversation I have followed")."</label>";
 }
 
 

@@ -91,32 +91,8 @@ span.highlight {background:#fdef34; border:1px solid #fcef98; padding:1px 3px; b
 .hasControls:hover .controls, .edit .controls, .showControls .controls {opacity:1}
 
 
-/* Icons */
-[class*=icon-], [class*=control-], .online {display:inline-block; background:url(icons.png) no-repeat; text-indent:-9999px}
-
-.icon-mobile {background-position:-20px -0px; width:16px; height:16px}
-.icon-tick {background-position:-20px -543px; width:10px; height:8px}
-.icon-dropdown {background-position:-20px -571px; width:7px; height:4px}
-
-.icon-settings {background-position:-20px -72px; width:12px; height:12px}
-.icon-add {background-position:-20px -104px; width:12px; height:12px}
-.icon-delete {background-position:-20px -200px; width:12px; height:12px}
-.icon-restore {background-position:-20px -264px; width:12px; height:12px}
-.icon-search {background-position:-20px -296px; width:12px; height:12px}
-.icon-quote {background-position:-20px -392px; width:12px; height:12px}
-.icon-edit {background-position:-20px -424px; width:12px; height:12px}
-
-.control-settings {background-position:-14px -66px}
-.control-add {background-position:-14px -98px}
-.control-delete, .control-reset {background-position:-14px -194px}
-.control-restore {background-position:-14px -258px}
-.control-search {background-position:-14px -290px}
-.control-quote {background-position:-14px -386px}
-.control-edit {background-position:-14px -418px}
-
-
 /* Controls (icons with hover/click effects) */
-[class*=control-] {opacity:0.4; -webkit-transition:opacity 0.05s linear; width:12px; height:12px; padding:6px; margin:-6px -1px}
+[class*=control-] {opacity:0.4; -webkit-transition:opacity 0.05s linear; width:12px; height:12px; padding:6px; margin:-6px -1px; font-size:14px; text-decoration:none !important; color:#444 !important}
 [class*=control-]:hover {opacity:0.7}
 [class*=control-]:active {opacity:1}
 
@@ -126,10 +102,12 @@ span.highlight {background:#fdef34; border:1px solid #fcef98; padding:1px 3px; b
 
 
 /* Stars */
-.star {display:inline-block; text-indent:-1000px; height:12px; width:13px; overflow:hidden; background:url(icons.png) no-repeat; background-position:-20px -232px}
-.star:hover {background-position:-20px -360px;}
-.starOn, .starOn:hover {background-position:-20px -328px;}
-.star:active, .starOn:active {background-position:-20px -168px;}
+.starButton {}
+.starButton:hover {text-decoration:none}
+.star {color:#fc0 !important; font-size:14px}
+.star.icon-star-empty {color:#ccc !important}
+.starButton:hover .star {color:#fc0 !important; text-decoration:none}
+.starButton:active .star {color:#da0 !important; text-decoration:none}
 .gambit-starred {color:#efcb00 !important}
 
 
@@ -181,12 +159,13 @@ span.highlight {background:#fdef34; border:1px solid #fcef98; padding:1px 3px; b
 
 /* Popup menus */
 .popupMenu {list-style-type:none; padding:6px 0; margin:0}
-.popupMenu li > a, .popupMenu li > span {display:block; padding:3px 25px 3px 25px; overflow:hidden; white-space:nowrap}
+.popupMenu li > a, .popupMenu li > span {display:block; padding:3px 25px 3px 35px; overflow:hidden; white-space:nowrap}
 .popupMenu li > a {color:#444}
 .popupMenu li > span {color:#888 !important}
 .popupMenu li > a:hover, ul.popupMenu li.selected > a {text-decoration:none; background:#364159; color:#fff !important}
 .popupMenu li > a:hover *, ul.popupMenu li.selected > a * {color:#fff}
 .popupMenu li.sep {border-top:1px solid #ccc; margin:5px}
+.popupMenu li > a i, .popupMenu li > span i {margin-left:-23px; float:left; width:15px; text-align:right; line-height:20px; font-size:14px}
 
 
 /* Popup buttons */
@@ -249,6 +228,7 @@ span.highlight {background:#fdef34; border:1px solid #fcef98; padding:1px 3px; b
 .tabs li > span {color:#888}
 .tabs li a:hover {border:1px solid #eee; margin:-1px; text-decoration:none}
 .tabs li.selected a {background-color:#fff; border:1px solid #d5d5d5; margin:-1px; color:#000; -webkit-box-shadow:0 1px 0 rgba(0, 0, 0, 0.03); box-shadow:0 1px 0 rgba(0, 0, 0, 0.03)}
+.tabs li > a i, .tabs li > span i {margin-right:5px; font-size:14px; width:14px; display:inline-block}
 
 .tabs.big {font-size:120%}
 .tabs.big li a {padding:5px 10px}
@@ -259,13 +239,13 @@ span.highlight {background:#fdef34; border:1px solid #fcef98; padding:1px 3px; b
 
 /* The channel breadcrumb tab */
 .tabs .pathItem {margin-right:1.2em}
-.tabs .pathItem a {position:relative; float:right; padding-left:15px}
+.tabs .pathItem a {position:relative; float:left; padding-left:15px; margin-left:0 !important}
 .tabs .pathItem.selected a {border-radius:3px 0 0 3px}
-.tabs .pathItem a:last-child {padding-left:7px}
-.tabs .pathItem.selected a:before, .tabs .pathItem.selected a:after {content:" "; border:11px solid transparent; height:0; width:0; right:-22px; top:-1px; position:absolute; border-left-color:#d5d5d5}
+.tabs .pathItem a:first-child {padding-left:7px}
+.tabs .pathItem.selected a:before, .tabs .pathItem.selected a:after {z-index:1; content:" "; border:11px solid transparent; height:0; width:0; right:-22px; top:-1px; position:absolute; border-left-color:#d5d5d5}
 .tabs .pathItem.selected a:after {float:left; border-left-color:#fff; right:-18px; border-width:9px; top:1px}
-.tabs .pathEnd.selected a:first-child {border-radius:3px;}
-.tabs .pathEnd.selected a:first-child:before, .tabs .pathEnd.selected a:first-child:after {display:none}
+.tabs .pathEnd.selected a:last-child {border-radius:3px;}
+.tabs .pathEnd.selected a:last-child:before, .tabs .pathEnd.selected a:last-child:after {display:none}
 
 /* Channels */
 .channel {background:#fff; text-decoration:none; color:#666 !important; text-shadow:none; border-radius:3px; font-size:85%; border:1px solid #d5d5d5; white-space:nowrap; box-shadow:0 1px 0 rgba(0, 0, 0, 0.04); padding:2px 5px}
@@ -296,8 +276,12 @@ a.channel:hover {text-decoration:none; border-color:#aaa}
 
 
 /* Channel list icon */
-.channel-list {text-indent:-9999px; width:11px; background:url(icons.png) no-repeat -14px -450px}
-.selected .channel-list {background-position:-14px -508px}
+.channel-list i {font-size:14px; color:#aaa}
+.selected .channel-list i {color:#000}
+
+#conversationsFilter .channels {padding-left:125px}
+#conversationsFilter .channelListItem {margin-left:-125px}
+#conversationsFilter .pathItem {margin-left:-95px}
 
 
 /* Channel list */
@@ -372,7 +356,7 @@ negative margins so they overlap the padding of the <li>. */
 .conversationList .col-replies {float:right; margin-right:-14em; width:14em}
 .conversationList .col-lastPost {float:right; width:20em; margin-right:-34em; font-size:85%; overflow:hidden; white-space:nowrap}
 .list .col-replies {color:#888; font-size:85%}
-.list .col-replies span {background:url(icons.png) no-repeat -20px -136px; padding-left:20px}
+.list .col-replies i {font-size:14px; color:#ccc; margin-right:5px}
 
 
 /* Unread indicators */
@@ -635,8 +619,8 @@ input.error, input.error:focus {border-color:#f59e79 !important}
 .button {height:23px; cursor:pointer; padding:1px 10px 3px; border:1px solid #bbb; border-radius:3px; line-height:19px; margin:0}
 .button.big {height:26px; font-size:100%; padding:0 10px 2px; line-height:25px}
 
-.button span {margin:-3px 2px -1px -2px; vertical-align:middle}
-.button .icon-dropdown {vertical-align:1px; margin:0 0 0 2px}
+.button i {margin:-3px 2px -1px -1px; vertical-align:middle; font-size:14px; color:#666}
+.button .icon-caret-down {margin:0 0 0 1px}
 
 a.button {padding:5px 8px; height:auto; line-height:1em; display:inline-block}
 a.button:hover {text-decoration:none}

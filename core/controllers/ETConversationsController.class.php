@@ -112,47 +112,47 @@ function index($channelSlug = false)
 
 		// Mark as read controls
 		if (ET::$session->user) {
-			$controls->add("markAllAsRead", "<a href='".URL("conversations/markAllAsRead/?token=".ET::$session->token."' id='control-markAllAsRead'>".T("Mark all as read")."</a>"));
-			$controls->add("markListedAsRead", "<a href='".URL("conversations/$channelSlug/?search=".urlencode($searchString)."&markAsRead=1&token=".ET::$session->token."' id='control-markListedAsRead'>".T("Mark listed conversations as read")."</a>"));
+			$controls->add("markAllAsRead", "<a href='".URL("conversations/markAllAsRead/?token=".ET::$session->token."' id='control-markAllAsRead'><i class='icon-check'></i> ".T("Mark all as read")."</a>"));
+			$controls->add("markListedAsRead", "<a href='".URL("conversations/$channelSlug/?search=".urlencode($searchString)."&markAsRead=1&token=".ET::$session->token."' id='control-markListedAsRead'><i class='icon-list'></i> ".T("Mark listed conversations as read")."</a>"));
 		}
 
 		// Add the default gambits to the gambit cloud: gambit text => css class to apply.
 		$gambits = array(
 			"main" => array(
-				T("gambit.sticky") => "gambit-sticky",
+				T("gambit.sticky") => array("gambit-sticky", "icon-pushpin"),
 			),
 			"time" => array(
-				T("gambit.order by newest") => "gambit-orderByNewest",
-				T("gambit.active last ? hours") => "gambit-activeLastHours",
-				T("gambit.active last ? days") => "gambit-activeLastDays",
-				T("gambit.active today") => "gambit-activeToday",
-				T("gambit.dead") => "gambit-dead",
-				T("gambit.locked") => "gambit-locked",
+				T("gambit.order by newest") => array("gambit-orderByNewest", "icon-list-ol"),
+				T("gambit.active last ? hours") => array("gambit-activeLastHours", "icon-time"),
+				T("gambit.active last ? days") => array("gambit-activeLastDays", "icon-calendar"),
+				T("gambit.active today") => array("gambit-activeToday", "icon-asterisk"),
+				T("gambit.dead") => array("gambit-dead", "icon-remove"),
+				T("gambit.locked") => array("gambit-locked", "icon-lock"),
 			),
 			"member" => array(
-				T("gambit.author:").T("gambit.member") => "gambit-author",
-				T("gambit.contributor:").T("gambit.member") => "gambit-contributor",
+				T("gambit.author:").T("gambit.member") => array("gambit-author", "icon-user"),
+				T("gambit.contributor:").T("gambit.member") => array("gambit-contributor", "icon-user"),
 			),
 			"replies" => array(
-				T("gambit.has replies") => "gambit-hasReplies",
-				T("gambit.has >10 replies") => "gambit-replies",
-				T("gambit.order by replies") => "gambit-orderByReplies",
+				T("gambit.has replies") => array("gambit-hasReplies", "icon-comment"),
+				T("gambit.has >10 replies") => array("gambit-replies", "icon-comments"),
+				T("gambit.order by replies") => array("gambit-orderByReplies", "icon-list-ol"),
 			),
 			"misc" => array(
-				T("gambit.random") => "gambit-random",
-				T("gambit.reverse") => "gambit-reverse",
+				T("gambit.random") => array("gambit-random", "icon-random"),
+				T("gambit.reverse") => array("gambit-reverse", "icon-exchange"),
 			)
 		);
 
 		// Add some more personal gambits if there is a user logged in.
 		if (ET::$session->user) {
-			addToArrayString($gambits["main"], T("gambit.private"), "gambit-private", 1);
-			addToArrayString($gambits["main"], T("gambit.starred"), "gambit-starred", 2);
-			addToArrayString($gambits["main"], T("gambit.draft"), "gambit-draft", 3);
-			addToArrayString($gambits["main"], T("gambit.muted"), "gambit-muted", 4);
-			addToArrayString($gambits["time"], T("gambit.unread"), "gambit-unread", 0);
-			addToArrayString($gambits["member"], T("gambit.author:").T("gambit.myself"), "gambit-authorMyself", 0);
-			addToArrayString($gambits["member"], T("gambit.contributor:").T("gambit.myself"), "gambit-contributorMyself", 2);
+			addToArrayString($gambits["main"], T("gambit.private"), array("gambit-private", "icon-envelope"), 1);
+			addToArrayString($gambits["main"], T("gambit.starred"), array("gambit-starred", "icon-star"), 2);
+			addToArrayString($gambits["main"], T("gambit.draft"), array("gambit-draft", "icon-pencil"), 3);
+			addToArrayString($gambits["main"], T("gambit.muted"), array("gambit-muted", "icon-eye-close"), 4);
+			addToArrayString($gambits["time"], T("gambit.unread"), array("gambit-unread", "icon-inbox"), 0);
+			addToArrayString($gambits["member"], T("gambit.author:").T("gambit.myself"), array("gambit-authorMyself", "icon-smile"), 0);
+			addToArrayString($gambits["member"], T("gambit.contributor:").T("gambit.myself"), array("gambit-contributorMyself", "icon-smile"), 2);
 		}
 
 		// Construct the gambits menu based on the above arrays.
@@ -160,8 +160,8 @@ function index($channelSlug = false)
 		$linkPrefix = "conversations/".$channelSlug."/?search=".urlencode(((!empty($searchString) ? $searchString." + " : "")));
 
 		foreach ($gambits as $section => $items) {
-			foreach ($items as $gambit => $class) {
-				$gambitsMenu->add($gambit, "<a href='".URL($linkPrefix.urlencode("#".$gambit))."' class='$class'>$gambit</a>");
+			foreach ($items as $gambit => $classes) {
+				$gambitsMenu->add($classes[0], "<a href='".URL($linkPrefix.urlencode("#".$gambit))."' class='{$classes[0]}'>".(!empty($classes[1]) ? "<i class='{$classes[1]}'></i> " : "")."$gambit</a>");
 			}
 			end($gambits);
 			if ($section !== key($gambits)) $gambitsMenu->separator();

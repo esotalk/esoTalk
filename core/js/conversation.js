@@ -31,7 +31,10 @@ init: function() {
 
 		// Make the controls into a popup button.
 		if ($("#conversationControls").length)
-			$("#conversationBody .scrubberContent").prepend($("#conversationControls").popup({alignment: "left"}).find(".button").addClass("big").end());
+			$("#conversationBody .scrubberContent").prepend($("#conversationControls").popup({
+				alignment: "left",
+				content: "<i class='icon-cog'></i> Controls <i class='icon-caret-down'></i>"
+			}).find(".button").addClass("big").end());
 
 		// Set up the timeline scrubber.
 		ETScrubber.body = $("#conversation");

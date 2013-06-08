@@ -48,7 +48,7 @@ class ETPlugin_ChannelNotifications extends ETPlugin {
 		$starred = @$channel["follow"];
 		
 		$url = URL("channels/follow/".$channel["channelId"]."?token=".ET::$session->token."&return=".urlencode(ET::$controller->selfURL));
-		echo "<a href='$url' class='button' title='".T("Follow to receive notifications")."' data-id='{$channel["channelId"]}'><span class='star".($starred ? " starOn" : "")."'></span> <span>".($starred ? T("Following") : T("Follow"))."</span></a>";
+		echo "<a href='$url' class='button' title='".T("Follow to receive notifications")."' data-id='{$channel["channelId"]}'><i class='star icon-star".($starred ? "" : "-empty")."'></i> <span>".($starred ? T("Following") : T("Follow"))."</span></a>";
 	}
 
 	// Add an action to toggle the follow status of a channel.
@@ -134,14 +134,14 @@ class ETPlugin_ChannelNotifications extends ETPlugin {
 
 	public static function fieldEmailPostChannel($form)
 	{
-		return "<label class='checkbox'>".$form->checkbox("postChannel")." <span class='star starOn'>*</span> ".T("Email me when someone posts in a channel I have followed")."</label>";
+		return "<label class='checkbox'>".$form->checkbox("postChannel")." <i class='star icon-star'></i> ".T("Email me when someone posts in a channel I have followed")."</label>";
 	}
 
 	// Format the postChannel notification.
 	public static function postChannelNotification(&$item)
 	{
 		return array(
-			sprintf(T("%s posted in %s"), name($item["fromMemberName"]), "<span class='channel channel-".$item["data"]["channelId"]."'><span class='star starOn'>*</span> ".$item["data"]["channelTitle"]."</span> <strong>".sanitizeHTML($item["data"]["title"])."</strong>"),
+			sprintf(T("%s posted in %s"), name($item["fromMemberName"]), "<span class='channel channel-".$item["data"]["channelId"]."'><i class='star icon-star'></i> ".$item["data"]["channelTitle"]."</span> <strong>".sanitizeHTML($item["data"]["title"])."</strong>"),
 			URL(postURL($item["postId"]))
 		);
 	}

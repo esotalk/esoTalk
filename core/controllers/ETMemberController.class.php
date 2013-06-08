@@ -121,23 +121,23 @@ public function profile($member, $pane = "")
 
 	// Add the suspend/unsuspend control, and the "remove avatar" control.
 	if ($model->canSuspend($member)) {
-	 	$controls->add("suspend", "<a href='".URL("member/suspend/".$member["memberId"])."' id='suspendLink'>".T($member["account"] == ACCOUNT_SUSPENDED ? "Unsuspend member" : "Suspend member")."</a>");
+	 	$controls->add("suspend", "<a href='".URL("member/suspend/".$member["memberId"])."' id='suspendLink'><i class='icon-shield'></i>".T($member["account"] == ACCOUNT_SUSPENDED ? "Unsuspend member" : "Suspend member")."</a>");
 	 	if ($member["avatarFormat"]) $controls->add("removeAvatar", "<a href='".URL("member/removeAvatar/".$member["memberId"]."?token=".ET::$session->token)."' id='removeAvatarLink'>".T("Remove avatar")."</a>");
 	 	$controls->separator();
 	}
 
 	// Add the change permissions control (provided the member is not suspended.)
 	if ($member["account"] != ACCOUNT_SUSPENDED and $model->canChangePermissions($member))
-	 	$controls->add("permissions", "<a href='".URL("member/permissions/".$member["memberId"])."' id='editPermissionsLink'>".T("Change permissions")."</a>");
+	 	$controls->add("permissions", "<a href='".URL("member/permissions/".$member["memberId"])."' id='editPermissionsLink'><i class='icon-lock'></i>".T("Change permissions")."</a>");
 
 	// Add the rename control.
 	if ($model->canRename($member))
-	 	$controls->add("rename", "<a href='".URL("member/rename/".$member["memberId"])."' id='renameLink'>".T("Change username")."</a>");
+	 	$controls->add("rename", "<a href='".URL("member/rename/".$member["memberId"])."' id='renameLink'><i class='icon-pencil'></i>".T("Change username")."</a>");
 
 	// Add the delete control.
 	if ($model->canDelete($member)) {
 		$controls->separator();
-	 	$controls->add("delete", "<a href='".URL("member/delete/".$member["memberId"])."' id='deleteLink'>".T("Delete member")."</a>");
+	 	$controls->add("delete", "<a href='".URL("member/delete/".$member["memberId"])."' id='deleteLink'><i class='icon-remove'></i>".T("Delete member")."</a>");
 	}
 
 	// Set up the actions menu (things that can be done in relation to the member.)

@@ -15,18 +15,15 @@ if (!defined("IN_ESOTALK")) exit;
  * @package esoTalk
  */
 
-// Show the path leading up to the current channel depth. We output this as right to left (i.e. the deepest
-// channel first, and so on until "all channels".) ?>
+// Show the path leading up to the current channel depth. ?>
 <li class='pathItem<?php if (isset($data["currentChannels"])): ?> selected<?php endif; ?>'>
+<a href='<?php echo URL("conversations/all"); ?>' data-channel='all' class='channel-all'><?php echo T("All Channels"); ?></a>
+
 <?php if (!empty($data["channelPath"])):
-$data["channelPath"] = array_reverse($data["channelPath"]);
 foreach ($data["channelPath"] as $channel): ?>
 <a href='<?php echo URL("conversations/".$channel["slug"]); ?>' data-channel='<?php echo $channel["slug"]; ?>' title='<?php echo sanitizeHTML(strip_tags($channel["description"])); ?>' class='channel-<?php echo $channel["channelId"]; ?>'><?php echo $channel["title"]; ?></a>
 <?php endforeach; ?>
-<?php endif;
-
-// Always show the "all channels" link. ?>
-<a href='<?php echo URL("conversations/all"); ?>' data-channel='all' class='channel-all'><?php echo T("All Channels"); ?></a>
+<?php endif; ?>
 </li>
 
 <?php

@@ -380,7 +380,7 @@ public static function postActivity($item, $member)
 public static function postNotification(&$item)
 {
 	return array(
-		sprintf(T("%s posted in %s."), name($item["fromMemberName"]), "<span class='star starOn'>*</span> <strong>".sanitizeHTML($item["data"]["title"])."</strong>"),
+		sprintf(T("%s posted in %s."), name($item["fromMemberName"]), "<i class='star icon-star'></i> <strong>".sanitizeHTML($item["data"]["title"])."</strong>"),
 		URL(postURL($item["postId"]))
 	);
 }

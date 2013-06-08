@@ -33,6 +33,7 @@ public function handler_init($sender)
 {
 	$sender->addCSSFile((C("esoTalk.https") ? "https" : "http")."://fonts.googleapis.com/css?family=Open+Sans:400italic,700italic,400,700");
 	$sender->addCSSFile("core/skin/base.css", true);
+	$sender->addCSSFile("core/skin/font-awesome.css", true);
 	$sender->addCSSFile($this->getResource("styles.css"), true);
 
 	// If we're viewing from a mobile browser, add the mobile CSS and change the master view.

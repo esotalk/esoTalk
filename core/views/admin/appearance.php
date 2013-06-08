@@ -29,10 +29,10 @@ foreach ($data["skins"] as $k => $skin): ?>
 <li id='skin-<?php echo $k; ?>' class='skin<?php if ($skin["selected"]): ?> thing enabled<?php endif; ?>'>
 
 <ul class='controls' id='skinControls-<?php echo $k; ?>'>
-<li><span><?php printf(T("By %s"), "<a href='{$skin["info"]["authorURL"]}'>{$skin["info"]["author"]}</a>"); ?></span></li>
+<li><span><i class='icon-user'></i><?php printf(T("By %s"), "<a href='{$skin["info"]["authorURL"]}'>{$skin["info"]["author"]}</a>"); ?></span></li>
 <li class='sep'></li>
-<?php if (!$skin["selectedMobile"]): ?><li><a href='<?php echo URL("admin/appearance/activateMobile/$k?token=".ET::$session->token); ?>'><?php echo T("Use for mobile"); ?></a></li><?php endif; ?>
-<li><a href='<?php echo URL("admin/appearance/uninstall/$k?token=".ET::$session->token); ?>'><?php echo T("Uninstall"); ?></a></li>
+<?php if (!$skin["selectedMobile"]): ?><li><a href='<?php echo URL("admin/appearance/activateMobile/$k?token=".ET::$session->token); ?>'><i class='icon-mobile-phone'></i><?php echo T("Use for mobile"); ?></a></li><?php endif; ?>
+<li><a href='<?php echo URL("admin/appearance/uninstall/$k?token=".ET::$session->token); ?>'><i class='icon-remove'></i><?php echo T("Uninstall"); ?></a></li>
 </ul>
 
 <div class='preview'>
@@ -41,7 +41,7 @@ foreach ($data["skins"] as $k => $skin): ?>
 </div>
 
 <div class='controls skinControls'>
-<?php if ($skin["selectedMobile"]): ?><span class='icon-mobile' title='<?php echo T("Mobile skin"); ?>'></span><?php endif; ?>
+<?php if ($skin["selectedMobile"]): ?><i class='icon-mobile-phone' title='<?php echo T("Mobile skin"); ?>'></i><?php endif; ?>
 <?php if (!$skin["selected"]): ?><a href='<?php echo URL("admin/appearance/activate/$k?token=".ET::$session->token); ?>' class='button toggle'><?php echo T("Activate"); ?></a><?php endif; ?>
 </div>
 
