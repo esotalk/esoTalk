@@ -122,7 +122,7 @@ span.highlight {background:#fdef34; border:1px solid #fcef98; padding:1px 3px; b
 
 
 /* Member online icon */
-.online {background-position:-20px -485px; width:9px; height:9px; text-indent:-9999px; vertical-align:middle}
+.online {width:9px; height:9px; font-size:9px !important; color:#81cb37 !important; vertical-align:middle}
 
 
 /* Avatars */
@@ -276,11 +276,11 @@ a.channel:hover {text-decoration:none; border-color:#aaa}
 
 
 /* Channel list icon */
-.channel-list i {font-size:14px; color:#aaa}
+.channel-list i {font-size:14px; color:#aaa; margin:0 !important}
 .selected .channel-list i {color:#000}
 
 #conversationsFilter .channels {padding-left:125px}
-#conversationsFilter .channelListItem {margin-left:-125px}
+#conversationsFilter .channelListItem {margin-left:-124px}
 #conversationsFilter .pathItem {margin-left:-95px}
 
 

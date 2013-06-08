@@ -1244,7 +1244,7 @@ protected function formatPostForTemplate($post, $conversation)
 		if (empty($post["preferences"]["hideOnline"])) {
 			$lastAction = ET::memberModel()->getLastActionInfo($post["lastActionTime"], $post["lastActionDetail"]);
 			if ($lastAction[0]) $lastAction[0] = " (".sanitizeHTML($lastAction[0]).")";
-			if ($lastAction) array_unshift($formatted["info"], "<".(!empty($lastAction[1]) ? "a href='{$lastAction[1]}'" : "span")." class='online' title='".T("Online")."{$lastAction[0]}'>".T("Online")."</".(!empty($lastAction[1]) ? "a" : "span").">");
+			if ($lastAction) array_unshift($formatted["info"], "<".(!empty($lastAction[1]) ? "a href='{$lastAction[1]}'" : "span")." class='online' title='".T("Online")."{$lastAction[0]}'><i class='icon-circle'></i></".(!empty($lastAction[1]) ? "a" : "span").">");
 		}
 
 		// Show the user's group type.

@@ -39,7 +39,7 @@ foreach ($data["plugins"] as $k => $plugin): ?>
 <div class='controls pluginControls'>
 <span class='buttonGroup'>
 <?php if ($plugin["settingsView"]): ?><a href='<?php echo URL("admin/plugins/settings/$k"); ?>' class='button pluginSettings' data-plugin='<?php echo $k; ?>'><?php echo T("Settings"); ?></a> <?php endif; ?>
-<a href='<?php echo URL("admin/plugins/toggle/$k?token=".ET::$session->token); ?>' class='button toggle'><?php echo $plugin["loaded"] ? "<span class='icon-tick'></span> ".T("Enabled") : T("Enable"); ?></a>
+<a href='<?php echo URL("admin/plugins/toggle/$k?token=".ET::$session->token); ?>' class='button toggle'><?php echo $plugin["loaded"] ? "<i class='icon-check'></i> ".T("Enabled") : "<i class='icon-check-empty'></i> ".T("Enable"); ?></a>
 </span>
 </div>
 
