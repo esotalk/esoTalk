@@ -231,7 +231,7 @@ $(function() {
 	$(document).bind("ajaxStart", function(){
 		$("#loading").show();
 		$(window).bind("beforeunload.ajax", function() {
-			return T("ajaxRequestPending");
+			return T("message.ajaxRequestPending");
 		});
 	 })
 	 .bind("ajaxStop", function(){
