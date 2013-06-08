@@ -195,7 +195,7 @@ public function links()
 		array($this, "linksCallback"), $this->content);
 
 	// Convert email links.
-	$this->content = preg_replace("/[\w-\.]+@([\w-]+\.)+[\w-]{2,4}/i", "<a href='mailto:$0'>$0</a>", $this->content);
+	$this->content = preg_replace("/[\w-\.]+@([\w-]+\.)+[\w-]{2,4}/i", "<a href='mailto:$0' class='link-email'>$0</a>", $this->content);
 
 	return $this;
 }
@@ -218,8 +218,15 @@ public function linksCallback($matches)
 		return "<div class='video'><object width='$width' height='$height'><param name='movie' value='http://www.youtube.com/v/$id'></param><param name='allowFullScreen' value='true'></param><param name='allowscriptaccess' value='always'></param><embed src='http://www.youtube.com/v/$id' type='application/x-shockwave-flash' allowscriptaccess='always' allowfullscreen='true' width='$width' height='$height'></embed></object></div>";
 	}
 
-	// Otherwise, return an HTML anchor tag.
-	return "<a href='".($matches[1] ? $matches[1] : "http://").$matches[2]."' rel='nofollow external' target='_blank'>".$matches[0]."</a>";
+	// If this is an internal link...
+	$url = ($matches[1] ? $matches[1] : "http://").$matches[2];
+	$baseURL = C("esoTalk.baseURL");
+	if (substr($url, 0, strlen($baseURL)) == $baseURL) {
+		return "<a href='".$url."' target='_blank' class='link-internal'>".$matches[0]."</a>";
+	}
+
+	// Otherwise, return an external HTML anchor tag.
+	return "<a href='".$url."' rel='nofollow external' target='_blank' class='link-external'>".$matches[0]." <i class='icon-external-link'></i></a>";
 }
 
 
@@ -317,7 +324,7 @@ public function mentions()
 {
 	$this->content = preg_replace(
 		'/(^|[\s,\.:\]])@([\w&;]{3,20})\b/ieu',
-		"'$1<a href=\''.URL('member/name/'.urlencode(str_replace('&nbsp;', ' ', '$2')), true).'\'>$2</a>'",
+		"'$1<a href=\''.URL('member/name/'.urlencode(str_replace('&nbsp;', ' ', '$2')), true).'\' class=\'link-member\'>$2</a>'",
 		$this->content
 	);
 
