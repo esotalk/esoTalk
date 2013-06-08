@@ -21,6 +21,8 @@ $form = $data["form"];
 
 <h3><?php printf(T("Change %s's Permissions"), sanitizeHTML($member["username"])); ?></h3>
 
+<div class='sheetBody'>
+
 <div class='section' id='permissionForm'>
 <ul class='form'>
 
@@ -46,6 +48,8 @@ echo $form->select("account", $options);
 
 <div class='section' id='permissionInfo'>
 <?php $this->renderView("member/permissionInfo", $data); ?>
+</div>
+
 </div>
 
 <div class='buttons'>

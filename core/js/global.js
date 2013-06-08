@@ -427,6 +427,12 @@ showSheet: function(id, content, callback) {
 		ETSheet.hideSheet(id);
 	});
 
+	// Monitor the scroll event to apply a shadow to the sheet body.
+	$('.sheetBody').scroll(function() {
+		$(this).toggleClass('scrollShadowTop', $(this).scrollTop() > 0);
+		$(this).toggleClass('scrollShadowBottom', $(this).scrollTop() + $(this).height() < $(this)[0].scrollHeight);
+	}).scroll();
+
 	// Focus on the first errorous input, or otherwise just the first input.
 	var inputs = $("input, select, textarea", sheet).not(":hidden");
 	inputs.first().focus();

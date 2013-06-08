@@ -119,11 +119,13 @@ init: function() {
 				var scrollOffset = firstItem.offset().top - $(document).scrollTop();
 			}
 
-			ETScrubber.addItems(data.startFrom, data.view, moreItem);
+			var items = ETScrubber.addItems(data.startFrom, data.view, moreItem);
 
 			// Restore the scroll position.
 			if (backwards)
 				$.scrollTo(firstItem.offset().top - scrollOffset);
+
+			return items;
 
 		});
 
@@ -182,11 +184,13 @@ init: function() {
 					// bottom of the items area.
 					if (index == Infinity) var scrollOffset = ETScrubber.items.offset().top + ETScrubber.items.outerHeight() - $(document).scrollTop();
 
-					ETScrubber.addItems(data.startFrom, data.view, moreItem);
+					var items = ETScrubber.addItems(data.startFrom, data.view, moreItem);
 
 					// Restore the scroll position, or scroll to the index which we should now have items for.
 					if (index == Infinity) $.scrollTo(ETScrubber.items.offset().top + ETScrubber.items.outerHeight() - scrollOffset);
 					else ETScrubber.scrollToIndex(index);
+
+					return items;
 
 				}, true);
 			}
@@ -198,7 +202,7 @@ init: function() {
 
 // Scroll to a specific position, applying an animation and taking the fixed header into account.
 scrollTo: function(position) {
-	$.scrollTo(position - ETScrubber.header.outerHeight(), "slow");
+	$.scrollTo(Math.max(0, position - ETScrubber.header.outerHeight()), "slow");
 },
 
 // Scroll to the item on or before an index combination.
@@ -322,6 +326,8 @@ addItems: function(startFrom, items, moreItem, animate) {
 	// If we have the very last item in the collection, remove the "newer" block.
 	if (Math.max.apply(Math, ETScrubber.loadedItems) >= ETScrubber.count - 1)
 		$(".scrubberNext").remove();
+
+	return items;
 }
 
 };

@@ -20,10 +20,14 @@ $form = $data["form"];
 
 <h3><?php echo T("Rename Member"); ?>: <?php echo $member["username"]; ?></h3>
 
+<div class='sheetBody'>
+
 <div class='section'>
 <ul class='form'>
 <li><label><?php echo T("New username"); ?></label> <?php echo $form->input("username"); ?></li>
 </ul>
+</div>
+
 </div>
 
 <div class='buttons'>

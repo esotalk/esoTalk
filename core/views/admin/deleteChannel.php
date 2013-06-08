@@ -20,6 +20,8 @@ $form = $data["form"];
 
 <?php echo $form->open(); ?>
 
+<div class='sheetBody'>
+
 <div class='section form'>
 
 <p class='help'><?php echo T("message.deleteChannelHelp"); ?></p>
@@ -39,6 +41,8 @@ echo $form->select("moveToChannelId", $moveOptions);
 <p class='radio'>
 <label><?php echo $form->radio("method", "delete"); ?> <?php echo T("<strong>Delete</strong> all conversations forever."); ?></label>
 </p>
+
+</div>
 
 </div>
 

@@ -20,12 +20,16 @@ $form = $data["form"];
 
 <?php echo $form->open(); ?>
 
+<div class='sheetBody'>
+
 <div class='section'>
 <p class='help'><?php echo T("message.setNewPassword"); ?></p>
 <ul class='form'>
 <li><label><?php echo T("New password"); ?></label> <?php echo $form->input("password", "password"); ?></li>
 <li><label><?php echo T("Confirm password"); ?></label> <?php echo $form->input("confirm", "password"); ?></li>
 </ul>
+</div>
+
 </div>
 
 <div class='buttons'>

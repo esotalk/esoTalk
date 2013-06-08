@@ -20,6 +20,8 @@ $group = $data["group"];
 
 <h3><?php echo T($group ? "Edit Group" : "Create Group"); ?></h3>
 
+<div class='sheetBody'>
+
 <div class='section' id='editGroupForm'>
 
 <ul class='form'>
@@ -51,6 +53,8 @@ $group = $data["group"];
 </li>
 
 </ul>
+
+</div>
 
 </div>
 

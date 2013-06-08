@@ -39,14 +39,10 @@ foreach ($conversation["labels"] as $label) {
 }
 echo "</span> ";
 
-// Output controls which apply to this conversation.
-echo "<span class='controls'>";
-
 // If we're highlighting search terms (i.e. if we did a fulltext search), then output a "show matching posts" link.
 if (ET::$session->get("highlight"))
-	echo " <a href='".URL($conversationURL."/?search=".urlencode($data["fulltextString"]))."' class='showMatchingPosts'>".T("Show matching posts")."</a>";
+	echo "<span class='controls'><a href='".URL($conversationURL."/?search=".urlencode($data["fulltextString"]))."' class='showMatchingPosts'>".T("Show matching posts")."</a></span>";
 
-echo "</span>";
 ?></div>
 <div class='col-channel'><?php
 $channel = $data["channelInfo"][$conversation["channelId"]];

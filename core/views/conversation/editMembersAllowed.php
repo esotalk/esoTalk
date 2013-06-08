@@ -17,6 +17,8 @@ $form = $data["form"];
 
 <h3><?php echo T("Members Allowed to View this Conversation"); ?></h3>
 
+<div class='sheetBody'>
+
 <div class='section'>
 
 <div id='addMemberForm'>
@@ -29,6 +31,8 @@ $form = $data["form"];
 
 <div class='section editing allowedList action'>
 <?php $this->renderView("conversation/membersAllowedList", $data + array("editable" => true)); ?>
+</div>
+
 </div>
 
 </div>

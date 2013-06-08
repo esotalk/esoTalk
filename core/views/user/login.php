@@ -18,13 +18,15 @@ $form = $data["form"];
 
 <h3><?php echo T("Log In"); ?></h3>
 
+<?php echo $form->open(); ?>
+
+<div class='sheetBody'>
+
 <?php if (!empty($data["message"])): ?>
 <div class='section help'>
 <?php echo $data["message"]; ?>
 </div>
 <?php endif; ?>
-
-<?php echo $form->open(); ?>
 
 <div class='section'>
 
@@ -33,6 +35,8 @@ $form = $data["form"];
 <li><label><?php echo T("Password"); ?> <small><a href='<?php echo URL("user/forgot"); ?>' class='link-forgot' tabindex='-1'><?php echo T("Forgot?"); ?></a></small></label> <?php echo $form->input("password", "password"); ?></li>
 <li><div class='checkboxGroup'><label class='checkbox'><?php echo $form->checkbox("remember"); ?> <?php echo T("Keep me logged in"); ?></label></div></li>
 </ul>
+
+</div>
 
 </div>
 
@@ -45,6 +49,12 @@ echo $form->cancelButton();
 </div>
 
 <?php echo $form->close(); ?>
+
+<script>
+$(function() {
+	$('input[name=username]').focus();
+})
+</script>
 
 </div>
 </div>

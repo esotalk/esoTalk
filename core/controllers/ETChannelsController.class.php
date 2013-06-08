@@ -56,22 +56,34 @@ public function subscribe($channelId = "")
 	if (!ET::channelModel()->hasPermission((int)$channelId, "view")) return;
 
 	// Work out if we're already unsubscribed or not, and switch to the opposite of that.
-	$unsubscribed = !ET::SQL()
-		->select("unsubscribed")
-		->from("member_channel")
-		->where("memberId", ET::$session->userId)
-		->where("channelId", (int)$channelId)
+	$channel = ET::SQL()
+		->select("unsubscribed, lft, rgt")
+		->from("channel c")
+		->from("member_channel mc", "mc.channelId = c.channelId AND mc.memberId = :userId", "left")
+		->bind(":userId", ET::$session->userId)
+		->where("c.channelId", (int)$channelId)
 		->exec()
-		->result();
+		->firstRow();
+
+	// Get all the child channels of this channel.
+	$rows = ET::SQL()
+		->select("channelId")
+		->from("channel")
+		->where("lft >= :lft")->bind(":lft", $channel["lft"])
+		->where("rgt <= :rgt")->bind(":rgt", $channel["rgt"])
+		->exec()
+		->allRows();
+	$channelIds = array();
+	foreach ($rows as $row) $channelIds[] = $row["channelId"];
 
 	// Write to the database.
-	ET::channelModel()->setStatus($channelId, ET::$session->userId, array("unsubscribed" => $unsubscribed));
+	ET::channelModel()->setStatus($channelIds, ET::$session->userId, array("unsubscribed" => !$channel["unsubscribed"]));
 
 	// Normally, redirect back to the channel list.
 	if ($this->responseType === RESPONSE_TYPE_DEFAULT) redirect(URL("channels"));
 
 	// Otherwise, set a JSON var.
-	$this->json("unsubscribed", $unsubscribed);
+	$this->json("unsubscribed", !$channel["unsubscribed"]);
 	$this->render();
 }
 

@@ -20,6 +20,8 @@ $form = $data["form"];
 
 <?php echo $form->open(); ?>
 
+<div class='sheetBody'>
+
 <div class='section'>
 
 <ul class='form'>
@@ -100,6 +102,8 @@ $copyOptions = array("" => "");
 foreach ($data["channels"] as $id => $channel) $copyOptions[$id] = str_repeat("&nbsp;", $channel["depth"] * 5).$channel["title"];
 echo $form->select("copyPermissions", $copyOptions);
 ?></div>
+
+</div>
 
 </div>
 

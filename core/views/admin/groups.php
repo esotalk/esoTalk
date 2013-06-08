@@ -23,6 +23,8 @@ $(function() {
 
 <h3><?php echo T("Manage Groups"); ?></h3>
 
+<div class='sheetBody'>
+
 <div class='section'>
 
 <ul class='list'>
@@ -35,6 +37,8 @@ $(function() {
 </ul>
 
 <a href='<?php echo URL("admin/groups/create"); ?>' class='button' id='addGroupButton'><span class='icon-add'></span> <?php echo T("Create Group"); ?></a>
+
+</div>
 
 </div>
 

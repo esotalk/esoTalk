@@ -11,6 +11,8 @@ init: function() {
 		$(this).find(".channelControls").append(item);
 	});
 
+	$(".channelControls .button").tooltip();
+
 }
 
 };

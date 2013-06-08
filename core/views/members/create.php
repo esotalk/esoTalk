@@ -19,6 +19,8 @@ $form = $data["form"];
 
 <?php echo $form->open(); ?>
 
+<div class='sheetBody'>
+
 <div class='section'>
 
 <ul class='form'>
@@ -34,6 +36,8 @@ $form = $data["form"];
 <li><label><?php echo T("Confirm password"); ?></label> <?php echo $form->input("confirm", "password"); ?></li>
 
 </ul>
+
+</div>
 
 </div>
 

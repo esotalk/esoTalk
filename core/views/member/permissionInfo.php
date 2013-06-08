@@ -25,7 +25,7 @@ $member = $data["member"];
 <tbody>
 <?php foreach ($data["channels"] as $channel): ?>
 <tr>
-<th class='depth<?php echo $channel["depth"]; ?>'><?php echo $channel["title"]; ?></th>
+<th><span class='depth<?php echo $channel["depth"]; ?>'><?php echo $channel["title"]; ?></span></th>
 <?php foreach ($data["permissions"] as $k => $v):
 $allowed = ET::groupModel()->groupIdsAllowedInGroupIds($data["groupIds"], $channel["permissions"][$k], true);
 ?><td class='<?php echo $allowed ? "yes" : "no"; ?>'><?php echo $allowed ? T("Yes") : T("No"); ?></td><?php endforeach; ?>

@@ -21,10 +21,14 @@ $isSuspended = $member["account"] == ACCOUNT_SUSPENDED;
 
 <h3><?php echo T($isSuspended ? "Unsuspend" : "Suspend"); ?> <?php echo $member["username"]; ?></h3>
 
+<div class='sheetBody'>
+
 <div class='section'>
 <p>
 <?php printf(T($isSuspended ? "message.unsuspendMemberHelp" : "message.suspendMemberHelp"), $member["username"]); ?>
 </p>
+</div>
+
 </div>
 
 <div class='buttons'>

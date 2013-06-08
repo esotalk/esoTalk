@@ -20,11 +20,15 @@ $form = $data["form"];
 
 <?php echo $form->open(); ?>
 
+<div class='sheetBody'>
+
 <div class='section'>
 <p class='help'><?php echo T("message.forgotPasswordHelp"); ?></p>
 <ul class='form'>
 <li><label><?php echo T("Email"); ?></label> <?php echo $form->input("email"); ?></li>
 </ul>
+</div>
+
 </div>
 
 <div class='buttons'>

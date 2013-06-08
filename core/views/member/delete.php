@@ -20,6 +20,8 @@ $member = $data["member"];
 
 <h3><?php echo T("Delete Member"); ?>: <?php echo $member["username"]; ?></h3>
 
+<div class='sheetBody'>
+
 <div class='section'>
 
 <p class='radio'><label>
@@ -31,6 +33,8 @@ $member = $data["member"];
 <?php echo $form->radio("deletePosts", true); ?>
 <?php echo T("<strong>Delete this member's posts.</strong> All of this member's posts will be marked as deleted, but will be able to be restored manually."); ?>
 </label></p>
+
+</div>
 
 </div>
 

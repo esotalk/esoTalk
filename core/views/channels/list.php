@@ -18,7 +18,7 @@ if (!defined("IN_ESOTALK")) exit;
 
 <?php if (ET::$session->user): ?>
 <ul class='controls' id='channelControls-<?php echo $channel["channelId"]; ?>'>
-<li><a href='<?php echo URL("channels/subscribe/".$channel["channelId"]."?token=".ET::$session->token); ?>' data-id='<?php echo $channel["channelId"]; ?>'><?php echo empty($channel["unsubscribed"]) ? T("Hide") : T("Unhide"); ?></a></li>
+<li><a href='<?php echo URL("channels/subscribe/".$channel["channelId"]."?token=".ET::$session->token); ?>' data-id='<?php echo $channel["channelId"]; ?>'><i class='icon-eye-close'></i><?php echo empty($channel["unsubscribed"]) ? T("Hide") : T("Unhide"); ?></a></li>
 </ul>
 
 <div class='channelControls'>

@@ -357,13 +357,26 @@ public function setPermissions($channelId, $permissions)
  * @param array $data An array of key => value data to save to the database.
  * @return void
  */
-public function setStatus($channelId, $memberId, $data)
+public function setStatus($channelIds, $memberIds, $data)
 {
-	$keys = array(
-		"memberId" => $memberId,
-		"channelId" => $channelId
-	);
-	ET::SQL()->insert("member_channel")->set($keys + $data)->setOnDuplicateKey($data)->exec();
+	$channelIds = (array)$channelIds;
+	$memberIds = (array)$memberIds;
+
+	$keys = array_merge(array("memberId", "channelId"), array_keys($data));
+	$inserts = array();
+	foreach ($memberIds as $memberId) {
+		foreach ($channelIds as $channelId) {
+			$inserts[] = array_merge(array($memberId, $channelId), array_values($data));
+		}
+	}
+
+	if (empty($inserts)) return;
+	
+	ET::SQL()
+		->insert("member_channel")
+		->setMultiple($keys, $inserts)
+		->setOnDuplicateKey($data)
+		->exec();
 }
 
 

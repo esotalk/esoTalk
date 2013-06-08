@@ -20,6 +20,8 @@ $conversation = $data["conversation"];
 
 <?php echo $form->open(); ?>
 
+<div class='sheetBody'>
+
 <div class='section'>
 
 <ul class='list channelList changeChannelList'>
@@ -35,6 +37,8 @@ $conversation = $data["conversation"];
 
 <?php endforeach; ?>
 </ul>
+
+</div>
 
 </div>
 

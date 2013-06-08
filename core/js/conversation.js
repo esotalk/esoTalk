@@ -59,7 +59,8 @@ init: function() {
 				url: "conversation/index.ajax/"+ETConversation.id+"/"+position,
 				data: {search: ETConversation.searchString},
 				success: function(data) {
-					success(data);
+					var items = success(data);
+					ETConversation.collapseQuotes(items);
 					ETConversation.redisplayAvatars();
 				},
 				global: false
@@ -345,8 +346,9 @@ addReply: function() {
 			// Create a dud "more" block and then add the new post to it.
 			var moreItem = $("<li></li>").appendTo("#conversationPosts");
 			ETScrubber.count = ETConversation.postCount;
-			ETScrubber.addItems(ETConversation.postCount - 1, data.view, moreItem, true);
+			var items = ETScrubber.addItems(ETConversation.postCount - 1, data.view, moreItem, true);
 			ETConversation.redisplayAvatars();
+			ETConversation.collapseQuotes(items);
 
 			// Star the conversation if the user has the "star on reply" option on.
 			if (data.starOnReply) {
@@ -550,16 +552,20 @@ initPosts: function() {
 		});
 	});
 
-	// Collapse quotes and add expand buttons.
-	$("#conversationPosts .postBody blockquote:not(.collapsed)")
+	ETConversation.collapseQuotes($("#conversationPosts"));
+},
+
+// Collapse quotes and add expand buttons.
+collapseQuotes: function(items) {
+	$(".postBody blockquote:not(.collapsed)", items)
 		.addClass("collapsed")
 		.each(function() {
-			if ($(this)[0].scrollHeight <= $(this).innerHeight()) {
+			if ($(this)[0].scrollHeight <= $(this).innerHeight() + 20) {
 				$(this).removeClass("collapsed");
 				return;
 			}
 
-			var link = $("<a href='#' class='expand'>...</a>");
+			var link = $("<a href='#' class='expand'><i class='icon-ellipsis-horizontal'></i></a>");
 			link.click(function(e) {
 				e.preventDefault();
 				$(this).parents("blockquote").removeClass("collapsed");
@@ -633,6 +639,7 @@ restorePost: function(postId) {
 			if (data.messages) return;
 			$("#p"+postId).replaceWith(data.view);
 			ETConversation.redisplayAvatars();
+			ETConversation.collapseQuotes($("#p"+postId));
 
 		}
 	});
@@ -751,6 +758,7 @@ saveEditPost: function(postId, content) {
 
 			ETConversation.editingPosts--;
 			ETConversation.redisplayAvatars();
+			ETConversation.collapseQuotes(newPost);
 		}
 	});
 },
@@ -896,16 +904,19 @@ changeChannel: function() {
 	ETSheet.loadSheet("changeChannelSheet", "conversation/changeChannel.view/"+ETConversation.id, function() {
 
 		// Highlight the currently selected channel.
-		$("#changeChannelSheet .channelList input:checked").parents("li").addClass("selected");
+		// $("#changeChannelSheet .channelList input:checked").parents("li").addClass("selected");
 
 		// Hide the radio buttons, and set up a handler for when they're changed.
-		$("#changeChannelSheet .channelList input").hide().change(function() {
-			$("#changeChannelSheet .channelList li").removeClass("selected");
-			$(this).parents("li").addClass("selected");
+		$("#changeChannelSheet .channelList input").hide().click(function() {
+			// $("#changeChannelSheet .channelList li").removeClass("selected");
+			// $(this).parents("li").addClass("selected");
+			$("#changeChannelSheet form").submit();
 		});
 
+		$("#changeChannelSheet .buttons").hide();
+
 		// Add tooltips to channels that cannot be changed to.
-		$("#changeChannelSheet .channelList li").tooltip({alignment: "left", offset: [20, 35], className: "hoverable"});
+		$("#changeChannelSheet .channelList li").tooltip({alignment: "left", offset: [0, 35], className: "hoverable"});
 
 		// Add a submit event to the form.
 		$("#changeChannelSheet form").submit(function(e) {
