@@ -283,7 +283,7 @@ public function makeQuote($text, $citation = "")
 	$quote = "<blockquote><p>";
 
 	// If we extracted a post ID from the citation, add a "find this post" link.
-	if (!empty($postId)) $quote .= "<a href='".URL(postURL($postId), true)."' rel='post' data-id='$postId' class='control-search postRef'>".T("Find this post")."</a> ";
+	if (!empty($postId)) $quote .= "<a href='".URL(postURL($postId), true)."' rel='post' data-id='$postId' class='control-search postRef'><i class='icon-search'></i></a> ";
 
 	// If there is a citation, add it.
 	if (!empty($citation)) $quote .= "<cite>$citation</cite> ";
