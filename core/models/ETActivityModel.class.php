@@ -457,9 +457,10 @@ public static function mentionNotification($item)
 public static function mentionEmail($item, $member)
 {
 	$content = ET::formatter()->init($item["data"]["content"])->basic(true)->format()->get();
+	$url = URL(postURL($item["data"]["postId"]), true);
 	return array(
 		sprintf(T("email.mention.subject"), name($item["fromMemberName"], false)),
-		sprintf(T("email.mention.body"), name($item["fromMemberName"]), sanitizeHTML($item["data"]["title"]), $content, URL(postURL($item["data"]["postId"]), true))
+		sprintf(T("email.mention.body"), name($item["fromMemberName"]), sanitizeHTML($item["data"]["title"]), $content, "<a href='$url'>$url</a>")
 	);
 }
 
@@ -488,9 +489,10 @@ public static function privateAddNotification(&$item)
 public static function privateAddEmail($item, $member)
 {
 	$content = ET::formatter()->init($item["data"]["content"])->basic(true)->format()->get();
+	$url = URL(conversationURL($item["data"]["conversationId"], $item["data"]["title"]), true);
 	return array(
 		T("email.privateAdd.subject"),
-		sprintf(T("email.privateAdd.body"), sanitizeHTML($item["data"]["title"]), $content, URL(conversationURL($item["data"]["conversationId"], $item["data"]["title"]), true))
+		sprintf(T("email.privateAdd.body"), sanitizeHTML($item["data"]["title"]), $content, "<a href='$url'>$url</a>")
 	);
 }
 
@@ -503,9 +505,10 @@ public static function privateAddEmail($item, $member)
 public static function postEmail($item, $member)
 {
 	$content = ET::formatter()->init($item["data"]["content"])->basic(true)->format()->get();
+	$url = URL(conversationURL($item["data"]["conversationId"], $item["data"]["title"])."/unread", true);
 	return array(
 		sprintf(T("email.post.subject"), $item["data"]["title"]),
-		sprintf(T("email.post.body"), name($item["fromMemberName"]), sanitizeHTML($item["data"]["title"]), $content, URL(conversationURL($item["data"]["conversationId"], $item["data"]["title"])."/unread", true))
+		sprintf(T("email.post.body"), name($item["fromMemberName"]), sanitizeHTML($item["data"]["title"]), $content, "<a href='$url'>$url</a>")
 	);
 }
 
