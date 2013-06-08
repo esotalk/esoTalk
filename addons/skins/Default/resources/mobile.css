@@ -5,20 +5,21 @@ html {-webkit-text-size-adjust:none}
 body {font-size:12px}
 #hdr-content, #body-content, #ftr-content {min-width:0; padding:1px; max-width:none}
 .bodyHeader {padding:10px}
-.area {border-width:1px 0; -webkit-border-radius:0}
-#body-content {border-left:0; border-right:0; -webkit-border-radius:0}
+.area {border-width:1px 0; border-radius:0}
+#body-content {border-left:0; border-right:0; border-radius:0}
 #body {padding-top:44px}
 
 
 /* Header - center the title and float the buttons. */
-#hdr {padding:13px 0 8px}
+#hdr {padding:13px 0}
 #hdr-content {padding:0 5px}
+#hdr-inner {padding:0}
 #hdr #forumTitle {text-align:center; display:block; width:150px; margin:0 auto; white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
-#hdr .button {padding:8px; margin:-6px 0 0}
+#hdr .button {margin:-7px 0}
 #hdr .popupWrapper {float:right; margin:0 0 0 7px}
-#hdr #backButton {float:left; line-height:1em}
-#userMenu {margin:0 !important; text-align:left;}
-#hdr #notifications {padding-top:7px; padding-bottom:7px; width:2em; margin-top:-5px}
+#hdr #backButton {float:left; margin:0 0 0 5px; line-height:1em}
+#userMenu {margin:0 !important; text-align:left}
+#hdr #notifications {font-size:14px}
 
 
 /* Footer */
@@ -26,8 +27,8 @@ body {font-size:12px}
 
 
 /* Sheets - make them the right width and remove their border. */
-.sheet {width:320px !important; border:0; -webkit-border-radius:0}
-.sheet.active {background:#fff; border:0; -webkit-border-radius:0}
+.sheet {width:320px !important; border:0; border-radius:0; margin:0}
+.sheet.active {background:#fff; border:0; border-radius:0}
 .sheet.active .sheetContent {margin:0; border:0}
 .sheet.active {top:0}
 .sheet .buttons small {margin:0 0 10px; float:none; display:block}
@@ -36,7 +37,7 @@ body {font-size:12px}
 
 /* Messages - make them cover the whole bottom of the screen. */
 #messages {left:0; bottom:0; right:0}
-.message {display:block; margin:0; -webkit-border-radius:0; overflow:hidden; border-left:0; border-right:0; border-bottom:0}
+.message {display:block; margin:0; border-radius:0; overflow:hidden; border-left:0; border-right:0; border-bottom:0}
 
 
 /* Forms - unfloat labels. */
@@ -46,8 +47,8 @@ body {font-size:12px}
 
 /* Popup menus - make things bigger so they're easier to tap. */
 .popupMenu {padding:0}
-.popupMenu li > a, .popupMenu li > span {padding:8px 30px 8px 20px; border-bottom:1px solid #ddd; font-size:110%}
-.popupMenu li.sep {display:none}
+.popupMenu li > a, .popupMenu li > span {padding:8px 30px; border-bottom:1px solid #ddd; font-size:110%}
+.popupMenu li.sep {margin:0; border-top:1px solid #ddd;}
 .popupButton .text {display:none}
 
 
@@ -62,20 +63,25 @@ body {font-size:12px}
 
 
 /* Search - unfloat the search and hide the gambits. */
-.search {float:none; margin-bottom:5px}
-.search input[type=text] {width:180px}
+.search {float:none; margin-bottom:10px}
+.search input[type=text] {width:175px}
 #gambits.popup {width:235px; height:100px; overflow:auto !important; margin:0}
+
+#conversationsFilter .channels li:not(.channelListItem):not(.pathItem):not(.selected) {display:none}
+#conversationsFilter .channels {padding-left:0}
+#conversationsFilter .channelListItem {margin-left:0}
+#conversationsFilter .pathItem {margin-left:0}
 
 
 /* Lists - give them left/right padding and always show controls. */
-.list li {padding:10px}
+.list > li {padding:10px}
 .list .controls {visibility:visible}
 
 
 /* Conversation list */
-.conversationList li {padding:10px 10px 10px 30px; overflow:hidden}
-.conversationList .col-star {float:left; margin-left:-28px; margin-top:6px; margin-right:0}
-.conversationList .col-conversation {display:block; margin:5px 0 3px; width:auto}
+.conversationList li {padding:10px 10px 13px 30px; overflow:hidden}
+.conversationList .col-star {float:left; margin-left:-28px; margin-top:2px; margin-right:0}
+.conversationList .col-conversation {display:block; margin:0 0 5px; width:auto}
 .conversationList .col-channel {display:block; padding-right:5px; margin:0; width:auto; text-align:left}
 .conversationList .col-lastPost {padding-right:0; width:auto; margin-right:0; float:none}
 .conversationList .col-replies {display:none}
@@ -85,7 +91,7 @@ body {font-size:12px}
 
 
 /* Channel list */
-.channelList li, .channelList .depth0 {padding:10px}
+.channelList > li, .channelList .depth0 {padding:10px}
 .channelList .info {display:block; float:none; margin:0 0 0}
 .channelList .description {display:block; margin:5px 0 0}
 .channelList .stats {display:none}
@@ -95,7 +101,7 @@ body {font-size:12px}
 #conversationTitle {display:block; float:none; margin-bottom:10px; font-size:130%}
 #conversationHeader {padding:15px 10px}
 #conversationHeader .search {display:none}
-#conversationHeader .channel {margin-left:0}
+#conversationHeader .channels {margin-left:0}
 #conversationPrivacy, #conversationControls.controls {float:none; margin:10px 10px}
 #conversationBody {padding-top:0}
 #reply .avatar {display:none}
@@ -104,13 +110,13 @@ body {font-size:12px}
 /* Hide scrubbers. */
 .hasScrubber {margin-right:0}
 .scrubberColumn {float:none; margin:0; padding:0 10px; width:auto}
-#conversationBody .scrubberContent .button {display:inline-block; width:auto; margin-right:10px}
+#conversationBody .scrubberContent .button {display:inline-block; width:auto; margin-right:5px}
 #conversationBody .scrubberContent .popupWrapper {display:inline-block}
 .scrubber {display:none}
 
 
 /* Make time markers horizontal. */
-.timeMarker {padding:5px 10px; display:block; border-bottom:1px solid #ddd; text-shadow:0 1px #fff; margin:0 0 5px; -webkit-border-radius:0}
+.timeMarker {padding:5px 10px; display:block; border-bottom:1px solid #ddd; text-shadow:0 1px #fff; margin:0 0 5px; border-radius:0}
 
 
 /* Make posts simple boxes with a thumbnail avatar. */
@@ -129,6 +135,8 @@ body {font-size:12px}
 /* Member profile */
 #memberProfile {padding:10px}
 #memberActions {display:none}
+#memberContent {padding:0 10px}
+#memberActivity {margin:0 -10px}
 div.activity {padding:0 10px}
 
 

@@ -780,50 +780,33 @@ var ETMembersAllowedTooltip = {
 
 $(function() {
 
-	// Add scrolling handlers to automatically float the "go to top" and "back to search" links.
-	$(window).scroll(function() {
-		if ($(document).scrollTop() > $("#hdr").outerHeight() && !ETSheet.sheetStack.length && !ET.disableFixedPositions) {
-			$("#goToTop a").addClass("floatingLink");
-			$("#goToTop").show().css("position", "absolute");
-		} else {
-			$("#goToTop a").removeClass("floatingLink");
-			$("#goToTop").hide();
-		}
-	});
-
 	$("#backButton").tooltip({alignment: "left", offset: [25, 25]});
-
-	// Start off with the "go to top" link hidden, and add a click handler.
-	$("#goToTop a").click(function(e) {
-		e.preventDefault();
-		setTimeout(function(){ $.scrollTo(0, "fast"); }, 1);
-	}).parent().hide();
 
 	// Initialize page history.
 	$.history.init();
 
 	// Add click handlers to any login, forgot password, new conversation, and sign up links.
-	$(".link-login").live("click", function(e) {
-		e.preventDefault();
-		showLoginSheet();
-	});
+	// $(".link-login").live("click", function(e) {
+	// 	e.preventDefault();
+	// 	showLoginSheet();
+	// });
 
 	$(".link-forgot").live("click", function(e) {
 		e.preventDefault();
 		showForgotSheet();
 	});
 
-	$(".link-newConversation").live("click", function(e) {
-		if (!ET.userId) {
-			e.preventDefault();
-			showLoginSheet(true);
-		}
-	});
+	// $(".link-newConversation").live("click", function(e) {
+	// 	if (!ET.userId) {
+	// 		e.preventDefault();
+	// 		showLoginSheet(true);
+	// 	}
+	// });
 
-	$(".link-join").live("click", function(e) {
-		e.preventDefault();
-		showJoinSheet();
-	});
+	// $(".link-join").live("click", function(e) {
+	// 	e.preventDefault();
+	// 	showJoinSheet();
+	// });
 
 	$(".link-membersOnline").live("click", function(e) {
 		e.preventDefault();

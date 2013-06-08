@@ -113,7 +113,7 @@ function index($channelSlug = false)
 		// Mark as read controls
 		if (ET::$session->user) {
 			$controls->add("markAllAsRead", "<a href='".URL("conversations/markAllAsRead/?token=".ET::$session->token."' id='control-markAllAsRead'><i class='icon-check'></i> ".T("Mark all as read")."</a>"));
-			$controls->add("markListedAsRead", "<a href='".URL("conversations/$channelSlug/?search=".urlencode($searchString)."&markAsRead=1&token=".ET::$session->token."' id='control-markListedAsRead'><i class='icon-list'></i> ".T("Mark listed conversations as read")."</a>"));
+			$controls->add("markListedAsRead", "<a href='".URL("conversations/$channelSlug/?search=".urlencode($searchString)."&markAsRead=1&token=".ET::$session->token."' id='control-markListedAsRead'><i class='icon-list'></i> ".T("Mark listed as read")."</a>"));
 		}
 
 		// Add the default gambits to the gambit cloud: gambit text => css class to apply.

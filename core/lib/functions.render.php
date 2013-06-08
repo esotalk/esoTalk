@@ -132,7 +132,7 @@ function memberGroup($account, $groups = array(), $showMember = false)
 		// Otherwise, show a comma-separated list of the groups that they're in.
 		$groups = array_filter((array)$groups);
 		if (count($groups)) {
-			foreach ($groups as $k => $v) $groups[$k] = "<span class='group-$v'>".groupName($v)."</span>";
+			foreach ($groups as $k => $v) $groups[$k] = "<span class='group-$k'>".groupName($v)."</span>";
 			return implode(", ", $groups);
 		}
 

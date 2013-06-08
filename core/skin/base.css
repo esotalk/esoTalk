@@ -55,13 +55,10 @@ span.highlight {background:#fdef34; border:1px solid #fcef98; padding:1px 3px; b
 /* Notifications button */
 #hdr .popupWrapper {margin:-5px 0; display:inline-block}
 #hdr .popupButton:hover {text-decoration:none}
-#hdr #notifications {width:1.8em; height:1.1em; padding:4px 0; text-align:center; display:inline-block; text-shadow:none; font-weight:bold; border-radius:2px; background-color:#666; background-color:rgba(255, 255, 255, 0.1); color:#444; color:rgba(0, 0, 0, 0.3)}
-#hdr #notifications.new, #hdr .popupButton.active {background-color:#fff; color:#444; border-bottom-color:transparent}
-
-
-/* "Go to top" and "back to ..." links (when they're floating) */
-.floatingLink {position:fixed; background:#eee; background:rgba(238, 238, 238, 0.75); border:1px solid #ccc; border-color:rgba(0, 0, 0, 0.15); font-size:120%; z-index:500; border-radius:3px; color:#444 !important; text-shadow:none}
-#goToTop a.floatingLink {bottom:-4px; right:10px; padding:5px 12px 9px}
+#hdr #notifications {color:rgba(255, 255, 255, 0.3)}
+#hdr #notifications.new, #hdr .active .popupButton {background-color:#fff; border-bottom-color:transparent}
+#hdr #notifications.new, #hdr .active .popupButton, #hdr .active .popupButton i {color:#444 !important}
+#hdr .item-notifications {margin-right:-10px}
 
 
 /* Loading indicators */
@@ -248,7 +245,7 @@ span.highlight {background:#fdef34; border:1px solid #fcef98; padding:1px 3px; b
 .tabs .pathEnd.selected a:last-child:before, .tabs .pathEnd.selected a:last-child:after {display:none}
 
 /* Channels */
-.channel {background:#fff; text-decoration:none; color:#666 !important; text-shadow:none; border-radius:3px; font-size:85%; border:1px solid #d5d5d5; white-space:nowrap; box-shadow:0 1px 0 rgba(0, 0, 0, 0.04); padding:2px 5px}
+.channel {background:#fff; text-decoration:none; color:#666 !important; text-shadow:none; border-radius:3px; font-size:85%; border:1px solid #ddd; white-space:nowrap; box-shadow:0 1px 0 rgba(0, 0, 0, 0.04); padding:2px 5px}
 a.channel:hover {text-decoration:none; border-color:#aaa}
 
 
@@ -258,7 +255,6 @@ a.channel:hover {text-decoration:none; border-color:#aaa}
 .search.big input.text {height:18px; font-size:100%; background-position:-13px -290px}
 .search .control-reset {margin-top:1px; margin-left:-25px; margin-right:0}
 .search .popupButton {margin-left:10px; vertical-align:2px}
-.search .popupButton .text {display:none}
 
 
 /* Notifications popup + list */
@@ -619,8 +615,7 @@ input.error, input.error:focus {border-color:#f59e79 !important}
 .button {height:23px; cursor:pointer; padding:1px 10px 3px; border:1px solid #bbb; border-radius:3px; line-height:19px; margin:0}
 .button.big {height:26px; font-size:100%; padding:0 10px 2px; line-height:25px}
 
-.button i {margin:-3px 2px -1px -1px; vertical-align:middle; font-size:14px; color:#666}
-.button .icon-caret-down {margin:0 0 0 1px}
+.button i {margin:-3px 2px -1px 2px; vertical-align:middle; font-size:14px; color:#666}
 
 a.button {padding:5px 8px; height:auto; line-height:1em; display:inline-block}
 a.button:hover {text-decoration:none}

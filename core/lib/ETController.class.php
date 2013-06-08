@@ -272,8 +272,8 @@ public function init()
 
 		// If the user IS NOT logged in, add the 'login' and 'sign up' links to the bar.
 		if (!ET::$session->user) {
-			$this->addToMenu("user", "login", "<a href='".URL("user/login?return=".urlencode($this->selfURL))."' class='link-login'>".T("Log In")."</a>");
 			$this->addToMenu("user", "join", "<a href='".URL("user/join?return=".urlencode($this->selfURL))."' class='link-join'>".T("Sign Up")."</a>");
+			$this->addToMenu("user", "login", "<a href='".URL("user/login?return=".urlencode($this->selfURL))."' class='link-login'>".T("Log In")."</a>");
 		}
 
 		// If the user IS logged in, we want to display their name and appropriate links.
@@ -405,7 +405,7 @@ public function render($view = "")
 		// Fetch all unread notifications so we have a count for the notifications button.
 		$notifications = ET::activityModel()->getNotifications(-1);
 		$count = count($notifications);
-		$this->addToMenu("user", "notifications", "<a href='".URL("settings/notifications")."' id='notifications' class='popupButton ".($count ? "new" : "")."'><span>$count</span></a>", array("after" => "user"));
+		$this->addToMenu("user", "notifications", "<a href='".URL("settings/notifications")."' id='notifications' class='button popupButton ".($count ? "new" : "")."'><span>$count</span></a>");
 
 		// Show messages with these notifications.
 		$this->notificationMessages($notifications);

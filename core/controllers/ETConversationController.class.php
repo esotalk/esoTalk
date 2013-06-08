@@ -1249,6 +1249,10 @@ protected function formatPostForTemplate($post, $conversation)
 
 		// Show the user's group type.
 		$formatted["info"][] = "<span class='group'>".memberGroup($post["account"], $post["groups"])."</span>";
+		$formatted["class"][] = "group-".$post["account"];
+		foreach ($post["groups"] as $k => $v) {
+			if ($k) $formatted["class"][] = "group-".$k;
+		}
 
 		// If the post has been edited, show the time and by whom next to the controls.
 		if ($post["editMemberId"]) $formatted["controls"][] = "<span class='editedBy'>".sprintf(T("Edited %s by %s"), "<span title='".date(T("date.full"), $post["editTime"])."'>".relativeTime($post["editTime"], true)."</span>", $post["editMemberName"])."</span>";

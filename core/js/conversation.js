@@ -33,7 +33,7 @@ init: function() {
 		if ($("#conversationControls").length)
 			$("#conversationBody .scrubberContent").prepend($("#conversationControls").popup({
 				alignment: "left",
-				content: "<i class='icon-cog'></i> Controls <i class='icon-caret-down'></i>"
+				content: "<i class='icon-cog'></i> <span class='text'>Controls</span> <i class='icon-caret-down'></i>"
 			}).find(".button").addClass("big").end());
 
 		// Set up the timeline scrubber.
@@ -133,6 +133,10 @@ init: function() {
 			if (y > $("#hdr").height()) {
 				if (!title.data("old")) {
 					title.data("old", title.html()).html("<a href='#'>"+ETConversation.title+"</a>");
+					title.find("a").click(function(e) {
+						e.preventDefault();
+						$.scrollTo(0, "fast");
+					});
 				}
 			} else if (title.data("old")) {
 				title.html(title.data("old")).data("old", null);

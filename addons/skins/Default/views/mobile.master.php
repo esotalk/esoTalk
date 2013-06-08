@@ -23,7 +23,7 @@ ET.disableFixedPositions = true;
 $.fn.tooltip = function() { return this; };
 // Make the user menu into a popup, and take notifications out of the user menu.
 $(function() {
-	$("#forumTitle").before($("#userMenu").popup({alignment: "right"}));
+	$("#forumTitle").before($("#userMenu").popup({alignment: "right", content: "<i class='icon-reorder'></i>"}));
 	$("#forumTitle").before($("#notifications").parent());
 });
 </script>
@@ -45,18 +45,21 @@ $(function() {
 <!-- HEADER -->
 <div id='hdr'>
 <div id='hdr-content'>
+<div id='hdr-inner'>
 
 <?php if ($data["backButton"]): ?>
-<a href='<?php echo $data["backButton"]["url"]; ?>' class='button' id='backButton'>&laquo; Back</a>
+<a href='<?php echo $data["backButton"]["url"]; ?>' id='backButton' title='<?php echo T("Back to {$data["backButton"]["type"]}"); ?>'><i class="icon-circle-arrow-left"></i></a>
 <?php endif; ?>
 
 <ul id='userMenu' class='menu'>
-<?php echo $data["userMenuItems"]; ?>
 <li><a href='<?php echo URL("conversation/start"); ?>' class='link-newConversation'>New conversation</a></li>
+<li class='sep'></li>
+<?php echo $data["userMenuItems"]; ?>
 </ul>
 
 <h1 id='forumTitle'><a href='<?php echo URL(""); ?>'><?php echo C("esoTalk.forumTitle"); ?></a></h1>
 
+</div>
 </div>
 </div>
 

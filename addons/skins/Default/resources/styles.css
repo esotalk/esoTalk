@@ -54,13 +54,14 @@ p, ul, pre {line-height:1.6em}
 #userMenu .item-user .avatar {vertical-align:middle; margin:-5px 8px -5px 0}
 #userMenu.menu > li {margin-left:18px; text-align:left}
 
-#hdr .button {border:1px solid #333; border-color:rgba(0, 0, 0, 0.5); border-radius:3px; color:#fff; text-shadow:0 -1px rgba(0, 0, 0, 0.5); font-size:100%; padding:7px 10px; -webkit-box-shadow:0 1px 0 rgba(255, 255, 255, 0.08); box-shadow:0 1px 0 rgba(255, 255, 255, 0.08); background:url(hdr-button.png) repeat-x; margin:-5px 0}
-#hdr .button:active {background-position:0 -30px}
+#hdr .button {background:rgba(0, 0, 0, 0.3); border:1px solid transparent; border-radius:4px; color:#fff; font-size:100%; padding:9px 12px; margin:-7px 0; text-shadow:none}
+#hdr .button:active {background:rgba(0, 0, 0, 0.5)}
+#hdr .button i {color:#fff}
 
 
 /* If a light header color is chosen, make the header text dark. */
-.lightHdr #hdr .button {text-shadow:rgba(255, 255, 255, 0.3) 0 1px}
-.lightHdr #hdr .button {border-color:rgba(0, 0, 0, 0.3)}
+.lightHdr #hdr .button {background:rgba(0, 0, 0, 0.1);}
+.lightHdr #hdr .button:active {background:rgba(0, 0, 0, 0.3);}
 .lightHdr #hdr, .lightHdr #hdr a {color:rgba(0, 0, 0, 0.7)}
 .lightHdr #hdr .popupButton, .lightHdr #hdr #notifications {background-color:rgba(0, 0, 0, .1); color:rgba(0, 0, 0, 0.3)}
 
@@ -81,7 +82,7 @@ input[type=text]:focus, input[type=password]:focus, textarea:focus {border-color
 
 
 /* Buttons */
-.button {background:#e0e0e0 url(button.png) repeat-x; text-shadow:#fff 0 1px; color:#333; font-weight:bold; border:1px solid #ccc; box-shadow:0 1px 0 rgba(0, 0, 0, 0.04); margin-bottom:1px}
+.button {background:#e0e0e0 url(button.png) repeat-x; text-shadow:#fff 0 1px; color:#333; font-weight:bold; border:1px solid #ccc; box-shadow:0 1px 0 rgba(0, 0, 0, 0.04); margin-bottom:1px; -webkit-appearance:none}
 .button:hover, .button:active {border-color:#ccc}
 .button:active {background-color:#d3d3d3; background-position:0 -40px; color:#333}
 .button.disabled {border-color:#ccc !important; background:#f2f2f2 !important; color:#999 !important; box-shadow:none !important}

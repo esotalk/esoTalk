@@ -48,7 +48,7 @@ class ETPlugin_ChannelNotifications extends ETPlugin {
 		$starred = @$channel["follow"];
 		
 		$url = URL("channels/follow/".$channel["channelId"]."?token=".ET::$session->token."&return=".urlencode(ET::$controller->selfURL));
-		echo "<a href='$url' class='button' title='".T("Follow to receive notifications")."' data-id='{$channel["channelId"]}'><i class='star icon-star".($starred ? "" : "-empty")."'></i> <span>".($starred ? T("Following") : T("Follow"))."</span></a>";
+		echo "<a href='$url' class='button' title='".T("Follow to receive notifications")."' data-id='{$channel["channelId"]}'><i class='star icon-star".($starred ? "" : "-empty")."'></i> <span class='text'>".($starred ? T("Following") : T("Follow"))."</span></a>";
 	}
 
 	// Add an action to toggle the follow status of a channel.
