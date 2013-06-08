@@ -279,8 +279,8 @@ a.channel:hover {text-decoration:none; border-color:#aaa}
 .channel-list i {font-size:14px; color:#aaa; margin:0 !important}
 .selected .channel-list i {color:#000}
 
-#conversationsFilter .channels {padding-left:125px}
-#conversationsFilter .channelListItem {margin-left:-124px}
+#conversationsFilter .channels {padding-left:130px}
+#conversationsFilter .channelListItem {margin-left:-129px}
 #conversationsFilter .pathItem {margin-left:-95px}
 
 
