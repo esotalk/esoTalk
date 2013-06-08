@@ -49,7 +49,7 @@ $channel = $data["channelInfo"][$conversation["channelId"]];
 echo "<a href='".URL(searchURL("", $channel["slug"]))."' class='channel channel-{$conversation["channelId"]}' data-channel='{$channel["slug"]}'>{$channel["title"]}</a>";
 ?></div>
 <div class='col-replies'>
-<i class='icon-comment-alt'></i>
+<i class='icon-comment<?php if (!$conversation["replies"]) echo "-alt"; ?>'></i>
 <?php echo "<span>".Ts("%s reply", "%s replies", $conversation["replies"])."</span>";
 
 // Output an "unread indicator", showing the number of unread posts.
