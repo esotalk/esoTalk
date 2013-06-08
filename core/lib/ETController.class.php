@@ -245,7 +245,7 @@ public function notificationMessages($notifications)
 			"avatarFormat" => $notification["avatarFormat"],
 			"email" => $notification["email"]
 		), "thumb");
-		$this->message("<a href='".$notification["link"]."' class='messageLink'><span class='action'>".$avatar.$notification["body"]."</span></a>", "popup autoDismiss hasSprite");
+		$this->message("<a href='".$notification["link"]."' class='messageLink'><span class='action'>".$avatar.$notification["body"]."</span></a>", "popup notificationMessage autoDismiss hasSprite");
 	}
 
 	// Update the user's "notificationCheckTime" preference so these notifications won't be shown again.
