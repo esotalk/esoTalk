@@ -343,7 +343,7 @@ addReply: function() {
 
 			// Star the conversation if the user has the "star on reply" option on.
 			if (data.starOnReply) {
-				$("#conversationHeader .star").addClass("starOn").html(T("Starred"));
+				toggleStarState(ETConversation.id, true);
 			}
 
 			// Reset the post-checking timeout.

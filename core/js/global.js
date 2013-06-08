@@ -868,15 +868,22 @@ function showOnlineSheet()
 }
 
 // Toggle the state of a star.
-function toggleStar(conversationId) {
-	$.ETAjax({url: "conversation/star.json/" + conversationId});
-	var star = $(".star[data-id=" + conversationId + "], .starButton[data-id=" + conversationId + "] .star");
-	var text = star.parent().is(".starButton") ? star.parent().find("span:not(.star)") : star;
+function toggleStar(conversationId)
+{
+	$.ETAjax({url: "conversation/star.json/"+conversationId});
+	var star = $(".star[data-id="+conversationId+"], .starButton[data-id="+conversationId+"] .star");
 	var on = !star.hasClass("starOn");
+	toggleStarState(conversationId, on);
+}
+
+function toggleStarState(conversationId, on)
+{
+	var star = $(".star[data-id="+conversationId+"], .starButton[data-id="+conversationId+"] .star");
+	var text = star.parent().is(".starButton") ? star.parent().find("span:not(.star)") : star;
 	star.toggleClass("starOn", on);
 	text.html(T(on ? "Following" : "Follow"));
-	$("#c" + conversationId).toggleClass("starred", on);
-};
+	$("#c"+conversationId).toggleClass("starred", on);
+}
 
 
 
