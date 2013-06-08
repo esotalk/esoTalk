@@ -198,19 +198,18 @@ span.highlight {background:#fdef34; border:1px solid #fcef98; padding:1px 3px; b
 .sheet.active .sheetContent {background:#fff; border-radius:2px; border:1px solid #555; margin:5px}
 .sheetOverlay {background:rgba(0, 0, 0, 0.2); z-index:150; position:fixed; top:0; left:0; bottom:0; right:0}
 
-.sheet h3 {font-weight:normal; font-size:120%; border-bottom:1px solid #d5d5d5; margin-bottom:-1px !important}
+.sheet h3 {font-weight:normal; font-size:120%; border-bottom:1px solid #d5d5d5; margin-bottom:-1px !important; position:relative}
 .sheet .close {float:right; margin:12px 12px 0 0}
 .sheet .section, .sheet h3, .sheet .buttons {padding:10px 15px; margin:0}
 .sheet .section, .sheet .buttons {border-top:1px solid #d5d5d5}
 .sheet .section {padding:15px}
-.sheet .buttons {overflow:hidden; margin-top:-1px}
+.sheet .buttons {overflow:hidden; margin-top:-1px; position:relative}
 .sheet .buttons .button {margin-left:10px; float:right}
 .sheet .buttons small {float:left; font-size:100%; margin:5px 0}
 .sheet .sheetBody {max-height:500px; overflow:auto}
 
-.scrollShadowTop {box-shadow:inset 0 3px 3px rgba(0, 0, 0, 0.1)}
-.scrollShadowBottom {box-shadow:inset 0 -3px 3px rgba(0, 0, 0, 0.1)}
-.scrollShadowBottom.scrollShadowTop {box-shadow:inset 0 -3px 3px rgba(0, 0, 0, 0.1), inset 0 3px 3px rgba(0, 0, 0, 0.1)}
+.scrollShadowTop {box-shadow:0 3px 3px rgba(0, 0, 0, 0.1)}
+.scrollShadowBottom {box-shadow:0 -3px 3px rgba(0, 0, 0, 0.1)}
 
 
 /* Generic lists */
@@ -311,7 +310,7 @@ a.channel:hover {text-decoration:none; border-color:#aaa}
 
 
 /* Change channel sheet */
-#changeChannelSheet {width:400px}
+#changeChannelSheet {width:700px}
 #changeChannelSheet .section {padding:0}
 .changeChannelList {margin:-1px 0}
 .changeChannelList li {padding:0 !important}
