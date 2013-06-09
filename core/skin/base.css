@@ -223,7 +223,7 @@ span.highlight {background:#fdef34; border:1px solid #fcef98; padding:1px 3px; b
 
 /* Tabs */
 .tabs {margin:0; padding:2px; line-height:1em; overflow:hidden}
-.tabs li {float:left; list-style-type:none; margin:4px 7px 0 0}
+.tabs li {float:left; list-style-type:none; margin:4px 7px 4px 0}
 .tabs li > a, .tabs li > span {padding:4px 6px 3px; white-space:nowrap; font-size:85%; display:block}
 .tabs li > a {color:#666; cursor:pointer; border-radius:3px}
 .tabs li > span {color:#888}
