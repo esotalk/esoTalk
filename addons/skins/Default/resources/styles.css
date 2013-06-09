@@ -41,15 +41,15 @@ p, ul, pre {line-height:1.6em}
 
 
 /* Header */
-#hdr {background:#364159; color:#fff; padding:16px 0; position:fixed; width:100%; z-index:350}
+#hdr {background:#364159; color:#fff; position:fixed; width:100%; z-index:350}
 #hdr-inner {padding-right:580px; white-space:nowrap}
-#hdr h1 {display:inline-block; max-width:100%; font-size:120%; margin:0; font-weight:bold; overflow:hidden; white-space:nowrap; text-overflow:ellipsis}
-#hdr h1 img {margin:-20px 0 -14px; display:inline; border:0}
+#hdr h1 {display:inline-block; max-width:100%; font-size:120%; padding:14px 0; margin:0; font-weight:bold; overflow:hidden; white-space:nowrap; text-overflow:ellipsis}
+#hdr h1 img {margin:-14px 0 -14px; display:inline; vertical-align:bottom; border:0}
 #hdr-inner > a, #hdr-inner > h1 a, #hdr-inner > ul > li > a {color:#fff}
-#backButton {float:left; margin-right:10px; margin-left:-30px; font-size:20px; line-height:20px; margin-top:1px; text-decoration:none}
+#backButton {float:left; margin-right:10px; margin-left:-30px; font-size:20px; line-height:20px; margin-top:15px; text-decoration:none}
 
-#mainMenu {margin-left:30px; display:inline}
-#userMenu {float:right; margin-top:3px; margin-right:-580px; margin-left:-18px;}
+#mainMenu {margin-left:30px; display:inline; padding:16px 0}
+#userMenu {float:right; padding:16px 0; margin-right:-580px; margin-left:-18px;}
 #userMenu .item-user {font-weight:bold}
 #userMenu .item-user .avatar {vertical-align:middle; margin:-5px 8px -5px 0}
 #userMenu.menu > li {margin-left:18px; text-align:left}

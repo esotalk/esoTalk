@@ -11,13 +11,12 @@ body {font-size:12px}
 
 
 /* Header - center the title and float the buttons. */
-#hdr {padding:13px 0}
 #hdr-content {padding:0 5px}
 #hdr-inner {padding:0}
 #hdr #forumTitle {text-align:center; display:block; width:150px; margin:0 auto; white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
-#hdr .button {margin:-7px 0}
+#hdr .button {margin:6px 0}
 #hdr .popupWrapper {float:right; margin:0 0 0 7px}
-#hdr #backButton {float:left; margin:0 0 0 5px; line-height:1em}
+#hdr #backButton {float:left; margin:13px 0 0 5px; line-height:1em}
 #userMenu {margin:0 !important; text-align:left}
 #hdr #notifications {font-size:14px}
 
