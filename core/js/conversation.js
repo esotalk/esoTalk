@@ -996,7 +996,7 @@ saveTitle: function(cancel) {
 
 // Toggle sticky.
 toggleSticky: function() {
-	$("#control-sticky").html(T($("#control-sticky").html() == T("Sticky") ? "Unsticky" : "Sticky"));
+	$("#control-sticky span").html(T($("#control-sticky span").html() == T("Sticky") ? "Unsticky" : "Sticky"));
 	$.ETAjax({
 		url: "conversation/sticky.ajax/" + ETConversation.id,
 		success: function(data) {
@@ -1007,7 +1007,7 @@ toggleSticky: function() {
 
 // Toggle lock.
 toggleLock: function() {
-	$("#control-lock").html(T($("#control-lock").html() == T("Lock") ? "Unlock" : "Lock"));
+	$("#control-lock span").html(T($("#control-lock span").html() == T("Lock") ? "Unlock" : "Lock"));
 	$.ETAjax({
 		url: "conversation/lock.ajax/" + ETConversation.id,
 		success: function(data) {
@@ -1018,7 +1018,7 @@ toggleLock: function() {
 
 // Toggle lock.
 toggleMute: function() {
-	$("#control-mute").html(T($("#control-mute").html() == T("Mute conversation") ? "Unmute conversation" : "Mute conversation"));
+	$("#control-mute span").html(T($("#control-mute span").html() == T("Mute conversation") ? "Unmute conversation" : "Mute conversation"));
 	$.ETAjax({
 		url: "conversation/mute.ajax/" + ETConversation.id,
 		success: function(data) {

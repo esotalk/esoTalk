@@ -221,28 +221,28 @@ public function index($conversationId = false, $year = false, $month = false)
 
 		// Mute conversation control
 		if (ET::$session->user) {
-			$controls->add("mute", "<a href='".URL("conversation/mute/".$conversation["conversationId"]."/?token=".ET::$session->token."&return=".urlencode($this->selfURL))."' id='control-mute'><i class='icon-eye-close'></i> ".T($conversation["muted"] ? "Unmute conversation" : "Mute conversation")."</a>");
+			$controls->add("mute", "<a href='".URL("conversation/mute/".$conversation["conversationId"]."/?token=".ET::$session->token."&return=".urlencode($this->selfURL))."' id='control-mute'><i class='icon-eye-close'></i> <span>".T($conversation["muted"] ? "Unmute conversation" : "Mute conversation")."</span></a>");
 		}
 
 		if ($conversation["canModerate"] or $conversation["startMemberId"] == ET::$session->userId) {
 			$controls->separator();
 
 			// Add the change channel control.
-			$controls->add("changeChannel", "<a href='".URL("conversation/changeChannel/".$conversation["conversationId"]."/?return=".urlencode($this->selfURL))."' id='control-changeChannel'><i class='icon-tag'></i> ".T("Change channel")."</a>");
+			$controls->add("changeChannel", "<a href='".URL("conversation/changeChannel/".$conversation["conversationId"]."/?return=".urlencode($this->selfURL))."' id='control-changeChannel'><i class='icon-tag'></i> <span>".T("Change channel")."</span></a>");
 		}
 
 		// If the user has permission to moderate this conversation...
 		if ($conversation["canModerate"]) {
 			
 			// Add the sticky/unsticky control.
-			$controls->add("sticky", "<a href='".URL("conversation/sticky/".$conversation["conversationId"]."/?token=".ET::$session->token."&return=".urlencode($this->selfURL))."' id='control-sticky'><i class='icon-pushpin'></i> ".T($conversation["sticky"] ? "Unsticky" : "Sticky")."</a>");
+			$controls->add("sticky", "<a href='".URL("conversation/sticky/".$conversation["conversationId"]."/?token=".ET::$session->token."&return=".urlencode($this->selfURL))."' id='control-sticky'><i class='icon-pushpin'></i> <span>".T($conversation["sticky"] ? "Unsticky" : "Sticky")."</span></a>");
 
 			// Add the lock/unlock control.
-			$controls->add("lock", "<a href='".URL("conversation/lock/".$conversation["conversationId"]."/?token=".ET::$session->token."&return=".urlencode($this->selfURL))."' id='control-lock'><i class='icon-lock'></i> ".T($conversation["locked"] ? "Unlock" : "Lock")."</a>");
+			$controls->add("lock", "<a href='".URL("conversation/lock/".$conversation["conversationId"]."/?token=".ET::$session->token."&return=".urlencode($this->selfURL))."' id='control-lock'><i class='icon-lock'></i> <span>".T($conversation["locked"] ? "Unlock" : "Lock")."</span></a>");
 
 			// Add the delete conversation control.
 			$controls->separator();
-			$controls->add("delete", "<a href='".URL("conversation/delete/".$conversation["conversationId"]."/?token=".ET::$session->token)."' id='control-delete'><i class='icon-remove'></i> ".T("Delete conversation")."</a>");
+			$controls->add("delete", "<a href='".URL("conversation/delete/".$conversation["conversationId"]."/?token=".ET::$session->token)."' id='control-delete'><i class='icon-remove'></i> <span>".T("Delete conversation")."</span></a>");
 		}
 
 		// Add the meta description tag to the head. It will contain an excerpt from the first post's content.
