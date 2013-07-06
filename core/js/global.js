@@ -416,7 +416,7 @@ showSheet: function(id, content, callback) {
 
 	// Position the page wrapper so that the browser scrollbars will no longer affect it. The browser scrollbars will become connected to the sheet content.
 	$("#wrapper").addClass("sheetActive").css({position: "fixed", top: -$(document).scrollTop(), width: "100%"});
-	$("#hdr").css("top", $(document).scrollTop());
+	$("#hdr").css("top", 0);
 
 	// Position the sheet.
 	sheet.addClass("active").css({position: "absolute", left: "50%", marginLeft: -sheet.width() / 2});
