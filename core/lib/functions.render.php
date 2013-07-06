@@ -152,7 +152,7 @@ if (!function_exists("groupName")) {
  * Return a group's name to be displayed in an HTML context.
  *
  * @param string $group The name of the group.
- * @param bool $plural Whether or not a plurala version of the name should be used (if such a translation exists.)
+ * @param bool $plural Whether or not a plural version of the name should be used (if such a translation exists.)
  * @return string
  *
  * @package esoTalk

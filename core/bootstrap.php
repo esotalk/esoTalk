@@ -295,6 +295,9 @@ ET::$controller->responseType = $responseType;
 // Initialize plugins.
 foreach (ET::$plugins as $plugin) $plugin->init();
 
+// Include the config/custom.php file, a convenient way to override things.
+if (file_exists($file = PATH_CONFIG."/custom.php")) include $file;
+
 // Include render functions. We do this after we initialize plugins so that they can override any functions if they want.
 require PATH_LIBRARY."/functions.render.php";
 
