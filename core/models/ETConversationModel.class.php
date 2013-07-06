@@ -576,7 +576,7 @@ public function create($data, $membersAllowed = array(), $isDraft = false)
 	unset($data["content"]);
 
 	// Flood control!
-	if (ET::$session->isFlooding()) $this->error("flooding", "waitToReply");
+	if (ET::$session->isFlooding()) $this->error("flooding", sprintf(T("message.waitToReply"), C("esoTalk.conversation.timeBetweenPosts")));
 
 	// Make sure that we have permission to post in this channel.
 	$data["channelId"] = (int)$data["channelId"];
