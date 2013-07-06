@@ -124,6 +124,7 @@ body {font-size:12px}
 .post div.avatar {margin:7px 0 0 10px; position:relative; z-index:50}
 .post div.avatar, .post div.avatar img {width:20px; height:20px}
 .post.edit .controls {float:none; margin-top:10px}
+.post .editButtons input {font-size:90%}
 
 
 /* Show controls by default, but hide unnecessary ones. */
