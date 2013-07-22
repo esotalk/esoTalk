@@ -111,7 +111,7 @@ public $bodyClass = "";
  * later call ET::$session->getNavigation().
  * @var string
  */
-private $navigationId = false;
+protected $navigationId = false;
 
 
 /**

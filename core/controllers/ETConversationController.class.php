@@ -224,6 +224,11 @@ public function index($conversationId = false, $year = false, $month = false)
 			$controls->add("mute", "<a href='".URL("conversation/mute/".$conversation["conversationId"]."/?token=".ET::$session->token."&return=".urlencode($this->selfURL))."' id='control-mute'><i class='icon-eye-close'></i> <span>".T($conversation["muted"] ? "Unmute conversation" : "Mute conversation")."</span></a>");
 		}
 
+		// Mark as unread/read control
+		if (ET::$session->user) {
+			$controls->add("read", "<a href='".URL("conversation/read/".$conversation["conversationId"]."/?token=".ET::$session->token)."' id='control-read'><i class='icon-circle'></i> <span>".T($conversation["lastRead"] >= $conversation["countPosts"] ? "Mark as unread" : "Mark as read")."</span></a>");
+		}
+
 		if ($conversation["canModerate"] or $conversation["startMemberId"] == ET::$session->userId) {
 			$controls->separator();
 
@@ -972,24 +977,27 @@ public function mute($conversationId = false)
 
 
 /**
- * Mark a conversation as read for the current user.
+ * Toggle the conversation between the read/unread states.
  *
  * @param int $conversationId The ID of the conversation.
  * @return void
  */
-public function markAsRead($conversationId = false)
+public function read($conversationId = false)
 {
 	if (!ET::$session->user or !$this->validateToken()) return;
 
 	// Get the conversation.
 	if (!($conversation = $this->getConversation($conversationId))) return;
 
-	// Set the user's lastRead field to the conversation's post count.
-	ET::conversationModel()->setLastRead($conversation, ET::$session->userId, $conversation["countPosts"]);
+	if ($conversation["lastRead"] >= $conversation["countPosts"]) $lastRead = 0;
+	else $lastRead = $conversation["countPosts"];
 
-	// Redirect back to the conversation
+	ET::conversationModel()->setLastRead($conversation, ET::$session->userId, $lastRead, true);
+
+	// Redirect back to the last place we were at.
 	if ($this->responseType === RESPONSE_TYPE_DEFAULT) {
-		redirect(URL(R("return", conversationURL($conversation["conversationId"], $conversation["title"]))));
+		$nav = ET::$session->getNavigation("conversation/".$conversation["conversationId"]);
+		redirect(URL(R("return", $nav["url"])));
 	}
 
 	$this->render();

@@ -881,12 +881,13 @@ public function setDraft(&$conversation, $memberId, $draft = null)
  * 	lastRead attribute will be updated.
  * @param int $memberId The member to set the status for.
  * @param int $lastRead The position of the post that was last read.
+ * @param bool $force Whether or not to set the last read even if it is lower than the current last read.
  * @return bool Returns true on success, or false if there is an error.
  */
-public function setLastRead(&$conversation, $memberId, $lastRead)
+public function setLastRead(&$conversation, $memberId, $lastRead, $force = false)
 {
 	$lastRead = min($lastRead, $conversation["countPosts"]);
-	if ($lastRead <= $conversation["lastRead"]) return true;
+	if ($lastRead <= $conversation["lastRead"] and !$force) return true;
 
 	// Set the last read status.
 	$this->setStatus($conversation["conversationId"], $memberId, array("lastRead" => $lastRead));

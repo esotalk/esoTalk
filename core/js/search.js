@@ -219,7 +219,7 @@ initSearchResults: function() {
 // Mark a single conversation as read, hiding its unread indicator.
 markAsRead: function(conversationId) {
 	$.ETAjax({
-		url: "conversation/markAsRead.json/" + conversationId,
+		url: "conversation/read.json/" + conversationId,
 		global: true,
 		success: function(data) {
 			var row = $("#c" + conversationId);
