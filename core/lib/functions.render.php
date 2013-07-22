@@ -41,6 +41,82 @@ function highlight($text, $words)
 }
 
 
+if (!function_exists("conversationURL")) {
+
+/**
+ * Construct a URL to a conversation, given its ID and title.
+ *
+ * @param int $conversationId The ID of the conversation.
+ * @param string $title The title of the conversation.
+ * @return string The URL to the conversation (to be used in the URL function.)
+ *
+ * @package esoTalk
+ */
+function conversationURL($conversationId, $title = "")
+{
+	return $conversationId.(($title = slug($title)) ? "-$title" : "");
+}
+
+}
+
+
+if (!function_exists("memberURL")) {
+
+/**
+ * Construct a URL to a member, given their ID and username, and the profile pane to go to.
+ *
+ * @param int $memberId The ID of the member.
+ * @param string $username The member's username.
+ * @param string $pane The profile pane to go to.
+ * @return string The URL to the member's profile (to be used in the URL function.)
+ *
+ * @package esoTalk
+ */
+function memberURL($memberId, $username = "", $pane = "")
+{
+	return "member/".($pane ? "$pane/" : "").$memberId.(($username = slug($username)) ? "-$username" : "");
+}
+
+}
+
+
+if (!function_exists("postURL")) {
+
+/**
+ * Construct a URL to a post, given its ID.
+ *
+ * @param int $postId The ID of the post.
+ * @return string The URL to the post (to be used in the URL function.)
+ *
+ * @package esoTalk
+ */
+function postURL($postId)
+{
+	return "conversation/post/".$postId;
+}
+
+}
+
+
+if (!function_exists("searchURL")) {
+
+/**
+ * Construct a URL to a search results page, given a search string.
+ *
+ * @param string $search The search string.
+ * @param string $channel The channel slug ('all' if not specified.)
+ * @return string The URL to the search page (to be used in the URL function.)
+ *
+ * @package esoTalk
+ */
+function searchURL($search, $channel = "all")
+{
+	return "conversations/$channel/".($search ? "?search=".urlencode($search) : "");
+}
+
+}
+
+
 if (!function_exists("memberLink")) {
 
 /**
