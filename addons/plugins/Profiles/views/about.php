@@ -6,9 +6,15 @@ if (!defined("IN_ESOTALK")) exit;
 
 $member = $data["member"];
 $about = $data["about"];
+$location = $data["location"];
 ?>
 <div id='memberAbout'>
 
-	<?php echo $about; ?>
+	<ul class='form'>
+
+		<li><label><?php echo T("Location"); ?></label> <div><?php echo sanitizeHTML($location); ?></div></li>
+		<li><label><?php echo T("About"); ?></label> <div><?php echo $about; ?></div></li>
+
+	</ul>
 
 </div>

@@ -4,9 +4,9 @@
 
 if (!defined("IN_ESOTALK")) exit;
 
-ET::$pluginInfo["AboutMe"] = array(
-	"name" => "About Me",
-	"description" => "Adds a simple 'About Me' section to user profiles.",
+ET::$pluginInfo["Profiles"] = array(
+	"name" => "Profiles",
+	"description" => "Adds some fields to user profiles, including an 'About Me' section and a 'Location' field.",
 	"version" => ESOTALK_VERSION,
 	"author" => "Toby Zerner",
 	"authorEmail" => "support@esotalk.org",
@@ -14,7 +14,7 @@ ET::$pluginInfo["AboutMe"] = array(
 	"license" => "GPLv2"
 );
 
-class ETPlugin_AboutMe extends ETPlugin {
+class ETPlugin_Profiles extends ETPlugin {
 
 	public function handler_memberController_initProfile($sender, $member, $panes, $controls, $actions)
 	{
@@ -32,15 +32,26 @@ class ETPlugin_AboutMe extends ETPlugin {
 
 		$about = @$member["preferences"]["about"];
 		$about = ET::formatter()->init($about)->format()->get();
-
 		$sender->data("about", $about);
+
+		$sender->data("location", @$member["preferences"]["location"]);
 		$sender->renderProfile($this->getView("about"));
+	}
+
+	public function handler_conversationController_formatPostForTemplate($sender, &$formatted, $post, $conversation)
+	{
+		if ($post["deleteMemberId"] or empty($post["preferences"]["location"])) return;
+
+		$formatted["info"][] = "<span class='location'>".sanitizeHTML($post["preferences"]["location"])."</span>";
 	}
 
 	public function handler_settingsController_initGeneral($sender, $form)
 	{
-		$form->addSection("about", T("About"));
+		$form->addSection("location", T("Location"));
+		$form->setValue("location", ET::$session->preference("location"));
+		$form->addField("location", "location", array(__CLASS__, "fieldLocation"), array($sender, "savePreference"));
 
+		$form->addSection("about", T("About"));
 		$form->setValue("about", ET::$session->preference("about"));
 		$form->addField("about", "about", array(__CLASS__, "fieldAbout"), array($sender, "savePreference"));
 	}
@@ -48,6 +59,11 @@ class ETPlugin_AboutMe extends ETPlugin {
 	public static function fieldAbout($form)
 	{
 		return $form->input("about", "textarea", array("style" => "width:500px; height:150px"))."<br><small>".T("Write something about yourself.")."</small>";
+	}
+
+	public static function fieldLocation($form)
+	{
+		return $form->input("location", "text");
 	}
 
 }
