@@ -36,37 +36,54 @@ public function index($orderBy = false, $start = 0)
 	// If we've limited results by a search string...
 	if ($searchString = R("search")) {
 
+		// Explode separate terms by the comma character.
+		$terms = explode(",", $searchString);
+
 		// Get an array of all groups which we can possibly filter by.
 		$groups = ET::groupModel()->getAll();
 		$groups[GROUP_ID_ADMINISTRATOR] = array("name" => ACCOUNT_ADMINISTRATOR);
 		$groups[GROUP_ID_MEMBER] = array("name" => ACCOUNT_MEMBER);
 		$groups[GROUP_ID_GUEST] = array("name" => ACCOUNT_SUSPENDED);
 
-		// If the search string matches any group names, then we'll filter members by their account/group.
-		$restrictGroup = false;
-		$search = strtolower($searchString);
-		foreach ($groups as $id => $group) {
-			$name = $group["name"];
-			if (strtolower(T("group.$name", $name)) == $search or strtolower(T("group.$name.plural", $name)) == $search) {
-				$restrictGroup = $id;
-				break;
+		$conditions = array();
+		$bindings = array();
+
+		foreach ($terms as $k => $term) {
+
+			$term = strtolower(trim($term));
+
+			// If the search string matches any group names, then we'll filter members by their account/group.
+			$group = false;
+			foreach ($groups as $id => $g) {
+				$name = $g["name"];
+				if (strtolower(T("group.$name", $name)) == $term or strtolower(T("group.$name.plural", $name)) == $term) {
+					$group = $id;
+					break;
+				}
 			}
+
+			// Did we find any matching groups just before? If so, add a WHERE condition to the query to filter by group.
+			if ($group !== false) {
+				if ($group < 0) {
+					$conditions[] = "account=:account$k";
+					$sql->bind(":account$k", $groups[$group]["name"]);
+				}
+				elseif (!$groups[$group]["private"] or ET::groupModel()->groupIdsAllowedInGroupIds(ET::$session->getGroupIds(), $group, true)) {
+					$sql->from("member_group mg", "mg.memberId=m.memberId", "left");
+					$conditions[] = "mg.groupId=:group$k";
+					$sql->bind(":group$k", $group);
+				}
+			}
+
+			// If there were no matching groups, just perform a normal LIKE search.
+			else {
+				$conditions[] = "username LIKE :search$k";
+				$sql->bind(":search$k", $term."%");
+			}
+
 		}
 
-		// Did we find any matching groups just before? If so, add a WHERE condition to the query to filter by group.
-		if ($restrictGroup !== false) {
-			if ($restrictGroup < 0) $sql->where("account", $groups[$restrictGroup]["name"]);
-			elseif (!$groups[$restrictGroup]["private"] or ET::groupModel()->groupIdsAllowedInGroupIds(ET::$session->getGroupIds(), $restrictGroup, true)) {
-				$sql
-					->from("member_group mg", "mg.memberId=m.memberId", "left")
-					->where("mg.groupId", $restrictGroup);
-			}
-		}
-
-		// If there were no matching groups, just perform a normal LIKE search.
-		else $sql
-			->where("username LIKE :search")
-			->bind(":search", $searchString."%");
+		$sql->where(implode(" OR ", $conditions));
 	}
 
 	// Create a query to get the total number of results. Clone the results one to retain the same WHERE conditions.
