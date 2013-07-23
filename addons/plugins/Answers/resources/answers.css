@@ -1,0 +1,14 @@
+.label-answered, .gambit-answered {
+	color:green !important;
+}
+.label-answered i {
+	font-size:120%;
+}
+
+.answer {
+	border-color:#82d777;
+	margin:25px 0 10px;
+}
+.answer h3, .answer h3 a {
+	color:green;
+}
