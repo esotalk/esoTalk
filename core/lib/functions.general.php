@@ -951,17 +951,9 @@ function addToArray(&$array, $add, $position = false)
 		ksort($array);
 		return key($array);
 	}
-	// Else, until we can get ahold of a position (starting from the specified one), keep on going!
-	// Consider replacing this with array_splice, and adding the element AT the specified position (not after?)
-	do {
-		if (isset($array[$position])) {
-			$position++;
-			continue;
-		}
-		$array[$position] = $add;
-		ksort($array);
-		return $position;
-	} while (true);
+	// Else, add the element at the specified position.
+	array_splice($array, $position, 0, array($add));
+	return $position;
 }
 
 
