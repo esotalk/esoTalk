@@ -10,8 +10,8 @@ $post = $data["answer"];
 <div class='answer thing hasControls'>
 	<div class='postHeader'>
 		<div class='info'>
-			<h3><i class="icon-ok-sign"></i> Answered by <?php echo memberLink($post["memberId"], $post["username"]); ?></h3>
-			<a href='<?php echo URL(postURL($post["postId"])); ?>' rel='post' data-id='<?php echo $post["postId"]; ?>'>See post in context</a>
+			<h3><i class="icon-ok-sign"></i> <?php printf(T("Answered by %s"), memberLink($post["memberId"], $post["username"])); ?></h3>
+			<a href='<?php echo URL(postURL($post["postId"])); ?>' rel='post' data-id='<?php echo $post["postId"]; ?>'><?php echo T("See post in context"); ?></a>
 		</div>
 		<div class='controls'>
 			<?php if ($conversation["startMemberId"] == ET::$session->userId): ?>
