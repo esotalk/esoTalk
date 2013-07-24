@@ -42,9 +42,11 @@ class ETPlugin_Answers extends ETPlugin {
 
 	public function handler_conversationController_formatPostForTemplate($sender, &$formatted, $post, $conversation)
 	{
-		if ($conversation["startMemberId"] != ET::$session->userId or $post["deleteMemberId"]) return;
+		if ($post["deleteMemberId"]) return;
 
-		addToArray($formatted["controls"], "<a href='".URL("conversation/answer/".$post["postId"]."?token=".ET::$session->token)."' title='".T("This post answered my question")."' class='control-answer'><i class='icon-ok-sign'></i></a>", 0);
+		if ($conversation["startMemberId"] == ET::$session->userId) {
+			addToArray($formatted["controls"], "<a href='".URL("conversation/answer/".$post["postId"]."?token=".ET::$session->token)."' title='".T("This post answered my question")."' class='control-answer'><i class='icon-ok-sign'></i></a>", 0);
+		}
 
 		// If this post is the answer...
 		if ($conversation["answered"] == $post["postId"]) {
