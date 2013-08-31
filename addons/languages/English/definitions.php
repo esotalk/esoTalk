@@ -484,7 +484,7 @@ $definitions["gambit.starred"] = "followed";
 $definitions["gambit.muted"] = "muted";
 $definitions["gambit.sticky"] = "sticky";
 $definitions["gambit.unread"] = "unread";
-$definitions["gambit.more results"] = "more results";
+$definitions["gambit.limit:"] = "limit:";
 
 // Aliases
 // These are gambits which tell the gambit system to use another gambit.

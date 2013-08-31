@@ -22,7 +22,9 @@ endforeach;
 
 <?php if ($data["showViewMoreLink"]): ?>
 <li class='viewMore'>
-<a href='<?php echo URL("conversations/".$data["channelSlug"]."?search=".urlencode($data["searchString"].($data["searchString"] ? " + " : "")."#".T("gambit.more results"))); ?>'><?php echo T("View more"); ?></a>
+<a href='<?php
+$searchWithoutLimit = ET::searchModel()->removeGambit($data["searchString"], 'return strpos($term, strtolower(T("gambit.limit:"))) === 0;');
+echo URL("conversations/".$data["channelSlug"]."?search=".urlencode($searchWithoutLimit.($searchWithoutLimit ? " + " : "")."#".T("gambit.limit:").($data["limit"] + C("esoTalk.search.limitIncrement")))); ?>'><?php echo T("View more"); ?></a>
 </li>
 <?php endif; ?>
 

@@ -83,6 +83,7 @@ function index($channelSlug = false)
 
 	// Pass on a bunch of data to the view.
 	$this->data("results", $results);
+	$this->data("limit", $search->limit);
 	$this->data("showViewMoreLink", $search->areMoreResults());
 	$this->data("channelPath", $path);
 	$this->data("channelTabs", $channels);
@@ -386,6 +387,8 @@ public function update($channelSlug = "", $query = "")
 	}
 
 	if (!$random) {
+
+		// TODO: set a #limit gambit for 20 results, because we only check for differences in the first 20
 
 		// Get a list of conversation IDs for the channel/query.
 		$newConversationIds = $search->getConversationIDs($channelIds, $query, count($currentChannels));

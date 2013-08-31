@@ -80,7 +80,7 @@ public $orderReverse = false;
  * Whether or not the direction in the $orderBy fields should be reversed.
  * @var bool
  */
-protected $limit = false;
+public $limit = false;
 
 
 /**
@@ -307,7 +307,7 @@ public function getConversationIDs($channelIDs = array(), $searchString = "", $o
 	// split the string by "+". Negated terms will then be prefixed with "!". Only keep the first
 	// 5 terms, just to keep the load on the database down!
 	$terms = !empty($searchString) ? explode("+", strtolower(str_replace("-", "+!", trim($searchString, " +-")))) : array();
-	$terms = array_slice($terms, 0, 5);
+	$terms = array_slice(array_filter($terms), 0, 5);
 
 	// Take each term, match it with a gambit, and execute the gambit's function.
 	foreach ($terms as $term) {
@@ -415,13 +415,13 @@ public function getConversationIDs($channelIDs = array(), $searchString = "", $o
 		$this->orderBy = array("FIELD(c.conversationId,".implode(",", $ids).")");
 	}
 
-	// Set a default limit if none has previously been set. Set it with one more result than we'll
-	// need so we can see if there are "more results."
-	if (!$this->limit) $this->limit = C("esoTalk.search.results") + 1;
+	// Set a default limit if none has previously been set.
+	if (!$this->limit) $this->limit = C("esoTalk.search.limit");
 
 	// Finish constructing the final query using the ID whitelist/blacklist we've come up with.
+	// Get one more result than we'll actually need so we can see if there are "more results."
 	if ($idCondition) $this->sql->where($idCondition);
-	$this->sql->orderBy($this->orderBy)->limit($this->limit);
+	$this->sql->orderBy($this->orderBy)->limit($this->limit + 1);
 
 	// Make sure conversations that the user isn't allowed to see are filtered out.
 	ET::conversationModel()->addAllowedPredicate($this->sql);
@@ -432,9 +432,9 @@ public function getConversationIDs($channelIDs = array(), $searchString = "", $o
 	while ($row = $result->nextRow()) $conversationIDs[] = reset($row);
 
 	// If there's one more result than we actually need, indicate that there are "more results."
-	if ($this->limit == C("esoTalk.search.results") + 1 and count($conversationIDs) == $this->limit) {
+	if (count($conversationIDs) == $this->limit + 1) {
 		array_pop($conversationIDs);
-		$this->areMoreResults = true;
+		if ($this->limit < C("esoTalk.search.limitMax")) $this->areMoreResults = true;
 	}
 
 	return count($conversationIDs) ? $conversationIDs : false;
@@ -512,6 +512,45 @@ public function areMoreResults()
 	return $this->areMoreResults;
 }
 
+
+/**
+ * Strip a gambit from a search string. This is useful when constructing the 'view more' link in 
+ * the results, where we need to remove the existing #limit gambit and add a new one.
+ *
+ * @param string $searchString The search string.
+ * @param string $condition The condition to run through eval() to determine a match.
+ * 		$term represents the search term, in lowercase, in the eval() context. The condition
+ * 		should return a boolean value: true means a match, false means no match.
+ * 		Example: return $term == "sticky";
+ * @return string The new search string.
+ */
+public function removeGambit($searchString, $condition)
+{
+	// Process the search string into individial terms. Replace all "-" signs with "+!", and then
+	// split the string by "+". Negated terms will then be prefixed with "!".
+	$terms = !empty($searchString) ? explode("+", strtolower(str_replace("-", "+!", trim($searchString, " +-")))) : array();
+
+	// Take each term, match it with a gambit, and execute the gambit's function.
+	foreach ($terms as $k => $term) {
+
+		$term = $terms[$k] = trim($term);
+
+		if ($term[0] == "#") {
+			$term = ltrim($term, "#");
+
+			// If the term is an alias, translate it into the appropriate gambit.
+			if (array_key_exists($term, self::$aliases)) $term = self::$aliases[$term];
+
+			// Find a matching gambit by evaluating each gambit's condition, and run its callback function.
+			if (eval($condition)) {
+				unset($terms[$k]);
+				continue;
+			}
+		}
+	}
+
+	return implode(" + ", $terms);
+}
 
 
 /**
@@ -714,13 +753,20 @@ public static function gambitContributor(&$search, $term, $negate)
 
 
 /**
- * The "more results" gambit callback. Bumps up the limit to display more results.
+ * The "limit" gambit callback. Specifies the number of results to display.
  *
  * @see gambitUnread for parameter descriptions.
  */
-public static function gambitMoreResults(&$search, $term, $negate)
+public static function gambitLimit(&$search, $term, $negate)
 {
-	if (!$negate) $search->limit(C("esoTalk.search.moreResults"));
+	if ($negate) return;
+
+	// Get the number of results they want.
+	$limit = (int)trim(substr($term, strlen(T("gambit.limit:"))));
+	$limit = max(1, $limit);
+	if (($max = C("esoTalk.search.limitMax")) > 0) $limit = min($max, $limit);
+
+	$search->limit($limit);
 }
 
 
@@ -829,7 +875,7 @@ public static function gambitLocked(&$search, $term, $negate)
 
 }
 
-// Add default gambit.
+// Add default gambits.
 ETSearchModel::addGambit('return $term == strtolower(T("gambit.starred"));', array("ETSearchModel", "gambitStarred"));
 ETSearchModel::addGambit('return $term == strtolower(T("gambit.muted"));', array("ETSearchModel", "gambitMuted"));
 ETSearchModel::addGambit('return $term == strtolower(T("gambit.draft"));', array("ETSearchModel", "gambitDraft"));
@@ -844,7 +890,7 @@ ETSearchModel::addGambit('return $term == strtolower(T("gambit.order by replies"
 ETSearchModel::addGambit('return $term == strtolower(T("gambit.order by newest"));', array("ETSearchModel", "gambitOrderByNewest"));
 ETSearchModel::addGambit('return $term == strtolower(T("gambit.unread"));', array("ETSearchModel", "gambitUnread"));
 ETSearchModel::addGambit('return $term == strtolower(T("gambit.reverse"));', array("ETSearchModel", "gambitReverse"));
-ETSearchModel::addGambit('return $term == strtolower(T("gambit.more results"));', array("ETSearchModel", "gambitMoreResults"));
+ETSearchModel::addGambit('return strpos($term, strtolower(T("gambit.limit:"))) === 0;', array("ETSearchModel", "gambitLimit"));
 
 if (!C("esoTalk.search.disableRandomGambit"))
 	ETSearchModel::addGambit('return $term == strtolower(T("gambit.random"));', array("ETSearchModel", "gambitRandom"));
