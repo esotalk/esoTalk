@@ -272,8 +272,8 @@ public function init()
 
 		// If the user IS NOT logged in, add the 'login' and 'sign up' links to the bar.
 		if (!ET::$session->user) {
-			$this->addToMenu("user", "join", "<a href='".URL("user/join?return=".urlencode($this->selfURL))."' class='link-join'>".T("Sign Up")."</a>");
-			$this->addToMenu("user", "login", "<a href='".URL("user/login?return=".urlencode($this->selfURL))."' class='link-login'>".T("Log In")."</a>");
+			$this->addToMenu("user", "join", "<a href='".URL("user/join?return=".urlencode(ltrim($this->selfURL, "/index.php/")))."' class='link-join'>".T("Sign Up")."</a>");
+			$this->addToMenu("user", "login", "<a href='".URL("user/login?return=".urlencode(ltrim($this->selfURL, "/index.php/")))."' class='link-login'>".T("Log In")."</a>");
 		}
 
 		// If the user IS logged in, we want to display their name and appropriate links.
