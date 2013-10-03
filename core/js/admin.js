@@ -160,6 +160,7 @@ init: function() {
 		toleranceElement: '> div',
 		update: function() {
 			$.ETAjax({
+				type: "POST",
 				url: "admin/channels/reorder.ajax",
 				data: {tree: $("#adminChannels .channelList").nestedSortable("toArray", {startDepthCount: -1})},
 				globalLoading: true
