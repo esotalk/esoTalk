@@ -325,6 +325,14 @@ public function upgrade($currentVersion = "")
 	$this->structure(false);
 
 	// Perform any custom upgrade procedures, from $currentVersion to ESOTALK_VERSION, here.
+
+	// 1.0.0g3: - Re-calculate all conversation post counts due to a bug which could get them un-synced
+	if (ESOTALK_VERSION == "1.0.0g3") {
+		ET::SQL()
+			->update("conversation c")
+			->set("countPosts", "(".ET::SQL()->select("COUNT(*)")->from("post p")->where("p.conversationId=c.conversationId").")", false)
+			->exec();
+	}
 }
 
 }

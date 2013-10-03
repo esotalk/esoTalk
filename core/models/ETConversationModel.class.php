@@ -694,7 +694,7 @@ public function addReply(&$conversation, $content)
 	// Update the conversations table with the new post count, last post/action times, and last post member.
 	$time = time();
 	$update = array(
-		"countPosts" => $conversation["countPosts"] + 1,
+		"countPosts" => ET::raw("countPosts + 1"),
 		"lastPostMemberId" => ET::$session->userId,
 		"lastPostTime" => $time,
 	);

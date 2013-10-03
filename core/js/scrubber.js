@@ -74,7 +74,7 @@ init: function() {
 			}
 		});
 
-		// Work out if the "next page" block is visible in the viewport. If it it, automatically load
+		// Work out if the "next page" block is visible in the viewport. If it is, automatically load
 		// new items, starting from the last item position that we have loaded already.
 		var newer = $(".scrubberNext", ETScrubber.body);
 		if (newer.length && y + $(window).height() > newer.offset().top && !newer.hasClass("loading") && !ET.disableFixedPositions) {
