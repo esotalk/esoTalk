@@ -44,7 +44,7 @@ class ETPlugin_Answers extends ETPlugin {
 	{
 		if ($post["deleteMemberId"]) return;
 
-		if ($conversation["startMemberId"] == ET::$session->userId) {
+		if ($conversation["startMemberId"] == ET::$session->userId or $conversation["canModerate"]) {
 			addToArray($formatted["controls"], "<a href='".URL("conversation/answer/".$post["postId"]."?token=".ET::$session->token)."' title='".T("This post answered my question")."' class='control-answer'><i class='icon-ok-sign'></i></a>", 0);
 		}
 
@@ -75,7 +75,7 @@ class ETPlugin_Answers extends ETPlugin {
 		if (!$conversation or !$sender->validateToken()) return;
 
 		// Stop here with an error if the user isn't allowed to mark the conversation as answered.
-		if ($conversation["startMemberId"] != ET::$session->userId) {
+		if ($conversation["startMemberId"] != ET::$session->userId and !$conversation["canModerate"]) {
 			$sender->renderMessage(T("Error"), T("message.noPermission"));
 			return false;
 		}
@@ -93,7 +93,7 @@ class ETPlugin_Answers extends ETPlugin {
 		if (!$conversation or !$sender->validateToken()) return;
 
 		// Stop here with an error if the user isn't allowed to mark the conversation as answered.
-		if ($conversation["startMemberId"] != ET::$session->userId) {
+		if ($conversation["startMemberId"] != ET::$session->userId and !$conversation["canModerate"]) {
 			$sender->renderMessage(T("Error"), T("message.noPermission"));
 			return false;
 		}

@@ -14,7 +14,7 @@ $post = $data["answer"];
 			<a href='<?php echo URL(postURL($post["postId"])); ?>' rel='post' data-id='<?php echo $post["postId"]; ?>'><?php echo T("See post in context"); ?></a>
 		</div>
 		<div class='controls'>
-			<?php if ($conversation["startMemberId"] == ET::$session->userId): ?>
+			<?php if ($conversation["startMemberId"] == ET::$session->userId or $conversation["canModerate"]): ?>
 			<a href='<?php echo URL("conversation/unanswer/".$conversation["conversationId"]."?token=".ET::$session->token); ?>' title='<?php echo T("Remove answer"); ?>' class='control-unanswer'><i class='icon-remove'></i></a>
 			<?php endif; ?>
 		</div>
