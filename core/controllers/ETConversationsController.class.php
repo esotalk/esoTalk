@@ -63,7 +63,7 @@ function index($channelSlug = false)
 
 	// Last, but definitely not least... perform the search!
 	$search = ET::searchModel();
-	$conversationIDs = $search->getConversationIDs($channelIds, $searchString, count($currentChannels));
+	$conversationIDs = $search->getConversationIDs($channelIds, $searchString, count($currentChannels) or !ET::$session->userId);
 
 	// If this page was originally accessed at conversations/markAsRead/all?search=whatever (the
 	// markAsRead method simply calls the index method), then mark the results as read.
@@ -391,7 +391,7 @@ public function update($channelSlug = "", $query = "")
 		// TODO: set a #limit gambit for 20 results, because we only check for differences in the first 20
 
 		// Get a list of conversation IDs for the channel/query.
-		$newConversationIds = $search->getConversationIDs($channelIds, $query, count($currentChannels));
+		$newConversationIds = $search->getConversationIDs($channelIds, $query, count($currentChannels) or !ET::$session->userId);
 		$newConversationIds = array_slice((array)$newConversationIds, 0, 20);
 
 		// Get the difference of the two sets of conversationId's.

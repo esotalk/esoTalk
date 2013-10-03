@@ -460,11 +460,13 @@ public function getResults($conversationIDs, $checkForPermission = false)
 		->select("lpm.email", "lastPostMemberEmail")
 		->select("lpm.avatarFormat", "lastPostMemberAvatarFormat")
 		->select("IF((IF(c.lastPostTime IS NOT NULL,c.lastPostTime,c.startTime)>:markedAsRead AND (s.lastRead IS NULL OR s.lastRead<c.countPosts)),(c.countPosts - IF(s.lastRead IS NULL,0,s.lastRead)),0)", "unread")
+		->select("p.content", "firstPost")
 		->from("conversation c")
 		->from("member_conversation s", "s.conversationId=c.conversationId AND s.type='member' AND s.id=:memberId", "left")
 		->from("member sm", "c.startMemberId=sm.memberId", "left")
 		->from("member lpm", "c.lastPostMemberId=lpm.memberId", "left")
 		->from("channel ch", "c.channelId=ch.channelId", "left")
+		->from("post p", "c.sticky AND c.conversationId=p.conversationId AND c.startTime=p.time", "left")
 		->bind(":markedAsRead", ET::$session->preference("markedAllConversationsAsRead"))
 		->bind(":memberId", ET::$session->userId);
 

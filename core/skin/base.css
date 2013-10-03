@@ -332,11 +332,11 @@ a.channel:hover {text-decoration:none; border-color:#aaa}
 /* Conversation list */
 #conversations {margin-top:-11px}
 .conversationList li {overflow:hidden; padding-right:31em; padding-left:13em}
-/*.conversationList li > div {float:left}*/
 .conversationList .labels {margin-left:3px}
 .conversationList .title {font-weight:normal}
 .conversationList .title a {color:#000}
 .conversationList .unread .title a {font-weight:bold; color:#000}
+.conversationList .excerpt {color:#888; font-size:85%}
 .conversationList .starred {background-color:#fffbdb}
 .conversationList .justVisited {background-color:#F5FAFC}
 .conversationList .controls {margin-left:10px}
