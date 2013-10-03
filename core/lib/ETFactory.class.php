@@ -55,7 +55,7 @@ public static function make($class, $parameter1 = null, $parameter2 = null, $par
 	// Otherwise, if we do have details but the file hasn't yet been included, attempt to include it.
 	else {
 		$className = self::$classes[$class][0];
-		if (!class_exists($className)) {
+		if (!class_exists($className, false)) {
 			if (file_exists(self::$classes[$class][1])) require_once self::$classes[$class][1];
 			else {
 				throw new Exception("ETFactory: The file '".self::$classes[$class][1]."' for the class '$className' does not exist.");
@@ -63,7 +63,7 @@ public static function make($class, $parameter1 = null, $parameter2 = null, $par
 		}
 	}
 
-	if (!class_exists($className)) {
+	if (!class_exists($className, false)) {
 		throw new Exception("ETFactory: The class '$className' does not exist.");
 	}
 	else {
