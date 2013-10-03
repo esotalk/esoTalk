@@ -239,6 +239,9 @@ public function lastInsertId()
  */
 public function escapeValue($value, $dataType = null)
 {
+	// If the value is a raw SQL query object, don't sanitize it.
+	if ($value instanceof ETSQLRaw) return $value;
+
 	// If the value is an array, escape each element individually and return a comma-separated string.
 	if (is_array($value)) {
 		foreach ($value as &$v) $v = $this->escapeValue($v, $dataType);

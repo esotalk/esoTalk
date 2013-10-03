@@ -119,6 +119,18 @@ public static function SQL($sql = "")
 
 
 /**
+ * Shortcut function to fetch a new ETSQLRaw object.
+ *
+ * @param string $expression The raw SQL expression.
+ * @return ETSQLRaw
+ */
+public static function raw($expression)
+{
+	return ETFactory::make("sqlRaw", $expression);
+}
+
+
+/**
  * Trigger an event and call event handlers within plugins.
  *
  * @param string $event The name of the event.

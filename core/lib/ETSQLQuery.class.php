@@ -676,4 +676,9 @@ public function exec()
 	return ET::$database->query($query);
 }
 
+public function __toString()
+{
+	return $this->get();
+}
+
 }

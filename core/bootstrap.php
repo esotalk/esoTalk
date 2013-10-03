@@ -109,6 +109,7 @@ ETFactory::register("database", "ETDatabase", PATH_LIBRARY."/ETDatabase.class.ph
 ETFactory::register("databaseStructure", "ETDatabaseStructure", PATH_LIBRARY."/ETDatabaseStructure.class.php");
 ETFactory::register("sqlQuery", "ETSQLQuery", PATH_LIBRARY."/ETSQLQuery.class.php");
 ETFactory::register("sqlResult", "ETSQLResult", PATH_LIBRARY."/ETSQLResult.class.php");
+ETFactory::register("sqlRaw", "ETSQLRaw", PATH_LIBRARY."/ETSQLRaw.class.php");
 ETFactory::register("session", "ETSession", PATH_LIBRARY."/ETSession.class.php");
 ETFactory::register("cache", "ETCache", PATH_LIBRARY."/ETCache.class.php");
 ETFactory::register("form", "ETForm", PATH_LIBRARY."/ETForm.class.php");
