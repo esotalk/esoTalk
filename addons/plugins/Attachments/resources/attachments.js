@@ -9,7 +9,7 @@ $(function() {
 			debug: true,
 			button: $post.find('.attachments-button')[0],
 			request: {
-				endpoint: ET.webPath+'/attachment/upload',
+				endpoint: ET.webPath+'/?p=attachment/upload',
 				params: {
 					postId: postId == "reply" ? (ETConversation.id ? "c"+ETConversation.id : "c0") : postId
 				}
