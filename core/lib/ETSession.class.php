@@ -429,14 +429,20 @@ public function isFlooding()
 
 	// Otherwise, make sure the time of their most recent conversation/post is more than the time limit ago.
 	$time = time() - C("esoTalk.conversation.timeBetweenPosts");
-	return (bool)ET::SQL()
-		->select("MAX(c.startTime)>$time OR MAX(p.time)>$time")
-		->from("conversation c")
-		->from("post p", "", "inner")
-		->where("c.startMemberId", $this->userId)
-		->where("p.memberId", $this->userId)
+	$recentConversation = (bool)ET::SQL()
+		->select("MAX(startTime)>$time")
+		->from("conversation")
+		->where("startMemberId", $this->userId)
 		->exec()
 		->result();
+	$recentPost = (bool)ET::SQL()
+		->select("MAX(time)>$time")
+		->from("post p")
+		->where("memberId", $this->userId)
+		->exec()
+		->result();
+
+	return $recentConversation or $recentPost;
 }
 
 
