@@ -1281,15 +1281,15 @@ protected function privateAddNotification($conversation, $memberIds, $notifyAll 
 
 	$data = array(
 		"conversationId" => $conversation["conversationId"],
-		"title" => $conversation["title"],
-		"content" => $content
+		"title" => $conversation["title"]
 	);
+	$emailData = array("content" => $content);
 
 	// Create the "privateAdd" activity which will send out a notification and an email if appropriate.
 	// Also get IDs of members who would like to automatically follow this conversation.
 	$followIds = array();
 	foreach ($members as $member) {
-		ET::activityModel()->create("privateAdd", $member, ET::$session->user, $data);
+		ET::activityModel()->create("privateAdd", $member, ET::$session->user, $data, $emailData);
 
 		if (!empty($member["preferences"]["starPrivate"])) $followIds[] = $member["memberId"];
 	}
