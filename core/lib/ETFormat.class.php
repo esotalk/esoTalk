@@ -211,7 +211,7 @@ public function linksCallback($matches)
 {
 	// If we're not doing basic formatting, YouTube embedding is enabled, and this is a YouTube video link,
 	// then return an embed tag.
-	if (!$this->basic and C("esoTalk.format.youtube") and preg_match("/^(?:www\.)?youtube\.com\/watch\?v=([^&]+)/i", $matches[2], $youtube)) {
+	if (!$this->basic and C("esoTalk.format.youtube") and preg_match('%(?:youtube(?:-nocookie)?\.com/(?:[^/]+/.+/|(?:v|e(?:mbed)?)/|.*[?&]v=)|youtu\.be/)([^"&?/ ]{11})%i', $matches[2], $youtube)) {
 		$id = $youtube[1];
 		$width = 400;
 		$height = 225;
