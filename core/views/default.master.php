@@ -14,7 +14,7 @@ if (!defined("IN_ESOTALK")) exit;
 <html>
 <head>
 <meta charset='<?php echo T("charset", "utf-8"); ?>'>
-<title><?php echo $data["pageTitle"]; ?></title>
+<title><?php echo sanitizeHTML($data["pageTitle"]); ?></title>
 <?php echo $data["head"]; ?>
 </head>
 
