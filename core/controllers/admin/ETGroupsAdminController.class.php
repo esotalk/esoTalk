@@ -21,6 +21,8 @@ public function index()
 {
 	$groups = ET::groupModel()->getAll();
 
+	$this->addJSLanguage("message.confirmDelete");
+
 	$this->data("groups", $groups);
 	$this->render("admin/groups");
 }

@@ -145,7 +145,7 @@ public function join()
 				// If we require the user to confirm their email, send them an email and show a message.
 				if (C("esoTalk.registration.requireEmailConfirmation")) {
 					$this->sendConfirmationEmail($data["email"], $data["username"], $memberId.$data["resetPassword"]);
-					$this->renderMessage("Success!", T("message.confirmEmail"));
+					$this->renderMessage(T("Success!"), T("message.confirmEmail"));
 				}
 
 				else {

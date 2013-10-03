@@ -59,7 +59,7 @@ init: function() {
 	});
 
 	$("#adminGroups li .control-delete").click(function(e) {
-		return confirm("Are you sure?");
+		return confirm(T("message.confirmDelete"));
 	});
 
 },

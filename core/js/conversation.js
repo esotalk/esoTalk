@@ -33,7 +33,7 @@ init: function() {
 		if ($("#conversationControls").length)
 			$("#conversationBody .scrubberContent").prepend($("#conversationControls").popup({
 				alignment: "left",
-				content: "<i class='icon-cog'></i> <span class='text'>Controls</span> <i class='icon-caret-down'></i>"
+				content: "<i class='icon-cog'></i> <span class='text'>"+T("Controls")+"</span> <i class='icon-caret-down'></i>"
 			}).find(".button").addClass("big").end());
 
 		// Set up the timeline scrubber.

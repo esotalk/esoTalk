@@ -20,25 +20,25 @@ $form = $data["skinSettingsForm"];
 <li class='sep'></li>
 
 <li id='headerColor'>
-<label>Header color</label>
-<?php echo $form->input("headerColor", "text", array("class" => "color")); ?> <a href='#' class='reset'>Reset</a>
+<label><?php echo T("Header color"); ?></label>
+<?php echo $form->input("headerColor", "text", array("class" => "color")); ?> <a href='#' class='reset'><?php echo T("Reset"); ?></a>
 </li>
 
 
 <li id='bodyColor'>
-<label>Background color</label>
-<?php echo $form->input("bodyColor", "text", array("class" => "color")); ?> <a href='#' class='reset'>Reset</a>
+<label><?php echo T("Background color"); ?></label>
+<?php echo $form->input("bodyColor", "text", array("class" => "color")); ?> <a href='#' class='reset'><?php echo T("Reset"); ?></a>
 </li>
 
 <li class='sep'></li>
 
 <li id='bodyImage'>
-<label>Background image</label>
+<label><?php echo T("Background image"); ?></label>
 <div class='checkboxGroup'>
-<label class='checkbox'><?php echo $form->checkbox("bodyImage"); ?> Use a background image</label>
+<label class='checkbox'><?php echo $form->checkbox("bodyImage"); ?> <?php echo T("Use a background image"); ?></label>
 <div class='indent'>
 <?php echo $form->input("bodyImageFile", "file", array("class" => "text")); ?>
-<label class='checkbox'><?php echo $form->checkbox("noRepeat"); ?> Don't repeat</label>
+<label class='checkbox'><?php echo $form->checkbox("noRepeat"); ?> <?php echo T("Don't repeat"); ?></label>
 </div>
 </div>
 </li>

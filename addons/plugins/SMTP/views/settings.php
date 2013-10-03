@@ -19,32 +19,32 @@ $form = $data["smtpSettingsForm"];
 <ul class='form'>
 
 <li>
-<label>Server</label>
+<label><?php echo T("Server"); ?></label>
 <?php echo $form->input("server", "text"); ?>
 </li>
 
 <li>
-<label>Username</label>
+<label><?php echo T("Username"); ?></label>
 <?php echo $form->input("username", "text"); ?>
 </li>
 
 
 <li>
-<label>Password</label>
+<label><?php echo T("Password"); ?></label>
 <?php echo $form->input("password", "password"); ?>
 </li>
 
 <li>
-<label>Port</label>
+<label><?php echo T("Port"); ?></label>
 <?php echo $form->input("port", "text"); ?>
 </li>
 
 <li>
-<label>Authentication</label>
+<label><?php echo T("Authentication"); ?></label>
 <div class='checkboxGroup'>
-	<label class='radio'><?php echo $form->radio("auth", "false"); ?> Normal</label>
-	<label class='radio'><?php echo $form->radio("auth", "tls"); ?> TLS</label>
-	<label class='radio'><?php echo $form->radio("auth", "ssl"); ?> SSL</label>
+	<label class='radio'><?php echo $form->radio("auth", "false"); ?> <?php echo T("Normal"); ?></label>
+	<label class='radio'><?php echo $form->radio("auth", "tls"); ?> <?php echo T("TLS"); ?></label>
+	<label class='radio'><?php echo $form->radio("auth", "ssl"); ?> <?php echo T("SSL"); ?></label>
 </div>
 </li>
 

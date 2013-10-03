@@ -58,7 +58,7 @@ echo "<a href='".URL(searchURL("", $channel["slug"]))."' class='channel channel-
 
 // Output an "unread indicator", showing the number of unread posts.
 if (ET::$session->user and $conversation["unread"])
-	echo " <a href='".URL("conversation/markAsRead/".$conversation["conversationId"]."?token=".ET::$session->token."&return=".urlencode(ET::$controller->selfURL))."' class='unreadIndicator' title='".T("Mark as read")."'>".$conversation["unread"]." new</a> ";
+	echo " <a href='".URL("conversation/markAsRead/".$conversation["conversationId"]."?token=".ET::$session->token."&return=".urlencode(ET::$controller->selfURL))."' class='unreadIndicator' title='".T("Mark as read")."'>".Ts("%s new", "%s new", $conversation["unread"])."</a> ";
 
 ?></div>
 <div class='col-lastPost'><?php

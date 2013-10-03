@@ -30,13 +30,13 @@ $(function() {
 <ul class='list'>
 <?php foreach ($groups as $id => $group): ?>
 <li data-id='<?php echo $id; ?>' class='hasControls'>
-<div class='controls'><a href='<?php echo URL("admin/groups/edit/$id"); ?>' class='control-edit' title='<?php echo T("Edit"); ?>'><?php echo T("Edit"); ?></a> <a href='<?php echo URL("admin/groups/delete/$id?token=".ET::$session->token); ?>' class='control-delete' title='<?php echo T("Delete"); ?>'><?php echo T("Delete"); ?></a></div>
+<div class='controls'><a href='<?php echo URL("admin/groups/edit/$id"); ?>' class='control-edit' title='<?php echo T("Edit"); ?>'><i class='icon-edit'></i></a> <a href='<?php echo URL("admin/groups/delete/$id?token=".ET::$session->token); ?>' class='control-delete' title='<?php echo T("Delete"); ?>'><i class='icon-remove'></i></a></div>
 <strong><?php echo groupName($group["name"]); ?></strong>
 </li>
 <?php endforeach; ?>
 </ul>
 
-<a href='<?php echo URL("admin/groups/create"); ?>' class='button' id='addGroupButton'><span class='icon-add'></span> <?php echo T("Create Group"); ?></a>
+<a href='<?php echo URL("admin/groups/create"); ?>' class='button' id='addGroupButton'><i class='icon-plus-sign'></i> <?php echo T("Create Group"); ?></a>
 
 </div>
 

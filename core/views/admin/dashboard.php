@@ -27,7 +27,7 @@ $(function() {
 <p><?php echo T("We've logged you in and taken you straight to your forum's administration panel. You're welcome."); ?></p>
 <p><?php echo T("To get started with your forum, you might like to:"); ?></p>
 <ul>
-<li><a href='<?php echo URL("admin/appearance"); ?>'><?php echo T("Customise your forum's appearance"); ?></a></li>
+<li><a href='<?php echo URL("admin/appearance"); ?>'><?php echo T("Customize your forum's appearance"); ?></a></li>
 <li><a href='<?php echo URL("admin/channels"); ?>'><?php echo T("Manage your forum's channels (categories)"); ?></a></li>
 <li><a href='<?php echo URL("conversation/start"); ?>'><?php echo T("Start a new conversation"); ?></a></li>
 </ul>

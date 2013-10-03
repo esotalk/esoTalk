@@ -103,6 +103,7 @@ public function profile($member, $pane = "")
 	$this->title = $member["username"];
 	$this->addJSFile("core/js/member.js");
 	$this->addJSVar("memberId", $member["memberId"]);
+	$this->addJSLanguage("Controls");
 
 	// Sort out what the canonical URL for this page is.
 	$url = memberURL($member["memberId"], $member["username"], $pane);
