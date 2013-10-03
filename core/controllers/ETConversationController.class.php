@@ -188,7 +188,7 @@ public function index($conversationId = false, $year = false, $month = false)
 		$this->pushNavigation("conversation/".$conversation["conversationId"], "conversation", URL($url));
 
 		// Set the title of the page.
-		$this->title = $conversation["title"];
+		$this->title = sanitizeHTML($conversation["title"]);
 
 		// Get a list of the members allowed in this conversation.
 		$conversation["membersAllowed"] = ET::conversationModel()->getMembersAllowed($conversation);

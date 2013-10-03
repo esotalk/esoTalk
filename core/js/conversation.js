@@ -92,7 +92,7 @@ init: function() {
 		this.updateInterval = new ETIntervalCallback(this.update, ET.conversation.updateInterval);
 
 		// Store the conversation title and add a click handler to edit it.
-		this.title = $("#conversationTitle a").html() || $("#conversationTitle").html();
+		this.title = $("#conversationTitle a").text() || $("#conversationTitle").text();
 		$("#conversationTitle a").live("click", function(e) {
 			e.preventDefault();
 			ETConversation.editTitle();
@@ -952,7 +952,7 @@ editTitle: function() {
 	if (!$("#conversationTitle").hasClass("editing")) {
 
 		// Replace the title tag with an input.
-		var title = $("#conversationTitle a").html().trim();
+		var title = $("#conversationTitle a").text().trim();
 		$("#conversationTitle").html("<input type='text' class='text' maxlength='100'/>").addClass("editing");
 		$("#conversationTitle input").val(title).autoGrowInput({
 		    comfortZone: 30,
@@ -975,7 +975,8 @@ saveTitle: function(cancel) {
 		// Return the conversation title input back to normal.
 		var title = $("#conversationTitle input").val();
 		if (!title || cancel) title = ETConversation.title;
-		$("#conversationTitle").html("<a href='#'>"+title+"</a>").removeClass("editing");
+		var sanitized = $('<div/>').text(title).html();
+		$("#conversationTitle").html("<a href='#'>"+sanitized+"</a>").removeClass("editing");
 
 		// If we're cancelling, that's all we need to do.
 		if (cancel || ETConversation.title == title) return;
