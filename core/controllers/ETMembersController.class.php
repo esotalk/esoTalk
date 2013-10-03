@@ -314,7 +314,7 @@ public function autocomplete($input = "")
 	// Construct a query to fetch matching members.
 	$results = ET::SQL()
 		->select("'member' AS type")
-		->select("memberId AS id")
+		->select("memberId")
 		->select("username AS name")
 		->select("avatarFormat")
 		->select("email")

@@ -209,7 +209,7 @@ function ETAutoCompletePopup(field, character, clickHandler) {
 						// Add the results to the cache.
 						results: for (var i in data.results) {
 							for (var j in ac.cache) {
-								if (ac.cache[j].type == data.results[i].type && ac.cache[j].id == data.results[i].id) continue results;
+								if (ac.cache[j].type == data.results[i].type && ac.cache[j].memberId == data.results[i].memberId) continue results;
 							}
 							ac.cache.push(data.results[i]);
 						}
