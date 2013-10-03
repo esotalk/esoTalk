@@ -131,7 +131,7 @@ function ETAutoCompletePopup(field, character, clickHandler) {
 
 			// Sanitize the current value of the field for use in a regular expression.
 			value = value.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&");
-			var regexp = new RegExp("^(" + value + ")", "i");
+			var regexp = new RegExp("(" + value + ")", "i");
 			var results = [];
 
 			// For all of the members in the member cache, test the regular expression and pull out matching results.
@@ -160,10 +160,11 @@ function ETAutoCompletePopup(field, character, clickHandler) {
 				for (var i in results) {
 
 					// Highlight the matching part of the name.
-					var name = results[i].name.replace(regexp, "<strong>$1</strong>");
+					var name = $("<div/>").text(results[i].name).html();
+					name = name.replace(regexp, "<strong>$1</strong>");
 
 					// Create an <li> for the result and add some event handlers.
-					item = $("<li><a href='#'>"+results[i].avatar+" "+name+"</a></li>").data("position", i).data("member", results[i]).mouseover(function() {
+					item = $("<li><a href='#'><i>"+results[i].avatar+"</i> "+name+"</a></li>").data("position", i).data("member", results[i]).mouseover(function() {
 						ac.updateIndex($(this).data("position"));
 					}).click(function(e) {
 						e.preventDefault();
