@@ -37,6 +37,10 @@ class ETPlugin_Views extends ETPlugin {
 	// When we load the conversation index, increase the conversation's view count.
 	public function handler_conversationController_conversationIndexDefault($sender, &$conversation)
 	{
+		$sender->addCSSFile($this->getResource("views.css"));
+
+		if ($conversation["startMemberId"] == ET::$session->userId) return;
+
 		$conversation["views"]++;
 
 		ET::SQL()
@@ -44,8 +48,6 @@ class ETPlugin_Views extends ETPlugin {
 			->set("views", "views + 1", false)
 			->where("conversationId", $conversation["conversationId"])
 			->exec();
-
-		$sender->addCSSFile($this->getResource("views.css"));
 	}
 
 	// Display the conversation's view count above the scrubber.
@@ -64,7 +66,7 @@ class ETPlugin_Views extends ETPlugin {
 	// Register a menu item for the "order by views" gambit.
 	public function handler_conversationsController_constructGambitsMenu($sender, &$gambits)
 	{
-		addToArrayString($gambits["replies"], T("gambit.order by views"), array("gambit-orderByViews", "icon-list-ol"));
+		addToArrayString($gambits["replies"], T("gambit.order by views"), array("gambit-orderByViews", "icon-eye-open"));
 	}
 
 	public static function gambitOrderByViews(&$search, $term, $negate)
