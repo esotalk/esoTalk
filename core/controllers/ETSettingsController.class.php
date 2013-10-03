@@ -114,7 +114,7 @@ public function general()
 	if (count(ET::getLanguages()) > 1) {
 		$form->addSection("language", T("Forum language"));
 
-		$form->setValue("language", ET::$session->preference("language"));
+		$form->setValue("language", ET::$session->preference("language", C("esoTalk.language")));
 		$form->addField("language", "language", array($this, "fieldLanguage"), array($this, "saveLanguage"));
 	}
 
