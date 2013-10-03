@@ -17,7 +17,7 @@ body {font-size:12px}
 #hdr .button {margin:6px 0}
 #hdr .popupWrapper {float:right; margin:0 0 0 7px}
 #hdr #backButton {float:left; margin:13px 0 0 5px; line-height:1em}
-#userMenu {margin:0 !important; text-align:left}
+#userMenu {margin:0 !important; text-align:left; padding:0}
 #hdr #notifications {font-size:14px}
 
 
