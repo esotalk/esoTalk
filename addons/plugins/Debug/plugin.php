@@ -69,6 +69,7 @@ class ETPlugin_Debug extends ETPlugin {
 	{
 		if (!ET::$session->isAdmin()) return;
 		ET::$controller->addCSSFile($this->getResource("debug.css"), true);
+		ET::$controller->addJSFile($this->getResource("debug.js"), true);
 	}
 
 
