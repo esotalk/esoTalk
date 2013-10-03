@@ -1242,9 +1242,13 @@ protected function formatPostForTemplate($post, $conversation)
 	if (time() - $post["time"] < 24 * 60 * 60)
 		$date = relativeTime($post["time"], true);
 
-	// Otherwise, show the month and the day (eg. Oct 2.)
-	else
+	// If the post was within the last half a year, show just a month and a day.
+	elseif (time() - $post["time"] < 180 * 24 * 60 * 60)
 		$date = date("M j", $post["time"]);
+
+	// Otherwise, show the month, day, and year.
+	else
+		$date = date("M Y", $post["time"]);
 
 	// Add the date/time to the post info as a permalink.
 	$formatted["info"][] = "<a href='".URL(postURL($post["postId"]))."' class='time' title='".date(T("date.full"), $post["time"])."'>".(!empty($conversation["searching"]) ? T("Context") : $date)."</a>";
