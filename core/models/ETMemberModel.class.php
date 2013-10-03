@@ -17,7 +17,7 @@ class ETMemberModel extends ETModel {
  * Reserved user names which cannot be used.
  * @var array
  */
-protected static $reservedNames = array("guest", "member", "members", "moderator", "moderators", "administrator", "administrators", "suspended");
+protected static $reservedNames = array("members", "moderators", "administrators");
 
 
 /**

@@ -1115,7 +1115,7 @@ public function getMemberFromName($name)
 	$lowerName = strtolower($name);
 	foreach ($groups as $id => $group) {
 		$group = $group["name"];
-		if ($lowerName == strtolower(T("group.$group.plural", $group)) or $lowerName == strtolower($group)) {
+		if ($lowerName == strtolower(T("group.$group.plural", $group))) {
 			return array("type" => "group", "id" => $id, "name" => $group);
 		}
 	}
