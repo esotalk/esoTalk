@@ -67,7 +67,7 @@ public function handler_format_beforeFormat($sender)
 	$hideFixed = create_function('&$blockFixedContents, $contents', '
 		$blockFixedContents[] = $contents;
 		return "</p><pre></pre><p>";');
-	$regexp = "/(.*)^\[code\]\n?(.*?)\n?\[\/code]$/imse";
+	$regexp = "/(.*)^\s*\[code\]\n?(.*?)\n?\[\/code]$/imse";
 	while (preg_match($regexp, $sender->content)) $sender->content = preg_replace($regexp, "'$1' . \$hideFixed(\$this->blockFixedContents, '$2')", $sender->content);
 
 	// Inline-level [fixed] tags will become <code>.
