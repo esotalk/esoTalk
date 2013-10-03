@@ -225,34 +225,6 @@ public function addPermissionPredicate(&$sql, $field = "view", $member = false, 
 
 
 /**
- * Generates a unqique slug for a channel, given the title of the channel.
- *
- * @param string $title The title of the channel.
- * @return string The suggested slug.
- */
-public function generateSlug($title)
-{
-	$channels = $this->getAll();
-
-	// Keep increasing a number on the end of the slug until we find one that isn't taken.
-	$i = 0;
-	while (true) {
-		$slug = slug($title.($i ? " $i" : ""));
-		$i++;
-
-		// Loop through all the channels. If we find a channel with this slug, continue to the next iteration
-		// of the 'while' loop.
-		foreach ($channels as $channel) {
-			if ($channel["slug"] == $slug) continue 2;
-		}
-		break;
-	}
-
-	return $slug;
-}
-
-
-/**
  * Create a channel.
  *
  * @param array $values An array of fields and their values to insert.
@@ -267,6 +239,7 @@ public function create($values)
 	// Check that a channel slug has been entered and isn't already in use.
 	if (!isset($values["slug"])) $values["slug"] = "";
 	$this->validate("slug", $values["slug"], array($this, "validateSlug"));
+	$values["slug"] = slug($values["slug"]);
 
 	// Add the channel at the end at the root level.
 	$right = ET::SQL()->select("MAX(rgt)")->from("channel")->exec()->result();
@@ -304,6 +277,8 @@ public function update($values, $wheres = array())
 
 	// Collapse the attributes.
 	if (isset($values["attributes"])) $values["attributes"] = serialize($values["attributes"]);
+
+	$values["slug"] = slug($values["slug"]);
 
 	if ($this->errorCount()) return false;
 
