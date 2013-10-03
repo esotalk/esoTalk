@@ -402,18 +402,57 @@ function isMobileBrowser()
  *
  * @package esoTalk
  */
-function slug($string)
-{
-	// Convert special latin letters and other characters to HTML entities.
-	$slug = htmlentities($string, ENT_NOQUOTES, "UTF-8");
+function slug($string) {
+	
+	// If there are any characters other than basic alphanumeric, space, punctuation, then we need to attempt transliteration.
+	if (preg_match("/[^\x20-\x7f]/", $string)) {
+	
+		// Thanks to krakos for this code! http://esotalk.org/forum/582-unicode-in-usernames-and-url-s
+		if (function_exists('transliterator_transliterate')) {
 
-	// With those HTML entities, either convert them back to a normal letter, or remove them.
-	$slug = preg_replace(array("/&([a-z]{1,2})(acute|cedil|circ|grave|lig|orn|ring|slash|th|tilde|uml);/i", "/&[^;]{2,6};/"), array("$1", " "), $slug);
+			// Unicode decomposition rules states that these cannot be decomposed, hence
+			// we have to deal with them manually. Note: even though “scharfes s” is commonly
+			// transliterated as “sz”, in this context “ss” is preferred, as it's the most popular 
+			// method among German speakers.
+			$src = array('œ', 'æ', 'đ', 'ø', 'ł', 'ß', 'Œ', 'Æ', 'Đ', 'Ø', 'Ł');
+			$dst = array('oe','ae','d', 'o', 'l', 'ss', 'OE', 'AE', 'D', 'O', 'L');
+			$string = str_replace($src, $dst, $string);
+
+			// Using transliterator to get rid of accents and convert non-Latin to Latin
+			$string = transliterator_transliterate("Any-Latin; NFD; [:Nonspacing Mark:] Remove; NFC; [:Punctuation:] Remove; Lower();", $string);
+
+		} 
+		elseif (function_exists('iconv')) {
+
+			// IConv won't deal nicely with the following, hence we have to deal with them
+			// manually. Note: even though “scharfes s” is commonly transliterated as “sz”,
+			// in this context “ss” is preferred, as it's the most popular method among German
+			// speakers.
+			$src = array('đ', 'ø', 'ß',  'Đ', 'Ø');
+			$dst = array('d', 'o', 'ss', 'D', 'O');
+			$string = str_replace($src, $dst, $string);
+
+			// Using IConv to get rid of accents. Non-Latin letters are unaffected
+			$string = iconv('UTF-8', 'ASCII//TRANSLIT//IGNORE', $string);
+
+		}
+		else {
+
+			// A fallback to old method.
+			// Convert special Latin letters and other characters to HTML entities.
+			$string = htmlentities($string, ENT_NOQUOTES, "UTF-8");
+
+			// With those HTML entities, either convert them back to a normal letter, or remove them.
+			$string = preg_replace(array("/&([a-z]{1,2})(acute|cedil|circ|grave|lig|orn|ring|slash|th|tilde|uml|caron);/i", "/&[^;]{2,6};/"), array("$1", " "), $string);
+
+		}
+
+	}
 
 	// Now replace non-alphanumeric characters with a hyphen, and remove multiple hyphens.
-	$slug = strtolower(trim(preg_replace(array("/[^0-9a-z]/i", "/-+/"), "-", $slug), "-"));
+	$slug = strtolower(trim(preg_replace(array("/[^0-9a-z]/i", "/-+/"), "-", $string), "-"));
 
-	return substr($slug, 0, 50);
+	return substr($slug, 0, 63);
 }
 
 
