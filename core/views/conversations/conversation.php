@@ -26,18 +26,18 @@ if ($conversation["startMemberId"] == ET::$session->user) $className .= " mine";
 <div class='col-conversation'><?php
 $conversationURL = conversationURL($conversation["conversationId"], $conversation["title"]);
 
-// Output the conversation title, highlighting search keywords.
-echo "<strong class='title'><a href='".URL($conversationURL.((ET::$session->user and $conversation["unread"]) ? "/unread" : ""))."'>".highlight(sanitizeHTML($conversation["title"]), ET::$session->get("highlight"))."</a></strong> ";
-
 // Output the conversation's labels.
 echo "<span class='labels'>";
 foreach ($conversation["labels"] as $label) {
 	if ($label == "draft")
-		echo "<a href='".URL($conversationURL."#reply")."' class='label label-$label'>".T("label.$label")."</a> ";
+		echo "<a href='".URL($conversationURL."#reply")."' class='label label-$label' title='".T("label.$label")."'><i class='".ETConversationModel::$labels[$label][1]."'></i></a> ";
 	else
-		echo "<span class='label label-$label'>".T("label.$label")."</span> ";
+		echo "<span class='label label-$label' title='".T("label.$label")."'><i class='".ETConversationModel::$labels[$label][1]."'></i></span> ";
 }
 echo "</span> ";
+
+// Output the conversation title, highlighting search keywords.
+echo "<strong class='title'><a href='".URL($conversationURL.((ET::$session->user and $conversation["unread"]) ? "/unread" : ""))."'>".highlight(sanitizeHTML($conversation["title"]), ET::$session->get("highlight"))."</a></strong> ";
 
 // If we're highlighting search terms (i.e. if we did a fulltext search), then output a "show matching posts" link.
 if (ET::$session->get("highlight"))

@@ -15,7 +15,7 @@ class ETConversationModel extends ETModel {
 
 /**
  * An array of conversation "labels". A label is a flag that can apply to a conversation (sticky,
- * private, draft, etc.) The array is in the form labelName => SQL expression (eg. IF(c.sticky,1,0))
+ * private, draft, etc.) The array is in the form labelName => array(SQL expression (eg. IF(c.sticky,1,0)), icon class name)
  *
  * @var array
  */
@@ -38,11 +38,12 @@ public function __construct()
  *
  * @param string $label The name of the label.
  * @param string $expression The SQL expression that will determine whether or not the label is active.
+ * @param string $icon An icon classname to represent the label.
  * @return void
  */
-public static function addLabel($label, $expression)
+public static function addLabel($label, $expression, $icon = "")
 {
-	self::$labels[$label] = $expression;
+	self::$labels[$label] = array($expression, $icon);
 }
 
 
@@ -57,7 +58,9 @@ public static function addLabel($label, $expression)
  */
 public static function addLabels(&$sql)
 {
-	if (count(self::$labels)) $sql->select("CONCAT_WS(',',".implode(",", self::$labels).")", "labels");
+	$expressions = array();
+	foreach (self::$labels as $label) $expressions[] = $label[0];
+	if (count($expressions)) $sql->select("CONCAT_WS(',',".implode(",", $expressions).")", "labels");
 	else $sql->select("NULL", "labels");
 }
 
@@ -1303,8 +1306,8 @@ protected function privateAddNotification($conversation, $memberIds, $notifyAll 
 
 
 // Add default labels.
-ETConversationModel::addLabel("sticky", "IF(c.sticky=1,1,0)");
-ETConversationModel::addLabel("private", "IF(c.private=1,1,0)");
-ETConversationModel::addLabel("locked", "IF(c.locked=1,1,0)");
-ETConversationModel::addLabel("draft", "IF(s.draft IS NOT NULL,1,0)");
-ETConversationModel::addLabel("muted", "IF(s.muted=1,1,0)");
+ETConversationModel::addLabel("sticky", "IF(c.sticky=1,1,0)", "icon-pushpin");
+ETConversationModel::addLabel("private", "IF(c.private=1,1,0)", "icon-envelope");
+ETConversationModel::addLabel("locked", "IF(c.locked=1,1,0)", "icon-lock");
+ETConversationModel::addLabel("draft", "IF(s.draft IS NOT NULL,1,0)", "icon-pencil");
+ETConversationModel::addLabel("muted", "IF(s.muted=1,1,0)", "icon-eye-close");

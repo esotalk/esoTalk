@@ -116,6 +116,7 @@ span.highlight {background:#fdef34; border:1px solid #fcef98; padding:1px 3px; b
 .label-sticky, .gambit-sticky {color:#f90 !important}
 .label-draft, .gambit-draft {color:#0b2 !important}
 .labels .label {margin-right:3px}
+.label i {font-size:14px}
 
 
 /* Member online icon */
@@ -332,7 +333,6 @@ a.channel:hover {text-decoration:none; border-color:#aaa}
 /* Conversation list */
 #conversations {margin-top:-11px}
 .conversationList li {overflow:hidden; padding-right:31em; padding-left:13em}
-.conversationList .labels {margin-left:3px}
 .conversationList .title {font-weight:normal}
 .conversationList .title a {color:#000}
 .conversationList .unread .title a {font-weight:bold; color:#000}
