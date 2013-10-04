@@ -81,7 +81,7 @@ public function format()
 	$this->trigger("format");
 
 	// Format whitespace, adding in <br/> and <p> tags.
-	$this->whitespace();
+	if (!$this->inline) $this->whitespace();
 
 	// Trigger the "after format" event, where code blocks can be put back in.
 	$this->trigger("afterFormat");
@@ -98,6 +98,14 @@ public function format()
 public function get()
 {
 	return trim($this->content);
+}
+
+
+public function firstLine()
+{
+	$this->content = substr($this->content, 0, strpos($this->content, "\n"));
+	
+	return $this;
 }
 
 
