@@ -811,7 +811,7 @@ public function head()
 
 	// Output all necessary config variables and language definitions, as well as other variables.
 	$esoTalkJS = array(
-		"webPath" => ET::$webPath,
+		"webPath" => ET::$webPath.((C("esoTalk.urls.friendly") and !C("esoTalk.urls.rewrite")) ? "/index.php" : ""),
 		"userId" => ET::$session->user ? (int)ET::$session->userId : false,
 		"token" => ET::$session->token,
 		"debug" => C("esoTalk.debug"),
