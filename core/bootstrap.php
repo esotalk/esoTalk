@@ -208,7 +208,7 @@ if (!empty($_GET["p"])) {
 elseif (C("esoTalk.urls.friendly") and isset($_SERVER["REQUEST_URI"])) {
 
 	// Remove the base path from the request URI.
-	$request = preg_replace("|^".preg_quote(ET::$webPath)."(/index\.php)?/|", "", $_SERVER["REQUEST_URI"]);
+	$request = preg_replace("|^".preg_quote(ET::$webPath)."(/index\.php)?|", "", $_SERVER["REQUEST_URI"]);
 
 	// If there is a querystring, remove it.
 	$selfURL = $request;
