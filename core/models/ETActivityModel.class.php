@@ -365,7 +365,7 @@ public static function postActivity($item, $member)
 {
 	return array(
 		sprintf(T($item["start"] ? "%s started the conversation %s." : "%s posted in %s."), name($member["username"]), "<a href='".URL(postURL($item["postId"]))."'>".sanitizeHTML($item["title"])."</a>"),
-		ET::formatter()->init($item["content"])->basic(true)->format()->get()
+		ET::formatter()->init($item["content"])->format()->get()
 	);
 }
 
@@ -456,7 +456,7 @@ public static function mentionNotification($item)
  */
 public static function mentionEmail($item, $member)
 {
-	$content = ET::formatter()->init($item["data"]["content"])->basic(true)->format()->get();
+	$content = ET::formatter()->init($item["data"]["content"])->format()->get();
 	$url = URL(postURL($item["data"]["postId"]), true);
 	return array(
 		sprintf(T("email.mention.subject"), name($item["fromMemberName"], false)),
@@ -488,7 +488,7 @@ public static function privateAddNotification(&$item)
  */
 public static function privateAddEmail($item, $member)
 {
-	$content = ET::formatter()->init($item["data"]["content"])->basic(true)->format()->get();
+	$content = ET::formatter()->init($item["data"]["content"])->format()->get();
 	$url = URL(conversationURL($item["data"]["conversationId"], $item["data"]["title"]), true);
 	return array(
 		T("email.privateAdd.subject"),
@@ -504,7 +504,7 @@ public static function privateAddEmail($item, $member)
  */
 public static function postEmail($item, $member)
 {
-	$content = ET::formatter()->init($item["data"]["content"])->basic(true)->format()->get();
+	$content = ET::formatter()->init($item["data"]["content"])->format()->get();
 	$url = URL(conversationURL($item["data"]["conversationId"], $item["data"]["title"])."/unread", true);
 	return array(
 		sprintf(T("email.post.subject"), $item["data"]["title"]),

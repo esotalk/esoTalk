@@ -147,7 +147,7 @@ class ETPlugin_MemberNotifications extends ETPlugin {
 	// Format the postMember email.
 	public static function postMemberEmail($item, $member)
 	{
-		$content = ET::formatter()->init($item["data"]["content"])->basic(true)->format()->get();
+		$content = ET::formatter()->init($item["data"]["content"])->format()->get();
 		$url = URL(conversationURL($item["data"]["conversationId"], $item["data"]["title"])."/unread", true);
 		return array(
 			sprintf(T("email.postMember.subject"), name($item["fromMemberName"], false)),

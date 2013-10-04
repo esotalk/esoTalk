@@ -45,7 +45,7 @@ if (ET::$session->get("highlight"))
 
 // If this conversation is stickied, output an excerpt from its first post.
 if ($conversation["sticky"])
-	echo "<div class='excerpt'>".ET::formatter()->init($conversation["firstPost"])->clip(150)->get()."</div>";
+	echo "<div class='excerpt'>".ET::formatter()->init($conversation["firstPost"])->inline(true)->clip(150)->get()."</div>";
 
 ?></div>
 <div class='col-channel'><?php

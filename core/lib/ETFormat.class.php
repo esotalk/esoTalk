@@ -21,10 +21,10 @@ public $content = "";
 
 
 /**
- * Whether or not to do "basic", inline-only formatting, i.e. don't embed YouTube videos, images, etc.
+ * Whether or not to do inline-only formatting, i.e. don't embed YouTube videos, images, etc.
  * @var bool
  */
-public $basic = false;
+public $inline = false;
 
 
 /**
@@ -47,14 +47,14 @@ public function init($content, $sanitize = true)
 
 
 /**
- * Turn "basic", inline-only formatting on or off.
+ * Turn "inline", inline-only formatting on or off.
  *
- * @param bool $basic Whether or not basic formatting should be on.
+ * @param bool $inline Whether or not inline formatting should be on.
  * @return ETFormat
  */
-public function basic($basic)
+public function inline($inline)
 {
-	$this->basic = $basic;
+	$this->inline = $inline;
 	return $this;
 }
 
@@ -209,9 +209,9 @@ public function links()
  */
 public function linksCallback($matches)
 {
-	// If we're not doing basic formatting, YouTube embedding is enabled, and this is a YouTube video link,
+	// If we're not doing inline formatting, YouTube embedding is enabled, and this is a YouTube video link,
 	// then return an embed tag.
-	if (!$this->basic and C("esoTalk.format.youtube") and preg_match('%(?:youtube(?:-nocookie)?\.com/(?:[^/]+/.+/|(?:v|e(?:mbed)?)/|.*[?&]v=)|youtu\.be/)([^"&?/ ]{11})%i', $matches[2], $youtube)) {
+	if (!$this->inline and C("esoTalk.format.youtube") and preg_match('%(?:youtube(?:-nocookie)?\.com/(?:[^/]+/.+/|(?:v|e(?:mbed)?)/|.*[?&]v=)|youtu\.be/)([^"&?/ ]{11})%i', $matches[2], $youtube)) {
 		$id = $youtube[1];
 		$width = 400;
 		$height = 225;

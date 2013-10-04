@@ -149,7 +149,7 @@ class ETPlugin_ChannelNotifications extends ETPlugin {
 	// Format the postChannel email.
 	public static function postChannelEmail($item, $member)
 	{
-		$content = ET::formatter()->init($item["data"]["content"])->basic(true)->format()->get();
+		$content = ET::formatter()->init($item["data"]["content"])->format()->get();
 		$url = URL(conversationURL($item["data"]["conversationId"], $item["data"]["title"])."/unread", true);
 		return array(
 			sprintf(T("email.postChannel.subject"), $item["data"]["channelTitle"]),

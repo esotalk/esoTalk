@@ -63,12 +63,14 @@ public function handler_conversationController_getEditControls($sender, &$contro
 public function handler_format_beforeFormat($sender)
 {
 	// Block-level [fixed] tags will become <pre>.
-	$this->blockFixedContents = array();
-	$hideFixed = create_function('&$blockFixedContents, $contents', '
-		$blockFixedContents[] = $contents;
-		return "</p><pre></pre><p>";');
-	$regexp = "/(.*)^\s*\[code\]\n?(.*?)\n?\[\/code]$/imse";
-	while (preg_match($regexp, $sender->content)) $sender->content = preg_replace($regexp, "'$1' . \$hideFixed(\$this->blockFixedContents, '$2')", $sender->content);
+	if (!$sender->inline) {
+		$this->blockFixedContents = array();
+		$hideFixed = create_function('&$blockFixedContents, $contents', '
+			$blockFixedContents[] = $contents;
+			return "</p><pre></pre><p>";');
+		$regexp = "/(.*)^\s*\[code\]\n?(.*?)\n?\[\/code]$/imse";
+		while (preg_match($regexp, $sender->content)) $sender->content = preg_replace($regexp, "'$1' . \$hideFixed(\$this->blockFixedContents, '$2')", $sender->content);
+	}
 
 	// Inline-level [fixed] tags will become <code>.
 	$this->inlineFixedContents = array();
@@ -93,7 +95,7 @@ public function handler_format_format($sender)
 	// \[ (i|b|color|url|somethingelse) \=? ([^]]+)? \] (?: ([^]]*) \[\/\1\] )
 
 	// Images: [img]url[/img]
-	if (!$sender->basic) $sender->content = preg_replace("/\[img\](.*?)\[\/img\]/i", "<img src='$1' alt='-image-'/>", $sender->content);
+	if (!$sender->inline) $sender->content = preg_replace("/\[img\](.*?)\[\/img\]/i", "<img src='$1' alt='-image-'/>", $sender->content);
 
 	// Links with display text: [url=http://url]text[/url]
 	$sender->content = preg_replace_callback("/\[url=(\w{2,6}:\/\/)?([^\]]*?)\](.*?)\[\/url\]/i", array($this, "linksCallback"), $sender->content);
@@ -108,7 +110,7 @@ public function handler_format_format($sender)
 	$sender->content = preg_replace("/\[s\](.*?)\[\/s\]/si", "<del>$1</del>", $sender->content);
 
 	// Headers: [h]header[/h]
-	$sender->content = preg_replace("/\[h\](.*?)\[\/h\]/", "</p><h4>$1</h4><p>", $sender->content);
+	if (!$sender->inline) $sender->content = preg_replace("/\[h\](.*?)\[\/h\]/", "</p><h4>$1</h4><p>", $sender->content);
 }
 
 
@@ -143,7 +145,7 @@ public function handler_format_afterFormat($sender)
 	$sender->content = preg_replace("/<code><\/code>/ie", "'<code>' . array_shift(\$this->inlineFixedContents) . '</code>'", $sender->content);
 
 	// Retrieve the contents of the block <pre> tags from the array in which they are stored.
-	$sender->content = preg_replace("/<pre><\/pre>/ie", "'<pre>' . array_pop(\$this->blockFixedContents) . '</pre>'", $sender->content);
+	if (!$sender->inline) $sender->content = preg_replace("/<pre><\/pre>/ie", "'<pre>' . array_pop(\$this->blockFixedContents) . '</pre>'", $sender->content);
 }
 
 }
