@@ -450,7 +450,7 @@ a.deleteLink:hover {color:#f00 !important; text-decoration:line-through}
 .postHeader h3, .postHeader h3 a {color:#000}
 .postHeader .info {display:inline}
 .postHeader .info > span, .postHeader .info > a {font-size:85%; margin-left:7px; color:#888}
-.postHeader .controls {float:right; margin-top:3px}
+.postHeader .controls {float:right; margin-top:3px; white-space:nowrap}
 
 .postBody {line-height:1.5em; overflow:auto; padding:0px 12px}
 .postBody img {vertical-align:bottom; max-width:100%}
