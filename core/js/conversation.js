@@ -213,7 +213,7 @@ initReply: function() {
 	textarea.TextAreaExpander(200, 700);
 
 	// Disable the "post reply" button if there's not a draft. Disable the save draft button regardless.
-	if (!textarea.val()) $("#reply .postReply, #reply .discardDraft").disable();
+	if (!textarea.val()) $("#reply .postReply").disable();
 	$("#reply .saveDraft").disable();
 
 	// Add event handlers on the textarea to enable/disable buttons.
@@ -431,7 +431,6 @@ saveDraft: function() {
 			// Show the draft label, disable the save draft button, and enable the discard draft button.
 			$("#conversationHeader .labels").html(data.labels);
 			$("#reply .saveDraft").disable();
-			$("#reply .discardDraft").enable();
 			ETConversation.editingReply = false;
 		}
 	});
