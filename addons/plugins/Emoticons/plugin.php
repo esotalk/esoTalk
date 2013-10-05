@@ -27,6 +27,8 @@ public function handler_memberController_renderBefore($sender)
 
 public function handler_format_format($sender)
 {
+	if ($sender->inline) return;
+
 	$styles = array();
 	$styles[":)"] = "background-position:0 0";
 	$styles["=)"] = "background-position:0 0";

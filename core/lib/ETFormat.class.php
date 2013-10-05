@@ -71,11 +71,11 @@ public function format()
 
 	// Format links, mentions, and quotes.
 	if (C("esoTalk.format.mentions")) $this->mentions();
-	$this->quotes();
+	if (!$this->inline) $this->quotes();
 	$this->links();
 
 	// Format bullet and numbered lists.
-	$this->lists();
+	if (!$this->inline) $this->lists();
 
 	// Trigger the "format" event, where all regular formatting can be applied (bold, italic, etc.)
 	$this->trigger("format");
