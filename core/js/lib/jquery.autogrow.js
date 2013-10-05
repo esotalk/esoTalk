@@ -51,11 +51,11 @@
                 // Save the scroll top position.
                 var scrollTop = $(document).scrollTop();
 
-				if (hCheck && (vlen < e.valLength || ewidth != e.boxWidth)) e.style.height = e.expandMin + "px";
+				if (hCheck && (vlen < e.valLength || ewidth != e.boxWidth)) e.style.height = (e.expandMin - 15) + "px";
 				var h = Math.max(e.expandMin, Math.min(e.scrollHeight, e.expandMax));
 
 				e.style.overflow = (e.scrollHeight > h ? "auto" : "hidden");
-				e.style.height = (h - parseInt($(e).css("padding-top")) - parseInt($(e).css("padding-bottom"))) + "px";
+				e.style.height = h + "px";
 
                 // Scroll back to where we were.
                 $.scrollTo(scrollTop);
