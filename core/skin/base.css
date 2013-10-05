@@ -81,7 +81,7 @@ span.highlight {background:#fdef34; border:1px solid #fcef98; padding:1px 3px; b
 
 
 /* Controls */
-.controls {list-style-type:none; padding:0; font-size:85%}
+.controls {list-style-type:none; padding:0; font-size:85%; white-space:nowrap}
 .controls > li {display:inline; margin-right:10px}
 
 .hasControls .controls {opacity:0; float:right; -webkit-transition:opacity 0.1s linear}
@@ -450,7 +450,7 @@ a.deleteLink:hover {color:#f00 !important; text-decoration:line-through}
 .postHeader h3, .postHeader h3 a {color:#000}
 .postHeader .info {display:inline}
 .postHeader .info > span, .postHeader .info > a {font-size:85%; margin-left:7px; color:#888}
-.postHeader .controls {float:right; margin-top:3px; white-space:nowrap}
+.postHeader .controls {float:right; margin-top:3px}
 
 .postBody {line-height:1.5em; overflow:auto; padding:0px 12px}
 .postBody img {vertical-align:bottom; max-width:100%}
