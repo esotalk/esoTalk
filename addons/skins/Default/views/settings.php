@@ -69,6 +69,11 @@ $(function() {
 			picker.hide();
 		})
 
+		// When a value is typed in the field, update the color.
+		.keyup(function() {
+			farb.setColor($(this).val());
+		})
+
 		// Add a color swatch before the input.
 		.before("<span class='colorSwatch'></span>");
 
@@ -82,7 +87,7 @@ $(function() {
 		}
 
 		// Set up a farbtastic instance inside the picker we've created.
-		$.farbtastic(picker, function(color) {
+		var farb = $.farbtastic(picker, function(color) {
 			handler(color);
 		}).setColor($("#"+id+" input").val());
 
