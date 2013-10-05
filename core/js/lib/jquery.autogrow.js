@@ -51,7 +51,7 @@
                 // Save the scroll top position.
                 var scrollTop = $(document).scrollTop();
 
-				if (hCheck && (vlen < e.valLength || ewidth != e.boxWidth)) e.style.height = (e.expandMin - 15) + "px";
+				if (hCheck && (vlen < e.valLength || ewidth != e.boxWidth)) e.style.height = e.expandMin + "px";
 				var h = Math.max(e.expandMin, Math.min(e.scrollHeight, e.expandMax));
 
 				e.style.overflow = (e.scrollHeight > h ? "auto" : "hidden");
@@ -77,6 +77,7 @@
 			var p = this.className.match(/expand(\d+)\-*(\d+)*/i);
 			this.expandMin = minHeight || (p ? parseInt('0'+p[1], 10) : 0);
 			this.expandMax = maxHeight || (p ? parseInt('0'+p[2], 10) : 99999);
+            $(this).css('box-sizing', 'border-box');
 
 			// initial resize
 			ResizeTextarea(this);
