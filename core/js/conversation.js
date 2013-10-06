@@ -133,7 +133,7 @@ init: function() {
 			var title = $("#forumTitle");
 			if (y > $("#hdr").height()) {
 				if (!title.data("old")) {
-					title.data("old", title.html()).html("<a href='#'>"+ETConversation.title+"</a>");
+					title.data("old", title.html()).html("<a href='#'></a>").find("a").text(ETConversation.title);
 					title.find("a").click(function(e) {
 						e.preventDefault();
 						$.scrollTo(0, "fast");
