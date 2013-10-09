@@ -272,13 +272,13 @@ public function update($values, $wheres = array())
 	if (isset($values["title"]))
 		$this->validate("title", $values["title"], array($this, "validateTitle"));
 
-	if (isset($values["slug"]))
+	if (isset($values["slug"])) {
 		$this->validate("slug", $values["slug"], array($this, "validateSlug"));
+		$values["slug"] = slug($values["slug"]);
+	}
 
 	// Collapse the attributes.
 	if (isset($values["attributes"])) $values["attributes"] = serialize($values["attributes"]);
-
-	$values["slug"] = slug($values["slug"]);
 
 	if ($this->errorCount()) return false;
 
