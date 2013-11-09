@@ -32,7 +32,7 @@ $form = $data["gravatarSettingsForm"];
 <li>
 <label>Default imageset</label>
 <div class='checkboxGroup' id='gravatarDefaults'>
-	<label class='radio'><?php echo $form->radio("default", ""); ?> <img src='<?php echo getResource("skins/base/avatar.png"); ?>' class='avatar'> esoTalk default</label>
+	<label class='radio'><?php echo $form->radio("default", ""); ?> <img src='<?php echo getResource("core/skin/avatar.png"); ?>' class='avatar'> esoTalk default</label>
 	<label class='radio'><?php echo $form->radio("default", "mm"); ?> <img src='http://www.gravatar.com/avatar/0?d=mm' class='avatar'> Mystery Man</label>
 	<label class='radio'><?php echo $form->radio("default", "identicon"); ?> <img src='http://www.gravatar.com/avatar/0?d=identicon' class='avatar'> Identicon</label>
 	<label class='radio'><?php echo $form->radio("default", "monsterid"); ?> <img src='http://www.gravatar.com/avatar/0?d=monsterid' class='avatar'> MonsterID</label>
