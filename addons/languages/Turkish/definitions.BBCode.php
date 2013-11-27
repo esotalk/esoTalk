@@ -1,5 +1,5 @@
 <?php
-// Copyright 2011 Toby Zerner, Simon Zerner
+// Copyright 2013 Toby Zerner, Simon Zerner, Translated by Cagatay ONCUL
 // This file is part of esoTalk. Please see the included license file for usage information.
 
 // Turkish Definitions for the BBCode plugin.
