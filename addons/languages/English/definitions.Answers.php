@@ -4,9 +4,9 @@
 
 // English Definitions for the Answers plugin.
 
-$definitions["Answer"] = "Cevap";
-$definitions["Answered"] = "Cevaplandı";
-$definitions["This post answered my question"] = "Bu gönderi sorumu cevapladı";
-$definitions["Answered by %s"] = "%s tarafından cevaplandı";
-$definitions["See post in context"] = "Gönderiyi göster";
-$definitions["Remove answer"] = "Cevabı sil";
+$definitions["Answer"] = "Answer";
+$definitions["Answered"] = "Answered";
+$definitions["This post answered my question"] = "This post answered my question";
+$definitions["Answered by %s"] = "Answered by %s";
+$definitions["See post in context"] = "See post in context";
+$definitions["Remove answer"] = "Remove answer";
