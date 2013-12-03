@@ -2,12 +2,12 @@
 // Copyright 2011 Toby Zerner, Simon Zerner
 // This file is part of esoTalk. Please see the included license file for usage information.
 
-// Turkish Definitions for the BBCode plugin.
+// English Definitions for the BBCode plugin.
 
-$definitions["Code"] = "Kod";
-$definitions["Image"] = "Resim";
-$definitions["Link"] = "Bağlantı";
-$definitions["Strike"] = "Üstü çizili";
-$definitions["Header"] = "Başlık";
-$definitions["Italic"] = "İtalik";
-$definitions["Bold"] = "Kalın";
+$definitions["Code"] = "Code";
+$definitions["Image"] = "Image";
+$definitions["Link"] = "Link";
+$definitions["Strike"] = "Strike";
+$definitions["Header"] = "Header";
+$definitions["Italic"] = "Italic";
+$definitions["Bold"] = "Bold";
