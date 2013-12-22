@@ -69,6 +69,8 @@ public function create(&$values)
 	$memberId = parent::create($values);
 	$values["memberId"] = $memberId;
 
+	$this->trigger("createAfter", array($values));
+	
 	// Create "join" activity for this member.
 	ET::activityModel()->create("join", $values);
 
