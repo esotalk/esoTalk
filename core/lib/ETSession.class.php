@@ -378,7 +378,7 @@ public function pushNavigation($id, $type, $url)
 
 /**
  * Get the item that is on top of the navigation stack. The navigation ID of the current page will be used to
- * make the the item returned isn't the item for the current page.
+ * make sure the item returned isn't the item for the current page.
  *
  * @param string $currentId The unqiue navigation ID of the current page.
  * @return bool|array The navigation item, or false if there is none (if the current page is the top.)
