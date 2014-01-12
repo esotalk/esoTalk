@@ -997,7 +997,8 @@ public function read($conversationId = false)
 	// Redirect back to the last place we were at.
 	if ($this->responseType === RESPONSE_TYPE_DEFAULT) {
 		$nav = ET::$session->getNavigation("conversation/".$conversation["conversationId"]);
-		redirect(URL(R("return", $nav["url"])));
+		$return = R("return");
+		redirect($return ? URL($return) : $nav["url"]);
 	}
 
 	$this->render();
