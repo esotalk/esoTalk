@@ -769,6 +769,8 @@ public function delete($wheres = array())
 	$result = ET::SQL()->select("conversationId")->from("conversation c")->where($wheres)->exec();
 	while ($row = $result->nextRow()) $ids[] = $row["conversationId"];
 
+	if (empty($ids)) return true;
+
 	// Decrease channel and member conversation counts for these conversations.
 	// There might be a more efficient way to do this than one query per conversation... but good enough for now!
 	foreach ($ids as $id) {
