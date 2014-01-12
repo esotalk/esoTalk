@@ -273,14 +273,18 @@ public function getValue($field, $default = "")
 			// Go through each "part" in the field name and drill down into the $_POST array.
 			foreach ($parts as $part) {
 				$part = rtrim($part, "]");
-				$value = @$value[$part];
+				if (isset($value[$part])) $value = $value[$part];
+				else {
+					$value = $default;
+					break;
+				}
 			}
 
 			return $value;
 		}
 
 		// If it's just a normal field name, get the value straight from POST.
-		else return isset($_POST[$field]) ? $_POST[$field] : "";
+		else return isset($_POST[$field]) ? $_POST[$field] : $default;
 	}
 	else
 		return isset($this->values[$field]) ? $this->values[$field] : $default;
