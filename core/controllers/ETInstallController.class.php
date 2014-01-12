@@ -229,7 +229,7 @@ RewriteRule ^(.*)$ index.php/$1 [QSA,L]
 	// Write a robots.txt file.
 	file_put_contents(PATH_ROOT."/robots.txt", "User-agent: *
 Crawl-delay: 10
-Disallow: /search/
+Disallow: /conversations/*?search=*
 Disallow: /members/
 Disallow: /user/
 Disallow: /conversation/start/");
