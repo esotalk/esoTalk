@@ -154,7 +154,6 @@ $definitions["Everyone"] = "Everyone";
 $definitions["Fatal Error"] = "Uh oh! It's a fatal error...";
 $definitions["Feed"] = "Feed";
 $definitions["Filter by name or group..."] = "Filter by name or group...";
-$definitions["Filter conversations..."] = "Filter conversations...";
 $definitions["Find this post"] = "Find this post";
 $definitions["First posted"] = "First posted";
 $definitions["Follow to receive notifications"] = "Follow to receive notifications";
