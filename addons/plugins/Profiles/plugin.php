@@ -35,21 +35,26 @@ class ETPlugin_Profiles extends ETPlugin {
 		$sender->data("about", $about);
 
 		$sender->data("location", @$member["preferences"]["location"]);
+
 		$sender->renderProfile($this->getView("about"));
 	}
 
 	public function handler_conversationController_formatPostForTemplate($sender, &$formatted, $post, $conversation)
 	{
-		if ($post["deleteMemberId"] or empty($post["preferences"]["location"])) return;
+		// Hide the location on deleted posts and from guests.
+		if ($post["deleteMemberId"] or empty($post["preferences"]["location"]) or (!C("esoTalk.members.visibleToGuests") and !ET::$session->user)) return;
 
 		$formatted["info"][] = "<span class='location'>".sanitizeHTML($post["preferences"]["location"])."</span>";
 	}
 
 	public function handler_settingsController_initGeneral($sender, $form)
 	{
-		$form->addSection("location", T("Location"));
-		$form->setValue("location", ET::$session->preference("location"));
-		$form->addField("location", "location", array(__CLASS__, "fieldLocation"), array($sender, "savePreference"));
+		// Hide the location from guests.
+		if (C("esoTalk.members.visibleToGuests") or ET::$session->user) {
+			$form->addSection("location", T("Location"));
+			$form->setValue("location", ET::$session->preference("location"));
+			$form->addField("location", "location", array(__CLASS__, "fieldLocation"), array($sender, "savePreference"));
+		}
 
 		$form->addSection("about", T("About"));
 		$form->setValue("about", ET::$session->preference("about"));
