@@ -735,8 +735,10 @@ public function addReply(&$conversation, $content)
 		ET::activityModel()->create("post", $member, ET::$session->user, $data, $emailData);
 	}
 
-	// Update the conversation post count.
+	// Update the conversation details.
 	$conversation["countPosts"]++;
+	$conversation["lastPostTime"] = $time;
+	$conversation["lastPostMemberId"] = ET::$session->userId;
 
 	// If this is the first reply (ie. the conversation was a draft and now it isn't), send notifications to
 	// members who are in the membersAllowed list.
