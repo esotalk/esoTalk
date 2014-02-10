@@ -255,8 +255,7 @@ a.channel:hover {text-decoration:none; border-color:#aaa}
 
 /* Search boxes */
 .search {float:right}
-.search input.text {width:250px; padding-right:30px; padding-left:25px; background:#fff url(icons.png) no-repeat -13px -292px; float:left}
-.search.big input.text {height:18px; font-size:100%; background-position:-13px -290px}
+.search input.text {width:250px; padding-right:30px; padding-left:25px; background:#fff url(icons.png) no-repeat -13px -290px; float:left; height:18px; font-size:100%}
 .search .control-reset {margin-top:1px; margin-left:-25px; margin-right:0}
 .search .popupButton {margin-left:10px; vertical-align:2px}
 
@@ -381,7 +380,7 @@ negative margins so they overlap the padding of the <li>. */
 
 
 /* Conversation privacy */
-#conversationPrivacy {margin:10px 0 40px; padding:10px 15px;}
+#conversationPrivacy {margin:10px 0 40px; padding:10px 15px; clear:both}
 #control-changeMembersAllowed {font-size:85%; margin-left:5px}
 
 
