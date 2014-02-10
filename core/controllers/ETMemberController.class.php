@@ -100,7 +100,7 @@ public function profile($member, $pane = "")
 	if (!($member = $this->getMember($memberId))) return false;
 
 	// Set the title and include relevant JavaScript.
-	$this->title = $member["username"];
+	$this->title = name($member["username"]);
 	$this->addJSFile("core/js/member.js");
 	$this->addJSVar("memberId", $member["memberId"]);
 	$this->addJSLanguage("Controls");
