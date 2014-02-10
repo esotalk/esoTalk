@@ -46,7 +46,7 @@ p, ul, pre {line-height:1.6em}
 #hdr h1 {display:inline-block; max-width:100%; font-size:120%; padding:16px 0; margin:0; font-weight:bold; overflow:hidden; white-space:nowrap; text-overflow:ellipsis}
 #hdr h1 img {margin:-9px 0; display:inline; vertical-align:bottom; border:0}
 #hdr-inner > a, #hdr-inner > h1 a, #hdr-inner > ul > li > a {color:#fff}
-#backButton {float:left; margin-right:10px; margin-left:-30px; font-size:20px; line-height:20px; margin-top:17px; text-decoration:none}
+#backButton {float:left; margin-right:10px; margin-left:-20px; font-size:16px; line-height:16px; margin-top:20px; text-decoration:none}
 
 #mainMenu {margin-left:30px; display:inline; padding:18px 0}
 #userMenu {float:right; padding:18px 0; margin-right:-580px; margin-left:-18px;}

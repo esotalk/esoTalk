@@ -790,7 +790,7 @@ var ETMembersAllowedTooltip = {
 
 $(function() {
 
-	$("#backButton").tooltip({alignment: "left", offset: [25, 25]});
+	$("#backButton").tooltip({alignment: "left", offset: [20, 23]});
 
 	// Initialize page history.
 	$.history.init();
