@@ -37,7 +37,7 @@ class ETPlugin_ChannelNotifications extends ETPlugin {
 		));
 
 		ET::define("email.postChannel.body", "<p><strong>%1\$s</strong> has posted in a conversation in a channel which you followed: <strong>%2\$s</strong></p><hr>%3\$s<hr><p>To view the new activity, check out the following link:<br>%4\$s</p>");
-		ET::define("email.postChannel.subject", "There is a new post in '%1\$s'");
+		ET::define("email.postChannel.subject", "[%1\$s] %2\$s");
 	}
 
 	// Add a follow button to each channel in the channels list.
@@ -152,7 +152,7 @@ class ETPlugin_ChannelNotifications extends ETPlugin {
 		$content = ET::formatter()->init($item["data"]["content"])->format()->get();
 		$url = URL(conversationURL($item["data"]["conversationId"], $item["data"]["title"])."/unread", true);
 		return array(
-			sprintf(T("email.postChannel.subject"), $item["data"]["channelTitle"]),
+			sprintf(T("email.postChannel.subject"), $item["data"]["channelTitle"], $item["data"]["title"]),
 			sprintf(T("email.postChannel.body"), name($item["fromMemberName"]), sanitizeHTML($item["data"]["title"]), $content, "<a href='$url'>$url</a>")
 		);
 	}

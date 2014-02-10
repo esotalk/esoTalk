@@ -500,7 +500,7 @@ $definitions["email.mention.subject"] = "%1\$s mentioned you in a post";
 $definitions["email.privateAdd.body"] = "<p>You have been added to a private conversation titled <strong>%1\$s</strong>.</p><hr>%2\$s<hr><p>To view this conversation, check out the following link:<br>%3\$s</p>";
 $definitions["email.privateAdd.subject"] = "You have been added to a private conversation";
 $definitions["email.post.body"] = "<p><strong>%1\$s</strong> has replied to a conversation which you followed: <strong>%2\$s</strong></p><hr>%3\$s<hr><p>To view the new activity, check out the following link:<br>%4\$s</p>";
-$definitions["email.post.subject"] = "There is a new reply to '%1\$s'";
+$definitions["email.post.subject"] = "[New Reply] %1\$s";
 
 
 // Translating the gambit system can be quite complex, but we'll do our best to get you through it. :)
