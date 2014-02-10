@@ -52,11 +52,11 @@ public function index($orderBy = false, $start = 0)
 
 			$term = strtolower(trim($term));
 
-			// If the search string matches any group names, then we'll filter members by their account/group.
+			// If the search string matches the start of any group names, then we'll filter members by their account/group.
 			$group = false;
 			foreach ($groups as $id => $g) {
 				$name = $g["name"];
-				if (strtolower(T("group.$name", $name)) == $term or strtolower(T("group.$name.plural", $name)) == $term) {
+				if (strpos(strtolower(T("group.$name", $name)), $term) === 0 or strpos(strtolower(T("group.$name.plural", $name)), $term) === 0) {
 					$group = $id;
 					break;
 				}
@@ -75,11 +75,9 @@ public function index($orderBy = false, $start = 0)
 				}
 			}
 
-			// If there were no matching groups, just perform a normal LIKE search.
-			else {
-				$conditions[] = "username LIKE :search$k";
-				$sql->bind(":search$k", "%".$term."%");
-			}
+			// Also perform a normal LIKE search.
+			$conditions[] = "username LIKE :search$k";
+			$sql->bind(":search$k", "%".$term."%");
 
 		}
 
