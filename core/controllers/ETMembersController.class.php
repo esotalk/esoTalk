@@ -78,7 +78,7 @@ public function index($orderBy = false, $start = 0)
 			// If there were no matching groups, just perform a normal LIKE search.
 			else {
 				$conditions[] = "username LIKE :search$k";
-				$sql->bind(":search$k", $term."%");
+				$sql->bind(":search$k", "%".$term."%");
 			}
 
 		}
