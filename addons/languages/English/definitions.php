@@ -391,6 +391,7 @@ $definitions["message.ajaxDisconnected"] = "Unable to communicate with the serve
 $definitions["message.ajaxRequestPending"] = "Hey! We're still processing some of your stuff! If you navigate away from this page you might lose any recent changes you've made, so wait a few seconds, ok?";
 $definitions["message.avatarError"] = "There was a problem uploading your avatar. Make sure you're using a valid image type (like .jpg, .png, or .gif) and the file isn't really really huge.";
 $definitions["message.cannotDeleteLastChannel"] = "Hey, wait up, you can't delete the last channel! Where would your conversations go? That's just silly.";
+$definitions["message.cannotEditSinceReply"] = "You can't edit your post because someone has replied since you posted it.";
 $definitions["message.changesSaved"] = "Your changes were saved.";
 $definitions["message.channelsHelp"] = "Channels are used to categorize conversations on your forum. You can create as many channels as needed, and rearrange/nest them by dragging and dropping below.";
 $definitions["message.channelSlugTaken"] = "This slug is already in use by another channel.";

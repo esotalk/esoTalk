@@ -1408,7 +1408,14 @@ protected function getPostForEditing($postId)
 
 	// Stop here with an error if the user isn't allowed to edit this post.
 	if (!ET::postModel()->canEditPost($post, $conversation)) {
-		$this->renderMessage(T("Error"), T("message.noPermission"));
+
+		// If users only have permission to edit their posts until someone replies, and someone has replied since...
+		if (C("esoTalk.conversation.editPostTimeLimit") === "reply" and ($conversation["lastPostTime"] > $post["time"] or $conversation["lastPostMemberId"] != $post["memberId"])) $msg = T("message.cannotEditSinceReply");
+
+		// Otherwise, show a generic "no permission" message.
+		else $msg = T("message.noPermission");
+
+		$this->renderMessage(T("Error"), $msg);
 		return false;
 	}
 
