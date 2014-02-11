@@ -714,7 +714,7 @@ function json_decode($json)
  */
 function URL($url = "", $absolute = false)
 {
-    if (preg_match('/^(https?\:)?\/\//', $url)) return $url;
+	if (preg_match('/^(https?\:)?\/\//', $url)) return $url;
 	
 	// Strip off the hash.
 	$hash = strstr($url, "#");
