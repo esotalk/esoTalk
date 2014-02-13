@@ -12,7 +12,7 @@ if (!defined("IN_ESOTALK")) exit;
 ?>
 <h1><?php echo T("Fatal Error"); ?></h1>
 
-<?php printf(T("message.fatalError"), "javascript:window.location.reload()", "http://esotalk.org/forum"); ?>
+<?php printf(T("message.fatalError"), "javascript:window.location.reload()", "http://esotalk.org/docs/debug"); ?>
 
 <?php if (C("esoTalk.debug", true)): ?>
 <hr/>
