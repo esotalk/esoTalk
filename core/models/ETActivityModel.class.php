@@ -336,7 +336,7 @@ public function getNotifications($limit = 5)
 }
 
 
-public function markNotificationsAsRead($conversationId = false)
+public function markNotificationsAsRead($type = null, $conversationId = null)
 {
 	$query = ET::SQL()
 		->update("activity")
@@ -344,6 +344,11 @@ public function markNotificationsAsRead($conversationId = false)
 		->where("memberId=:memberId")
 		->where("`read`=0")
 		->bind(":memberId", ET::$session->userId);
+
+	if ($type) {
+		$query->where("type=:type")
+			->bind(":type", $type);
+	}
 
 	if ($conversationId) {
 		$query->where("conversationId=:conversationId")
@@ -526,6 +531,20 @@ public static function updateAvailableNotification($item)
 	);
 }
 
+
+/**
+ * Returns a formatted notification item for the "unapproved" activity type.
+ *
+ * @see postNotification() for parameter and return information.
+ */
+public static function unapprovedNotification($item)
+{
+	return array(
+		sprintf(T("%s has registered and is awaiting approval."), "<strong>".$item["data"]["username"]."</strong>"),
+		URL("admin/unapproved")
+	);
+}
+
 }
 
 
@@ -562,4 +581,9 @@ ETActivityModel::addType("privateAdd", array(
 // Notification for when an update to the esoTalk software is available.
 ETActivityModel::addType("updateAvailable", array(
 	"notification" => array("ETActivityModel", "updateAvailableNotification")
+));
+
+// Notification for when a new user signs up and needs approval.
+ETActivityModel::addType("unapproved", array(
+	"notification" => array("ETActivityModel", "unapprovedNotification")
 ));

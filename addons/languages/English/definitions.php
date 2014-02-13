@@ -39,6 +39,7 @@ $definitions["%s changed %s's group to %s."] = "%s changed %s's group to %s.";
 $definitions["%s changed your group to %s."] = "%s changed your group to %s.";
 $definitions["%s conversation"] = "%s conversation";
 $definitions["%s conversations"] = "%s conversations";
+$definitions["%s has registered and is awaiting approval."] = "%s has registered and is awaiting approval.";
 $definitions["%s invited you to %s."] = "%s invited you to %s.";
 $definitions["%s joined the forum."] = "%s joined the forum.";
 $definitions["%s post"] = "%s post";
@@ -53,7 +54,6 @@ $definitions["%s tagged you in a post."] = "%s mentioned you in a post.";
 $definitions["%s will be able to view this conversation."] = "%s will be able to view this conversation.";
 $definitions["%s will be able to:"] = "%s will be able to:";
 
-$definitions["Success!"] = "Success!";
 $definitions["A new version of esoTalk (%s) is available."] = "A new version of esoTalk (%s) is available.";
 $definitions["a private conversation"] = "a private conversation";
 $definitions["Access the administrator control panel."] = "Access the administrator control panel.";
@@ -70,6 +70,7 @@ $definitions["All Channels"] = "All Channels";
 $definitions["Allow members to edit their own posts:"] = "Allow members to edit their own posts:";
 $definitions["Already have an account? <a href='%s' class='link-login'>Log in!</a>"] = "Already have an account? <a href='%s' class='link-login'>Log in!</a>";
 $definitions["Appearance"] = "Appearance";
+$definitions["Approve"] = "Approve";
 $definitions["Automatically star conversations that I reply to"] = "Automatically follow conversations that I reply to";
 $definitions["Avatar"] = "Avatar";
 
@@ -129,6 +130,7 @@ $definitions["Delete Member"] = "Delete Member";
 $definitions["<strong>Delete this member's posts.</strong> All of this member's posts will be marked as deleted, but will be able to be restored manually."] = "<strong>Delete this member's posts.</strong> All of this member's posts will be marked as deleted, but will be able to be restored manually.";
 $definitions["Delete"] = "Delete";
 $definitions["Deleted %s by %s"] = "Deleted %s by %s";
+$definitions["Deny"] = "Deny";
 $definitions["Disable"] = "Disable";
 $definitions["Discard"] = "Discard";
 $definitions["Don't have an account? <a href='%s' class='link-join'>Sign up!</a>"] = "Don't have an account? <a href='%s' class='link-join'>Sign up!</a>";
@@ -344,12 +346,14 @@ $definitions["Sticky"] = "Sticky";
 $definitions["Subscribe"] = "Subscribe";
 $definitions["Subscribed"] = "Subscribed";
 $definitions["Subscription"] = "Subscription";
+$definitions["Success!"] = "Success!";
 $definitions["Suspend member"] = "Suspend member";
 $definitions["Suspend members."] = "Suspend members.";
 $definitions["Suspend"] = "Suspend";
 
 $definitions["To get started with your forum, you might like to:"] = "To get started with your forum, you might like to:";
 
+$definitions["Unapproved"] = "Unapproved";
 $definitions["Unhide"] = "Unhide";
 $definitions["Uninstall"] = "Uninstall";
 $definitions["Unlock"] = "Unlock";
@@ -495,18 +499,26 @@ $definitions["message.waitToSearch"] = "Woah, slow down! Looks like you're tryin
 
 
 // Emails.
-$definitions["email.confirmEmail.body"] = "<p>Someone (hopefully you!) has signed up to the forum '%1\$s' with this email address.</p><p>If this was you, simply visit the following link and your account will be activated:<br>%2\$s</p>";
-$definitions["email.confirmEmail.subject"] = "%1\$s, please confirm your email address";
-$definitions["email.footer"] = "<p>(If you don't want to receive any emails like this again, you can <a href='%s'>change your notification preferences</a>.)</p>";
-$definitions["email.forgotPassword.body"] = "<p>Someone (hopefully you!) has submitted a forgotten password request for your account on the forum '%1\$s'. If you do not wish to change your password, just ignore this email and nothing will happen.</p><p>However, if you did forget your password and wish to set a new one, visit the following link:<br>%2\$s</p>";
-$definitions["email.forgotPassword.subject"] = "Did you forget your password, %1\$s?";
 $definitions["email.header"] = "<p>Hey %s!</p>";
-$definitions["email.mention.body"] = "<p><strong>%1\$s</strong> mentioned you in a post in the conversation <strong>%2\$s</strong>.</p><hr>%3\$s<hr><p>To view the post in context, check out the following link:<br>%4\$s</p>";
+$definitions["email.footer"] = "<p>(If you don't want to receive any emails like this again, you can <a href='%s'>change your notification preferences</a>.)</p>";
+
+$definitions["email.confirmEmail.subject"] = "%1\$s, please confirm your email address";
+$definitions["email.confirmEmail.body"] = "<p>Someone (hopefully you!) has signed up to the forum '%1\$s' with this email address.</p><p>If this was you, simply visit the following link and your account will be activated:<br>%2\$s</p>";
+
+$definitions["email.approved.subject"] = "%1\$s, your account has been approved";
+$definitions["email.approved.body"] = "<p>Your account on %1\$s has been approved.</p><p>Visit the following link to log in and start talking:<br>%2\$s</p>";
+
+$definitions["email.forgotPassword.subject"] = "Did you forget your password, %1\$s?";
+$definitions["email.forgotPassword.body"] = "<p>Someone (hopefully you!) has submitted a forgotten password request for your account on the forum '%1\$s'. If you do not wish to change your password, just ignore this email and nothing will happen.</p><p>However, if you did forget your password and wish to set a new one, visit the following link:<br>%2\$s</p>";
+
 $definitions["email.mention.subject"] = "%1\$s mentioned you in a post";
-$definitions["email.privateAdd.body"] = "<p>You have been added to a private conversation titled <strong>%1\$s</strong>.</p><hr>%2\$s<hr><p>To view this conversation, check out the following link:<br>%3\$s</p>";
+$definitions["email.mention.body"] = "<p><strong>%1\$s</strong> mentioned you in a post in the conversation <strong>%2\$s</strong>.</p><hr>%3\$s<hr><p>To view the post in context, check out the following link:<br>%4\$s</p>";
+
 $definitions["email.privateAdd.subject"] = "You have been added to a private conversation";
-$definitions["email.post.body"] = "<p><strong>%1\$s</strong> has replied to a conversation which you followed: <strong>%2\$s</strong></p><hr>%3\$s<hr><p>To view the new activity, check out the following link:<br>%4\$s</p>";
+$definitions["email.privateAdd.body"] = "<p>You have been added to a private conversation titled <strong>%1\$s</strong>.</p><hr>%2\$s<hr><p>To view this conversation, check out the following link:<br>%3\$s</p>";
+
 $definitions["email.post.subject"] = "[New Reply] %1\$s";
+$definitions["email.post.body"] = "<p><strong>%1\$s</strong> has replied to a conversation which you followed: <strong>%2\$s</strong></p><hr>%3\$s<hr><p>To view the new activity, check out the following link:<br>%4\$s</p>";
 
 
 // Translating the gambit system can be quite complex, but we'll do our best to get you through it. :)

@@ -39,6 +39,7 @@ public function init()
 	$this->defaultMenu->highlight(ET::$controllerName);
 	$this->menu->highlight(ET::$controllerName);
 
+	// If new registrations require admin approval, add the 'unapproved' admin page with a count.
 	if (C("esoTalk.registration.requireConfirmation") == "approval") {
 		$count = ET::SQL()->select("COUNT(1)")->from("member")->where("confirmed", 0)->exec()->result();
 		$this->menu->add("unapproved", "<a href='".URL("admin/unapproved")."'><i class='icon-lock'></i> ".T("Unapproved")." <span class='badge'>".$count."</span></a>");

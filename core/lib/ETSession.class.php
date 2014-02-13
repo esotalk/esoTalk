@@ -159,7 +159,7 @@ protected function processLogin($member)
 	// If registrations require confirmation but the user's account hasn't been confirmed, return a message.
 	if (!$member["confirmed"] and ($type = C("esoTalk.registration.requireConfirmation"))) {
 		if ($type == "email") $this->error("emailNotYetConfirmed");
-		elseif ($type == "admin") $this->error("accountNotYetApproved");
+		elseif ($type == "approval") $this->error("accountNotYetApproved");
 		return false;
 	}
 

@@ -65,6 +65,10 @@ public function login()
 				$this->renderMessage("Error", sprintf(T("message.emailNotYetConfirmed"), URL("user/sendConfirmation/".$form->getValue("username"))));
 				return;
 			}
+			if (in_array("accountNotYetApproved", $errors)) {
+				$this->renderMessage("Error", T("message.accountNotYetApproved"));
+				return;
+			}
 			$form->errors($errors);
 		}
 	}
@@ -151,7 +155,8 @@ public function join()
 
 				// If we require the user account to be approved by an administrator, show a message.
 				elseif (C("esoTalk.registration.requireConfirmation") == "approval") {
-					// possibly send a notification to the admin here?
+					$admin = ET::memberModel()->getById(C("esoTalk.rootAdmin"));
+					ET::activityModel()->create("unapproved", $admin, null, array("username" => $data["username"]));
 					$this->renderMessage(T("Success!"), T("message.waitForApproval"));
 				}
 

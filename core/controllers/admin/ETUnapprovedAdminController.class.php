@@ -20,7 +20,12 @@ class ETUnapprovedAdminController extends ETAdminController {
  */
 public function index()
 {
-	$members = ET::memberModel()->get(array("confirmed" => false));
+	ET::activityModel()->markNotificationsAsRead('unapproved');
+	
+	$sql = ET::SQL();
+	$sql->where("confirmed", 0);
+	$sql->orderBy("m.memberId desc");
+	$members = ET::memberModel()->getWithSQL($sql);
 
 	$this->data("members", $members);
 	$this->render("admin/unapproved");
@@ -36,7 +41,7 @@ public function index()
 public function approve($memberId)
 {
 	if (!$this->validateToken()) return;
-	
+
 	// Get this member's details. If it doesn't exist or is already approved, show an error.
 	if (!($member = ET::memberModel()->getById((int)$memberId)) or $member["confirmed"]) {
 		$this->redirect(URL("admin/unapproved"));
@@ -45,7 +50,10 @@ public function approve($memberId)
 
 	ET::memberModel()->updateById($memberId, array("confirmed" => true));
 
-	// send an email here
+	sendEmail($member["email"],
+		sprintf(T("email.approved.subject"), $member["username"]),
+		sprintf(T("email.header"), $member["username"]).sprintf(T("email.approved.body"), C("esoTalk.forumTitle"), URL("user/login", true))
+	);
 
 	$this->message(T("message.changesSaved"), "success");
 	$this->redirect(URL("admin/unapproved"));

@@ -146,7 +146,7 @@ public function index($conversationId = false, $year = false, $month = false)
 
 		// If we're on the last page, mark any notifications related to this conversation as read.
 		if ($startFrom + C("esoTalk.conversation.postsPerPage") >= $conversation["countPosts"]) {
-			ET::activityModel()->markNotificationsAsRead($conversation["conversationId"]);
+			ET::activityModel()->markNotificationsAsRead(null, $conversation["conversationId"]);
 		}
 
 		// Update the user's last action.

@@ -255,7 +255,7 @@ public function validateUsername($username, $checkForDuplicate = true)
 	if (strlen($username) < 3 or strlen($username) > 20) return "invalidUsername";
 
 	// Make sure there's no other member with the same username.
-	if ($checkForDuplicate and ET::SQL()->select("1")->from("member")->where("username=:username")->where("confirmedEmail=1")->bind(":username", $username)->exec()->numRows())
+	if ($checkForDuplicate and ET::SQL()->select("1")->from("member")->where("username=:username")->bind(":username", $username)->exec()->numRows())
 		return "nameTaken";
 }
 
@@ -273,7 +273,7 @@ public function validateEmail($email, $checkForDuplicate = true)
 	if (!filter_var($email, FILTER_VALIDATE_EMAIL)) return "invalidEmail";
 
 	// Make sure there's no other member with the same email.
-	if ($checkForDuplicate and ET::SQL()->select("1")->from("member")->where("email=:email")->where("confirmedEmail=1")->bind(":email", $email)->exec()->numRows())
+	if ($checkForDuplicate and ET::SQL()->select("1")->from("member")->where("email=:email")->bind(":email", $email)->exec()->numRows())
 		return "emailTaken";
 }
 
