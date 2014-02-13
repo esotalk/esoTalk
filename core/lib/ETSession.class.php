@@ -156,9 +156,10 @@ public function setPreferences($values)
  */
 protected function processLogin($member)
 {
-	// If the member hasn't confirmed their email but we require email confirmation, return a message.
-	if (!$member["confirmedEmail"] and C("esoTalk.registration.requireEmailConfirmation")) {
-		$this->error("emailNotYetConfirmed");
+	// If registrations require confirmation but the user's account hasn't been confirmed, return a message.
+	if (!$member["confirmed"] and ($type = C("esoTalk.registration.requireConfirmation"))) {
+		if ($type == "email") $this->error("emailNotYetConfirmed");
+		elseif ($type == "admin") $this->error("accountNotYetApproved");
 		return false;
 	}
 

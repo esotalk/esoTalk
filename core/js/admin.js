@@ -38,7 +38,7 @@ init: function() {
 	}).trigger("change");
 
 	$("#adminSettings input[name=registrationOpen]").change(function() {
-		$("#adminSettings input[name=requireEmailConfirmation]").attr("disabled", $(this).val() == "0");
+		$("#adminSettings input[name=requireConfirmation]").attr("disabled", $(this).val() == "0");
 	}).filter(":checked").trigger("change");
 
 }

@@ -133,6 +133,7 @@ $definitions["Disable"] = "Disable";
 $definitions["Discard"] = "Discard";
 $definitions["Don't have an account? <a href='%s' class='link-join'>Sign up!</a>"] = "Don't have an account? <a href='%s' class='link-join'>Sign up!</a>";
 $definitions["Don't repeat"] = "Don't repeat";
+$definitions["Don't require users to confirm their account"] = "Don't require users to confirm their account";
 
 $definitions["Edit Channel"] = "Edit Channel";
 $definitions["Edit Group"] = "Edit Group";
@@ -299,6 +300,7 @@ $definitions["Remove avatar"] = "Remove avatar";
 $definitions["Rename Member"] = "Rename Member";
 $definitions["Reply"] = "Reply";
 $definitions["Report a bug"] = "Report a bug";
+$definitions["Require administrator approval"] = "Require administrator approval";
 $definitions["Require users to confirm their email address"] = "Require users to confirm their email address";
 $definitions["Restore"] = "Restore";
 $definitions["restore"] = "restore";

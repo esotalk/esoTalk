@@ -41,8 +41,7 @@ public function index()
 	$form->setValue("forumVisibleToGuests", C("esoTalk.visibleToGuests"));
 	$form->setValue("memberListVisibleToGuests", C("esoTalk.members.visibleToGuests"));
 	$form->setValue("registrationOpen", C("esoTalk.registration.open"));
-	$form->setValue("requireAdminApproval", C("esoTalk.registration.requireAdminApproval"));
-	$form->setValue("requireEmailConfirmation", C("esoTalk.registration.requireEmailConfirmation"));
+	$form->setValue("requireConfirmation", C("esoTalk.registration.requireConfirmation"));
 
 	$c = C("esoTalk.conversation.editPostTimeLimit");
 	if ($c === -1) $form->setValue("editPostMode", "forever");
@@ -65,7 +64,7 @@ public function index()
 			"esoTalk.visibleToGuests" => $form->getValue("forumVisibleToGuests"),
 			"esoTalk.members.visibleToGuests" => $form->getValue("forumVisibleToGuests") and $form->getValue("memberListVisibleToGuests"),
 			"esoTalk.registration.open" => $form->getValue("registrationOpen"),
-			"esoTalk.registration.requireEmailConfirmation" => $form->getValue("requireEmailConfirmation"),
+			"esoTalk.registration.requireConfirmation" => in_array($v = $form->getValue("requireConfirmation"), array(false, "email", "admin")) ? $v : false,
 		);
 
 		switch ($form->getValue("editPostMode")) {

@@ -80,7 +80,7 @@ $config["esoTalk.enabledPlugins"] = array("BBCode", "ReportBug"); // A list of e
 // Login and registration settings.
 $config["esoTalk.badLoginsPerMinute"] = 10;
 $config["esoTalk.registration.open"] = true;
-$config["esoTalk.registration.requireEmailConfirmation"] = true;
+$config["esoTalk.registration.requireConfirmation"] = "email"; // false | "email" = require email confirmation | "admin" = require admin approval
 
 // Cookie settings.
 $config["esoTalk.cookie.name"] = "";
