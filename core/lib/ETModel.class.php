@@ -165,12 +165,10 @@ public function getWithSQL($sql)
  */
 public function get($wheres = array())
 {
-	return ET::SQL()
-		->select("*")
-		->from($this->table)
-		->where($wheres)
-		->exec()
-		->allRows();
+	$sql = ET::SQL();
+	$sql->where($wheres);
+
+	return $this->getWithSQL($sql);
 }
 
 

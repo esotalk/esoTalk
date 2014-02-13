@@ -70,16 +70,6 @@ public function create(&$values)
 
 	if ($this->errorCount()) return false;
 
-	// Delete any members with the same email or username but who haven't confirmed their email address.
-	ET::SQL()
-		->delete()
-		->from("member")
-		->where("email=:email OR username=:username")
-		->bind(":email", $values["email"])
-		->bind(":username", $values["username"])
-		->where("confirmedEmail", 0)
-		->exec();
-
 	$memberId = parent::create($values);
 	$values["memberId"] = $memberId;
 
@@ -168,21 +158,6 @@ public function getWithSQL($sql)
 	foreach ($members as &$member) $this->expand($member);
 
 	return $members;
-}
-
-
-/**
- * Get standardized member data.
- *
- * @param array $wheres An array of where conditions.
- * @return array An array of members and their details.
- */
-public function get($wheres = array())
-{
-	$sql = ET::SQL();
-	$sql->where($wheres);
-
-	return $this->getWithSQL($sql);
 }
 
 
