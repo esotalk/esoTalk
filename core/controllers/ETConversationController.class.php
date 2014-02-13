@@ -25,6 +25,8 @@ class ETConversationController extends ETController {
  */
 public function index($conversationId = false, $year = false, $month = false)
 {
+	if (!$this->allowed()) return;
+	
 	// Get the conversation.
 	$conversation = ET::conversationModel()->getById((int)$conversationId);
 

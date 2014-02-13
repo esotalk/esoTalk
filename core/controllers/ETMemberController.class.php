@@ -40,6 +40,8 @@ public function renderProfile($view = "")
  */
 public function name($name = "")
 {
+	if (!$this->allowed()) return;
+
 	$result = ET::SQL()
 		->select("memberId, username")
 		->from("member")
@@ -93,6 +95,8 @@ protected function getMember($memberId)
  */
 public function profile($member, $pane = "")
 {
+	if (!$this->allowed()) return;
+
 	// Translate "me" to the currently logged in user. Otherwise, use the member ID provided.
 	if ($member == "me") $memberId = ET::$session->userId;
 	else $memberId = (int)$member;

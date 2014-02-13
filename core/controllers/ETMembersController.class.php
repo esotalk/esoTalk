@@ -24,11 +24,7 @@ class ETMembersController extends ETController {
  */
 public function index($orderBy = false, $start = 0)
 {
-	// Check if we have permission to view the member list.
-	if (!C("esoTalk.members.visibleToGuests") and !ET::$session->user) {
-		$this->render404(T("message.pageNotFound"));
-		return false;
-	}
+	if (!$this->allowed("esoTalk.members.visibleToGuests")) return;
 
 	// Begin constructing a query to fetch results.
 	$sql = ET::SQL()->from("member m");

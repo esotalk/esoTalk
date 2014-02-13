@@ -65,6 +65,7 @@ $config["esoTalk.aggregateJS"] = true;
 $config["esoTalk.gzipOutput"] = true; // Whether or not to compress the page output with gzip.
 $config["esoTalk.https"] = false; // Whether or not to force HTTPS.
 $config["esoTalk.cache"] = false; // What type of cache to use.
+$config["esoTalk.visibleToGuests"] = true;
 
 // Meta information.
 $config["esoTalk.meta.keywords"] = null;

@@ -33,6 +33,10 @@ init: function() {
 		$("#adminSettings input[name=forumHeaderImage]").toggle($(this).val() == "image");
 	}).filter(":checked").trigger("change");
 
+	$("#adminSettings input[name=forumVisibleToGuests]").change(function() {
+		$("#adminSettings input[name=memberListVisibleToGuests]").attr("disabled", ! $(this).attr("checked"));
+	}).trigger("change");
+
 	$("#adminSettings input[name=registrationOpen]").change(function() {
 		$("#adminSettings input[name=requireEmailConfirmation]").attr("disabled", $(this).val() == "0");
 	}).filter(":checked").trigger("change");

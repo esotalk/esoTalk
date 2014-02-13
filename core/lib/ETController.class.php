@@ -560,6 +560,26 @@ public function validateToken($token = false)
 
 
 /**
+ * Make sure that the user is logged in, or the specified configuration key is true. If not, redirect
+ * to the login page.
+ *
+ * This is generally used to make sure the user is allowed to view the forum (i.e. they are logged in
+ * or the forum is visible to guests.)
+ *
+ * @param string $key The configuration key which determines whether this page is visible to guests.
+ * @return bool true if the user is allowed to view this page, false if they are not.
+ */
+public function allowed($key = "esoTalk.visibleToGuests")
+{
+	if (ET::$session->user or C($key)) return true;
+
+	$url = ltrim($this->selfURL, "/");
+	$this->redirect(URL("user/login".($url ? "?return=$url" : "")));
+	return false;
+}
+
+
+/**
  * Renders a view, and captures and returns the output.
  *
  * @param string $view The name of the view to get.

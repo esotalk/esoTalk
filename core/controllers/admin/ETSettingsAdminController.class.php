@@ -38,8 +38,9 @@ public function index()
 	$form->setValue("language", C("esoTalk.language"));
 	$form->setValue("forumHeader", C("esoTalk.forumLogo") ? "image" : "title");
 	$form->setValue("defaultRoute", C("esoTalk.defaultRoute"));
-	$form->setValue("registrationOpen", C("esoTalk.registration.open"));
+	$form->setValue("forumVisibleToGuests", C("esoTalk.visibleToGuests"));
 	$form->setValue("memberListVisibleToGuests", C("esoTalk.members.visibleToGuests"));
+	$form->setValue("registrationOpen", C("esoTalk.registration.open"));
 	$form->setValue("requireAdminApproval", C("esoTalk.registration.requireAdminApproval"));
 	$form->setValue("requireEmailConfirmation", C("esoTalk.registration.requireEmailConfirmation"));
 
@@ -61,9 +62,10 @@ public function index()
 			"esoTalk.language" => $form->getValue("language"),
 			"esoTalk.forumLogo" => $form->getValue("forumHeader") == "image" ? $this->uploadHeaderImage($form) : false,
 			"esoTalk.defaultRoute" => $form->getValue("defaultRoute"),
+			"esoTalk.visibleToGuests" => $form->getValue("forumVisibleToGuests"),
+			"esoTalk.members.visibleToGuests" => $form->getValue("forumVisibleToGuests") and $form->getValue("memberListVisibleToGuests"),
 			"esoTalk.registration.open" => $form->getValue("registrationOpen"),
 			"esoTalk.registration.requireEmailConfirmation" => $form->getValue("requireEmailConfirmation"),
-			"esoTalk.members.visibleToGuests" => $form->getValue("memberListVisibleToGuests")
 		);
 
 		switch ($form->getValue("editPostMode")) {

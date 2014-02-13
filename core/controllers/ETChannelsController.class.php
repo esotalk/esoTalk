@@ -19,6 +19,8 @@ class ETChannelsController extends ETController {
  */
 public function index()
 {
+	if (!$this->allowed()) return;
+
 	// Set the canonical URL and push onto the navigation stack.
 	$url = "channels";
 	$this->canonicalURL = URL($url, true);

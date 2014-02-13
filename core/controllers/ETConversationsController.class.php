@@ -21,6 +21,8 @@ class ETConversationsController extends ETController {
  */
 function index($channelSlug = false)
 {
+	if (!$this->allowed()) return;
+	
 	list($channelInfo, $currentChannels, $channelIds, $includeDescendants) = $this->getSelectedChannels($channelSlug);
 
 	// Now we need to construct some arrays to determine which channel "tabs" to show in the view.
