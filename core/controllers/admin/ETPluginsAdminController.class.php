@@ -117,7 +117,7 @@ public function toggle($plugin = "")
 		if (file_exists($file = PATH_PLUGINS."/".sanitizeFileName($plugin)."/plugin.php")) include_once $file;
 		$className = "ETPlugin_$plugin";
 		if (class_exists($className)) {
-			$pluginObject = new $className;
+			$pluginObject = new $className("addons/plugins/".$plugin);
 
 			// Call the plugin's setup function. If the setup failed, show a message.
 			if (($msg = $pluginObject->setup()) !== true) {
