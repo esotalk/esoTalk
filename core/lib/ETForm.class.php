@@ -148,7 +148,9 @@ public function getFieldsInSection($section)
 	$fields = array();
 	if (isset($this->fields[$section])) {
 		foreach ($this->fields[$section] as $name => $callbacks) {
-			$fields[$name] = call_user_func($callbacks["renderCallback"], $this);
+			$func = array_slice($callbacks["renderCallback"], 0, 2);
+			$args = array_slice($callbacks["renderCallback"], 2);
+			$fields[$name] = call_user_func_array($func, array_merge(array($this), $args));
 		}
 	}
 	return $fields;
