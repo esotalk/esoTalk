@@ -435,7 +435,7 @@ public function rename($newName)
 
 
 /**
- * Drop the specified column from the current table.
+ * Rename the specified column on the current table.
  *
  * @param string $name The name of the column.
  * @param string $newName The new name of the column.
@@ -446,7 +446,7 @@ public function renameColumn($name, $newName)
 	if ($this->columnExists($name)) {
 		$existing = $this->existingColumns();
 		$definition = $this->columnDefinition($existing[$name]);
-		ET::SQL("ALTER TABLE `".ET::$database->tablePrefix.$this->tableName."` CHANGE COLUMN `$name` TO `$newName` $definition");
+		ET::SQL("ALTER TABLE `".ET::$database->tablePrefix.$this->tableName."` CHANGE COLUMN `$name` `$newName` $definition");
 	}
 	return $this;
 }
