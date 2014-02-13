@@ -55,6 +55,11 @@
 #adminGroups ul {margin-bottom:15px}
 
 
+/* Unapproved members */
+#adminUnapproved .list .controls {margin:-3px 0; float:right; font-size:100%}
+#adminUnapproved .list small {margin-left:10px}
+
+
 /* Plugins */
 #pluginList {list-style:none; margin:20px 0 0 0; padding:0}
 #pluginList > li {margin-bottom:10px; -webkit-border-radius:3px; background:#f1f1f1; display:block; padding:7px 6px 7px 11px; color:#aaa}

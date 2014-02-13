@@ -253,6 +253,12 @@ span.highlight {background:#fdef34; border:1px solid #fcef98; padding:1px 3px; b
 a.channel:hover {text-decoration:none; border-color:#aaa}
 
 
+/* Badges */
+.badge {background:#666; color:#fff; border-radius:10px; font-size:10px; padding:0 4px}
+.tabs li .badge {float:right}
+.tabs li.selected .badge {background:#000}
+
+
 /* Search boxes */
 .search {float:right}
 .search input.text {width:250px; padding-right:30px; padding-left:25px; background:#fff url(icons.png) no-repeat -13px -290px; float:left; height:18px; font-size:100%}

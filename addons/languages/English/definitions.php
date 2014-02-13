@@ -238,6 +238,7 @@ $definitions["Member groups"] = "Member groups";
 $definitions["Member list"] = "Member list";
 $definitions["Member List"] = "Member List";
 $definitions["Members Allowed to View this Conversation"] = "Members Allowed to View this Conversation";
+$definitions["Members Awaiting Approval"] = "Members Awaiting Approval";
 $definitions["Members Online"] = "Members Online";
 $definitions["Members"] = "Members";
 $definitions["Mobile skin"] = "Mobile skin";
@@ -390,8 +391,9 @@ $definitions["Your current password"] = "Your current password";
 
 // Messages.
 $definitions["message.404"] = "Oh dear - the page you requested could not be found! Try going back and clicking a different link. Or something else.";
+$definitions["message.accountNotYetApproved"] = "The administrator hasn't yet approved your account. Patience is a virtue!";
 $definitions["message.ajaxDisconnected"] = "Unable to communicate with the server. Wait a few seconds and <a href='javascript:jQuery.ETAjax.resumeAfterDisconnection()'>try again</a>, or <a href='' onclick='window.location.reload();return false'>refresh the page</a>.";
-$definitions["message.ajaxRequestPending"] = "Hey! We're still processing some of your stuff! If you navigate away from this page you might lose any recent changes you've made, so wait a few seconds, ok?";
+$definitions["message.ajaxRequestPending"] = "Hey! We're still processing some of your stuff! If you navigate away from this page you might lose any recent changes you've made.";
 $definitions["message.avatarError"] = "There was a problem uploading your avatar. Make sure you're using a valid image type (like .jpg, .png, or .gif) and the file isn't really really huge.";
 $definitions["message.cannotDeleteLastChannel"] = "Hey, wait up, you can't delete the last channel! Where would your conversations go? That's just silly.";
 $definitions["message.cannotEditSinceReply"] = "You can't edit your post because someone has replied since you posted it.";
@@ -418,7 +420,7 @@ $definitions["message.esoTalkAlreadyInstalled"] = "<strong>esoTalk is already in
 $definitions["message.esoTalkUpdateAvailable"] = "A new version of esoTalk, %s, is now available.";
 $definitions["message.esoTalkUpdateAvailableHelp"] = "It's recommended to always have the latest version of esoTalk installed to reduce security risk. And hey, there might be some cool new features!";
 $definitions["message.esoTalkUpToDate"] = "Your version of esoTalk is up-to-date.";
-$definitions["message.esoTalkUpToDateHelp"] = "I'm a poor college student who has spent many hundreds of hours developing esoTalk. If you like it, please consider <a href='%s' target='_blank'>donating</a>.";
+$definitions["message.esoTalkUpToDateHelp"] = "esoTalk is developed in the spare time of a college student. Please consider <a href='%s' target='_blank'>donating</a> to keep it alive!";
 $definitions["message.fatalError"] = "<p>esoTalk has encountered an nasty error which is making it impossible to do whatever it is that you're doing. But don't feel down - <strong>here are a few things you can try</strong>:</p>\n<ul>\n<li>Go outside, walk the dog, have a coffee... then <strong><a href='%1\$s'>try again</a></strong>!</li>\n<li>If you are the forum administrator, then you can <strong>get help on the <a href='%2\$s'>esoTalk website</a></strong>.</li>\n<li>Try hitting the computer - that sometimes works for me.</li>\n</ul>";
 $definitions["message.fatalErrorInstaller"] = "<p>esoTalk has encountered an nasty error which is making it impossible to do whatever it is that you're doing. But don't feel down - <strong>here are a few things you can try</strong>:</p>\n<ul>\n<li><p><strong>Try again.</strong> Everyone makes mistakes - maybe the computer made one this time!</p></li>\n<li><p><strong>Go back and check your settings.</strong> In particular, make sure your database information is correct.</p></li>\n<li><p><strong>Get help.</strong> Go on the <a href='%s'>esoTalk support forum</a> and search to see if anyone else is having the same problem as you are. If not, start a new conversation about your problem, including the error details below.</p></li>\n</ul>";
 $definitions["message.fatalErrorUpgrader"] = "<p>esoTalk has encountered an nasty error which is making it impossible to do whatever it is that you're doing. But don't feel down - <strong>here are a few things you can try</strong>:</p>\n<ul>\n<li><p><strong>Try again.</strong> Everyone makes mistakes - maybe the computer made one this time!</p></li>\n<li><p><strong>Get help.</strong> Go on the <a href='%s'>esoTalk support forum</a> and search to see if anyone else is having the same problem as you are. If not, start a new conversation about your problem, including the error details below.</p></li>\n</ul>";
@@ -487,6 +489,7 @@ $definitions["message.suspendMemberHelp"] = "Suspending %s will prevent them fro
 $definitions["message.tablePrefixConflict"] = "The installer has detected that there is another installation of esoTalk in the same MySQL database with the same table prefix.<br/>To overwrite this installation of esoTalk, click 'Install My Forum' again. <strong>All data will be lost.</strong><br/>If you wish to create another esoTalk installation alongside the existing one, <strong>change the table prefix</strong>.";
 $definitions["message.unsuspendMemberHelp"] = "Unsuspending %s will enable them to participate in conversations on this forum again.";
 $definitions["message.upgradeSuccessful"] = "esoTalk was successfully upgraded.";
+$definitions["message.waitForApproval"] = "Before you can start using your newly-created account, an administrator must approve your account. We'll send you an email when you've been approved!";
 $definitions["message.waitToReply"] = "You must wait at least %s seconds between starting or replying to conversations. Take a deep breath and try again.";
 $definitions["message.waitToSearch"] = "Woah, slow down! Looks like you're trying to perform a few too many searches. Wait %s seconds and try again.";
 

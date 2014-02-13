@@ -257,7 +257,7 @@ public function install($info)
 		"email" => $info["adminEmail"],
 		"password" => $info["adminPass"],
 		"account" => "Administrator",
-		"confirmedEmail" => true
+		"confirmed" => true
 	);
 	ET::memberModel()->create($member);
 
@@ -321,13 +321,18 @@ public function install($info)
  */
 public function upgrade($currentVersion = "")
 {
+	// 1.0.0g4: - Rename the 'confirmedEmail' column on the members table to 'confirmed'
+	if (version_compare($currentVersion, "1.0.0g4", "<")) {
+		ET::$database->structure()->table("member")->renameColumn("confirmedEmail", "confirmed");
+	}
+
 	// Make sure the application's table structure is up-to-date.
 	$this->structure(false);
 
 	// Perform any custom upgrade procedures, from $currentVersion to ESOTALK_VERSION, here.
 
 	// 1.0.0g3: - Re-calculate all conversation post counts due to a bug which could get them un-synced
-	if (ESOTALK_VERSION == "1.0.0g3") {
+	if (version_compare($currentVersion, "1.0.0g3", "<")) {
 		ET::SQL()
 			->update("conversation c")
 			->set("countPosts", "(".ET::SQL()->select("COUNT(*)")->from("post p")->where("p.conversationId=c.conversationId").")", false)

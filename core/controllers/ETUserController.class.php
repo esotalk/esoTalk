@@ -21,6 +21,7 @@ class ETUserController extends ETController {
  */
 public $loginMessage;
 
+
 /**
  * There's no index method for this controller, so redirect back to the index.
  *
@@ -130,7 +131,7 @@ public function join()
 				"account" => ACCOUNT_MEMBER
 			);
 
-			if (!C("esoTalk.registration.requireEmailConfirmation")) $data["confirmedEmail"] = true;
+			if (!C("esoTalk.registration.requireConfirmation")) $data["confirmed"] = true;
 			else $data["resetPassword"] = md5(uniqid(rand()));
 
 			// Create the member.
@@ -143,9 +144,15 @@ public function join()
 			else {
 
 				// If we require the user to confirm their email, send them an email and show a message.
-				if (C("esoTalk.registration.requireEmailConfirmation")) {
+				if (C("esoTalk.registration.requireConfirmation") == "email") {
 					$this->sendConfirmationEmail($data["email"], $data["username"], $memberId.$data["resetPassword"]);
 					$this->renderMessage(T("Success!"), T("message.confirmEmail"));
+				}
+
+				// If we require the user account to be approved by an administrator, show a message.
+				elseif (C("esoTalk.registration.requireConfirmation") == "approval") {
+					// possibly send a notification to the admin here?
+					$this->renderMessage(T("Success!"), T("message.waitForApproval"));
 				}
 
 				else {
@@ -192,7 +199,7 @@ protected function sendConfirmationEmail($email, $username, $hash)
 public function confirm($hash = "")
 {
 	// If email confirmation is not necessary, get out of here.
-	if (!C("esoTalk.registration.requireEmailConfirmation")) return;
+	if (C("esoTalk.registration.requireConfirmation") != "email") return;
 
 	// Split the hash into the member ID and hash.
 	$memberId = (int)substr($hash, 0, strlen($hash) - 32);
@@ -204,14 +211,14 @@ public function confirm($hash = "")
 		->from("member")
 		->where("memberId", $memberId)
 		->where("resetPassword", md5($hash))
-		->where("confirmedEmail=0")
+		->where("confirmed=0")
 		->exec();
 	if ($result->numRows()) {
 
 		// Mark the member as confirmed.
 		ET::memberModel()->updateById($memberId, array(
 			"resetPassword" => null,
-			"confirmedEmail" => true
+			"confirmed" => true
 		));
 
 		// Log them in and show a message.
@@ -233,7 +240,7 @@ public function confirm($hash = "")
 public function sendConfirmation($username = "")
 {
 	// If email confirmation is not necessary, get out of here.
-	if (!C("esoTalk.registration.requireEmailConfirmation")) return;
+	if (C("esoTalk.registration.requireConfirmation") != "email") return;
 
 	// Get the requested member.
 	$member = reset(ET::memberModel()->get(array("m.username" => $username, "confirmedEmail" => false)));

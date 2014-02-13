@@ -157,6 +157,8 @@ else {
 	ETFactory::registerAdminController("plugins", "ETPluginsAdminController", PATH_CONTROLLERS."/admin/ETPluginsAdminController.class.php");
 	ETFactory::registerAdminController("groups", "ETGroupsAdminController", PATH_CONTROLLERS."/admin/ETGroupsAdminController.class.php");
 	ETFactory::registerAdminController("languages", "ETLanguagesAdminController", PATH_CONTROLLERS."/admin/ETLanguagesAdminController.class.php");
+	if (C("esoTalk.registration.requireConfirmation") == "approval")
+		ETFactory::registerAdminController("unapproved", "ETUnapprovedAdminController", PATH_CONTROLLERS."/admin/ETUnapprovedAdminController.class.php");
 }
 
 

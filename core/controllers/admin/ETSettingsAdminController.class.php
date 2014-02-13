@@ -64,7 +64,7 @@ public function index()
 			"esoTalk.visibleToGuests" => $form->getValue("forumVisibleToGuests"),
 			"esoTalk.members.visibleToGuests" => $form->getValue("forumVisibleToGuests") and $form->getValue("memberListVisibleToGuests"),
 			"esoTalk.registration.open" => $form->getValue("registrationOpen"),
-			"esoTalk.registration.requireConfirmation" => in_array($v = $form->getValue("requireConfirmation"), array(false, "email", "admin")) ? $v : false,
+			"esoTalk.registration.requireConfirmation" => in_array($v = $form->getValue("requireConfirmation"), array(false, "email", "approval")) ? $v : false,
 		);
 
 		switch ($form->getValue("editPostMode")) {

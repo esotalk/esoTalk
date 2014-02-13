@@ -12,7 +12,7 @@ if (!defined("IN_ESOTALK")) exit;
  */
 
 // The version of the code.
-define("ESOTALK_VERSION", "1.0.0g3");
+define("ESOTALK_VERSION", "1.0.0g4");
 
 // Define response type constants.
 if (!defined("RESPONSE_TYPE_DEFAULT")) define("RESPONSE_TYPE_DEFAULT", "default");
@@ -80,7 +80,7 @@ $config["esoTalk.enabledPlugins"] = array("BBCode", "ReportBug"); // A list of e
 // Login and registration settings.
 $config["esoTalk.badLoginsPerMinute"] = 10;
 $config["esoTalk.registration.open"] = true;
-$config["esoTalk.registration.requireConfirmation"] = "email"; // false | "email" = require email confirmation | "admin" = require admin approval
+$config["esoTalk.registration.requireConfirmation"] = "email"; // false | "email" = require email confirmation | "approval" = require admin approval
 
 // Cookie settings.
 $config["esoTalk.cookie.name"] = "";
