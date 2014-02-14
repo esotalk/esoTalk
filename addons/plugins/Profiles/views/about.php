@@ -4,17 +4,20 @@
 
 if (!defined("IN_ESOTALK")) exit;
 
-$member = $data["member"];
-$about = $data["about"];
-$location = $data["location"];
+$fields = $data["fields"];
 ?>
 <div id='memberAbout'>
 
 	<ul class='form'>
 
-		<li><label><?php echo T("Location"); ?></label> <div><?php echo sanitizeHTML($location); ?></div></li>
-		<li><label><?php echo T("About"); ?></label> <div><?php echo $about; ?></div></li>
-
+		<?php foreach ($fields as $field): ?>
+			<li>
+				<label><?php echo $field["name"]; ?></label>
+				<div><?php echo $field["data"]; ?></div>
+			</li>
+			<li class='sep'></li>
+		<?php endforeach; ?>
+		
 	</ul>
 
 </div>
