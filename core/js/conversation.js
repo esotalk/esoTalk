@@ -32,7 +32,7 @@ init: function() {
 		// Make the controls into a popup button.
 		if ($("#conversationControls").length)
 			$("#conversationBody .scrubberContent").prepend($("#conversationControls").popup({
-				alignment: "left",
+				alignment: "right",
 				content: "<i class='icon-cog'></i> <span class='text'>"+T("Controls")+"</span> <i class='icon-caret-down'></i>"
 			}).find(".button").addClass("big").end());
 
