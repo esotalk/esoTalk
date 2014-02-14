@@ -50,6 +50,8 @@ public function init()
 
 	$this->addJSFile("core/js/admin.js");
 	$this->addCSSFile("core/skin/admin.css");
+
+	$this->trigger("initAdmin", array($this->menu, $this->defaultMenu));
 }
 
 
