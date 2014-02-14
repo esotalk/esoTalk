@@ -46,6 +46,7 @@ class ETPlugin_Profiles extends ETPlugin {
 
 			$this->createDefaultFields();
 
+			$model = ET::getInstance("profileFieldModel");
 			$result = ET::SQL()->select("memberId, preferences")->from("member")->exec();
 			while ($row = $result->nextRow()) {
 				ET::memberModel()->expand($row);
@@ -151,7 +152,7 @@ class ETPlugin_Profiles extends ETPlugin {
 			if (strlen($field["data"]) > 30) $field["data"] = substr($field["data"], 0, 30)."...";
 
 			$formatted["info"][] = "<span class='profile-".$fieldId."'>".sanitizeHTML($field["data"])."</span>";
-			
+
 		}
 	}
 
