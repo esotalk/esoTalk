@@ -18,6 +18,9 @@ class ETPlugin_Profiles extends ETPlugin {
 
 	public function setup($oldVersion = "")
 	{
+		// For the Profiles plugin, we need two tables.
+		// The first, profile_field, stores information about the custom profile fields that
+		// the administrator has defined.
 		$structure = ET::$database->structure();
 		$structure->table("profile_field")
 			->column("fieldId", "int(11) unsigned", false)
@@ -30,6 +33,8 @@ class ETPlugin_Profiles extends ETPlugin {
 			->key("fieldId", "primary")
 			->exec(false);
 
+		// The second, profile_data, stores the actual values of these fields that users
+		// have entered in their profiles.
 		$structure
 			->table("profile_data")
 			->column("memberId", "int(11) unsigned", false)
@@ -38,15 +43,18 @@ class ETPlugin_Profiles extends ETPlugin {
 			->key(array("memberId", "fieldId"), "primary")
 			->exec(false);
 
-		if (!$oldVersion) {
-			$this->createDefaultFields();
-		}
-		// Upgrade from old version of profiles, where data was stored in the user preferences blob.
+		// If this is the first installation of the Profiles plugin (e.g. on a fresh
+		// esoTalk installation,) set up some default fields for the administrator.
+		if (!$oldVersion) $this->createDefaultFields();
+
+		// Version 1.0.0g4 of this plugin changed the way that profile data is stored
+		// (previously it was just stored in the user preferences blob.) If we're
+		// upgrading from an old version, we'll need to convert to the new format.
 		elseif (version_compare($oldVersion, "1.0.0g4", "<")) {
 
 			$this->createDefaultFields();
-
 			$model = ET::getInstance("profileFieldModel");
+
 			$result = ET::SQL()->select("memberId, preferences")->from("member")->exec();
 			while ($row = $result->nextRow()) {
 				ET::memberModel()->expand($row);
@@ -62,23 +70,40 @@ class ETPlugin_Profiles extends ETPlugin {
 	protected function createDefaultFields()
 	{
 		$model = ET::getInstance("profileFieldModel");
-		$model->create(array("fieldId" => 1, "name" => "About", "description" => "Write something about yourself.", "type" => "textarea"));
-		$model->create(array("fieldId" => 2, "name" => "Location", "type" => "text", "showOnPosts" => true));
+		$model->create(array(
+			"fieldId"     => 1,
+			"name"        => "About",
+			"description" => "Write something about yourself.",
+			"type"        => "textarea"
+		));
+		$model->create(array(
+			"fieldId"     => 2,
+			"name"        => "Location",
+			"type"        => "text",
+			"showOnPosts" => true
+		));
 	}
 
 	public function __construct($rootDirectory)
 	{
 		parent::__construct($rootDirectory);
 
+		// Register the profile_field model which provides convenient methods to
+		// manage profile data.
 		ETFactory::register("profileFieldModel", "ProfileFieldModel", dirname(__FILE__)."/ProfileFieldModel.class.php");
+
+		// Register the profiles admin controller which provides an interface for
+		// administrators to manage custom profile fields.
 		ETFactory::registerAdminController("profiles", "ProfilesAdminController", dirname(__FILE__)."/ProfilesAdminController.class.php");
 	}
 
+	// When initializing any admin controller, add a link to the Profiles admin page.
 	public function handler_initAdmin($sender, $menu)
 	{
 		$menu->add("profiles", "<a href='".URL("admin/profiles")."'><i class='icon-smile'></i> ".T("Profiles")."</a>");
 	}
 
+	//
 	public function handler_memberController_initProfile($sender, $member, $panes, $controls, $actions)
 	{
 		$panes->add("about", "<a href='".URL(memberURL($member["memberId"], $member["username"], "about"))."'>".T("About")."</a>", 0);
