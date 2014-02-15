@@ -3,7 +3,7 @@
 #adminMenu li {margin:0 0 5px; float:none; padding:1px}
 #adminMenu li a {padding:6px 10px}
 #adminMenu li.separator {border-bottom:1px solid #ddd; margin:15px 0}
-#adminContent {margin-left:180px; margin-top:15px}
+#adminContent {margin-left:180px; margin-top:15px; padding-top:1px}
 
 
 /* Dashboard view */
