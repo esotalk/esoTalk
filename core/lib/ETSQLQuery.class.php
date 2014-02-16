@@ -179,7 +179,11 @@ public function from($table, $on = false, $type = false)
 {
 	// If the first character is an opening bracket, then assume the table is a SELECT query. Otherwise,
 	// add the table prefix.
-	if ($table[0] != "(") $table = ET::$database->tablePrefix.$table;
+	if ($table[0] != "(") {
+		$parts = explode(" ", ET::$database->tablePrefix.$table);
+		$parts[0] = "`".$parts[0]."`";
+		$table = implode(" ", $parts);
+	}
 
 	// If a JOIN type or condition was specified, add the table with JOIN syntax.
 	if (!empty($type) or !empty($on))
