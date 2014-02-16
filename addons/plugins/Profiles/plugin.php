@@ -1,5 +1,5 @@
 <?php
-// Copyright 2013 Toby Zerner, Simon Zerner
+// Copyright 2014 Toby Zerner, Simon Zerner
 // This file is part of esoTalk. Please see the included license file for usage information.
 
 if (!defined("IN_ESOTALK")) exit;
@@ -15,6 +15,12 @@ ET::$pluginInfo["Profiles"] = array(
 );
 
 class ETPlugin_Profiles extends ETPlugin {
+
+	/*
+	|--------------------------------------------------------------------------
+	| Plugin Setup
+	|--------------------------------------------------------------------------
+	*/
 
 	public function setup($oldVersion = "")
 	{
@@ -97,23 +103,38 @@ class ETPlugin_Profiles extends ETPlugin {
 		ETFactory::registerAdminController("profiles", "ProfilesAdminController", dirname(__FILE__)."/ProfilesAdminController.class.php");
 	}
 
-	// When initializing any admin controller, add a link to the Profiles admin page.
+	/*
+	|--------------------------------------------------------------------------
+	| Admin Page
+	|--------------------------------------------------------------------------
+	*/
+
+	// When initializing any admin controller, add a link to the Profiles admin page
+	// in the admin menu.
 	public function handler_initAdmin($sender, $menu)
 	{
 		$menu->add("profiles", "<a href='".URL("admin/profiles")."'><i class='icon-smile'></i> ".T("Profiles")."</a>");
 	}
 
-	//
+	/*
+	|--------------------------------------------------------------------------
+	| Member About Pane
+	|--------------------------------------------------------------------------
+	*/
+
+	// When initializing a member profile page, add the 'about' pane.
 	public function handler_memberController_initProfile($sender, $member, $panes, $controls, $actions)
 	{
 		$panes->add("about", "<a href='".URL(memberURL($member["memberId"], $member["username"], "about"))."'>".T("About")."</a>", 0);
 	}
 
+	// Set the default member pane as the 'about' pane.
 	public function memberController_index($sender, $member = "")
 	{
 		$this->memberController_about($sender, $member);
 	}
 
+	// Render the 'about' member profile pane.
 	public function memberController_about($sender, $member = "")
 	{
 		if (!($member = $sender->profile($member, "about"))) return;
@@ -122,10 +143,11 @@ class ETPlugin_Profiles extends ETPlugin {
 		$fields = $model->getData($member["memberId"]);
 
 		foreach ($fields as $k => &$field) {
+
+			// If this field is hidden from guests and we're a guest, don't display it.
 			if ($field["hideFromGuests"] and !ET::$session->user) unset($fields[$k]);
 
 			switch ($field["type"]) {
-
 				case "textarea":
 					$field["data"] = ET::formatter()->init($field["data"])->format()->get();
 					break;
@@ -136,10 +158,16 @@ class ETPlugin_Profiles extends ETPlugin {
 		}
 
 		$sender->data("fields", $fields);
-
 		$sender->renderProfile($this->getView("about"));
 	}
 
+	/*
+	|--------------------------------------------------------------------------
+	| Display Profile Fields On Posts
+	|--------------------------------------------------------------------------
+	*/
+
+	// Get fields from the database and attach them to the posts.
 	public function handler_postModel_getPostsAfter($sender, &$posts)
 	{
 		$postsById = array();
@@ -166,21 +194,30 @@ class ETPlugin_Profiles extends ETPlugin {
 		}
 	}
 
+	// Insert a post's fields into its template array.
 	public function handler_conversationController_formatPostForTemplate($sender, &$formatted, $post, $conversation)
 	{
 		if ($post["deleteMemberId"]) return;
 
 		foreach ($post["fields"] as $fieldId => $field) {
 
+			// If this field is hidden from guests and we're a guest, don't display it.
 			if ($field["hideFromGuests"] and !ET::$session->user) continue;
 
+			// Truncate the field's contents to 30 characters and add it to the post's info array.
 			if (strlen($field["data"]) > 30) $field["data"] = substr($field["data"], 0, 30)."...";
-
 			$formatted["info"][] = "<span class='profile-".$fieldId."'>".sanitizeHTML($field["data"])."</span>";
 
 		}
 	}
 
+	/*
+	|--------------------------------------------------------------------------
+	| User Profile Settings
+	|--------------------------------------------------------------------------
+	*/
+
+	// On the settings/general page, add a field to the form for each of the custom profile fields.
 	public function handler_settingsController_initGeneral($sender, $form)
 	{
 		$model = ET::getInstance("profileFieldModel");
@@ -194,12 +231,14 @@ class ETPlugin_Profiles extends ETPlugin {
 		}
 	}
 
+	// When a profile field is saved, save it to the database.
 	public function saveField($form, $key, &$preferences)
 	{
 		$model = ET::getInstance("profileFieldModel");
 		$model->setData(ET::$session->userId, substr($key, 8), $form->getValue($key));
 	}
 
+	// Render a custom profile field in the settings form.
 	public function field($form, $field)
 	{
 		$key = "profile_".$field["fieldId"];
