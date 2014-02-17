@@ -153,7 +153,7 @@ class ETPlugin_Profiles extends ETPlugin {
 					break;
 
 				default:
-					$field["data"] = sanitizeHTML($field["data"]);
+					$field["data"] = ET::formatter()->init($field["data"])->inline(true)->format()->get();
 			}
 		}
 
@@ -179,7 +179,7 @@ class ETPlugin_Profiles extends ETPlugin {
 		if (!count($postsById)) return;
 
 		$result = ET::SQL()
-			->select("p.postId, f.fieldId, f.name, d.data")
+			->select("p.postId, f.fieldId, f.name, f.hideFromGuests, d.data")
 			->from("post p")
 			->from("profile_data d", "d.memberId=p.memberId", "left")
 			->from("profile_field f", "d.fieldId=f.fieldId", "left")
@@ -190,7 +190,11 @@ class ETPlugin_Profiles extends ETPlugin {
 			->exec();
 
 		while ($row = $result->nextRow()) {
-			$postsById[$row["postId"]]["fields"][$row["fieldId"]] = array("name" => $row["name"], "data" => $row["data"]);
+			$postsById[$row["postId"]]["fields"][$row["fieldId"]] = array(
+				"name" => $row["name"],
+				"data" => $row["data"],
+				"hideFromGuests" => $row["hideFromGuests"],
+			);
 		}
 	}
 
