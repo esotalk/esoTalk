@@ -72,9 +72,9 @@
 #pluginList > li .pluginControls > a {display:inline-block}
 #pluginList .toggle {width:80px; text-align:center}
 
-#pluginList > li .popupWrapper {display:none}
+#pluginList > li .popupWrapper {visibility:hidden}
 #pluginList > li .popupButton .text {display:none}
-#pluginList > li:hover .popupWrapper, #pluginList .popupWrapper.active {display:inline-block}
+#pluginList > li:hover .popupWrapper, #pluginList .popupWrapper.active {visibility:visible}
 
 
 /* Skins */
