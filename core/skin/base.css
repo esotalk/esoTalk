@@ -621,7 +621,7 @@ input.error, input.error:focus {border-color:#f59e79 !important}
 .button {height:23px; cursor:pointer; padding:1px 10px 3px; border:1px solid #bbb; border-radius:3px; line-height:19px; margin:0}
 .button.big {height:26px; font-size:100%; padding:0 10px 2px; line-height:25px}
 
-.button i {margin:0 2px; vertical-align:middle; font-size:14px; color:#666; line-height:8px}
+.button i {margin:0 2px; font-size:14px; color:#666; line-height:12px}
 
 a.button {padding:5px 8px; height:auto; line-height:1em; display:inline-block}
 a.button:hover {text-decoration:none}
