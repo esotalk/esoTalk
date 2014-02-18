@@ -487,11 +487,11 @@ code {background:#eee}
 
 
 /* Edit post */
-.post.edit .postBody {padding:0; overflow:hidden}
+.post.edit .postBody {padding:0}
 .post.edit .controls {margin-top:0}
-.post .postBody textarea {height:25em; width:98%; border-style:dashed; border-width:1px 0; border-radius:0; resize:none; padding:12px; line-height:1.5em; outline:0}
+.post .postBody textarea {height:25em; width:100%; border-style:dashed; border-width:1px 0; border-radius:0; resize:none; padding:12px; line-height:1.5em; outline:0; box-sizing:border-box}
 .post .postBody .preview {padding:0 12px}
-.post .editButtons {padding:3px 7px 7px; text-align:right; overflow:hidden}
+.post .editButtons {padding:7px; text-align:right; overflow:hidden; clear:both}
 .post .editButtons > .button {float:right; margin-left:7px}
 .post .editButtons .buttonGroup {float:left}
 .post .previewCheckbox {margin:0 5px; white-space:nowrap}
