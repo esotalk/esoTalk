@@ -11,7 +11,8 @@ ET::$pluginInfo["Attachments"] = array(
 	"author" => "Toby Zerner",
 	"authorEmail" => "support@esotalk.org",
 	"authorURL" => "http://esotalk.org",
-	"license" => "GPLv2"
+	"license" => "GPLv2",
+	"priority" => 0
 );
 
 class ETPlugin_Attachments extends ETPlugin {
@@ -133,12 +134,7 @@ class ETPlugin_Attachments extends ETPlugin {
 		// If the post has been deleted or has no attachments, stop!
 		if ($post["deleteMemberId"] or empty($post["attachments"])) return;
 
-		$view = $sender->getViewContents("attachments/list", array("attachments" => $post["attachments"]));
-
-		// Add this before the "likes" plugin. Bit hacky, but there's no way to prioritize event handlers in esoTalk :(
-		$pos = strpos($formatted["body"], "<p class='likes");
-		if (!$pos) $pos = strlen($formatted["body"]);
-		$formatted["body"] = substr_replace($formatted["body"], $view, $pos, 0);
+		$formatted["body"] .= $sender->getViewContents("attachments/list", array("attachments" => $post["attachments"]));
 	}
 
 	// Hook onto ConversationModel::addReply and commit attachments from the session to the database.
