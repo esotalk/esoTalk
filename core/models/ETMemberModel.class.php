@@ -174,7 +174,7 @@ public function getById($memberId)
 
 
 /**
- * Get member data for the specified post IDs, in the same order.
+ * Get member data for the specified member IDs, in the same order.
  *
  * @param array $ids The IDs of the members to fetch.
  * @return array An array of member details, ordered by the order of the IDs.
