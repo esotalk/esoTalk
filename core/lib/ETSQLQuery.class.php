@@ -30,98 +30,98 @@ protected $mode = "select";
  * An array of expressions to SELECT.
  * @var array
  */
-protected $select = array();
+public $select = array();
 
 
 /**
  * An array of tables to select FROM, including JOIN clauses, or to INSERT into, UPDATE, or DELETE from.
  * @var array
  */
-protected $tables = array();
+public $tables = array();
 
 
 /**
  * An array of WHERE conditions.
  * @var array
  */
-protected $where = array();
+public $where = array();
 
 
 /**
  * An array of GROUP BY expressions.
  * @var array
  */
-protected $groupBy = array();
+public $groupBy = array();
 
 
 /**
  * The number of results to limit the query to.
  * @var int
  */
-protected $limit = null;
+public $limit = null;
 
 
 /**
  * The result number to start from.
  * @var int
  */
-protected $offset = null;
+public $offset = null;
 
 
 /**
  * An array of ORDER BY expressions.
  * @var array
  */
-protected $orderBy = array();
+public $orderBy = array();
 
 
 /**
  * An array of HAVING expressions.
  * @var array
  */
-protected $having = array();
+public $having = array();
 
 
 /**
  * The name of an index to force use of.
  * @var string
  */
-protected $index = null;
+public $index = null;
 
 
 /**
  * An array of fields to set in an INSERT query.
  * @var array
  */
-protected $insertFields = array();
+public $insertFields = array();
 
 
 /**
  * An array of fields => values to set for an UPDATE query, or an array of arrays of values to INSERT.
  * @var array
  */
-protected $set = array();
+public $set = array();
 
 
 /**
  * An array of fields => values to set ON DUPLICATE KEY.
  * @var array
  */
-protected $setDuplicateKey = array();
+public $setDuplicateKey = array();
 
 
 /**
  * An array of SQL queries to UNION.
  * @var array
  */
-protected $union = array();
+public $union = array();
 
 
 /**
  * An array of bound parameters to replace when the query is constructed.
  * @var array
  */
-protected $parameters = array();
+public $parameters = array();
 
 
 /**
@@ -579,7 +579,7 @@ protected function getReplace()
 {
 	// Simply construct an INSERT query, replacing the word INSERT with REPLACE.
 	$query = $this->getInsert();
-	$query = "REPLACE".substr($query, 7);
+	$query = "REPLACE".substr($query, 6);
 	return $query;
 }
 
