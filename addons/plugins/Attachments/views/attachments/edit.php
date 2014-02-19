@@ -15,7 +15,7 @@ if (!defined("IN_ESOTALK")) exit;
 		<?php endforeach; ?>
 	</ul>
 
-	<a class='attachments-button'><?php echo T("Attach a file"); ?></a>
+	<a class='attachments-button'><i class="icon-paper-clip"></i> <?php echo T("Attach a file"); ?></a>
 </div>
 
 <div class='dropZone'><?php echo T("Drop files to upload"); ?></div>
