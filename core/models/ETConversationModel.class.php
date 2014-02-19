@@ -792,15 +792,18 @@ public function delete($wheres = array())
 	// Really, we should decrease post counts as well, but I'll leave that for now.
 	
 	// Delete the conversation, posts, member_conversation, and activity rows.
-	ET::SQL()
+	$sql = ET::SQL()
 		->delete("c, m, p")
 		->from("conversation c")
 		->from("member_conversation m", "m.conversationId=c.conversationId", "left")
 		->from("post p", "p.conversationId=c.conversationId", "left")
 		->from("activity a", "a.conversationId=c.conversationId", "left")
 		->where("c.conversationId IN (:conversationIds)")
-		->bind(":conversationIds", $ids)
-		->exec();
+		->bind(":conversationIds", $ids);
+
+	$this->trigger("beforeDelete", array($sql, $ids));
+
+	$sql->exec();
 
 	return true;
 }
