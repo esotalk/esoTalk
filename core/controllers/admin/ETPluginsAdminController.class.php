@@ -90,7 +90,9 @@ public function toggle($plugin = "")
 
 	// Otherwise, if it's not enabled, add it to the array.
 	else {
-		$enabledPlugins[] = $plugin;
+		if (isset($plugins[$plugin]["info"]["priority"]))
+			addToArray($enabledPlugins, $plugin, $plugins[$plugin]["info"]["priority"]);
+		else $enabledPlugins[] = $plugin;
 
 		// Check the plugin's dependencies.
 		$dependencyFailure = false;
