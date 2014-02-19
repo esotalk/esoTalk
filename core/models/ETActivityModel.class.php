@@ -540,7 +540,7 @@ public static function updateAvailableNotification($item)
 public static function unapprovedNotification($item)
 {
 	return array(
-		sprintf(T("%s has registered and is awaiting approval."), "<strong>".$item["data"]["username"]."</strong>"),
+		sprintf(T("%s has registered and is awaiting approval."), "<strong>".name($item["data"]["username"])."</strong>"),
 		URL("admin/unapproved")
 	);
 }
