@@ -173,6 +173,8 @@ private function whereSearch(&$sql, $search)
 	$sql->where("MATCH (content) AGAINST (:search IN BOOLEAN MODE)")
 		->where("deleteMemberId IS NULL")
 		->bind(":search", $search);
+
+	$this->trigger("whereSearch", array($sql, $search));
 }
 
 
