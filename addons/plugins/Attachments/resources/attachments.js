@@ -72,15 +72,15 @@ $(function() {
 
 	initUploadArea("reply");
 
-	ETConversation._updateEditPost = ETConversation.updateEditPost;
+	var updateEditPost = ETConversation.updateEditPost;
 	ETConversation.updateEditPost = function(postId, html) {
-		ETConversation._updateEditPost(postId, html);
+		updateEditPost(postId, html);
 		initUploadArea("p"+postId);
 	};
 
-	ETConversation._resetReply = ETConversation.resetReply;
+	var resetReply = ETConversation.resetReply;
 	ETConversation.resetReply = function() {
-		ETConversation._resetReply();
+		resetReply();
 		$("#reply .attachments ul").html("");
 	};
 
