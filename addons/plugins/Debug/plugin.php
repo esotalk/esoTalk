@@ -179,6 +179,11 @@ class ETPlugin_Debug extends ETPlugin {
 			// Run the upgrade process.
 			ET::upgradeModel()->upgrade();
 
+			// Upgrade plugins as well.
+			foreach (ET::$plugins as $name => $plugin) {
+				$plugin->setup(C("$name.version"));
+			}
+
 			$sender->message(T("message.upgradeSuccessful"), "success");
 			$sender->redirect(URL("admin/plugins"));
 
