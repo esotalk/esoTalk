@@ -24,10 +24,20 @@
 }
 
 
+.post .editButtons {
+	border-top:1px solid #eee;
+}
 .attachments-edit {
 	padding:5px 10px;
-	border-bottom:1px solid #eee;
-	margin-bottom:5px;
+	overflow:hidden;
+	float:left;
+}
+.attachments-edit.has-attachments {
+	clear:left;
+	float:none;
+	border:solid #eee;
+	border-width:1px 0;
+	margin:-1px 0;
 }
 .attachments-edit ul {
 	margin:0;
@@ -47,8 +57,7 @@
 }
 .attachments-button {
 	margin-top:10px;
-	padding-left:23px;
-	background:url(attachment.png) no-repeat;
+	background:none;
 }
 .dropZone {
 	display:none;
