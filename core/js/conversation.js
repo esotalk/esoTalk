@@ -60,7 +60,7 @@ init: function() {
 				data: {search: ETConversation.searchString},
 				success: function(data) {
 					var items = success(data);
-					ETConversation.collapseQuotes(items);
+					ETConversation.initPost(items);
 					ETConversation.redisplayAvatars();
 				},
 				global: false
@@ -348,7 +348,7 @@ addReply: function() {
 			ETScrubber.count = ETConversation.postCount;
 			var items = ETScrubber.addItems(ETConversation.postCount - 1, data.view, moreItem, true);
 			ETConversation.redisplayAvatars();
-			ETConversation.collapseQuotes(items);
+			ETConversation.initPost(items);
 
 			// Star the conversation if the user has the "star on reply" option on.
 			if (data.starOnReply) {
@@ -551,7 +551,11 @@ initPosts: function() {
 		});
 	});
 
-	ETConversation.collapseQuotes($("#conversationPosts"));
+	ETConversation.initPost($("#conversationPosts .post"));
+},
+
+initPost: function(post) {
+	ETConversation.collapseQuotes(post);
 },
 
 // Collapse quotes and add expand buttons.
@@ -757,7 +761,7 @@ saveEditPost: function(postId, content) {
 
 			ETConversation.editingPosts--;
 			ETConversation.redisplayAvatars();
-			ETConversation.collapseQuotes(newPost);
+			ETConversation.initPost(newPost);
 		}
 	});
 },
