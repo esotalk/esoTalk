@@ -397,15 +397,18 @@ public function getConversationIDs($channelIDs = array(), $searchString = "", $o
 
 		// Run a query against the posts table to get matching conversation IDs.
 		$fulltextString = implode(" ", $this->fulltext);
-		$result = ET::SQL()
+		$fulltextQuery = ET::SQL()
 			->select("DISTINCT conversationId")
 			->from("post")
 			->where("MATCH (title, content) AGAINST (:fulltext IN BOOLEAN MODE)")
 			->where($idCondition)
 			->orderBy("MATCH (title, content) AGAINST (:fulltextOrder) DESC")
 			->bind(":fulltext", $fulltextString)
-			->bind(":fulltextOrder", $fulltextString)
-			->exec();
+			->bind(":fulltextOrder", $fulltextString);
+
+		$this->trigger("fulltext", array($fulltextQuery, $this->fulltext));
+
+		$result = $fulltextQuery->exec();
 		$ids = array();
 		while ($row = $result->nextRow()) $ids[] = reset($row);
 
