@@ -38,4 +38,4 @@ To upgrade esoTalk from an older version, simply:
 
 ### Troubleshooting
 
-If you are having problems installing esoTalk, search for help on the [support forum](http://esotalk.org/forum).
+If you are having problems installing esoTalk, view the [Troubleshooting](http://esotalk.org/docs/debug) documentation.
