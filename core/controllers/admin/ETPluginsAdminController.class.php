@@ -122,11 +122,13 @@ public function toggle($plugin = "")
 			$pluginObject = new $className("addons/plugins/".$plugin);
 
 			// Call the plugin's setup function. If the setup failed, show a message.
-			if (($msg = $pluginObject->setup()) !== true) {
+			if (($msg = $pluginObject->setup(C("$plugin.version"))) !== true) {
 				$this->message(sprintf(T("message.pluginCannotBeEnabled"), $plugin, $msg), "warning");
 				$this->redirect(URL("admin/plugins"));
 				return;
 			}
+
+			ET::writeConfig(array("$plugin.version" => ET::$pluginInfo[$plugin]["version"]));
 		}
 	}
 
