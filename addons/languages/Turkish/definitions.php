@@ -4,12 +4,12 @@
 
 ET::$languageInfo["Turkish"] = array(
 	"locale" => "tr-TR",
-	"name" => "Turkish",
-	"description" => "Turkish language pack.",
+	"name" => "Türkçe",
+	"description" => "Günlük Türkçe.",
 	"version" => ESOTALK_VERSION,
-	"author" => "Cagatay ONCUL",
-	"authorEmail" => "cagatayoncul@esotalk.org",
-	"authorURL" => "http://github.com/cagatayoncul",
+	"author" => "cagatayoncu",
+	"authorEmail" => "support@esotalk.org",
+	"authorURL" => "http://esotalk.org",
 	"license" => "GPLv2"
 );
 
