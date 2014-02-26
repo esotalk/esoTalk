@@ -1,6 +1,5 @@
 .attachments {
-	border-top:1px solid #eee;
-	padding:0 12px 10px;
+	padding:0 0 10px;
 	margin:30px -11px 1px;
 	color:#666;
 }
@@ -8,6 +7,10 @@
 	margin:0;
 	padding-left:10px;
 	list-style-type:none;
+}
+.attachments li {
+	margin: 0 5px 5px 0;
+	display: inline-block;
 }
 .attachments h4 {
 	margin-top:-10px;
@@ -21,6 +24,53 @@
 .attachments h4 span {
 	background:#fff;
 	padding:0 5px;
+}
+
+a.attachment {
+	background: #eee;
+	border-radius: 3px;
+	font-weight: bold;
+	display: inline-block;
+	text-decoration: none;
+	vertical-align: bottom;
+	width: 200px;
+	height: 130px;
+	overflow: hidden;
+	position: relative;
+	text-align: center;
+}
+a.attachment:before {
+	content: " ";
+	position: absolute;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	top: 0;
+	border: 1px solid rgba(0, 0, 0, 0.3);
+	border-radius: 3px;
+}
+a.attachment .filename {
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	background: rgba(0, 0, 0, 0.5);
+	color: #fff;
+	padding: 3px 7px;
+}
+a.attachment:hover:before {
+	border-color: rgba(0, 0, 0, 0.7);
+}
+a.attachment:hover .filename {
+	background: rgba(0, 0, 0, 0.7);
+}
+a.attachment-image {
+}
+a.attachment i {
+	font-size: 100px;
+	margin-right: 5px;
+	text-decoration: none;
+	color: #ccc;
 }
 
 

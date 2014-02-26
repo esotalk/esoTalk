@@ -109,6 +109,7 @@ class AttachmentController extends ETController {
 		if (!empty($result["success"])) {
 
 			$result['uploadName'] = $uploader->getUploadName();
+			$result['attachmentId'] = $attachmentId;
 
 			// Save attachment information to the session.
 			$session = (array)ET::$session->get("attachments");
@@ -118,7 +119,7 @@ class AttachmentController extends ETController {
 				"secret" => $secret
 			);
 			ET::$session->store("attachments", $session);
-			
+
 		}
 
 		header("Content-Type: text/plain");

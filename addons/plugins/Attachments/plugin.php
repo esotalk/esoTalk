@@ -54,6 +54,21 @@ class ETPlugin_Attachments extends ETPlugin {
 	public function init()
 	{
 		ET::define("message.attachmentNotFound", "For some reason this attachment cannot be viewed. It may not exist, or you may not have permission to view it.");
+
+		function formatAttachment($attachment, $expanded = false)
+		{
+			$extension = pathinfo($attachment["filename"], PATHINFO_EXTENSION);
+			$url = URL("attachment/".$attachment["attachmentId"]."_".$attachment["filename"]);
+			$filename = sanitizeHTML($attachment["filename"]);
+
+			if (in_array($extension, array("jpg", "jpeg", "png", "gif"))) {
+				$image = "<img src='".$url."' alt='".$filename."' title='".$filename."'>";
+				if ($expanded) return "<span class='attachment attachment-image'>".$image."</span>";
+				else return "<a href='".$url."' class='attachment attachment-image' target='_blank'>".$image."<span class='filename'>".$filename."</span></a>";
+			}
+
+			return "<a href='".$url."' class='attachment' target='_blank'><i class='icon-file'></i><span class='filename'>".$filename."</span></a>";
+		}
 	}
 
 	// Add the attachments/fineuploader JS/CSS to the conversation view.
@@ -134,7 +149,31 @@ class ETPlugin_Attachments extends ETPlugin {
 		// If the post has been deleted or has no attachments, stop!
 		if ($post["deleteMemberId"] or empty($post["attachments"])) return;
 
-		$formatted["body"] .= $sender->getViewContents("attachments/list", array("attachments" => $post["attachments"]));
+		// Go through and replace embedded attachments in the post content.
+		$this->attachments = $post["attachments"];
+		$formatted["body"] = preg_replace_callback("/\[attachment:(\w+)\]/i", array($this, "attachmentCallback"), $formatted["body"]);
+
+		if (empty($this->attachments)) return;
+		$formatted["body"] .= $sender->getViewContents("attachments/list", array("attachments" => $this->attachments));
+	}
+
+	protected $attachments = array(); 
+
+	public function attachmentCallback($matches)
+	{
+		$id = $matches[1];
+		$attachment = null;
+		foreach ($this->attachments as $k => $a) {
+			if ($a["attachmentId"] == $id) {
+				$attachment = $a;
+				unset($this->attachments[$k]);
+				break;
+			}
+		}
+
+		if (!$attachment) return "[attachment:$id]";
+
+		return formatAttachment($attachment, true);
 	}
 
 	// Hook onto ConversationModel::addReply and commit attachments from the session to the database.
