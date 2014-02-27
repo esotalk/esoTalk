@@ -55,16 +55,35 @@ class ETPlugin_Attachments extends ETPlugin {
 	{
 		ET::define("message.attachmentNotFound", "For some reason this attachment cannot be viewed. It may not exist, or you may not have permission to view it.");
 
+		/**
+		 * Format an attachment to be outputted on the page, either in the attachment list
+		 * at the bottom of the post or embedded inside the post.
+		 *
+		 * @param array $attachment The attachment details.
+		 * @param bool $expanded Whether or not the attachment should be displayed in its
+		 * 		full form (i.e. whether or not the attachment is embedded in the post.)
+		 * @return string The HTML to output.
+		 */
 		function formatAttachment($attachment, $expanded = false)
 		{
 			$extension = pathinfo($attachment["filename"], PATHINFO_EXTENSION);
 			$url = URL("attachment/".$attachment["attachmentId"]."_".$attachment["filename"]);
 			$filename = sanitizeHTML($attachment["filename"]);
 
+			// For images, either show them directly or show a thumbnail.
 			if (in_array($extension, array("jpg", "jpeg", "png", "gif"))) {
-				$image = "<img src='".$url."' alt='".$filename."' title='".$filename."'>";
-				if ($expanded) return "<span class='attachment attachment-image'>".$image."</span>";
-				else return "<a href='".$url."' class='attachment attachment-image' target='_blank'>".$image."<span class='filename'>".$filename."</span></a>";
+				if ($expanded) return "<span class='attachment attachment-image'><img src='".$url."' alt='".$filename."' title='".$filename."'></span>";
+				else return "<a href='".$url."' class='attachment attachment-image' target='_blank'><img src='".URL("attachment/thumb/".$attachment["attachmentId"])."' alt='".$filename."' title='".$filename."'><span class='filename'>".$filename."</span></a>";
+			}
+
+			// Embed video.
+			if (in_array($extension, array("mp4", "mov", "mpg", "avi", "m4v")) and $expanded) {
+				return "<video width='400' height='225' controls><source src='".$url."'></video>";
+			}
+
+			// Embed audio.
+			if (in_array($extension, array("mp3", "mid", "wav")) and $expanded) {
+				return "<audio controls><source src='".$url."'></video>";
 			}
 
 			return "<a href='".$url."' class='attachment' target='_blank'><i class='icon-file'></i><span class='filename'>".$filename."</span></a>";
@@ -157,8 +176,12 @@ class ETPlugin_Attachments extends ETPlugin {
 		$formatted["body"] .= $sender->getViewContents("attachments/list", array("attachments" => $this->attachments));
 	}
 
+	// A temporary array of attachments that will be listed at the end of a post.
+	// As embedded attachments are parsed, they are removed from this array
+	// so they are not listed at the end of the post.
 	protected $attachments = array(); 
 
+	// A callback to transform an embedded attachment.
 	public function attachmentCallback($matches)
 	{
 		$id = $matches[1];
@@ -171,7 +194,7 @@ class ETPlugin_Attachments extends ETPlugin {
 			}
 		}
 
-		if (!$attachment) return "[attachment:$id]";
+		if (!$attachment) return;
 
 		return formatAttachment($attachment, true);
 	}
