@@ -203,7 +203,10 @@ public function index($conversationId = false, $year = false, $month = false)
 		if ($conversation["canModerate"]) {
 			$this->addJSLanguage("Lock", "Unlock", "Sticky", "Unsticky", "message.confirmDelete");
 		}
-		if (ET::$session->user) $this->addJSLanguage("Starred", "Unstarred", "message.confirmLeave", "message.confirmDiscardReply", "Mute conversation", "Unmute conversation", "Controls");
+		if (ET::$session->user) {
+			$this->addJSLanguage("Starred", "Unstarred", "message.confirmLeave", "message.confirmDiscardReply",
+				"Mute conversation", "Unmute conversation", "Controls", "Follow", "Following");
+		}
 
 		$this->addJSVar("postsPerPage", C("esoTalk.conversation.postsPerPage"));
 		$this->addJSVar("conversationUpdateIntervalStart", C("esoTalk.conversation.updateIntervalStart"));
