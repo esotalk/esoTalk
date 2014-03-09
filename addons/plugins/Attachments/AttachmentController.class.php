@@ -6,12 +6,8 @@ if (!defined("IN_ESOTALK")) exit;
 
 class AttachmentController extends ETController {
 
-	// View an attachment.
-	public function index($attachmentId = false)
+	protected function getAttachment($attachmentId)
 	{
-		$attachmentId = explode("_", $attachmentId);
-        $attachmentId = $attachmentId[0];
-
 		// Find the attachment in the database.
 		$model = ET::getInstance("attachmentModel");
 		$attachment = $model->getById($attachmentId);
@@ -30,6 +26,19 @@ class AttachmentController extends ETController {
 			$this->render404(T("message.attachmentNotFound"), true);
 			return false;
 		}
+
+		return $attachment;
+	}
+
+	// View an attachment.
+	public function index($attachmentId = false)
+	{
+		$attachmentId = explode("_", $attachmentId);
+		$attachmentId = $attachmentId[0];
+
+		if (!($attachment = $this->getAttachment($attachmentId))) return;
+
+		$model = ET::getInstance("attachmentModel");
 
 		// Serve up the file.
 		$path = $model->path().$attachmentId.$attachment["secret"];
@@ -81,6 +90,31 @@ class AttachmentController extends ETController {
 		}
 	}
 
+	// Generate/view a thumbnail of an image attachment.
+	public function thumb($attachmentId = false)
+	{
+		if (!($attachment = $this->getAttachment($attachmentId))) return;
+
+		$model = ET::getInstance("attachmentModel");
+		$path = $model->path().$attachmentId.$attachment["secret"];
+		$thumb = $path."_thumb";
+
+		if (!file_exists($thumb)) {
+			try {
+				$uploader = ET::uploader();
+				$thumb = $uploader->saveAsImage($path, $thumb, 200, 150, "crop");
+				$newThumb = substr($thumb, 0, strrpos($thumb, "."));
+				rename($thumb, $newThumb);
+				$thumb = $newThumb;
+			} catch (Exception $e) {
+				return;
+			}
+		}
+
+		header('Content-Type: '.$model->mime($attachment["filename"]));
+		echo file_get_contents($thumb);
+	}
+
 	// Upload an attachment.
 	public function upload()
 	{
@@ -109,6 +143,7 @@ class AttachmentController extends ETController {
 		if (!empty($result["success"])) {
 
 			$result['uploadName'] = $uploader->getUploadName();
+			$result['attachmentId'] = $attachmentId;
 
 			// Save attachment information to the session.
 			$session = (array)ET::$session->get("attachments");
@@ -118,7 +153,7 @@ class AttachmentController extends ETController {
 				"secret" => $secret
 			);
 			ET::$session->store("attachments", $session);
-			
+
 		}
 
 		header("Content-Type: text/plain");
