@@ -349,7 +349,7 @@ public function removeQuotes()
 public function mentions()
 {
 	$this->content = preg_replace(
-		'/(^|[\s,\.:\]])@([^\s[\]]{3,20})\b/ieu',
+		'/(^|[\s,\.:\]])@([^\s[\]]{3,20})\b/iu',
 		"'$1<a href=\''.URL('member/name/'.urlencode(str_replace('&nbsp;', ' ', '$2')), true).'\' class=\'link-member\'>$2</a>'",
 		$this->content
 	);

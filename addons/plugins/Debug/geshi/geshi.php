@@ -2142,7 +2142,7 @@ class GeSHi {
                                 // hackage again... must... release... 1.2...
                                 if ('smarty' == $this->language) { $hackage = '\/'; } else { $hackage = ''; }
                                 $stuff_to_parse = preg_replace_callback(
-                                    "/([^a-zA-Z0-9\$_\|\#;>$hackage|^])($keyword)(?=[^a-zA-Z0-9_<\|%\-&])/ie",
+                                    "/([^a-zA-Z0-9\$_\|\#;>$hackage|^])($keyword)(?=[^a-zA-Z0-9_<\|%\-&])/i",
                                     function ($matches) use ($func, $func2, $styles) {
                                         return $matches[1] . $func2($matches[2], $k, 'BEGIN') . '<|' . $styles . '>' . $func($matches[2]) . '|>' . $func2($matches[2], $k, 'END');
                                     },
