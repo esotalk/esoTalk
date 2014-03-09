@@ -223,7 +223,7 @@ public function linksCallback($matches)
 		$id = $youtube[1];
 		$width = 400;
 		$height = 225;
-		return "<div class='video'><object width='$width' height='$height'><param name='movie' value='//www.youtube.com/v/$id'></param><param name='allowFullScreen' value='true'></param><param name='allowscriptaccess' value='always'></param><embed src='//www.youtube.com/v/$id' type='application/x-shockwave-flash' allowscriptaccess='always' allowfullscreen='true' width='$width' height='$height'></embed></object></div>";
+		return "<div class='video'><object width='$width' height='$height'><param name='movie' value='http://www.youtube.com/v/$id'></param><param name='allowFullScreen' value='true'></param><param name='allowscriptaccess' value='always'></param><embed src='http://www.youtube.com/v/$id' type='application/x-shockwave-flash' allowscriptaccess='always' allowfullscreen='true' width='$width' height='$height'></embed></object></div>";
 	}
 
 	// If this is an internal link...
@@ -249,15 +249,26 @@ public function lists()
 	// We do this by matching against 2 or more lines which begin with a number, passing them together to a
 	// callback function, and then wrapping each line with <li> tags.
 	$orderedList = create_function('$list',
-		'$list = preg_replace("/^[0-9]+[.)]\s+([^\n]*)(?:\n|$)/m", "<li>$1</li>", trim($list));
+		'$list = preg_replace_callback("/^[0-9]+[.)]\s+([^\n]*)(?:\n|$)/m", "<li>$1</li>", trim($list));
 		return $list;');
-	$this->content = preg_replace("/(?:^[0-9]+[.)]\s+([^\n]*)(?:\n|$)){2,}/me", "'</p><ol>'.\$orderedList('$0').'</ol><p>'", $this->content);
+	$this->content = preg_replace_callback(
+        "/(?:^[0-9]+[.)]\s+([^\n]*)(?:\n|$)){2,}/m",
+        function ($matches) use ($orderedList) {
+            return '</p><ol>' . $orderedList($matches[0]) . '</ol><p>';
+        },
+        $this->content
+    );
 
 	// Same goes for unordered lists, but with a - or a * instead of a number.
 	$unorderedList = create_function('$list',
 		'$list = preg_replace("/^ *[-*]\s*([^\n]*)(?:\n|$)/m", "<li>$1</li>", trim($list));
 		return "$list";');
-	$this->content = preg_replace("/(?:^ *[-*]\s*([^\n]*)(?:\n|$)){2,}/me", "'</p><ul>'.\$unorderedList('$0').'</ul><p>'", $this->content);
+	$this->content = preg_replace_callback(
+        "/(?:^ *[-*]\s*([^\n]*)(?:\n|$)){2,}/m",
+        function ($matches) use ($unorderedList) {
+            return '</p><ul>' . $unorderedList($matches[0]) . '</ul><p>';
+        },
+        $this->content);
 
 	return $this;
 }
@@ -272,9 +283,16 @@ public function quotes()
 {
 	// Starting from the innermost quote, work our way to the outermost, replacing them one-by-one using a
 	// callback function. This is the only simple way to do nested quotes without a lexer.
-	$regexp = "/(.*?)\n?\[quote(?:=(.*?)(]?))?\]\n?(.*?)\n?\[\/quote\]\n{0,2}/ise";
+	$regexp = "/(.*?)\n?\[quote(?:=(.*?)(]?))?\]\n?(.*?)\n?\[\/quote\]\n{0,2}/is";
+    $self = $this;
 	while (preg_match($regexp, $this->content)) {
-		$this->content = preg_replace($regexp, "'$1</p>'.\$this->makeQuote('$4', '$2$3').'<p>'", $this->content);
+		$this->content = preg_replace_callback(
+            $regexp,
+            function ($matches) use ($self) {
+                return $matches[1] . '</p>' . $self->makeQuote($matches[4], $matches[2] . $matches[3]) . '<p>';
+            },
+            $this->content
+        );
 	}
 
 	return $this;
