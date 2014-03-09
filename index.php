@@ -1,10 +1,9 @@
 <?php
 /**
- * Copyright 2015 Toby Zerner, Simon Zerner
- * This file is part of esoTalk. 
- * Please see the included license file for usage information.
+ * @package   esoTalk
+ * @copyright 2011-2014 Toby Zerner, Simon Zerner
+ * @license   http://opensource.org/licenses/GPL-2.0
  */
-
 define('IN_ESOTALK', 1);
 
 define('PAGE_START_TIME', microtime(true));
