@@ -1,14 +1,13 @@
-<?php defined('IN_ESOTALK') or exit;
+<?php defined('IN_ESOTALK') or die;
 /**
  * Displays the settings form for the Gravatar plugin.
- * This file is part of esoTalk. Please see the included license file for usage information.
  * 
  * @package esoTalk
  * @copyright 2014 Toby Zerner, Simon Zerner
  */
 ET::$pluginInfo['Gravatar'] = array(
     'name'        => 'Gravatar',
-    'description' => 'Allows users to choose to use their Gravatar.',
+    'description' => 'Allows users to choose to use their <a href="http://gravatar.com/" target="_blank">Gravatar</a>.',
     'version'     => ESOTALK_VERSION,
     'author'      => 'Toby Zerner',
     'authorEmail' => 'support@esotalk.org',
