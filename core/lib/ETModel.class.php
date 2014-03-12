@@ -47,7 +47,7 @@ protected $primaryKey;
 public function __construct($table = "", $primaryKey = "")
 {
 	$this->table = $table;
-	$this->primaryKey = $table."Id";
+	$this->primaryKey = !empty($primaryKey) ? $primaryKey : $table."Id";
 }
 
 
