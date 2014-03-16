@@ -30,7 +30,8 @@ var ETAdminSettings = {
 init: function() {
 
 	$("#adminSettings input[name=forumHeader]").change(function() {
-		$("#adminSettings input[name=forumHeaderImage]").toggle($(this).val() == "image");
+		$("#adminSettings input[name=forumHeaderImage]").toggle($(this).val() == "image" || $(this).val() == "both");
+		$("#adminSettings label.forumHeaderImageLabel").toggle($(this).val() == "image" || $(this).val() == "both");
 	}).filter(":checked").trigger("change");
 
 	$("#adminSettings input[name=registrationOpen]").change(function() {

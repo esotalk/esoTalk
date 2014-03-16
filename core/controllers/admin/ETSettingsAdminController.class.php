@@ -36,14 +36,21 @@ public function index()
 	// Set the default values for the forum inputs.
 	$form->setValue("forumTitle", C("esoTalk.forumTitle"));
 	$form->setValue("language", C("esoTalk.language"));
-	$form->setValue("forumHeader", C("esoTalk.forumLogo") ? "image" : "title");
 	$form->setValue("defaultRoute", C("esoTalk.defaultRoute"));
 	$form->setValue("registrationOpen", C("esoTalk.registration.open"));
 	$form->setValue("memberListVisibleToGuests", C("esoTalk.members.visibleToGuests"));
 	$form->setValue("requireAdminApproval", C("esoTalk.registration.requireAdminApproval"));
 	$form->setValue("requireEmailConfirmation", C("esoTalk.registration.requireEmailConfirmation"));
 
-	$c = C("esoTalk.conversation.editPostTimeLimit");
+
+    $form->setValue("forumHeader", C("esoTalk.forumLogo") ? "image" : "title");
+    // if both is wanted
+    if(C("esoTalk.forumLogoAndTitle")){
+        $form->setValue("forumHeader", "both");
+    }
+
+
+    $c = C("esoTalk.conversation.editPostTimeLimit");
 	if ($c === -1) $form->setValue("editPostMode", "forever");
 	elseif ($c === "reply") $form->setValue("editPostMode", "reply");
 	else {
@@ -59,12 +66,21 @@ public function index()
 		$config = array(
 			"esoTalk.forumTitle" => $form->getValue("forumTitle"),
 			"esoTalk.language" => $form->getValue("language"),
-			"esoTalk.forumLogo" => $form->getValue("forumHeader") == "image" ? $this->uploadHeaderImage($form) : false,
 			"esoTalk.defaultRoute" => $form->getValue("defaultRoute"),
 			"esoTalk.registration.open" => $form->getValue("registrationOpen"),
 			"esoTalk.registration.requireEmailConfirmation" => $form->getValue("requireEmailConfirmation"),
 			"esoTalk.members.visibleToGuests" => $form->getValue("memberListVisibleToGuests")
 		);
+
+        //add both action to show image and title
+        if($form->getValue("forumHeader") == "image" || $form->getValue("forumHeader") == "both"){
+            $config["esoTalk.forumLogo"] = $this->uploadHeaderImage($form);
+            $config["esoTalk.forumLogoAndTitle"] = true;
+        }
+        else{
+            $config["esoTalk.forumLogo"] = false;
+            $config["esoTalk.forumLogoAndTitle"] = false;
+        }
 
 		switch ($form->getValue("editPostMode")) {
 			case "forever": $config["esoTalk.conversation.editPostTimeLimit"] = -1; break;
