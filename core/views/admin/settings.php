@@ -45,6 +45,10 @@ $(function() {
 <div class='checkboxGroup'>
 <label class='radio'><?php echo $form->radio("forumHeader", "title"); ?> <?php echo T("Show the forum title in the header"); ?></label>
 <label class='radio'><?php echo $form->radio("forumHeader", "image"); ?> <?php echo T("Show an image in the header"); ?><br/><?php echo $form->input("forumHeaderImage", "file", array("class" => "text")); ?></label>
+<label class='radio'><?php echo $form->radio("forumHeader", "both"); ?> <?php echo T("Show an image and the forum title in the header"); ?>
+    <br/>
+    <label><?php echo T("Image"); ?></label><br />
+    <?php echo $form->input("forumHeaderImage", "file", array("class" => "text")); ?></label>
 </div>
 </li>
 
