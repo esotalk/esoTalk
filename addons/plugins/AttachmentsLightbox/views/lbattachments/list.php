@@ -1,5 +1,5 @@
 <?php
-// Copyright 2013 Toby Zerner, Simon Zerner
+// Copyright 2014 Marcel Lange
 // This file is part of esoTalk. Please see the included license file for usage information.
 
 if (!defined("IN_ESOTALK")) exit;
