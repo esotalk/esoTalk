@@ -10,6 +10,7 @@ if (!defined("IN_ESOTALK")) exit;
  * @package esoTalk
  */
 ?>
+<?php if(count($data["channels"])):?>
 <ul class='list channelList'>
 
 <?php foreach ($data["channels"] as $channel): ?>
@@ -36,3 +37,13 @@ if (!defined("IN_ESOTALK")) exit;
 <?php endforeach; ?>
 
 </ul>
+<?php else:?>
+    <div class='area noResults help'>
+        <h4><?php echo T("message.noSearchChannels"); ?></h4>
+        <ul>
+            <?php if (!ET::$session->user): ?>
+                <li><?php echo T("message.logInToSeeAllConversations"); ?></li>
+            <?php endif; ?>
+        </ul>
+    </div>
+<?php endif?>

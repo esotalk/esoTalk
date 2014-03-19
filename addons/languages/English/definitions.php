@@ -454,6 +454,7 @@ $definitions["message.noNotifications"] = "You have no notifications.";
 $definitions["message.noPermission"] = "You do not have permisssion to perform this action.";
 $definitions["message.noPermissionToReplyInChannel"] = "You don't have permission to reply to conversations in this channel.";
 $definitions["message.noPluginsInstalled"] = "No plugins are currently installed.";
+$definitions["message.noSearchChannels"] = "No channels were found.";
 $definitions["message.noSearchResults"] = "No conversations matching your search were found.";
 $definitions["message.noSearchResultsMembers"] = "No members matching your search were found.";
 $definitions["message.noSearchResultsPosts"] = "No posts matching your search were found.";

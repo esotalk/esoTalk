@@ -460,8 +460,15 @@ public function render($view = "")
 			// Add the forum title, or logo if the forum has one.
 			$logo = C("esoTalk.forumLogo");
 			$title = C("esoTalk.forumTitle");
-			if ($logo) $size = getimagesize($logo);
-			$data["forumTitle"] = $logo ? "<img src='".getWebPath($logo)."' {$size[3]} alt='$title'/>" : $title;
+			if ($logo) {
+                $size = getimagesize($logo);
+                $data["forumTitle"] =  "<img src='".getWebPath($logo)."' {$size[3]} alt='$title'/>" ;
+                if(C("esoTalk.forumLogoAndTitle")){
+                    $data["forumTitle"] .= $title;
+                }
+            }else{
+                $data["forumTitle"] = $title;
+            }
 
 			// Add the details for the "back" button.
 			$data["backButton"] = ET::$session->getNavigation($this->navigationId);
