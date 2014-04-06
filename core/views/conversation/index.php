@@ -98,6 +98,8 @@ if ($data["searchString"] and !$conversation["countPosts"]): ?>
 <div class='scrubberColumn'>
 <div class='scrubberContent'>
 
+<?php $this->trigger("renderControlsBefore", array($data)); ?>
+
 <?php
 // Star
 echo starButton($conversation["conversationId"], $conversation["starred"])."\n";

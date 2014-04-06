@@ -20,8 +20,8 @@ $post = $data["post"];
 
 // Using the provided form object, construct a textarea and buttons.
 $body = $form->input("content", "textarea", array("cols" => "200", "rows" => "20"))."
-	<div id='p".$post["postId"]."-preview' class='preview'></div>
-	<div class='editButtons'>".
+	<div id='p".$post["postId"]."-preview' class='preview'></div>";
+$footer = "<div class='editButtons'>".
 	$form->saveButton()." ".
 	$form->cancelButton()."</div>";
 
@@ -32,7 +32,8 @@ $formatted = array(
 	"controls" => $data["controls"],
 	"class" => "edit",
 	"body" => $body,
-	"avatar" => avatar($post)
+	"avatar" => avatar($post),
+	"footer" => array($footer)
 );
 
 $this->trigger("renderEditBox", array(&$formatted, $post));

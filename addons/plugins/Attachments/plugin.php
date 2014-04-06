@@ -124,7 +124,7 @@ class ETPlugin_Attachments extends ETPlugin {
 	protected function appendEditAttachments($sender, &$formatted, $attachments)
 	{
 		$view = $sender->getViewContents("attachments/edit", array("attachments" => $attachments));
-		$formatted["body"] = substr_replace($formatted["body"], $view, strpos($formatted["body"], "<div class='editButtons'>"), 0);
+		addToArray($formatted["footer"], $view, 0);
 	}
 
 	// Hook onto PostModel::getPosts and get attachment data for all posts being displayed and "attach" it to each post array. (Pun totally intended)

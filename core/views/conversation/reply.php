@@ -15,8 +15,9 @@ $conversation = $data["conversation"];
 
 // Using the provided form object, construct a textarea, save/discard draft buttons, and a submit button.
 $body = $form->input("content", "textarea", array("cols" => "200", "rows" => "20", "tabindex" => 200))."
-	<div id='reply-preview' class='preview'></div>
-	<div class='editButtons'>".
+	<div id='reply-preview' class='preview'></div>";
+
+$footer = "<div class='editButtons'>".
 	$form->button("postReply", !$conversation["conversationId"] ? T("Start Conversation") : T("Post a Reply"), array("class" => "big submit postReply", "tabindex" => 300)).
 	"<span class='buttonGroup'>".
 	$form->button("saveDraft", T("Save Draft"), array("class" => "big saveDraft", "tabindex" => 400))." ".
@@ -30,7 +31,8 @@ $post = array(
 	"controls" => $data["controls"],
 	"class" => "edit",
 	"body" => $body,
-	"avatar" => avatar(ET::$session->user)
+	"avatar" => avatar(ET::$session->user),
+	"footer" => array($footer)
 );
 
 $this->trigger("renderReplyBox", array(&$post, $conversation));

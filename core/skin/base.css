@@ -441,7 +441,7 @@ a.deleteLink:hover {color:#f00 !important; text-decoration:line-through}
 
 .timeMarker {padding:7px 13px; text-transform:uppercase; font-size:85%; letter-spacing:1px; background:#f7f7f7; color:#aaa; display:inline-block; clear:both; border-radius:3px; margin-bottom:15px}
 
-.post {margin-bottom:15px; padding-left:79px; padding-bottom:2px; position:relative; overflow:hidden}
+.post {margin-bottom:15px; padding-left:79px; padding-bottom:2px; position:relative}
 .post div.avatar {float:left; margin-left:-79px}
 .postContent:before, .postContent:after {content:" "; border-top-color:transparent !important; border-bottom-color:transparent !important; border-left-color:transparent !important; border-style:solid; border-width:5px; height:0; width:0; left:-11px; top:8px; position:absolute}
 .postContent:after {float:left; left:-10px}
@@ -502,7 +502,7 @@ code {background:#eee}
 .logInToReply .postHeader {display:none}
 .logInToReply .postBody {padding-top:8px; color:#888}
 .replyPlaceholder .postContent {height:62px; cursor:text}
-.replyPlaceholder .postBody, .replyPlaceholder .postHeader .controls {display:none}
+.replyPlaceholder .postBody, .replyPlaceholder .postHeader .controls, .replyPlaceholder .postFooter {display:none}
 .replyPlaceholder .postHeader h3 {color:#888; font-style:italic; font-weight:normal; font-size:100%}
 
 
@@ -613,7 +613,7 @@ input.error, input.error:focus {border-color:#f59e79 !important}
 .checkboxGroup {line-height:1.7em}
 .colorSwatch {display:inline-block; height:21px; width:21px; border-radius:3px; margin-right:5px; vertical-align:-8px; border:1px solid rgba(0, 0, 0, 0.2)}
 
-.form input[type=text], form input[type=password], .form select, .form textarea {margin:0 3px 3px 0; width:260px; font-size:110%; padding:5px}
+.form input[type=text], form input[type=password], .form select, .form textarea, .form .input {margin:0 3px 3px 0; width:260px; font-size:110%; padding:5px}
 .form input.color {font-size:100%; padding:3px; width:60px}
 
 

@@ -123,7 +123,7 @@ public function handler_conversationController_formatPostForTemplate($sender, &$
 		<span class='like-members'>$members</span>
 	</p>";
 
-	$formatted["body"] .= $likes;
+	$formatted["footer"][] = $likes;
 }
 
 public function getNames($likes)

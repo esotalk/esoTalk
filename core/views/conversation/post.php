@@ -41,6 +41,12 @@ endif; ?>>
 </div>
 <?php endif; ?>
 
+<?php if (!empty($post["footer"])): ?>
+<div class='postFooter'>
+<?php foreach ((array)$post["footer"] as $footer) echo $footer, "\n"; ?>
+</div>
+<?php endif; ?>
+
 </div>
 
 </div>
