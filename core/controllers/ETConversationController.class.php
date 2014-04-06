@@ -1234,6 +1234,7 @@ protected function formatPostForTemplate($post, $conversation)
 		"info" => array(),
 		"controls" => array(),
 		"body" => !$post["deleteMemberId"] ? $this->displayPost($post["content"]) : false,
+		"footer" => array(),
 
 		"data" => array(
 			"id" => $post["postId"],
@@ -1241,17 +1242,7 @@ protected function formatPostForTemplate($post, $conversation)
 		)
 	);
 
-	// If the post was within the last 24 hours, show a relative time (eg. 2 hours ago.)
-	if (time() - $post["time"] < 24 * 60 * 60)
-		$date = relativeTime($post["time"], true);
-
-	// If the post was within the last half a year, show just a month and a day.
-	elseif (time() - $post["time"] < 180 * 24 * 60 * 60)
-		$date = date("M j", $post["time"]);
-
-	// Otherwise, show the month, day, and year.
-	else
-		$date = date("M Y", $post["time"]);
+	$date = smartTime($post["time"], true);
 
 	// Add the date/time to the post info as a permalink.
 	$formatted["info"][] = "<a href='".URL(postURL($post["postId"]))."' class='time' title='".date(T("date.full"), $post["time"])."'>".(!empty($conversation["searching"]) ? T("Context") : $date)."</a>";

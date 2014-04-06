@@ -842,7 +842,7 @@ function relativeTime($then, $precise = false)
 	// Work out how many seconds it has been since $then.
 	$ago = time() - $then;
 
-	// If $then happened less than 1 second ago (or is yet to happen,) say "Just now".
+	// If $then happened less than 1 second ago, say "Just now".
 	if ($ago < 1) return T("just now");
 
 	// If this happened over a year ago, return "x years ago".
@@ -891,6 +891,31 @@ function relativeTime($then, $precise = false)
 
 	// Otherwise, just return "Just now".
 	return T("just now");
+}
+
+
+/**
+ * Get a smart human-friendly string for a date.
+ *
+ * @param int $then UNIX timestamp of the time to work out how much time has passed since.
+ * @param bool $precise Whether or not to return "x minutes/seconds", or just "a few minutes".
+ * @return string A human-friendly time string.
+ *
+ * @package esoTalk
+ */
+function smartTime($then, $precise = false)
+{
+	// Work out how many seconds it has been since $then.
+	$ago = time() - $then;
+
+	// If the time was within the last 48 hours, show a relative time (eg. 2 hours ago.)
+	if ($ago >= 0 and $ago < 48 * 60 * 60) return relativeTime($then, $precise);
+
+	// If the time is within the last half a year or the next half a year, show just a month and a day.
+	elseif ($ago < 180 * 24 * 60 * 60) return date("M j", $then);
+
+	// Otherwise, show the month, day, and year.
+	else return date(($precise ? "j " : "")."M Y", $then);
 }
 
 
