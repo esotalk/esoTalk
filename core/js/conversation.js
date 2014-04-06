@@ -784,6 +784,8 @@ cancelEditPost: function(postId) {
 		$(this).height("");
 	});
 
+	ETConversation.initPost(newPost);
+
 	$.scrollTo(scrollTop);
 },
 
