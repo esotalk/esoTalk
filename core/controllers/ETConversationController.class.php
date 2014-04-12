@@ -523,7 +523,7 @@ public function delete($conversationId = false)
 
 	// Delete the conversation, then redirect to the index.
 	ET::conversationModel()->deleteById($conversation["conversationId"]);
-	$this->message(T("message.conversationDeleted"), "success dismissable");
+	$this->message(T("message.conversationDeleted"), "success autoDismiss");
 	$this->redirect(URL(""));
 }
 
