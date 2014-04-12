@@ -16,7 +16,7 @@ ET::$languageInfo["English"] = array(
 // Define the character set that this language uses.
 $definitions["charset"] = "utf-8";
 
-$definitions["date.full"] = "j M Y, g:ia \G\M\TO"; // see http://au.php.net/manual/en/function.date.php for details
+$definitions["date.full"] = "%c";
 
 $definitions["%d day ago"] = "yesterday";
 $definitions["%d days ago"] = "%d days ago";
