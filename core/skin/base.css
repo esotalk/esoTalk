@@ -319,9 +319,9 @@ a.channel:hover {text-decoration:none; border-color:#aaa}
 #changeChannelSheet .section {padding:0}
 .changeChannelList {margin:-1px 0}
 .changeChannelList li {padding:0 !important}
-.changeChannelList label {display:block; padding:10px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
+.changeChannelList label {display:block; padding:10px}
 .changeChannelList .disabled {opacity:0.5}
-.changeChannelList .description {display:inline; margin-left:10px}
+.changeChannelList .description {display:block}
 
 
 /* Conversations list view */

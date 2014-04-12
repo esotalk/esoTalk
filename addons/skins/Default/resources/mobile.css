@@ -92,7 +92,7 @@ body {font-size:12px}
 /* Channel list */
 .channelList > li, .channelList .depth0 {padding:10px}
 .channelList .info {display:block; float:none; margin:0 0 0}
-.channelList .description {display:block; margin:5px 0 0}
+.channelList .description {margin:5px 0 0}
 .channelList .stats {display:none}
 
 
