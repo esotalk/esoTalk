@@ -123,7 +123,7 @@ span.highlight {background:#fdef34; border:1px solid #fcef98; padding:1px 3px; b
 
 
 /* Avatars */
-.avatar {width:64px; height:64px; vertical-align:middle; border-radius:2px}
+.avatar {width:64px; height:64px; vertical-align:middle; border-radius:32px}
 .avatar.thumb {width:20px; height:20px}
 
 
@@ -528,7 +528,7 @@ code {background:#eee}
 
 
 /* Member profile */
-#memberProfile .avatar {float:left; padding:3px; border:1px solid #d1d1d1; -webkit-box-shadow:0 1px 0 rgba(0, 0, 0, 0.05); box-shadow:0 1px 0 rgba(0, 0, 0, 0.05); border-radius:4px; background:#fff; margin-right:15px}
+#memberProfile .avatar {float:left; border-radius:32px; margin:20px 15px 0 0}
 #memberProfile .online {margin-left:5px; vertical-align:0}
 #memberInfo {float:left}
 #memberInfo h1 {margin:0 0 5px 0}
