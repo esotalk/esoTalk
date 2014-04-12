@@ -26,7 +26,7 @@ class ETConversationController extends ETController {
 public function index($conversationId = false, $year = false, $month = false)
 {
 	if (!$this->allowed()) return;
-	
+
 	// Get the conversation.
 	$conversation = ET::conversationModel()->getById((int)$conversationId);
 
@@ -112,7 +112,7 @@ public function index($conversationId = false, $year = false, $month = false)
 
 			// Make a timestamp out of this date.
 			else $timestamp = mktime(0, 0, 0, min($month, 12), 1, min($year, 2038));
-			
+
 			// Find the closest post that's after this timestamp, and find its position within the conversation.
 			$position = ET::SQL()
 				->select("COUNT(postId)", "position")
@@ -243,7 +243,7 @@ public function index($conversationId = false, $year = false, $month = false)
 
 		// If the user has permission to moderate this conversation...
 		if ($conversation["canModerate"]) {
-			
+
 			// Add the sticky/unsticky control.
 			$controls->add("sticky", "<a href='".URL("conversation/sticky/".$conversation["conversationId"]."/?token=".ET::$session->token."&return=".urlencode($this->selfURL))."' id='control-sticky'><i class='icon-pushpin'></i> <span>".T($conversation["sticky"] ? "Unsticky" : "Sticky")."</span></a>");
 
@@ -1174,19 +1174,98 @@ public function deletePost($postId = false)
 {
 	if (!($post = $this->getPostForEditing($postId)) or !$this->validateToken()) return;
 
-	ET::postModel()->deletePost($post);
-
-	// Normally, redirect back to the conversation.
-	if ($this->responseType === RESPONSE_TYPE_DEFAULT) {
-		redirect(URL(R("return", postURL($postId))));
-	}
-
-	// For an AJAX request, render the post view.
-	elseif ($this->responseType === RESPONSE_TYPE_AJAX) {
-		$this->data("post", $this->formatPostForTemplate($post, $post["conversation"]));
-		$this->render("conversation/post");
+	if (!$post["deleteMemberId"]) {
+		ET::postModel()->deletePost($post);
+		// Normally, redirect back to the conversation.
+		if ($this->responseType === RESPONSE_TYPE_DEFAULT) {
+			redirect(URL(R("return", postURL($postId))));
+		}
+		// For an AJAX request, render the post view.
+		elseif ($this->responseType === RESPONSE_TYPE_AJAX) {
+			$this->data("post", $this->formatPostForTemplate($post, $post["conversation"]));
+			$this->render("conversation/post");
+			return;
+		}
 		return;
 	}
+
+    ET::$database->beginTransaction();
+
+	$memberId = $post["memberId"];
+	$conversationId = $post["conversationId"];
+
+	$channelId = ET::SQL()
+		->select("channelId")
+		->from("conversation")
+		->where("conversationId", $conversationId)
+		->exec()->result();
+
+	if (!$channelId) {
+		ET::$database->rollbackTransaction();
+		return;
+	}
+
+	if (!ET::SQL()
+		->update("channel")
+		->set("countPosts", "GREATEST(0, CAST(countPosts AS SIGNED) - 1)", false)
+		->where("channelId = (".$channelId.")")
+		->exec()) {
+		ET::$database->rollbackTransaction();
+		return;
+	}
+
+	if (!ET::SQL()
+		->update("conversation")
+		->set("countPosts", "countPosts - 1", false)
+		->where("conversationid", $conversationId)
+		->exec()) {
+		ET::$database->rollbackTransaction();
+		return;
+	}
+
+	if (!ET::postModel()->deleteById($postId)) {
+		ET::$database->rollbackTransaction();
+		return;
+	}
+
+	$rows = ET::SQL()
+		->select("attachmentId")
+		->from("attachment")
+		->where("postId", $postId)
+		->exec()
+		->allRows();
+
+	$amodel = ET::getInstance("attachmentModel");
+
+	foreach ($rows as $row) {
+		$aid = $row["attachmentId"];
+		$attachment = $amodel->getById($aid);
+		$amodel->deleteById($aid);
+		@unlink($amodel->path().$attachmentId.$attachment["secret"]);
+	}
+
+	$res = ET::SQL()
+		->select("memberId, time")
+		->from("post")
+		->where("conversationId",$conversationId)
+		->orderBy("time DESC")
+		->limit(1)
+		->exec()
+		->firstRow();
+	if ($res) {
+		$endId = $res["memberId"];
+		$endTime = $res["time"];
+		if ($endId && $endTime) {
+			ET::SQL()
+			->update("conversation")
+			->set("lastPostMemberId", $endId, false)
+			->set("lastPostTime", $endTime, false)
+			->where("conversationid", $conversationId)
+			->exec();
+		}
+	}
+	ET::$database->commitTransaction();
+	return;
 }
 
 
@@ -1289,8 +1368,12 @@ protected function formatPostForTemplate($post, $conversation)
 		if ($post["deleteMemberId"]) $formatted["controls"][] = "<span>".sprintf(T("Deleted %s by %s"), "<span title='".strftime(T("date.full"), $post["deleteTime"])."'>".relativeTime($post["deleteTime"], true)."</span>", name($post["deleteMemberName"]))."</span>";
 
 		// If the user can edit the post, add a restore control.
-		if ($canEdit)
+		if ($canEdit) {
 			$formatted["controls"][] = "<a href='".URL("conversation/restorePost/".$post["postId"]."?token=".ET::$session->token)."' title='".T("Restore")."' class='control-restore'><i class='icon-reply'></i></a>";
+            if (ET::$session->isAdmin()) {
+                $formatted["controls"][] = "<a href='".URL("conversation/deletePost/".$post["postId"]."?token=".ET::$session->token)."' title='".T("Delete")."' class='control-delete'><i class='icon-remove'></i></a>";
+            }
+        }
 	}
 
 	$this->trigger("formatPostForTemplate", array(&$formatted, $post, $conversation));
@@ -1358,7 +1441,7 @@ protected function getPostForQuoting($postId, $conversationId)
 	$result = $result->firstRow();
 
 	// Convert spaces in the member name to non-breaking spaces.
-	// (Spaces aren't usually allowed in esoTalk usernames, so this is a bit of a "hack" for 
+	// (Spaces aren't usually allowed in esoTalk usernames, so this is a bit of a "hack" for
 	// certain esoTalk installations that do allow them.)
 	$result["username"] = str_replace(" ", "\xc2\xa0", $result["username"]);
 
