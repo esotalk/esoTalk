@@ -9,6 +9,20 @@ if (!defined("IN_ESOTALK")) exit;
  *
  * @package esoTalk
  */
+
+// If there are no channels, show a message.
+if (!$data["channels"]): ?>
+
+<div class='area noResults help'>
+<h4><?php echo T("message.noChannels"); ?></h4>
+<ul>
+<?php if (!ET::$session->user): ?><li><?php echo T("message.logInToSeeAllConversations"); ?></li><?php endif; ?>
+</ul>
+</div>
+
+<?php
+// If there are channels, however, show them!
+else:
 ?>
 <ul class='list channelList'>
 
@@ -36,3 +50,4 @@ if (!defined("IN_ESOTALK")) exit;
 <?php endforeach; ?>
 
 </ul>
+<?php endif; ?>

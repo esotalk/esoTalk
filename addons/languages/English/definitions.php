@@ -458,6 +458,7 @@ $definitions["message.memberNoPermissionView"] = "That member can't be added bec
 $definitions["message.nameTaken"] = "The name you have entered is taken or is a reserved word.";
 $definitions["message.newSearchResults"] = "There has been new activity that has affected your search results. <a href='%s'>Refresh</a>";
 $definitions["message.noActivity"] = "%s hasn't done anything on this forum yet!";
+$definitions["message.noChannels"] = "No channels are visible.";
 $definitions["message.noMembersOnline"] = "No members are currently online.";
 $definitions["message.noNotifications"] = "You have no notifications.";
 $definitions["message.noPermission"] = "You do not have permisssion to perform this action.";
