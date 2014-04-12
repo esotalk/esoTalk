@@ -15,7 +15,7 @@ $conversation = $data["conversation"];
 <ul class='channels tabs'>
 <li class='pathItem selected pathEnd'>
 <?php foreach ($conversation["channelPath"] as $channel): ?>
-<a href='<?php echo URL("conversations/".$channel["slug"]); ?>' data-channel='<?php echo $channel["slug"]; ?>' title='<?php echo sanitizeHTML(strip_tags($channel["description"])); ?>' class='channel-<?php echo $channel["channelId"]; ?>'><?php echo $channel["title"]; ?></a>
+<a href='<?php echo URL("conversations/".$channel["slug"]); ?>' data-channel='<?php echo $channel["slug"]; ?>' title='<?php echo sanitizeHTML(strip_tags($channel["description"])); ?>' class='channel channel-<?php echo $channel["channelId"]; ?>'><?php echo $channel["title"]; ?></a>
 <?php endforeach; ?>
 </li>
 </ul>

@@ -21,7 +21,7 @@ if (!defined("IN_ESOTALK")) exit;
 
 <?php if (!empty($data["channelPath"])):
 foreach ($data["channelPath"] as $channel): ?>
-<a href='<?php echo URL("conversations/".$channel["slug"]); ?>' data-channel='<?php echo $channel["slug"]; ?>' title='<?php echo sanitizeHTML(strip_tags($channel["description"])); ?>' class='channel-<?php echo $channel["channelId"]; ?>'><?php echo $channel["title"]; ?></a>
+<a href='<?php echo URL("conversations/".$channel["slug"]); ?>' data-channel='<?php echo $channel["slug"]; ?>' title='<?php echo sanitizeHTML(strip_tags($channel["description"])); ?>' class='channel channel-<?php echo $channel["channelId"]; ?>'><?php echo $channel["title"]; ?></a>
 <?php endforeach; ?>
 <?php endif; ?>
 </li>
