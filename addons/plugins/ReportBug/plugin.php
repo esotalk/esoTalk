@@ -29,7 +29,7 @@ class ETPlugin_ReportBug extends ETPlugin {
  */
 public function handler_init($sender)
 {
-	$sender->addToMenu("meta", "reportBug", "<a href='http://github.com/esotalk/esoTalk/issues/' target='_blank'>".T("Report a bug")."</a>");
+	$sender->addToMenu("meta", "reportBug", "<a href='http://esotalk.org/report' target='_blank'>".T("Report a bug")."</a>");
 }
 
 }
