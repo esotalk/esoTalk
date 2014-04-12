@@ -150,7 +150,7 @@ public function profile($member, $pane = "")
 
 	// If this is the logged-in user's profile, show a link to their settings page.
 	if ($member["memberId"] == ET::$session->userId)
-		$actions->add("settings", "<a href='".URL("settings")."'>".T("Edit your profile")."</a>");
+		$actions->add("settings", "<a href='".URL("settings")."'><i class='icon-pencil'></i> ".T("Edit your profile")."</a>");
 
 	// Otherwise, show links to do with the user's private conversations with this member.
 	elseif (ET::$session->userId) {

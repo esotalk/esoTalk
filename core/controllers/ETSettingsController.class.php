@@ -79,7 +79,7 @@ protected function profile($pane = "")
 	$actions = ETFactory::make("menu");
 
 	// Add a link to go back to the user's member profile.
-	$actions->add("viewProfile", "<a href='".URL("member/me")."'>".T("View your profile")."</a>");
+	$actions->add("viewProfile", "<a href='".URL("member/me")."'><i class='icon-eye-open'></i> ".T("View your profile")."</a>");
 
 	$this->trigger("init", array($panes, $controls, $actions));
 
