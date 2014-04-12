@@ -194,6 +194,7 @@ class AttachmentController extends ETController {
 			// Remove the attachment from the database and filesystem.
 			$model->deleteById($attachmentId);
 			@unlink($model->path().$attachmentId.$attachment["secret"]);
+			@unlink($model->path().$attachmentId.$attachment["secret"]."_thumb");
 		}
 	}
 
