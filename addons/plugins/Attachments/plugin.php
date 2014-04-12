@@ -24,7 +24,7 @@ class ETPlugin_Attachments extends ETPlugin {
 		$structure->table("attachment")
 			->column("attachmentId", "varchar(13)", false)
 			->column("filename", "varchar(255)", false)
-			->column("secret", "varchar(13)", false)			
+			->column("secret", "varchar(13)", false)
 			->column("postId", "int(11) unsigned")
 			->column("draftMemberId", "int(11) unsigned")
 			->column("draftConversationId", "int(11) unsigned")
@@ -97,6 +97,7 @@ class ETPlugin_Attachments extends ETPlugin {
 		$sender->addCSSFile($this->getResource("attachments.css"));
 		$sender->addJSFile($this->getResource("fineuploader/jquery.fineuploader.js"));
         $sender->addJSFile($this->getResource("attachments.js"));
+		$sender->addJSLanguage("Delete");
 	}
 
 	// When we render the reply box, add the attachments area to the bottom of it.
@@ -179,7 +180,7 @@ class ETPlugin_Attachments extends ETPlugin {
 	// A temporary array of attachments that will be listed at the end of a post.
 	// As embedded attachments are parsed, they are removed from this array
 	// so they are not listed at the end of the post.
-	protected $attachments = array(); 
+	protected $attachments = array();
 
 	// A callback to transform an embedded attachment.
 	public function attachmentCallback($matches)
