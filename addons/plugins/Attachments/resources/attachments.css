@@ -123,9 +123,11 @@ a.attachment i {
 	padding-top:40px;
 	font-size:20px;
 	color:#ccc;
+	z-index: 2;
 }
 .dropZoneActive {
 	border-color:#000;
 	background:#eee;
 	color:#000;
+	z-index: 2;
 }
