@@ -55,10 +55,6 @@ public function create(&$values)
 	$values["password"] = $this->hashPassword($values["password"]);
 	$values["joinTime"] = time();
 
-	// MD5 the "reset password" hash for storage (for extra safety).
-	$oldHash = isset($values["resetPassword"]) ? $values["resetPassword"] : null;
-	if (isset($values["resetPassword"])) $values["resetPassword"] = md5($values["resetPassword"]);
-
 	// Set default preferences.
 	if (empty($values["preferences"])) {
 		$preferences = array("email.privateAdd", "email.post", "starOnReply");
@@ -90,9 +86,6 @@ public function create(&$values)
 			->exec();
 	}
 
-	// Revert the "reset password" hash to what it was before we MD5'd it.
-	$values["resetPassword"] = $oldHash;
-
 	return $memberId;
 }
 
@@ -119,9 +112,6 @@ public function update($values, $wheres = array())
 
 	// Serialize preferences.
 	if (isset($values["preferences"])) $values["preferences"] = serialize($values["preferences"]);
-
-	// MD5 the "reset password" hash for storage (for extra safety).
-	if (isset($values["resetPassword"])) $values["resetPassword"] = md5($values["resetPassword"]);
 
 	if ($this->errorCount()) return false;
 

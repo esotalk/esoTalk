@@ -215,7 +215,7 @@ public function confirm($hash = "")
 		->select("1")
 		->from("member")
 		->where("memberId", $memberId)
-		->where("resetPassword", md5($hash))
+		->where("resetPassword", $hash)
 		->where("confirmed=0")
 		->exec();
 	if ($result->numRows()) {
@@ -326,7 +326,7 @@ public function reset($hashString = "")
 	$hash = substr($hashString, -32);
 
 	// Find the member with this password reset token. If it's an invalid token, take them back to the email form.
-	$member = reset(ET::memberModel()->get(array("m.memberId" => $memberId, "resetPassword" => md5($hash))));
+	$member = reset(ET::memberModel()->get(array("m.memberId" => $memberId, "resetPassword" => $hash)));
 	if (!$member) return;
 
 	// Construct a form.
