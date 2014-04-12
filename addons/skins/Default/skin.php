@@ -40,7 +40,7 @@ public function handler_init($sender)
 	if ($isMobile = isMobileBrowser()) {
 		$sender->addCSSFile($this->getResource("mobile.css"), true);
 		$sender->masterView = "mobile.master";
-		$sender->addToHead("<meta name='viewport' content='width=device-width; initial-scale=1.0; maximum-scale=1.0;'>");
+		$sender->addToHead("<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0'>");
 	}
 
 	// If custom colors have been set in this skin's settings, add some CSS to the page.
