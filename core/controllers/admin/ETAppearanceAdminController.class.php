@@ -84,6 +84,10 @@ public function activate($skin = "")
 	// Write the new setting to the config file.
 	ET::writeConfig(array("esoTalk.skin" => $skin));
 
+	// Clear skin cache.
+	$files = glob(PATH_CACHE.'/css/*.*');
+	foreach ($files as $file) unlink(realpath($file));
+
 	$this->redirect(URL("admin/appearance"));
 }
 
@@ -104,6 +108,10 @@ public function activateMobile($skin = "")
 
 	// Write the new setting to the config file.
 	ET::writeConfig(array("esoTalk.mobileSkin" => $skin));
+
+	// Clear skin cache.
+	$files = glob(PATH_CACHE.'/css/*.*');
+	foreach ($files as $file) unlink(realpath($file));
 
 	$this->redirect(URL("admin/appearance"));
 }
