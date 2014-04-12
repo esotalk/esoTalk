@@ -5,6 +5,8 @@ $(function() {
 		var $post = $("#"+postId);
 		var $attachments = $post.find('.attachments-edit ul');
 
+		if (!$attachments.length) return;
+
 		var uploader = new qq.FineUploaderBasic({
 			debug: true,
 			button: $post.find('.attachments-button')[0],
