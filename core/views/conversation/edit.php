@@ -26,7 +26,7 @@ echo $form->open(); ?>
 <h1 id='conversationTitle'><?php echo $form->input("title", "text", array("placeholder" => T("Enter a conversation title"), "tabindex" => 100, "maxlength" => 100)); ?></h1>
 <?php
 
-// Channel 
+// Channel
 $this->renderView("conversation/channelPath", array("conversation" => $conversation));
 ?>
 
@@ -37,7 +37,7 @@ $this->renderView("conversation/channelPath", array("conversation" => $conversat
 <?php
 // Controls
 if ($conversation["conversationId"]): ?>
-<?php echo $form->saveButton(); ?> 
+<?php echo $form->saveButton(); ?>
 <a href='<?php echo URL(R("return", conversationURL($conversation["conversationId"], $conversation["title"]))); ?>' class='button cancel'><?php echo T("Cancel"); ?></a>
 <?php endif; ?>
 
@@ -47,7 +47,7 @@ if (!$conversation["conversationId"]): ?>
 
 <div id='conversationPrivacy' class='area'>
 <span class='allowedList action'><?php $this->renderView("conversation/membersAllowedSummary", $data); ?></span>
-<a href='#membersAllowedSheet' id='control-changeMembersAllowed'><i class='icon-pencil'></i> <?php echo T("Change"); ?></a>
+<div style='float:right;'><a href='#membersAllowedSheet' id='control-changeMembersAllowed'><i class='icon-pencil'></i> <?php echo T("Change"); ?></a></div>
 </div>
 
 <div id='conversationReply'>
