@@ -10,3 +10,5 @@ $definitions["This post answered my question"] = "This post answered my question
 $definitions["Answered by %s"] = "Answered by %s";
 $definitions["See post in context"] = "See post in context";
 $definitions["Remove answer"] = "Remove answer";
+
+$definitions["label.answered"] = "Answered";
