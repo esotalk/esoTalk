@@ -1,4 +1,4 @@
-#debug {clear:both; margin-top:20px; border-top:5px solid #e8da00; position:relative;}
+#debug {clear:both; margin-top:20px; border-top:5px solid #e8da00; position:relative; z-index:999}
 #debugHdr {margin:0; background:#ffa;  padding:8px 25px; overflow:hidden}
 #debugHdr h2 {font-size:110%; font-weight:bold; display:inline}
 #debug h3 {margin:-1px 0 0; font-size:110%}
