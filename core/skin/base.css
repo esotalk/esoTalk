@@ -457,7 +457,7 @@ a.deleteLink:hover {color:#f00 !important; text-decoration:line-through}
 .postHeader .controls {float:right; margin-top:3px}
 
 .postBody {line-height:1.5em; overflow:auto; padding:0px 12px}
-.postBody img {vertical-align:bottom; max-width:100%}
+.postBody img {vertical-align:bottom; max-width:100%; border: 1px solid #ccc; border-radius:3px}
 .postBody ul {list-style-type:disc}
 
 .deleted .postHeader {margin:0; padding:6px 5px 6px 12px}
