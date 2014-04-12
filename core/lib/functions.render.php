@@ -254,7 +254,7 @@ if (!function_exists("groupLink")) {
  */
 function groupLink($group)
 {
-	return "<a href='".URL("members/?search=".urlencode($group))."'>".groupName($group, true)."</a>";
+	return "<a href='".URL("members/?search=".urlencode(groupName($group)))."'>".groupName($group, true)."</a>";
 }
 
 }
