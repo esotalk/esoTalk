@@ -73,14 +73,14 @@ public function handler_format_beforeFormat($sender)
 	$this->blockFixedContents = array();
 	$this->inlineFixedContents = array();
 
-	$regexp = "/(.*)^\s*\[code\]\n?(.*?)\n?\[\/code]$/imse";
+	$regexp = "/(.*)^\s*\[code\]\n?(.*?)\n?\[\/code]$/ims";
 	while (preg_match($regexp, $sender->content)) {
 		if ($sender->inline) $sender->content = preg_replace($regexp, "'$1' . \$hideInline(\$this->inlineFixedContents, '$2')", $sender->content);
 		else $sender->content = preg_replace($regexp, "'$1' . \$hideBlock(\$this->blockFixedContents, '$2')", $sender->content);
 	}
 
 	// Inline-level [fixed] tags will become <code>.
-	$sender->content = preg_replace("/\[code\]\n?(.*?)\n?\[\/code]/ise", "\$hideInline(\$this->inlineFixedContents, '$1')", $sender->content);
+	$sender->content = preg_replace("/\[code\]\n?(.*?)\n?\[\/code]/is", "\$hideInline(\$this->inlineFixedContents, '$1')", $sender->content);
 }
 
 
@@ -147,7 +147,7 @@ public function linksCallback($matches)
 public function handler_format_afterFormat($sender)
 {
 	// Retrieve the contents of the inline <code> tags from the array in which they are stored.
-	$sender->content = preg_replace("/<code><\/code>/ie", "'<code>' . array_shift(\$this->inlineFixedContents) . '</code>'", $sender->content);
+	$sender->content = preg_replace("/<code><\/code>/is", "'<code>' . array_shift(\$this->inlineFixedContents) . '</code>'", $sender->content);
 
 	// Retrieve the contents of the block <pre> tags from the array in which they are stored.
 	if (!$sender->inline) $sender->content = preg_replace("/<pre><\/pre>/ie", "'<pre>' . array_pop(\$this->blockFixedContents) . '</pre>'", $sender->content);

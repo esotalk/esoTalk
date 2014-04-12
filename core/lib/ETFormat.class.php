@@ -104,7 +104,7 @@ public function get()
 public function firstLine()
 {
 	$this->content = substr($this->content, 0, strpos($this->content, "\n"));
-	
+
 	return $this;
 }
 
@@ -141,7 +141,7 @@ public function closeTags()
 {
 	// Remove any half-opened HTML tags at the end.
 	$this->content = preg_replace('#<[^>]*$#i', "", $this->content);
-	
+
 	// Put all opened tags into an array.
     preg_match_all('#<(?!meta|img|br|hr|input\b)\b([a-z]+)(?: .*)?(?<![/|/ ])>#iU', $this->content, $result);
 	$openedTags = $result[1];
@@ -331,7 +331,7 @@ public function removeQuotes()
 public function mentions()
 {
 	$this->content = preg_replace(
-		'/(^|[\s,\.:\]])@([^\s[\]]{3,20})\b/ieu',
+		'/(^|[\s,\.:\]])@([^\s[\]]{3,20})\b/iu',
 		"'$1<a href=\''.URL('member/name/'.urlencode(str_replace('&nbsp;', ' ', '$2')), true).'\' class=\'link-member\'>@$2</a>'",
 		$this->content
 	);
