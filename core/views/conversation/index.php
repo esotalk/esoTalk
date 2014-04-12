@@ -106,7 +106,11 @@ if ($data["searchString"] and !$conversation["countPosts"]): ?>
 echo starButton($conversation["conversationId"], $conversation["starred"])."\n";
 ?>
 
-<a href='#reply' class='button big<?php if (!$conversation["canReply"] and ET::$session->user): ?> disabled<?php endif; ?>' id='jumpToReply'><i class='icon-plus'></i> <?php echo T("Post a Reply"); ?></a>
+<?php if (!ET::$session->user): ?>
+<a href='<?php echo URL("user/login?return=".urlencode($this->selfURL)."/#reply"); ?>' class='button big'><i class="icon-plus"></i> <?php echo T("Post a Reply"); ?></a>
+<?php else: ?>
+<a href='#reply' class='button big' id='jumpToReply'><i class='icon-plus'></i> <?php echo T("Post a Reply"); ?></a>
+<?php endif; ?>
 
 <?php $this->trigger("renderScrubberBefore", array($data)); ?>
 
