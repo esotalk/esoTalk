@@ -285,7 +285,7 @@ public function init()
 			if (ET::$session->isAdmin())
 				$this->addToMenu("user", "administration", "<a href='".URL("admin")."' class='link-administration'>".T("Administration")."</a>");
 
-			$this->addToMenu("user", "logout", "<a href='".URL("user/logout")."' class='link-logout'>".T("Log Out")."</a>");
+			$this->addToMenu("user", "logout", "<a href='".URL("user/logout?return=".urlencode($this->selfURL")."' class='link-logout'>".T("Log Out")."</a>");
 		}
 
 		// Get the number of members currently online and add it as a statistic.
@@ -401,7 +401,7 @@ public function render($view = "")
 	$this->trigger("renderBefore");
 
 	if ($this->responseType == RESPONSE_TYPE_DEFAULT and ET::$session->user) {
-		
+
 		// Fetch all unread notifications so we have a count for the notifications button.
 		$notifications = ET::activityModel()->getNotifications(-1);
 		$count = count($notifications);
@@ -409,7 +409,7 @@ public function render($view = "")
 
 		// Show messages with these notifications.
 		$this->notificationMessages($notifications);
-		
+
 	}
 
 	// Set up the master view, content type, and other stuff depending on the response type.
