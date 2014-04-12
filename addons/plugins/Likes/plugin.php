@@ -102,6 +102,7 @@ public function handler_postModel_getPostsAfter($sender, &$posts)
 
 public function handler_conversationController_renderBefore($sender)
 {
+	$sender->addJSLanguage("Like", "Unlike");
 	$sender->addJSFile($this->getResource("likes.js"));
 	$sender->addCSSFile($this->getResource("likes.css"));
 }

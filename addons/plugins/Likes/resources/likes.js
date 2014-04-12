@@ -8,7 +8,7 @@ $(function() {
 	$(".likes .like-button").live("click", function(e) {
 		e.preventDefault();
 		var area = $(this).parents(".likes");
-		area.find(".like-button").html(area.hasClass("liked") ? "Like" : "Unlike");
+		area.find(".like-button").html(area.hasClass("liked") ? T("Like") : T("Unlike"));
 		
 		$.ETAjax({
 			url: "conversation/"+(area.hasClass("liked") ? "unlike" : "like")+".json/"+area.parents(".post").data("id"),
