@@ -135,8 +135,8 @@ span.highlight {background:#fdef34; border:1px solid #fcef98; padding:1px 3px; b
 .message.hasIcon img {float:left; margin:-2px 8px -2px -3px}
 .message code {background:none}
 
-.message.warning {background:rgba(150, 0, 0, 0.8); border:0; color:#fff; text-shadow:0 1px #000}
-.message.success {background:rgba(0, 50, 0, 0.8); border:0; color:#fff; text-shadow:0 1px #000}
+.message.warning {background-color:#f2dce1; border:1px solid #d7bec4; color:#000}
+.message.success {background-color:#e6efcc; border:1px solid #c8d4a7; color:#000}
 
 
 /* Class that can be applied to an <a> in a message to make the full message clickable. */
