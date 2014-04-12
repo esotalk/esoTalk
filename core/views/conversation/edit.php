@@ -30,7 +30,7 @@ echo $form->open(); ?>
 $this->renderView("conversation/channelPath", array("conversation" => $conversation));
 ?>
 
-<a href='<?php echo URL("conversation/changeChannel/".$conversation["conversationId"]); ?>' id='control-changeChannel'><?php echo T("Change channel"); ?></a>
+<a href='<?php echo URL("conversation/changeChannel/".$conversation["conversationId"]); ?>' id='control-changeChannel'><i class='icon-tag'></i> <?php echo T("Change channel"); ?></a>
 
 </div>
 
@@ -47,7 +47,7 @@ if (!$conversation["conversationId"]): ?>
 
 <div id='conversationPrivacy' class='area'>
 <span class='allowedList action'><?php $this->renderView("conversation/membersAllowedSummary", $data); ?></span>
-<a href='#membersAllowedSheet' id='control-changeMembersAllowed'><?php echo T("Change"); ?></a>
+<a href='#membersAllowedSheet' id='control-changeMembersAllowed'><i class='icon-pencil'></i> <?php echo T("Change"); ?></a>
 </div>
 
 <div id='conversationReply'>
