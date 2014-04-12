@@ -624,7 +624,7 @@ deletePost: function(postId) {
 	});
 },
 
-// Delete a post.
+// Restore a post.
 restorePost: function(postId) {
 
 	$.hideToolTip();
