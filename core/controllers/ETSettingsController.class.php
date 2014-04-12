@@ -160,7 +160,7 @@ public function general()
 
 			if (count($preferences)) ET::$session->setPreferences($preferences);
 
-			$this->message(T("message.changesSaved"), "success");
+			$this->message(T("message.changesSaved"), "success autoDismiss");
 			$this->redirect(URL("settings/general"));
 
 		}
@@ -173,7 +173,7 @@ public function general()
 		@unlink(PATH_UPLOADS."/avatars/".$member["memberId"].".".$member["avatarFormat"]);
 		ET::memberModel()->updateById($member["memberId"], array("avatarFormat" => null));
 
-		$this->message(T("message.changesSaved"), "success");
+		$this->message(T("message.changesSaved"), "success autoDismiss");
 		$this->redirect(URL("settings/general"));
 
 	}
@@ -473,7 +473,7 @@ public function password()
 
 			// Otherwise, show a message and redirect.
 			else {
-				$this->message(T("message.changesSaved"), "success");
+				$this->message(T("message.changesSaved"), "success autoDismiss");
 				$this->redirect(URL("settings"));
 			}
 

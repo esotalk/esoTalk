@@ -55,7 +55,7 @@ public function approve($memberId)
 		sprintf(T("email.header"), $member["username"]).sprintf(T("email.approved.body"), C("esoTalk.forumTitle"), URL("user/login", true))
 	);
 
-	$this->message(T("message.changesSaved"), "success");
+	$this->message(T("message.changesSaved"), "success autoDismiss");
 	$this->redirect(URL("admin/unapproved"));
 }
 
@@ -76,7 +76,7 @@ public function deny($memberId)
 
 	ET::memberModel()->deleteById($memberId);
 
-	$this->message(T("message.changesSaved"), "success");
+	$this->message(T("message.changesSaved"), "success autoDismiss");
 	$this->redirect(URL("admin/unapproved"));
 }
 

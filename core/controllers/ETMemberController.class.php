@@ -332,7 +332,7 @@ public function permissions($memberId = "")
 		ET::memberModel()->setGroups($member, $currentAccount, $currentGroups);
 
 		// Show a message and redirect.
-		$this->message(T("message.changesSaved"), "success");
+		$this->message(T("message.changesSaved"), "success autoDismiss");
 		$this->redirect($redirectURL);
 	}
 
@@ -410,14 +410,14 @@ public function suspend($memberId = "")
 	// Suspend the member?
 	if ($form->validPostBack("suspend") and $member["account"] != ACCOUNT_SUSPENDED) {
 		ET::memberModel()->setGroups($member, ACCOUNT_SUSPENDED);
-		$this->message(T("message.changesSaved"), "success");
+		$this->message(T("message.changesSaved"), "success autoDismiss");
 		$this->redirect($redirectURL);
 	}
 
 	// Or unsuspend the member?
 	elseif ($form->validPostBack("unsuspend") and $member["account"] == ACCOUNT_SUSPENDED) {
 		ET::memberModel()->setGroups($member, ACCOUNT_MEMBER);
-		$this->message(T("message.changesSaved"), "success");
+		$this->message(T("message.changesSaved"), "success autoDismiss");
 		$this->redirect($redirectURL);
 	}
 
@@ -461,7 +461,7 @@ public function rename($memberId = "")
 		// Check for errors - if there are none, show a message and redirect.
 		if ($model->errorCount()) $form->errors($model->errors());
 		else {
-			$this->message(T("message.changesSaved"), "success");
+			$this->message(T("message.changesSaved"), "success autoDismiss");
 			$this->redirect($redirectURL);
 		}
 	}
@@ -499,7 +499,7 @@ public function delete($memberId = "")
 	// If the form was submitted, delete the member and take the appropriate action upon all their posts.
 	if ($form->validPostBack("delete")) {
 		ET::memberModel()->deleteById($member["memberId"], $form->getValue("deletePosts"));
-		$this->message(T("message.changesSaved"), "success");
+		$this->message(T("message.changesSaved"), "success autoDismiss");
 		$this->redirect(URL("members"));
 	}
 

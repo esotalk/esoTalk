@@ -84,7 +84,7 @@ public function edit($channelId = "")
 
 	 	// Otherwise, show a message and redirect.
 	 	else {
-	 		$this->message(T("message.changesSaved"), "success");
+	 		$this->message(T("message.changesSaved"), "success autoDismiss");
 	 		$this->redirect(URL("admin/channels"));
 	 	}
 
@@ -193,7 +193,7 @@ public function create()
 		 	// Set the channel's permissions.
 	 		$model->setPermissions($channelId, $form->getValue("permissions"));
 
-	 		$this->message(T("message.changesSaved"), "success");
+	 		$this->message(T("message.changesSaved"), "success autoDismiss");
 	 		$this->redirect(URL("admin/channels"));
 
 	 	}
@@ -248,7 +248,7 @@ public function delete($channelId)
 
 			// Otherwise, redirect back to the channels page.
 			else {
-				$this->message(T("message.changesSaved"), "success");
+				$this->message(T("message.changesSaved"), "success autoDismiss");
 				$this->redirect(URL("admin/channels"));
 			}
 

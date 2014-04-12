@@ -78,7 +78,7 @@ public function index()
 
 		if (!$form->errorCount()) {
 			ET::writeConfig($config);
-			$this->message(T("message.changesSaved"), "success");
+			$this->message(T("message.changesSaved"), "success autoDismiss");
 			$this->redirect(URL("admin/settings"));
 		}
 
