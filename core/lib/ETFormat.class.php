@@ -251,13 +251,13 @@ public function lists()
 	$orderedList = create_function('$list',
 		'$list = preg_replace("/^[0-9]+[.)]\s+([^\n]*)(?:\n|$)/m", "<li>$1</li>", trim($list));
 		return $list;');
-	$this->content = preg_replace("/(?:^[0-9]+[.)]\s+([^\n]*)(?:\n|$)){2,}/me", "'</p><ol>'.\$orderedList('$0').'</ol><p>'", $this->content);
+	$this->content = preg_replace("/(?:^[0-9]+[.)]\s+([^\n]*)(?:\n|$)){2,}/m", "'</p><ol>'.\$orderedList('$0').'</ol><p>'", $this->content);
 
 	// Same goes for unordered lists, but with a - or a * instead of a number.
 	$unorderedList = create_function('$list',
 		'$list = preg_replace("/^ *[-*]\s*([^\n]*)(?:\n|$)/m", "<li>$1</li>", trim($list));
 		return "$list";');
-	$this->content = preg_replace("/(?:^ *[-*]\s*([^\n]*)(?:\n|$)){2,}/me", "'</p><ul>'.\$unorderedList('$0').'</ul><p>'", $this->content);
+	$this->content = preg_replace("/(?:^ *[-*]\s*([^\n]*)(?:\n|$)){2,}/m", "'</p><ul>'.\$unorderedList('$0').'</ul><p>'", $this->content);
 
 	return $this;
 }

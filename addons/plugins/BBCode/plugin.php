@@ -150,7 +150,7 @@ public function handler_format_afterFormat($sender)
 	$sender->content = preg_replace("/<code><\/code>/is", "'<code>' . array_shift(\$this->inlineFixedContents) . '</code>'", $sender->content);
 
 	// Retrieve the contents of the block <pre> tags from the array in which they are stored.
-	if (!$sender->inline) $sender->content = preg_replace("/<pre><\/pre>/ie", "'<pre>' . array_pop(\$this->blockFixedContents) . '</pre>'", $sender->content);
+	if (!$sender->inline) $sender->content = preg_replace("/<pre><\/pre>/i", "'<pre>' . array_pop(\$this->blockFixedContents) . '</pre>'", $sender->content);
 }
 
 }
