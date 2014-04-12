@@ -370,8 +370,8 @@ negative margins so they overlap the padding of the <li>. */
 /* Conversation header */
 #conversationHeader {margin-bottom:0}
 #conversationHeader .star {vertical-align:-2px; margin-left:10px}
-#conversationHeader .channels {margin-left:15px; display:inline-block; margin-bottom:-7px;}
-#conversationHeader > #control-changeChannel {font-size:85%; margin-left:10px}
+#conversationHeader .channels {margin-left:15px; display:inline-block; margin-bottom:-11px;}
+#conversationHeader > #control-changeChannel {font-size:85%}
 
 #conversationTitle {margin:0; line-height:1.4em; vertical-align:-2px; font-weight:300; font-size:22px}
 #conversationTitle input.text {font-weight:300}
