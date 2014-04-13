@@ -386,7 +386,7 @@ negative margins so they overlap the padding of the <li>. */
 
 
 /* Conversation privacy */
-#conversationPrivacy {margin:10px 0 40px; padding:10px 15px; clear:both}
+#conversationPrivacy {margin:10px 0 40px; padding:10px 15px; clear:both; border:1px solid #f6f6f7; background:#fff}
 #control-changeMembersAllowed {font-size:85%; margin-left:5px}
 
 
