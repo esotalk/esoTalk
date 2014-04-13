@@ -50,6 +50,7 @@ protected function getSkins()
 					"info" => ET::$skinInfo[$file],
 					"selected" => $file == C("esoTalk.skin"),
 					"selectedMobile" => $file == C("esoTalk.mobileSkin"),
+                    "selectedAdmin" => $file == C("esoTalk.adminSkin"),
 					"settingsView" => false
 				);
 
@@ -118,6 +119,31 @@ public function activateMobile($skin = "")
 
 
 /**
+ * Activate a skin so it is used as the admin skin.
+ *
+ * @param string $skin The name of the skin.
+ * @return void
+ */
+public function activateAdmin($skin = "")
+{
+    if (!$this->validateToken()) return;
+
+    // Get the skins and make sure this one exists.
+    $skins = $this->getSkins();
+    if (!$skin or !array_key_exists($skin, $skins)) return false;
+
+    // Write the new setting to the config file.
+    ET::writeConfig(array("esoTalk.adminSkin" => $skin));
+
+    // Clear skin cache.
+    $files = glob(PATH_CACHE.'/css/*.*');
+    foreach ($files as $file) unlink(realpath($file));
+
+    $this->redirect(URL("admin/appearance"));
+}
+
+
+/**
  * Uninstall a skin by removing its directory.
  *
  * @param string $skin The name of the skin.
@@ -143,6 +169,7 @@ public function uninstall($skin = "")
 	$config = array();
 	if (C("esoTalk.skin") == $skin) $config["esoTalk.skin"] = reset(array_keys($skins));
 	if (C("esoTalk.mobileSkin") == $skin) $config["esoTalk.mobileSkin"] = reset(array_keys($skins));
+    if (C("esoTalk.adminSkin") == $skin) $config["esoTalk.adminSkin"] = reset(array_keys($skins));
 	if (count($config)) ET::writeConfig($config);
 
 	$this->redirect(URL("admin/appearance"));
