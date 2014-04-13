@@ -89,8 +89,8 @@ span.highlight {background:#fdef34; border:1px solid #fcef98; padding:1px 3px; b
 
 /* Controls (icons with hover/click effects) */
 [class*=control-] {opacity:0.4; -webkit-transition:opacity 0.05s linear; width:12px; height:12px; padding:6px; margin:-6px -1px; font-size:14px; text-decoration:none !important; color:#444 !important}
-[class*=control-]:hover {opacity:0.7}
-[class*=control-]:active {opacity:1}
+[class*=control-]:hover {opacity:1; color:#000 !important;}
+[class*=control-]:active {opacity:1; color:#000 !important;}
 
 
 /* RSS icon */
@@ -123,7 +123,7 @@ span.highlight {background:#fdef34; border:1px solid #fcef98; padding:1px 3px; b
 
 
 /* Avatars */
-.avatar {width:64px; height:64px; vertical-align:middle; border-radius:2px}
+.avatar {width:64px; height:64px; vertical-align:middle; border-radius:32px}
 .avatar.thumb {width:20px; height:20px}
 
 
@@ -261,9 +261,10 @@ a.channel:hover {text-decoration:none; border-color:#aaa}
 
 /* Search boxes */
 .search {float:right}
-.search input.text {width:250px; padding-right:30px; padding-left:25px; background:#fff url(icons.png) no-repeat -13px -290px; float:left; height:18px; font-size:100%}
+.search input.text {font-family: 'FontAwesome'; width:275px; padding-right:30px; float:left; height:18px; font-size:100%}
 .search .control-reset {margin-top:1px; margin-left:-25px; margin-right:0}
 .search .popupButton {margin-left:10px; vertical-align:2px}
+.searchIconRemove {position:relative; top:6px}
 
 
 /* Notifications popup + list */
@@ -386,7 +387,7 @@ negative margins so they overlap the padding of the <li>. */
 
 
 /* Conversation privacy */
-#conversationPrivacy {margin:10px 0 40px; padding:10px 15px; clear:both}
+#conversationPrivacy {margin:10px 0 40px; padding:10px 15px; clear:both; border:1px solid #f6f6f7; background:#fff}
 #control-changeMembersAllowed {font-size:85%; margin-left:5px}
 
 
@@ -457,7 +458,7 @@ a.deleteLink:hover {color:#f00 !important; text-decoration:line-through}
 .postHeader .controls {float:right; margin-top:3px}
 
 .postBody {line-height:1.5em; overflow:auto; padding:0px 12px}
-.postBody img {vertical-align:bottom; max-width:100%}
+.postBody img {vertical-align:bottom; max-width:100%; border: 1px solid #ccc; border-radius:3px}
 .postBody ul {list-style-type:disc}
 
 .deleted .postHeader {margin:0; padding:6px 5px 6px 12px}
@@ -528,7 +529,7 @@ code {background:#eee}
 
 
 /* Member profile */
-#memberProfile .avatar {float:left; padding:3px; border:1px solid #d1d1d1; -webkit-box-shadow:0 1px 0 rgba(0, 0, 0, 0.05); box-shadow:0 1px 0 rgba(0, 0, 0, 0.05); border-radius:4px; background:#fff; margin-right:15px}
+#memberProfile .avatar {float:left; border-radius:32px; margin:20px 15px 0 0}
 #memberProfile .online {margin-left:5px; vertical-align:0}
 #memberInfo {float:left}
 #memberInfo h1 {margin:0 0 5px 0}

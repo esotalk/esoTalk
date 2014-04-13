@@ -12,7 +12,7 @@ if (!defined("IN_ESOTALK")) exit;
 			<a href='<?php echo URL("attachment/remove/".$attachment["attachmentId"]."?token=".ET::$session->token); ?>' class='control-delete' data-id='<?php echo $attachment["attachmentId"]; ?>'><i class='icon-remove'></i></a>
 			<strong><?php echo $attachment["filename"]; ?></strong>
 			<span class='attachment-controls'>
-				<a href='#' class='control-embed' title='Embed in post' data-id='<?php echo $attachment["attachmentId"]; ?>'><i class='icon-external-link'></i></a>
+				<a href='#' class='control-embed' title='<?php echo T("Embed in post"); ?>' data-id='<?php echo $attachment["attachmentId"]; ?>'><i class='icon-external-link'></i></a>
 			</span>
 		</li>
 		<?php endforeach; ?>

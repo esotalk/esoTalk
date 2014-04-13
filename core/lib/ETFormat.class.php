@@ -104,7 +104,7 @@ public function get()
 public function firstLine()
 {
 	$this->content = substr($this->content, 0, strpos($this->content, "\n"));
-	
+
 	return $this;
 }
 
@@ -141,7 +141,7 @@ public function closeTags()
 {
 	// Remove any half-opened HTML tags at the end.
 	$this->content = preg_replace('#<[^>]*$#i', "", $this->content);
-	
+
 	// Put all opened tags into an array.
     preg_match_all('#<(?!meta|img|br|hr|input\b)\b([a-z]+)(?: .*)?(?<![/|/ ])>#iU', $this->content, $result);
 	$openedTags = $result[1];
@@ -251,13 +251,13 @@ public function lists()
 	$orderedList = create_function('$list',
 		'$list = preg_replace("/^[0-9]+[.)]\s+([^\n]*)(?:\n|$)/m", "<li>$1</li>", trim($list));
 		return $list;');
-	$this->content = preg_replace("/(?:^[0-9]+[.)]\s+([^\n]*)(?:\n|$)){2,}/me", "'</p><ol>'.\$orderedList('$0').'</ol><p>'", $this->content);
+	$this->content = preg_replace("/(?:^[0-9]+[.)]\s+([^\n]*)(?:\n|$)){2,}/m", "'</p><ol>'.\$orderedList('$0').'</ol><p>'", $this->content);
 
 	// Same goes for unordered lists, but with a - or a * instead of a number.
 	$unorderedList = create_function('$list',
 		'$list = preg_replace("/^ *[-*]\s*([^\n]*)(?:\n|$)/m", "<li>$1</li>", trim($list));
 		return "$list";');
-	$this->content = preg_replace("/(?:^ *[-*]\s*([^\n]*)(?:\n|$)){2,}/me", "'</p><ul>'.\$unorderedList('$0').'</ul><p>'", $this->content);
+	$this->content = preg_replace("/(?:^ *[-*]\s*([^\n]*)(?:\n|$)){2,}/m", "'</p><ul>'.\$unorderedList('$0').'</ul><p>'", $this->content);
 
 	return $this;
 }
@@ -331,7 +331,7 @@ public function removeQuotes()
 public function mentions()
 {
 	$this->content = preg_replace(
-		'/(^|[\s,\.:\]])@([^\s[\]]{3,20})\b/ieu',
+		'/(^|[\s,\.:\]])@([^\s[\]]{3,20})\b/iu',
 		"'$1<a href=\''.URL('member/name/'.urlencode(str_replace('&nbsp;', ' ', '$2')), true).'\' class=\'link-member\'>@$2</a>'",
 		$this->content
 	);

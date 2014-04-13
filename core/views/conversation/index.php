@@ -58,8 +58,8 @@ $this->renderView("conversation/channelPath", array("conversation" => $conversat
 // Search within conversation form ?>
 <form class='search' id='searchWithinConversation' action='<?php echo URL(conversationURL($conversation["conversationId"], $conversation["title"])); ?>' method='get'>
 <fieldset>
-<input name='search' type='text' class='text' value='<?php echo sanitizeHTML($data["searchString"]); ?>' placeholder='<?php echo T("Search within this conversation..."); ?>'/>
-<?php if ($data["searchString"]): ?><a href='<?php echo URL(conversationURL($conversation["conversationId"], $conversation["title"])); ?>' class='control-reset'><i class='icon-remove'></i></a><?php endif; ?>
+<input name='search' type='text' class='text' value='<?php echo sanitizeHTML($data["searchString"]); ?>' placeholder='&#61442; <?php echo T("Search within this conversation..."); ?>'/>
+<?php if ($data["searchString"]): ?><a href='<?php echo URL(conversationURL($conversation["conversationId"], $conversation["title"])); ?>' class='control-reset searchIconRemove'><i class='icon-remove'></i></a><?php endif; ?>
 </fieldset>
 </form>
 
@@ -78,7 +78,7 @@ if ($data["controlsMenu"]->count()): ?>
 if (count($conversation["membersAllowedSummary"]) or $conversation["startMemberId"] == ET::$session->userId or $conversation["canModerate"]): ?>
 <div id='conversationPrivacy' class='area'>
 <span class='allowedList action'><?php $this->renderView("conversation/membersAllowedSummary", $data); ?></span>
-<?php if ($conversation["startMemberId"] == ET::$session->userId): ?><a href='<?php echo URL("conversation/edit/".$conversation["conversationId"]); ?>' id='control-changeMembersAllowed'><i class='icon-pencil'></i> <?php echo T("Change"); ?></a><?php endif; ?>
+<?php if ($conversation["startMemberId"] == ET::$session->userId): ?><div style="float: right;"><a href='<?php echo URL("conversation/edit/".$conversation["conversationId"]); ?>' id='control-changeMembersAllowed'><i class='icon-pencil'></i> <?php echo T("Change"); ?></a></div><?php endif; ?>
 </div>
 <?php endif; ?>
 
@@ -105,7 +105,11 @@ if ($data["searchString"] and !$conversation["countPosts"]): ?>
 echo starButton($conversation["conversationId"], $conversation["starred"])."\n";
 ?>
 
-<a href='#reply' class='button big<?php if (!$conversation["canReply"] and ET::$session->user): ?> disabled<?php endif; ?>' id='jumpToReply'><i class='icon-plus-sign'></i> <?php echo T("Post a Reply"); ?></a>
+<?php if (!$conversation["canReply"] and !ET::$session->user): ?>
+<a href='<?php echo URL("user/login?return=".urlencode($this->selfURL)."/#reply"); ?>' class='button big'><i class="icon-plus-sign"></i> <?php echo T("Post a Reply"); ?></a>
+<?php else: ?>
+<a href='#reply' class='button big' id='jumpToReply'><i class='icon-plus-sign'></i> <?php echo T("Post a Reply"); ?></a>
+<?php endif; ?>
 
 <?php $this->trigger("renderScrubberBefore", array($data)); ?>
 

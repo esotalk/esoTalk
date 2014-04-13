@@ -213,7 +213,7 @@ initReply: function() {
 	textarea.TextAreaExpander(200, 700);
 
 	// Disable the "post reply" button if there's not a draft. Disable the save draft button regardless.
-	if (!textarea.val()) $("#reply .postReply").disable();
+	if (!textarea.val()) $("#reply .postReply, #reply .discardDraft").disable();
 	$("#reply .saveDraft").disable();
 
 	// Add event handlers on the textarea to enable/disable buttons.
@@ -221,6 +221,8 @@ initReply: function() {
 		if (e.ctrlKey) return;
 		$("#reply .postReply, #reply .saveDraft")[$(this).val() ? "enable" : "disable"]();
 		ETConversation.editingReply = $(this).val() ? true : false;
+		// We need to somehow bind the beforeunload event again here to make it work again.
+		$(window).bind("beforeunload.ajax", ETConversation.beforeUnload);
 	});
 
 	if (ET.mentions) new ETAutoCompletePopup($("#reply textarea"), "@");
@@ -277,7 +279,7 @@ initReply: function() {
 	$("#reply .controls a").tooltip({alignment: "center"});
 
 	// Register the Ctrl+Enter shortcut.
-	textarea.keypress(function(e) {
+	textarea.keydown(function(e) {
 		if (e.ctrlKey && e.which == 13 && !$("#reply .postReply").prop("disabled")) {
 			$("#reply .postReply").click();
 			e.preventDefault();
@@ -327,9 +329,13 @@ addReply: function() {
 		data: {conversationId: ETConversation.id, content: content},
 		success: function(data) {
 
-			// If there are messages, enable the reply/draft buttons and don't continue.
+			// If there are messages, enbale the draft button,
+			// disable the discard Draft button, re-enable the
+			// reply button after 10 seconds and don't continue.
 			if (!data.postId) {
-				$("#reply .postReply, #reply .saveDraft").enable();
+				setTimeout(function(){$("#reply .postReply").enable()}, 10000);
+				$("#reply .saveDraft").enable();
+				$("#reply .discardDraft").disable();
 				return;
 			}
 
@@ -364,6 +370,9 @@ addReply: function() {
 		},
 		complete: function() {
 			hideLoadingOverlay("reply", false);
+
+			// Disable the discard draft button again.
+			$("#reply .discardDraft").disable();
 		}
 	});
 },
@@ -377,7 +386,7 @@ startConversation: function(draft) {
 	var channel = $("#conversationHeader .channels :radio:checked").val();
 
 	// Disable the post reply and save draft buttons.
-	$("#reply .postReply, #reply .saveDraft").disable();
+	$("#reply .postReply, #reply .saveDraft, #reply .discardDraft").disable();
 
 	// Make the ajax request.
 	var data = {title: title, content: content, channel: channel};
@@ -431,6 +440,8 @@ saveDraft: function() {
 			// Show the draft label, disable the save draft button, and enable the discard draft button.
 			$("#conversationHeader .labels").html(data.labels);
 			$("#reply .saveDraft").disable();
+			$("#reply .discardDraft").enable();
+			$("#reply .discardDraft").prop('disabled', false);
 			ETConversation.editingReply = false;
 		}
 	});
@@ -440,8 +451,8 @@ saveDraft: function() {
 discardDraft: function() {
 
 	// If there are no posts in the conversation (ie. it's a draft conversation), delete the conversation.
-	if (this.postCount == 0 && $("#control-delete").length) {
-		if (ETConversation.confirmDelete()) window.location = $("#control-delete").attr("href");
+	if (this.postCount == 0) {
+		if (ETConversation.confirmDelete()) window.location = $("#reply .discardDraft").data('url');
 		return;
 	}
 	// Make the ajax request.
@@ -456,11 +467,10 @@ discardDraft: function() {
 			hideLoadingOverlay("reply", false);
 		},
 		success: function(data) {
-
-			// Hide the draft label and collapse the reply area.
+			// Hide the draft label, disable the discard draft button again and collapse the reply area.
 			$("#conversationHeader .labels").html(data.labels);
+			$("#reply .discardDraft").disable();
 			ETConversation.resetReply();
-
 		}
 	});
 },
@@ -516,6 +526,9 @@ initPosts: function() {
 	$("#conversationPosts .controls .control-edit").live("click", function(e) {
 		var postId = $(this).parents(".post").data("id");
 		ETConversation.editPost(postId);
+
+		// Hide the conversation reply form when we are initiating a reply.
+		$("#conversationReply").hide();
 		e.preventDefault();
 	});
 
@@ -591,15 +604,15 @@ redisplayAvatars: function() {
 	// If they're the same, hide it.
 	var prevId = null;
 	$("#conversationPosts > li").each(function() {
-		if (prevId == $(this).find("div.post").data("memberid"))
+		if (prevId == $(this).find("div.post").data("memberid")) {
 			$(this).find("div.avatar").hide();
-		else
+		} else {
 			$(this).find("div.avatar").show();
-
-		prevId = $(this).find("div.post").data("memberid");
-
+		}
+		if (!$(this).find("div.deleted").data("memberid")) {
+			prevId = $(this).find("div.post").data("memberid");
+		}
 	});
-
 },
 
 // Delete a post.
@@ -612,6 +625,12 @@ deletePost: function(postId) {
 		url: "conversation/deletePost.ajax/" + postId,
 		beforeSend: function() {
 			createLoadingOverlay("p" + postId, "p" + postId);
+
+			// Delete the parent li data-index when we permanently delete a post.
+			var r = $("#p"+postId);
+			if (r.hasClass("deleted")) {
+				r.parent().remove();
+			}
 		},
 		complete: function() {
 			hideLoadingOverlay("p" + postId, true);
@@ -743,6 +762,9 @@ saveEditPost: function(postId, content) {
 		complete: function() {
 			hideLoadingOverlay("p" + postId, true);
 			$(".button", post).enable();
+
+			// Lets show the conversation reply form again when we are done replying.
+			$("#conversationReply").show();
 		},
 		success: function(data) {
 			if (data.messages) return;
@@ -778,13 +800,14 @@ cancelEditPost: function(postId) {
 	post.replaceWith(post.data("oldPost"));
 	var newPost = $("#p" + postId);
 
+	// Lets show the conversation reply form again when we stop editing a reply.
+	$("#conversationReply").show();
+
 	// Animate the post's height.
 	var newHeight = $(".postContent", newPost).height();
 	$(".postContent", newPost).height(startHeight).animate({height: newHeight}, "fast", function() {
 		$(this).height("");
 	});
-
-	ETConversation.initPost(newPost);
 
 	$.scrollTo(scrollTop);
 },

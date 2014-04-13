@@ -18,6 +18,9 @@ if ($conversation["starred"]) $className .= " starred";
 if ($conversation["unread"] and ET::$session->user) $className .= " unread";
 if ($conversation["startMemberId"] == ET::$session->user) $className .= " mine";
 
+// Subtract the member name if it is longer then 14 characters to prevent layout braking.
+if (strlen($conversation["lastPostMember"]) > 14) $conversation["lastPostMember"] = substr($conversation["lastPostMember"],0,11)."...";
+
 ?>
 <li id='c<?php echo $conversation["conversationId"]; ?>' class='<?php echo $className; ?>'>
 <?php if (ET::$session->user): ?>
