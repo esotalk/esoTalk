@@ -58,7 +58,7 @@ $this->renderView("conversation/channelPath", array("conversation" => $conversat
 // Search within conversation form ?>
 <form class='search' id='searchWithinConversation' action='<?php echo URL(conversationURL($conversation["conversationId"], $conversation["title"])); ?>' method='get'>
 <fieldset>
-<input name='search' type='text' class='text' value='<?php echo sanitizeHTML($data["searchString"]); ?>' placeholder='<?php echo T("Search within this conversation..."); ?>'/>
+<input name='search' type='text' class='text' value='<?php echo sanitizeHTML($data["searchString"]); ?>' placeholder='&#61442; <?php echo T("Search within this conversation..."); ?>'/>
 <?php if ($data["searchString"]): ?><a href='<?php echo URL(conversationURL($conversation["conversationId"], $conversation["title"])); ?>' class='control-reset searchIconRemove'><i class='icon-remove'></i></a><?php endif; ?>
 </fieldset>
 </form>
