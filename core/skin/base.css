@@ -243,8 +243,8 @@ span.highlight {background:#fdef34; border:1px solid #fcef98; padding:1px 3px; b
 .tabs .pathItem a {position:relative; float:left; padding-left:15px; margin-left:0 !important}
 .tabs .pathItem.selected a {border-radius:3px 0 0 3px}
 .tabs .pathItem a:first-child {padding-left:7px}
-.tabs .pathItem.selected a:before, .tabs .pathItem.selected a:after {z-index:1; content:" "; border:11px solid transparent; height:0; width:0; right:-22px; top:-1px; position:absolute; border-left-color:#d5d5d5}
-.tabs .pathItem.selected a:after {float:left; border-left-color:#fff; right:-18px; border-width:9px; top:1px}
+.tabs .pathItem.selected a:before, .tabs .pathItem.selected a:after {z-index:1; content:" "; border:11px solid transparent; height:0; width:0; right:-23px; top:-1px; position:absolute; border-left-color:#d5d5d5}
+.tabs .pathItem.selected a:after {float:left; border-left-color:#fff; right:-20px; border-width:10px; top:0}
 .tabs .pathEnd.selected a:last-child {border-radius:3px;}
 .tabs .pathEnd.selected a:last-child:before, .tabs .pathEnd.selected a:last-child:after {display:none}
 
