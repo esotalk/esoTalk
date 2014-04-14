@@ -220,9 +220,9 @@ public function getActivity($member, $offset = 0, $limit = 11)
 	$posts = ET::SQL()
 		->select("NULL", "activityId")
 		->select($member["memberId"], "fromMemberId")
-		->select("NULL", "fromMemberName")
-		->select("'{$member["email"]}'", "email")
-		->select("'{$member["avatarFormat"]}'", "avatarFormat")
+		->select(ET::$database->escapeValue($member["username"]), "fromMemberName")
+		->select(ET::$database->escapeValue($member["email"]), "email")
+		->select(ET::$database->escapeValue($member["avatarFormat"]), "avatarFormat")
 		->select("'postActivity'", "type")
 		->select("NULL", "data")
 		->select("postId")
@@ -385,7 +385,7 @@ public static function postActivity($item, $member)
 public static function postNotification(&$item)
 {
 	return array(
-		sprintf(T("%s posted in %s."), name($item["fromMemberName"]), "<i class='star icon-star'></i> <strong>".sanitizeHTML($item["data"]["title"])."</strong>"),
+		"<i class='star icon-star'></i> ".sprintf(T("%s posted in %s."), name($item["fromMemberName"]), "<strong>".sanitizeHTML($item["data"]["title"])."</strong>"),
 		URL(postURL($item["postId"]))
 	);
 }
@@ -415,7 +415,7 @@ public static function groupChangeNotification($item)
 {
 	$groups = memberGroup($item["data"]["account"], $item["data"]["groups"], true);
 	return array(
-		sprintf(T("%s changed your group to %s."), name($item["fromMemberName"]), "<strong>".$groups."</strong>"),
+		"<i class='icon-user'></i> ".sprintf(T("%s changed your group to %s."), name($item["fromMemberName"]), "<strong>".$groups."</strong>"),
 		URL(memberURL("me"))
 	);
 }
@@ -446,7 +446,7 @@ public static function groupChangeActivity($item, $member)
 public static function mentionNotification($item)
 {
 	return array(
-		sprintf(T("%s tagged you in a post."), "<strong>".name($item["fromMemberName"])."</strong>"),
+		sprintf("@ ".T("%s tagged you in a post."), "<strong>".name($item["fromMemberName"])."</strong>"),
 		URL(postURL($item["data"]["postId"]))
 	);
 }
@@ -480,7 +480,7 @@ public static function mentionEmail($item, $member)
 public static function privateAddNotification(&$item)
 {
 	return array(
-		sprintf(T("%s invited you to %s."), name($item["fromMemberName"]), "<span class='label label-private'>".T("label.private")."</span> <strong>".sanitizeHTML($item["data"]["title"])."</strong>"),
+		label("private")." ".sprintf(T("%s invited you to %s."), name($item["fromMemberName"]), "<strong>".sanitizeHTML($item["data"]["title"])."</strong>"),
 		URL(conversationURL($item["conversationId"]))
 	);
 }
@@ -526,7 +526,7 @@ public static function postEmail($item, $member)
 public static function updateAvailableNotification($item)
 {
 	return array(
-		sprintf(T("A new version of esoTalk (%s) is available."), "<strong>".$item["data"]["version"]."</strong>"),
+		"<i class='icon-wrench'></i> ".sprintf(T("A new version of esoTalk (%s) is available."), "<strong>".$item["data"]["version"]."</strong>"),
 		!empty($item["data"]["releaseNotes"]) ? $item["data"]["releaseNotes"] : "http://esotalk.org/"
 	);
 }
@@ -540,7 +540,7 @@ public static function updateAvailableNotification($item)
 public static function unapprovedNotification($item)
 {
 	return array(
-		sprintf(T("%s has registered and is awaiting approval."), "<strong>".name($item["data"]["username"])."</strong>"),
+		"<i class='icon-user'></i> ".sprintf(T("%s has registered and is awaiting approval."), "<strong>".name($item["data"]["username"])."</strong>"),
 		URL("admin/unapproved")
 	);
 }
