@@ -120,8 +120,8 @@ span.highlight {background:#fdef34; padding:1px 4px; border-radius:3px}
 
 
 /* Avatars */
-.avatar {width:64px; height:64px; border-radius:3px; background:#eee; text-align:center; font-size:30px; line-height:64px; color:#bbb; display:inline-block;}
-.avatar.thumb {width:20px; height:20px; font-size:12px; line-height:20px}
+.avatar {width:64px; height:64px; border-radius:3px; background:#eee; text-align:center; font-size:30px; line-height:64px; color:#bbb; display:inline-block}
+.avatar.thumb {width:20px; height:20px; font-size:12px; line-height:20px; vertical-align:middle}
 
 
 /* Messages */
