@@ -13,6 +13,7 @@ ET::$languageInfo["English"] = array(
 	"license" => "GPLv2"
 );
 
+setlocale(LC_ALL, 'en_US');
 // Define the character set that this language uses.
 $definitions["charset"] = "utf-8";
 
