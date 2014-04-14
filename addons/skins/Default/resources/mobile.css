@@ -5,7 +5,7 @@ html {-webkit-text-size-adjust:none}
 body {font-size:12px}
 #hdr-content, #body-content, #ftr-content {min-width:0; padding:1px; max-width:none}
 .bodyHeader {padding:10px}
-.area {border-width:1px 0; border-radius:0}
+.area {padding:0 10px}
 #body-content {border-left:0; border-right:0; border-radius:0}
 #body {padding-top:44px}
 
@@ -13,10 +13,10 @@ body {font-size:12px}
 /* Header - center the title and float the buttons. */
 #hdr-content {padding:0 5px}
 #hdr-inner {padding:0}
-#hdr #forumTitle {text-align:center; display:block; width:150px; margin:0 auto; white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
+#hdr #forumTitle {font-size:14px; padding:11px 0; text-align:center; display:block; width:150px; margin:0 auto; white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
 #hdr .button {margin:6px 0}
 #hdr .popupWrapper {float:right; margin:0 0 0 7px}
-#hdr #backButton {float:left; margin:13px 0 0 5px; line-height:1em}
+#hdr #backButton {float:left; margin:13px 5px 0 5px}
 #userMenu {margin:0 !important; text-align:left; padding:0}
 #hdr #notifications {font-size:14px}
 
@@ -26,8 +26,8 @@ body {font-size:12px}
 
 
 /* Sheets - make them the right width and remove their border. */
-.sheet {width:320px !important; border:0; border-radius:0; margin:0}
-.sheet.active {background:#fff; border:0; border-radius:0}
+.sheet {width:100% !important; left:0 !important; border-radius:0; margin:0 !important}
+.sheet.active {border-width:0 0 1px; border-radius:0}
 .sheet.active .sheetContent {margin:0; border:0}
 .sheet.active {top:0}
 .sheet .buttons small {margin:0 0 10px; float:none; display:block}
@@ -63,8 +63,10 @@ body {font-size:12px}
 
 /* Search - unfloat the search and hide the gambits. */
 .search {float:none; margin-bottom:10px}
-.search input[type=text] {width:175px}
-#gambits.popup {width:235px; height:100px; overflow:auto !important; margin:0}
+.search input[type=text] {width:99%; box-sizing:border-box}
+.search.hasControls {padding-right:65px}
+.search .popupWrapper {float:right; margin-right:-65px; margin-left:0}
+#gambits.popup {width:225px; height:100px; overflow:auto !important; margin:0}
 
 #conversationsFilter .channels li:not(.channelListItem):not(.pathItem):not(.selected) {display:none}
 #conversationsFilter .channels {padding-left:0}
@@ -82,8 +84,9 @@ body {font-size:12px}
 .conversationList .col-star {float:left; margin-left:-28px; margin-top:2px; margin-right:0}
 .conversationList .col-conversation {display:block; margin:0 0 5px; width:auto}
 .conversationList .col-channel {display:block; padding-right:5px; margin:0; width:auto; text-align:left}
-.conversationList .col-lastPost {padding-right:0; width:auto; margin-right:0; float:none}
-.conversationList .col-replies {display:none}
+.conversationList .col-lastPost {padding-right:0; width:auto; margin-right:0; float:none; display: inline-block}
+.conversationList .col-replies {float:right; margin:0; width:auto}
+.conversationList .col-replies span {font-size:12px}
 .conversationList .title {font-size:120%}
 .conversationList .avatar {display:none}
 #conversationsFooter {padding:10px; margin:0}
@@ -115,16 +118,18 @@ body {font-size:12px}
 
 
 /* Make time markers horizontal. */
-.timeMarker {padding:5px 10px; display:block; border-bottom:1px solid #ddd; text-shadow:0 1px #fff; margin:0 0 5px; border-radius:0}
+.timeMarker {padding:5px 10px; display:block; margin:0 0 5px; border-radius:0}
 
 
 /* Make posts simple boxes with a thumbnail avatar. */
 .post {margin:10px; padding-left:0}
 .postContent:after, .postContent:before {display:none}
-.post div.avatar {margin:7px 0 0 10px; position:relative; z-index:50}
-.post div.avatar, .post div.avatar img {width:20px; height:20px}
+.post div.avatar {margin:12px -5px 0 15px; position:relative; z-index:50}
+.post .avatar {width:20px; height:20px; line-height:20px; font-size:12px; vertical-align:middle}
+.postHeader [class*=profile-] {display:none}
 .post.edit .controls {float:none; margin-top:10px}
 .post .editButtons input {font-size:90%}
+.postBody {line-height:1.75em; font-size:12px}
 
 
 /* Show controls by default, but hide unnecessary ones. */

@@ -32,8 +32,10 @@ init: function() {
 	new ETAutoCompletePopup(ETSearch.formInput, "contributor:");
 
 	// Make the controls into a popup button.
-	if ($("#searchControls").length)
+	if ($("#searchControls").length) {
 		$("#search fieldset").append($("#searchControls").popup({alignment: "right"}));
+		$("#search").addClass("hasControls");
+	}
 
 	// Add an onclick handler to the search button to perform a search.
 	ETSearch.form.submit(function(e) {
@@ -66,7 +68,7 @@ init: function() {
 		$("#gambits").addClass("popup").css({
 			position: "absolute",
 			top: input.offset().top + input.outerHeight() + 5,
-			left: input.offset().left + input.outerWidth() - $("#gambits").outerWidth()
+			left: input.offset().left
 		}).fadeIn("fast");
 	});
 

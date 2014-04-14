@@ -100,13 +100,13 @@ p, ul, pre {line-height:1.6em}
 
 
 /* Text inputs */
-input[type=text], input[type=password], textarea, .input {font-weight:300; background:#fff; border:1px solid; padding:5px; border-radius:3px; vertical-align:-1px; margin:0}
+input[type=text], input[type=password], textarea, .input {font-weight:300; background:#fff; border:1px solid; padding:5px; border-radius:3px; vertical-align:-1px; margin:0; -webkit-appearance:none}
 input[type=text]:focus, input[type=password]:focus, textarea:focus, .input:focus {outline:0}
 .postBody textarea:focus {box-shadow:none}
 
 
 /* Buttons */
-.button {background:#f6f6f6; font-weight:600; border:1px solid transparent; margin-bottom:1px; white-space:nowrap; height:30px; font-size:100%; padding:0 10px 2px; line-height:30px}
+.button {background:#f6f6f6; font-weight:600; border:1px solid transparent; margin-bottom:1px; white-space:nowrap; height:30px; font-size:100%; padding:0 10px 2px; line-height:30px; -webkit-appearance:none}
 .button.big {height:30px; font-size:90%; padding:0 10px 2px; line-height:30px}
 .button:hover, .button:active {border-color:#ddd}
 .button:active {background-color:#ddd}
