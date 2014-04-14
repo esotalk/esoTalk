@@ -149,7 +149,7 @@ function index($channelSlug = false)
 
 		// Add some more personal gambits if there is a user logged in.
 		if (ET::$session->user) {
-			addToArrayString($gambits["main"], T("gambit.private"), array("gambit-private", "icon-envelope"), 1);
+			addToArrayString($gambits["main"], T("gambit.private"), array("gambit-private", "icon-envelope-alt"), 1);
 			addToArrayString($gambits["main"], T("gambit.starred"), array("gambit-starred", "icon-star"), 2);
 			addToArrayString($gambits["main"], T("gambit.draft"), array("gambit-draft", "icon-pencil"), 3);
 			addToArrayString($gambits["main"], T("gambit.muted"), array("gambit-muted", "icon-eye-close"), 4);
