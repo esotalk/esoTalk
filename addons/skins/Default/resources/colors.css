@@ -1,0 +1,65 @@
+/* Primary color */
+.conversationList .title a,
+.conversationList .unread .title a,
+.action .name, .action a, .action strong,
+.postHeader h3, .postHeader h3 a,
+.button, .button i,
+#hdr-inner > a, #hdr-inner > h1 a, #hdr-inner > ul > li > a,
+#hdr,
+.tabs li.selected a,
+.channelList .channel,
+#conversationTitle a,
+#pluginList > li,
+#skinList > li,
+#languageList > li,
+.memberList strong a,
+a {
+	color:{primary}
+}
+
+.tabs.big li.selected a,
+#hdr .active .popupButton,
+#hdr #notifications.new,
+.button.submit {
+	background-color:{primary}
+}
+
+.sheet.active,
+.popup,
+input[type=text]:focus, input[type=password]:focus, textarea:focus, .input:focus,
+#hdr {
+	border-color:{primary}
+}
+
+
+/* Secondary color (light text) */
+.tabs li > a,
+.channel,
+.list .col-replies,
+.action,
+.timeMarker,
+.conversationList .excerpt,
+.postHeader .info > span, .postHeader .info > a,
+#ftr,
+#hdr h1 span,
+.channel {
+	color:{secondary}
+}
+[class*="control-"] {
+	color:{secondary} !important
+}
+
+
+/* Tertiary color (light lines) */
+.channel,
+.list > li,
+.thing,
+.sheet, .sheet h3, .sheet .section, .sheet .buttons,
+input[type=text], input[type=password], textarea, .input,
+.tabs li.selected a,
+.tabs li a:hover {
+	border-color:{tertiary}
+}
+.tabs .pathItem.selected a:before {
+	border-left-color:{tertiary}
+}
