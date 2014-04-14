@@ -322,12 +322,12 @@ if (!function_exists("label")) {
  *
  * @package esoTalk
  */
-function label($label, $url = "")
+function label($label, $url = "", $className = "")
 {
 	if ($url)
-		return "<a href='$url' class='label label-$label' title='".T("label.$label")."'><i class='".ETConversationModel::$labels[$label][1]."'></i></a> ";
+		return "<a href='$url' class='label label-$label $className' title='".T("label.$label")."'><i class='".ETConversationModel::$labels[$label][1]."'></i></a> ";
 	else
-		return "<span class='label label-$label' title='".T("label.$label")."'><i class='".ETConversationModel::$labels[$label][1]."'></i></span> ";
+		return "<span class='label label-$label $className' title='".T("label.$label")."'><i class='".ETConversationModel::$labels[$label][1]."'></i></span> ";
 }
 
 }
