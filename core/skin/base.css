@@ -34,7 +34,7 @@ fieldset, img {border:0; padding:0; margin:0}
 small, .subText {color:#888}
 .disabled {color:#888; cursor:default}
 .disabled:hover {text-decoration:none}
-span.highlight {background:#fdef34; border:1px solid #fcef98; padding:1px 3px; border-radius:3px; -webkit-box-shadow:rgba(0, 0, 0, 0.5) 0 1px 1px; box-shadow:rgba(0, 0, 0, 0.5) 0 1px 1px}
+span.highlight {background:#fdef34; padding:1px 4px; border-radius:3px}
 .hasControls .controls {color:#888}
 .help {color:#888; line-height:1.5em}
 
@@ -42,13 +42,12 @@ span.highlight {background:#fdef34; border:1px solid #fcef98; padding:1px 3px; b
 /* "Actions" - a string of text containing information about something that has happened. For example,
 <span class='action'><span class='name'>Toby</span> posted in <a href=''>a conversation</a>.</span> */
 .action {color:#888}
-.action img.avatar {vertical-align:-6px; margin-right:3px}
+.action .avatar {margin-right:3px}
 .action .name, .action a, .action strong {color:#444; font-weight:bold}
 
 
 /* Body */
 .bodyHeader {padding:15px 0 12px; margin-bottom:10px}
-.bodyHeader.floating {-webkit-box-shadow:0 1px 1px rgba(0, 0, 0, 0.05); box-shadow:0 1px 1px rgba(0, 0, 0, 0.05); background:#fff; margin-left:-20px; margin-right:-20px; padding-left:20px; padding-right:20px}
 
 
 /* Notifications button */
@@ -61,21 +60,19 @@ span.highlight {background:#fdef34; border:1px solid #fcef98; padding:1px 3px; b
 
 
 /* Loading indicators */
-#loading {padding:9px 12px 5px; position:fixed; top:-4px; left:50%; margin-left:-35px; text-align:center; width:70px; -webkit-box-shadow:rgba(0, 0, 0, 0.3) 0 1px 3px; box-shadow:rgba(0, 0, 0, 0.3) 0 1px 3px; border-radius:3px; background:#fff5a0; color:#a06a00; z-index:500}
+#loading {padding:5px 12px; position:fixed; top:0; left:50%; margin-left:-35px; text-align:center; width:70px; border-radius:0 0 3px 3px; background:#fff5a0; color:#a06a00; z-index:500}
 .loadingOverlay {background:#fff url(loading.gif) no-repeat center 10px; z-index:250}
 .loading {background:url(loading.gif) center 10px no-repeat; height:40px}
 
 
 /* Generic areas */
-.area, .sheet {border-radius:3px; margin-bottom:20px; margin-top:0; background:#f6f6f6}
-.area {padding:15px}
-.area.help {padding-top:10px}
+.area, .sheet {border-radius:3px; margin-bottom:30px; margin-top:0}
 .area h3 {font-size:110%}
 
 
 /* "Things" - distinguishable items such as posts, activity items, plugins, and skins. */
-.thing {border:1px solid #ddd; border-width:1px; border-style:solid; border-radius:3px; background:#fff; box-shadow:0 1px 2px rgba(0, 0, 0, 0.05); position:relative}
-.thing:before {border-color:#ccc}
+.thing {border:1px solid #ddd; border-radius:3px; background:#fff; padding:1px; position:relative}
+.thing:before {border-color:#ddd}
 .thing:after {border-color:#fff}
 
 
@@ -123,20 +120,20 @@ span.highlight {background:#fdef34; border:1px solid #fcef98; padding:1px 3px; b
 
 
 /* Avatars */
-.avatar {width:64px; height:64px; vertical-align:middle; border-radius:2px}
-.avatar.thumb {width:20px; height:20px}
+.avatar {width:64px; height:64px; border-radius:3px; background:#eee; text-align:center; font-size:30px; line-height:64px; color:#bbb; display:inline-block;}
+.avatar.thumb {width:20px; height:20px; font-size:12px; line-height:20px}
 
 
 /* Messages */
 #messages {position:fixed; bottom:20px; left:20px; z-index:600}
-.message {max-width:700px; background:rgba(0, 0, 0, 0.8); color:#fff; padding:8px 13px; line-height:1.5em; display:inline-block; margin-top:10px; border-radius:3px}
-.message .control-delete {float:right; margin-left:6px; margin-right:-6px; margin-top:-3px}
-.message a {color:#bbb}
+.message {max-width:700px; background:#eee; padding:10px 13px; line-height:1.5em; display:inline-block; margin-top:10px; border-radius:3px}
+.message .control-delete {float:right; margin-left:6px; margin-right:-6px; margin-top:-6px}
+.message a {color:#000}
 .message.hasIcon img {float:left; margin:-2px 8px -2px -3px}
 .message code {background:none}
 
-.message.warning {background-color:#f2dce1; border:1px solid #d7bec4; color:#000}
-.message.success {background-color:#e6efcc; border:1px solid #c8d4a7; color:#000}
+.message.warning {background-color:#fde; border:1px solid #ebb; color:#c00}
+.message.success {background-color:#cfd; border:1px solid #aeb; color:#050}
 
 
 /* Class that can be applied to an <a> in a message to make the full message clickable. */
@@ -167,54 +164,52 @@ span.highlight {background:#fdef34; border:1px solid #fcef98; padding:1px 3px; b
 
 /* Popup buttons */
 .popupButton {border:solid transparent; border-width:1px 1px 0}
-.popupWrapper.active .popupButton {border:1px solid #666 !important; border-bottom:0 !important; position:relative; z-index:301; border-radius:2px 2px 0 0 !important; background:#fff !important; -webkit-box-shadow:none !important; box-shadow:none !important; margin-bottom:2px}
+.popupWrapper.active .popupButton {border:1px solid #666 !important; border-bottom:0 !important; position:relative; z-index:301; border-radius:2px 2px 0 0 !important; background:#fff !important; margin-bottom:2px}
 .popupWrapper {display:inline-block}
 
 
 /* Tooltips */
-.tooltip {color:#fff; background:#111; background:rgba(0, 0, 0, 0.9); border:1px solid #000; padding:5px 9px 3px; display:block; border-radius:2px; font-size:85%; -webkit-box-shadow:0px 2px 3px rgba(0, 0, 0, 0.1); box-shadow:0px 2px 3px rgba(0, 0, 0, 0.1); max-width:400px; line-height:1.5em; cursor:default; z-index:400}
-.withArrow.tooltip:before {border-color:#000}
-.withArrow.tooltip:after {border-color:#222}
+.tooltip {color:#fff; background:#111; background:rgba(0, 0, 0, 0.9); padding:6px 10px 4px; display:block; border-radius:3px; font-size:85%; max-width:400px; line-height:1.5em; cursor:default; z-index:400}
+.withArrow.tooltip:before {display:none;}
+.withArrow.tooltip:after {border-color:rgba(0, 0, 0, 0.9)}
 
 
 /* Items with little arrows sticking out of them. */
 .withArrow {overflow:visible !important}
-.withArrow:before, .withArrow:after {content:" "; border:5px solid transparent; height:0; width:0; position:absolute}
+.withArrow:before, .withArrow:after {content:" "; border:6px solid transparent; height:0; width:0; position:absolute}
 
-.withArrowTop {margin-top:3px}
+.withArrowTop {margin-top:4px}
 .withArrowTop:before, .withArrowTop:after {border-top:0; border-left-color:transparent !important; border-right-color:transparent !important; left:8px; top:-6px}
-.withArrowTop:after {top:-5px}
+.withArrowTop:after {top:-6px}
 
 .withArrowTopRight:before, .withArrowTopRight:after {left:auto; right:8px}
 
-.withArrowBottom {margin:-3px 0 0 0}
+.withArrowBottom {margin:-4px 0 0 0}
 .withArrowBottom:before, .withArrowBottom:after {border-bottom:0; border-left-color:transparent !important; border-right-color:transparent !important; left:8px; bottom:-6px}
-.withArrowBottom:after {bottom:-5px}
+.withArrowBottom:after {bottom:-6px}
 
 
 /* Sheets */
 .sheet {margin:30px auto; width:600px; padding:1px; border:1px solid #d5d5d5}
-.sheet.active {background:#555; background:rgba(50, 50, 50, 0.5); border:1px solid rgba(50, 50, 50, 0.75); border-radius:5px; top:80px; margin:0; z-index:200}
-.sheet.active .sheetContent {background:#fff; border-radius:2px; border:1px solid #555; margin:5px}
-.sheetOverlay {background:rgba(0, 0, 0, 0.2); z-index:150; position:fixed; top:0; left:0; bottom:0; right:0}
+.sheet.active {background:#fff; border-radius:3px; box-shadow:0 5px 20px rgba(0, 0, 0, 0.2); top:80px; margin:0; z-index:200}
+.sheetOverlay {background:rgba(255, 255, 255, 0.9); z-index:150; position:fixed; top:0; left:0; bottom:0; right:0}
 
-.sheet h3 {font-weight:normal; font-size:120%; border-bottom:1px solid #d5d5d5; margin-bottom:-1px !important; position:relative}
+.sheet h3 {font-weight:normal; font-size:120%; margin-bottom:-1px !important; position:relative}
 .sheet .close {float:right; margin:12px 12px 0 0; position:relative; z-index:1}
 .sheet .section, .sheet h3, .sheet .buttons {padding:10px 15px; margin:0}
-.sheet .section, .sheet .buttons {border-top:1px solid #d5d5d5}
 .sheet .section {padding:15px}
 .sheet .buttons {overflow:hidden; margin-top:-1px; position:relative}
 .sheet .buttons .button {margin-left:10px; float:right}
 .sheet .buttons small {float:left; font-size:100%; margin:5px 0}
 .sheet .sheetBody {max-height:500px; overflow:auto}
 
-.scrollShadowTop {box-shadow:0 3px 3px rgba(0, 0, 0, 0.1)}
-.scrollShadowBottom {box-shadow:0 -3px 3px rgba(0, 0, 0, 0.1)}
+.scrollShadowTop {box-shadow:0 3px 3px rgba(0, 0, 0, 0.05)}
+.scrollShadowBottom {box-shadow:0 -3px 3px rgba(0, 0, 0, 0.05)}
 
 
 /* Generic lists */
 .list {margin:0; border-bottom:1px solid #e1e1e1; line-height:1.5em; padding:0; list-style-type:none}
-.list > li {border:solid #e1e1e1; border-width:1px 0; padding:8px 0; margin:-1px 0}
+.list > li {border:solid #e1e1e1; border-width:1px 0; padding:12px 0; margin:-1px 0}
 .list > li:hover {background-color:#f6f6f6}
 .list .controls {visibility:hidden}
 .list > li:hover .controls {visibility:visible}
@@ -222,34 +217,32 @@ span.highlight {background:#fdef34; border:1px solid #fcef98; padding:1px 3px; b
 
 
 /* Tabs */
-.tabs {margin:0; padding:2px; line-height:1em; overflow:hidden}
+.tabs {margin:0; padding:3px; line-height:1em; overflow:hidden}
 .tabs li {float:left; list-style-type:none; margin:4px 7px 4px 0}
-.tabs li > a, .tabs li > span {padding:4px 6px 3px; white-space:nowrap; font-size:85%; display:block}
+.tabs li > a, .tabs li > span {padding:5px 7px; white-space:nowrap; font-size:85%; display:block}
 .tabs li > a {color:#666; cursor:pointer; border-radius:3px}
 .tabs li > span {color:#888}
 .tabs li a:hover {border:1px solid #eee; margin:-1px; text-decoration:none}
-.tabs li.selected a {background-color:#fff; border:1px solid #d5d5d5; margin:-1px; color:#000; -webkit-box-shadow:0 1px 0 rgba(0, 0, 0, 0.03); box-shadow:0 1px 0 rgba(0, 0, 0, 0.03)}
+.tabs li.selected a {background-color:#fff; border:1px solid #d5d5d5; margin:-1px; color:#666}
 .tabs li > a i, .tabs li > span i {margin-right:5px; font-size:14px; width:14px; display:inline-block}
 
 .tabs.big {font-size:120%}
-.tabs.big li a {padding:5px 10px}
-.tabs.big li.selected a {font-weight:bold}
-
-.tabs.area {padding:6px 10px 10px}
+.tabs.big li a {padding:10px 13px}
 
 
 /* The channel breadcrumb tab */
-.tabs .pathItem {margin-right:1.2em}
-.tabs .pathItem a {position:relative; float:left; padding-left:15px; margin-left:1px !important}
+.tabs .pathItem {margin-right:20px}
+.tabs .pathItem a {position:relative; float:left; padding-left:20px; margin-left:1px !important}
 .tabs .pathItem.selected a {border-radius:0}
 .tabs .pathItem a:first-child {padding-left:7px; border-radius:3px 0 0 3px}
-.tabs .pathItem.selected a:before, .tabs .pathItem.selected a:after {z-index:1; content:" "; border:11px solid transparent; height:0; width:0; right:-23px; top:-1px; position:absolute; border-left-color:#d5d5d5}
-.tabs .pathItem.selected a:after {float:left; border-left-color:#fff; right:-20px; border-width:10px; top:0}
+.tabs .pathItem.selected a:before, .tabs .pathItem.selected a:after {z-index:1; content:" "; border:13px solid transparent; height:0; width:0; right:-27px; top:-1px; position:absolute; border-left-color:#d5d5d5}
+.tabs .pathItem.selected a:after {float:left; border-left-color:#fff; right:-24px; border-width:12px; top:0}
 .tabs .pathEnd.selected a:last-child {border-radius:0 3px 3px 0}
+.tabs .pathEnd.selected a:only-child {border-radius:3px}
 .tabs .pathEnd.selected a:last-child:before, .tabs .pathEnd.selected a:last-child:after {display:none}
 
 /* Channels */
-.channel {background:#fff; text-decoration:none; color:#666 !important; text-shadow:none; border-radius:3px; font-size:85%; border:1px solid #ddd; white-space:nowrap; box-shadow:0 1px 0 rgba(0, 0, 0, 0.04); padding:2px 5px}
+.channel {background:#fff; text-decoration:none; color:#666; text-shadow:none; border-radius:3px; font-size:85%; border:1px solid #ddd; white-space:nowrap; padding:2px 5px}
 a.channel:hover {text-decoration:none; border-color:#aaa}
 
 
@@ -261,8 +254,9 @@ a.channel:hover {text-decoration:none; border-color:#aaa}
 
 /* Search boxes */
 .search {float:right}
+.search .icon-search {float:left; margin:7px -21px 0 11px; position:relative; color:#ddd}
 .search input.text {width:250px; padding-right:30px; padding-left:25px; background:#fff url(icons.png) no-repeat -13px -290px; float:left; height:18px; font-size:100%}
-.search .control-reset {margin-top:1px; margin-left:-25px; margin-right:0}
+.search .control-reset {float:left; margin-top:-1px; margin-left:-27px; margin-right:0}
 .search .popupButton {margin-left:10px; vertical-align:2px}
 
 
@@ -273,7 +267,7 @@ a.channel:hover {text-decoration:none; border-color:#aaa}
 .notificationsList li {padding:0 !important; line-height:1.75em;}
 .notificationsList li > a {display:block; padding:7px 10px 7px 60px !important; white-space:normal}
 .notificationsList li > a:hover {text-decoration:none}
-.notificationsList li a .avatar {float:left; margin-left:-50px; width:40px; height:40px;}
+.notificationsList li a .avatar {float:left; margin-left:-50px; width:40px; height:40px; line-height:40px; font-size:30px}
 .notificationsList li .star {vertical-align:-2px}
 .notificationsList li.unread {background-color:#ebf5fa}
 #memberContent .notificationsList li {padding:0}
@@ -281,8 +275,8 @@ a.channel:hover {text-decoration:none; border-color:#aaa}
 
 
 /* Channel list icon */
-.channel-list i {font-size:14px; color:#aaa; margin:0 !important}
-.selected .channel-list i {color:#000}
+.channel-list i {font-size:14px;  margin:0 !important}
+/*.selected .channel-list i {color:#000}*/
 
 #conversationsFilter .channels {padding-left:130px}
 #conversationsFilter .channelListItem {margin-left:-129px}
@@ -318,7 +312,7 @@ a.channel:hover {text-decoration:none; border-color:#aaa}
 #changeChannelSheet {width:700px}
 #changeChannelSheet .section {padding:0}
 .changeChannelList {margin:-1px 0}
-.changeChannelList li {padding:0 !important}
+.changeChannelList li {padding:5px 10px !important}
 .changeChannelList label {display:block; padding:10px}
 .changeChannelList .disabled {opacity:0.5}
 .changeChannelList .description {display:block}
@@ -336,12 +330,13 @@ a.channel:hover {text-decoration:none; border-color:#aaa}
 
 /* Conversation list */
 #conversations {margin-top:-11px}
-.conversationList li {overflow:hidden; padding-right:32em; padding-left:13em}
+.conversationList li {overflow:hidden; padding-right:27em; padding-left:13em}
 .conversationList .title {font-weight:normal}
 .conversationList .title a {color:#000}
 .conversationList .unread .title a {font-weight:bold; color:#000}
 .conversationList .excerpt {color:#888; font-size:85%}
 .conversationList .starred {background-color:#fffbdb}
+.conversationList .starred:hover {background-color:#FAF6D7}
 .conversationList .justVisited {background-color:#F5FAFC}
 .conversationList .controls {margin-left:10px}
 .conversationList .controls a {margin-right:5px}
@@ -355,25 +350,26 @@ negative margins so they overlap the padding of the <li>. */
 .conversationList .col-conversation {width:95%; display:inline-block}
 .conversationList .col-star {float:left; width:1em; margin-left:-13em; padding-left:0.5em}
 .conversationList .col-channel {float:left; width:10em; margin-left:-11em; text-align:right}
-.conversationList .col-replies {float:right; margin-right:-14em; width:14em}
-.conversationList .col-lastPost {float:right; width:23em; margin-right:-35em; font-size:85%; overflow:hidden; white-space:nowrap}
+.conversationList .col-lastPost {float:right; width:23em; margin-right:-27em; font-size:85%; overflow:hidden; white-space:nowrap}
+.conversationList .col-replies {float:right; margin-right:-31em; width:4em; text-align:center; margin-bottom:-2px}
+.conversationList .col-replies span {font-size:20px; font-weight:300}
 .list .col-replies {color:#888; font-size:85%}
-.list .col-replies i {font-size:14px; color:#ddd; margin-right:5px}
+.list .col-replies span i {font-size:14px; color:#ddd; margin-right:5px}
 
 
 /* Unread indicators */
-.unreadIndicator {padding:2px 4px; font-size:11px; vertical-align:1px; background:#fff5a0; color:#a06a00; border:1px solid #f6e235; margin-left:5px; border-radius:2px}
-.unreadIndicator:hover {text-decoration:none}
-.unreadIndicator:active {background:#f6e235 !important; color:#000 !important}
+.unreadIndicator {display:none; font-size:14px;}
+.conversationList li.unread:hover .col-replies span {display:none}
+.conversationList li.unread:hover .unreadIndicator {display:block}
 
 
 /* Conversation header */
 #conversationHeader {margin-bottom:0}
 #conversationHeader .star {vertical-align:-2px; margin-left:10px}
-#conversationHeader .channels {margin-left:15px; display:inline-block; margin-bottom:-11px;}
+#conversationHeader .channels {margin-left:15px; display:inline-block; margin-bottom:-13px;}
 #conversationHeader > #control-changeChannel {font-size:85%}
 
-#conversationTitle {margin:0; line-height:1.4em; vertical-align:-2px; font-weight:300; font-size:22px}
+#conversationTitle {margin:0; line-height:1.4em; vertical-align:-2px}
 #conversationTitle input.text {font-weight:300}
 #conversationTitle a {cursor:text; padding:1px; color:#000; text-decoration:none}
 #conversationTitle a.editing, #conversationTitle a.editing:hover {padding:0; border:0}
@@ -386,13 +382,13 @@ negative margins so they overlap the padding of the <li>. */
 
 
 /* Conversation privacy */
-#conversationPrivacy {margin:10px 0 40px; padding:10px 15px; clear:both}
+#conversationPrivacy {margin:10px 0 40px; clear:both}
 #control-changeMembersAllowed {font-size:85%; margin-left:5px}
 
 
 /* Members allowed list */
 .allowedList {line-height:1em; font-size:100%; overflow:hidden}
-.allowedList img.avatar {margin-right:0}
+.allowedList .avatar {margin-right:0}
 .allowedList .avatars {margin:0 5px 5px 0}
 .allowedList .name img {margin-right:5px}
 .allowedList.editing .name, .allowedList.popup .name {display:block; margin-bottom:5px}
@@ -407,7 +403,7 @@ a.deleteLink:hover {color:#f00 !important; text-decoration:line-through}
 #conversationBody {margin-top:20px; clear:both}
 #conversationReply {margin:60px 0 30px; clear:left}
 
-#conversationBody .scrubberContent .button {width:100px; text-align:center; margin-bottom:10px; display:block}
+#conversationBody .scrubberContent .button {width:115px; text-align:center; margin-bottom:10px; display:block}
 
 
 /* Scrubber */
@@ -429,8 +425,8 @@ a.deleteLink:hover {color:#f00 !important; text-decoration:line-through}
 
 
 /* Scrubber "load more items" areas */
-.scrubberMore {text-align:center; background:#f4f4f4 url(split.png) repeat-x; height:56px; margin:35px 0; margin-left:-21px}
-.scrubberMore a {display:block; padding:20px; color:#aaa; color:rgba(0, 0, 0, 0.5)}
+.scrubberMore {text-align:center; background:#f7f7f7; border:dotted #fff; border-width:2px 0; height:56px; line-height:56px; margin:35px 0}
+.scrubberMore a {display:block; color:#bbb; font-size:18px;}
 .scrubberMore.loading a {background:url(loading.gif) no-repeat center center; text-indent:-9999px}
 .list .scrubberMore {border:0; padding:0}
 .list .scrubberMore:hover {background-color:transparent}
@@ -441,36 +437,36 @@ a.deleteLink:hover {color:#f00 !important; text-decoration:line-through}
 
 .timeMarker {padding:7px 13px; text-transform:uppercase; font-size:85%; letter-spacing:1px; background:#f7f7f7; color:#aaa; display:inline-block; clear:both; border-radius:3px; margin-bottom:15px}
 
-.post {margin-bottom:15px; padding-left:79px; padding-bottom:2px; position:relative}
+.post {margin-bottom:20px; padding-left:79px; padding-bottom:2px; position:relative}
 .post div.avatar {float:left; margin-left:-79px}
-.postContent:before, .postContent:after {content:" "; border-top-color:transparent !important; border-bottom-color:transparent !important; border-left-color:transparent !important; border-style:solid; border-width:5px; height:0; width:0; left:-11px; top:8px; position:absolute}
-.postContent:after {float:left; left:-10px}
+.postContent:before, .postContent:after {content:" "; border-top-color:transparent !important; border-bottom-color:transparent !important; border-left-color:transparent !important; border-style:solid; border-width:8px; height:0; width:0; left:-16px; top:12px; position:absolute}
+.postContent:after {float:left; left:-15px}
 
-.highlight .postContent {background-color:#ffd}
-.highlight .postContent:after {border-color:#ffd}
+.highlight .postContent {border-color:#fc0}
+.highlight .postContent:before {border-color:#fc0}
 
-.postHeader {margin-bottom:2px; padding:7px 7px 7px 12px; overflow:hidden; color:#888}
+.postHeader {margin-bottom:2px; padding:10px 10px 10px 15px; overflow:hidden; color:#888}
 .postHeader h3 {display:inline; font-size:110%; margin:0}
 .postHeader h3, .postHeader h3 a {color:#000}
 .postHeader .info {display:inline}
 .postHeader .info > span, .postHeader .info > a {font-size:85%; margin-left:7px; color:#888}
 .postHeader .controls {float:right; margin-top:3px}
 
-.postBody {line-height:1.5em; overflow:auto; padding:0px 12px}
+.postBody {line-height:1.5em; overflow:auto; padding:0px 15px}
 .postBody img {vertical-align:bottom; max-width:100%}
 .postBody ul {list-style-type:disc}
 
 .deleted .postHeader {margin:0; padding:6px 5px 6px 12px}
 .deleted .postHeader * {color:#888}
 .deleted .controls {margin-top:1px}
-.deleted .thing {background:#f2f2f2; border:0; -webkit-box-shadow:none; box-shadow:none}
+.deleted .thing {background:#f2f2f2; border:0}
 .deleted .thing:before, .deleted .thing:after {display:none}
 
 
 /* Post content (code, quotes, headers) */
 .postBody h4 {margin:1.2em 0 0.8em; font-size:130%; font-weight:normal}
 
-blockquote {background:#f2f2f2; background:rgba(0, 0, 0, 0.05); margin:0 -12px 1em; padding:5px 7px 1px 36px; color:#555; position:relative}
+blockquote {background:#f2f2f2; background:rgba(0, 0, 0, 0.05); margin:0 -15px 1em; padding:5px 7px 1px 36px; color:#555; position:relative}
 blockquote cite {display:inline; font-style:normal; font-weight:bold; margin-right:5px}
 blockquote cite a {color:#555}
 blockquote p {margin-bottom:0.5em}
@@ -478,8 +474,8 @@ blockquote .postRef {float:left; margin:-3px 0 0 -30px; visibility:hidden}
 blockquote:hover .postRef {visibility:visible}
 blockquote:hover:before {display:none}
 blockquote.collapsed {max-height:100px; overflow:hidden; position:relative}
-blockquote a.expand {position:absolute; bottom:0; left:50%; margin-left:-8px; background:#ddd; box-shadow:0 0 0 1px rgba(0, 0, 0, 0.3); padding:2px 13px; color:#888; border-radius:3px 3px 0 0; width:16px; text-align:center; font-size:20px; text-decoration:none}
-blockquote a.expand:active {background:#bbb}
+blockquote a.expand {position:absolute; bottom:0; left:50%; margin-left:-13px; background:#ddd; padding:4px 10px; color:#888; border-radius:3px 3px 0 0; width:16px; text-align:center; font-size:14px; text-decoration:none; line-height:1em;}
+blockquote a.expand:active {background:#ccc}
 
 pre, code, .fixed {font-family:monospace; font-size:90%; overflow-x:auto; white-space:pre-wrap; white-space:-moz-pre-wrap !important; white-space:-pre-wrap; white-space:-o-pre-wrap; word-wrap:break-word}
 pre {border:1px dashed #ccc; padding:7px}
@@ -509,7 +505,7 @@ code {background:#eee}
 /* Member List */
 #memberListFilter {overflow:hidden; margin-bottom:0}
 #memberListBody {margin-top:30px}
-#memberListFilter h1 {float:left; font-size:120%; margin-top:4px}
+#memberListFilter h1 {float:left; margin-top:4px}
 #memberListOrderBy {float:left; margin-left:20px}
 #createMemberLink {float:right; margin-left:10px; margin-top:1px}
 
@@ -528,7 +524,7 @@ code {background:#eee}
 
 
 /* Member profile */
-#memberProfile .avatar {float:left; padding:3px; border:1px solid #d1d1d1; -webkit-box-shadow:0 1px 0 rgba(0, 0, 0, 0.05); box-shadow:0 1px 0 rgba(0, 0, 0, 0.05); border-radius:4px; background:#fff; margin-right:15px}
+#memberProfile .avatar {float:left; margin-right:15px}
 #memberProfile .online {margin-left:5px; vertical-align:0}
 #memberInfo {float:left}
 #memberInfo h1 {margin:0 0 5px 0}
@@ -543,7 +539,7 @@ code {background:#eee}
 /* Member activity */
 .activity {margin-bottom:30px}
 .activity .action {margin-bottom:5px}
-.activityBody {padding:9px 12px 1px; overflow:auto; max-height:100px; margin-left:26px}
+.activityBody {padding:10px 15px 1px; overflow:auto; max-height:100px; margin-left:26px}
 .activityBody p {margin-bottom:9px}
 
 
@@ -566,7 +562,7 @@ code {background:#eee}
 /* User settings */
 #settings-general .label, #settings-general .star {margin-right:5px}
 .avatarChooser {padding-left:74px}
-.avatarChooser img  {float:left; margin-left:-74px}
+.avatarChooser .avatar {float:left; margin-left:-74px}
 .avatarChooser small {display:block}
 
 

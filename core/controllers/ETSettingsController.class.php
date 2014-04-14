@@ -239,7 +239,7 @@ public function saveLanguage($form, $key, &$preferences)
  */
 public function fieldEmailPrivateAdd($form)
 {
-	return "<label class='checkbox'>".$form->checkbox("privateAdd")." <span class='label label-private'>".T("label.private")."</span> ".T("Email me when I'm added to a private conversation")."</label>";
+	return "<label class='checkbox'>".$form->checkbox("privateAdd")." ".label("private")." ".T("Email me when I'm added to a private conversation")."</label>";
 }
 
 

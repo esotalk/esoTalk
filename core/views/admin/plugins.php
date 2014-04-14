@@ -27,7 +27,7 @@ if (count($data["plugins"])): ?>
 
 <?php // Loop through each plugin and output its information.
 foreach ($data["plugins"] as $k => $plugin): ?>
-<li id='plugin-<?php echo $k; ?>' class='plugin<?php if ($plugin["loaded"]): ?> thing enabled<?php endif; ?>'>
+<li id='plugin-<?php echo $k; ?>' class='plugin thing<?php if ($plugin["loaded"]): ?> enabled<?php else: ?> disabled<?php endif; ?>'>
 
 <ul class='controls' id='pluginControls-<?php echo $k; ?>'>
 <li><span><i class='icon-user'></i><?php printf(T("By %s"), "<a href='{$plugin["info"]["authorURL"]}'>{$plugin["info"]["author"]}</a>"); ?></span></li>
@@ -37,10 +37,8 @@ foreach ($data["plugins"] as $k => $plugin): ?>
 </ul>
 
 <div class='controls pluginControls'>
-<span class='buttonGroup'>
 <?php if ($plugin["settingsView"]): ?><a href='<?php echo URL("admin/plugins/settings/$k"); ?>' class='button pluginSettings' data-plugin='<?php echo $k; ?>'><?php echo T("Settings"); ?></a> <?php endif; ?>
-<a href='<?php echo URL("admin/plugins/toggle/$k?token=".ET::$session->token); ?>' class='button toggle'><?php echo $plugin["loaded"] ? "<i class='icon-check'></i> ".T("Enabled") : "<i class='icon-check-empty'></i> ".T("Enable"); ?></a>
-</span>
+<a href='<?php echo URL("admin/plugins/toggle/$k?token=".ET::$session->token); ?>' class='button toggle'><?php echo $plugin["loaded"] ? "<i class='icon-check'></i> " : "<i class='icon-check-empty'></i> "; ?></a>
 </div>
 
 <?php if (file_exists(PATH_PLUGINS."/$k/icon.png")): ?><img src='<?php echo getResource("addons/plugins/$k/icon.png"); ?>' alt=''/><?php endif; ?>

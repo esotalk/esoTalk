@@ -26,7 +26,7 @@ if (count($data["skins"])): ?>
 
 <?php // Loop through each skin and output its information.
 foreach ($data["skins"] as $k => $skin): ?>
-<li id='skin-<?php echo $k; ?>' class='skin<?php if ($skin["selected"]): ?> thing enabled<?php endif; ?>'>
+<li id='skin-<?php echo $k; ?>' class='skin thing<?php if ($skin["selected"]): ?> enabled<?php else: ?> disabled<?php endif; ?>'>
 
 <ul class='controls' id='skinControls-<?php echo $k; ?>'>
 <li><span><i class='icon-user'></i><?php printf(T("By %s"), "<a href='{$skin["info"]["authorURL"]}'>{$skin["info"]["author"]}</a>"); ?></span></li>

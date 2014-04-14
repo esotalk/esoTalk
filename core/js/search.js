@@ -211,7 +211,7 @@ initSearchResults: function() {
 	ETMembersAllowedTooltip.init($("#conversations .label-private"), function(elm) {return ETSearch.getConversationIdForElement(elm)});
 	ETMembersAllowedTooltip.showDelay = 500;
 
-	$("#conversations .unreadIndicator").tooltip({alignment: "left", className: "withArrow withArrowBottom"});
+	$("#conversations .unreadIndicator").tooltip();
 
 },
 
