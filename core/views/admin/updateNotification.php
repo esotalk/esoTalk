@@ -15,12 +15,12 @@ if (!defined("IN_ESOTALK")) exit;
 <?php
 $info = C("esoTalk.admin.lastUpdateCheckInfo", array("version" => ESOTALK_VERSION));
 if (version_compare($info["version"], ESOTALK_VERSION, ">")): ?>
-<p><strong><?php printf(T("message.esoTalkUpdateAvailable"), $info["version"]); ?></strong></p>
+<h3><?php printf(T("message.esoTalkUpdateAvailable"), $info["version"]); ?></h3>
 <p><?php echo T("message.esoTalkUpdateAvailableHelp"); ?></p>
 <p><a href='<?php echo $info["releaseNotes"]; ?>' target='_blank' class='button'><?php echo T("Upgrade Now"); ?></a></p>
 
 <?php else: ?>
-<p><strong><?php echo T("message.esoTalkUpToDate"); ?></strong></p>
+<h3><?php echo T("message.esoTalkUpToDate"); ?></h3>
 <p><?php printf(T("message.esoTalkUpToDateHelp"), "http://esotalk.org/donate"); ?></p>
 <?php endif; ?>
 
