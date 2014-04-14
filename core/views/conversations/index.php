@@ -15,13 +15,14 @@ if (!defined("IN_ESOTALK")) exit;
 
 <form class='search big' id='search' action='<?php echo URL("conversations/".$data["channelSlug"]); ?>' method='get'>
 <fieldset>
+<i class='icon-search'></i>
 <input name='search' type='text' class='text' value='<?php echo sanitizeHTML($data["searchString"]); ?>' spellcheck='false' placeholder='<?php echo T("Search conversations..."); ?>'/>
 <a class='control-reset' href='<?php echo URL("conversations/".$data["channelSlug"]); ?>'><i class='icon-remove'></i></a>
 </fieldset>
 </form>
 
 <ul id='channels' class='channels tabs'>
-<li class='channelListItem'><a href='<?php echo URL("channels"); ?>' class='channel-list' data-channel='list' title='<?php echo T("Channel List"); ?>'><i class="icon-list-ul"></i></a></li>
+<li class='channelListItem'><a href='<?php echo URL("channels"); ?>' class='channel-list' data-channel='list' title='<?php echo T("Channel List"); ?>'><i class="icon-list"></i></a></li>
 <?php $this->renderView("channels/tabs", $data); ?>
 </ul>
 
