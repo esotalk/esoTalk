@@ -42,7 +42,7 @@ $form = $data["form"];
 </div>
 
 <div class='buttons'>
-<?php echo $form->button("submit", T("Create Member"), array("class" => "big")); ?>
+<?php echo $form->button("submit", T("Create Member"), array("class" => "big submit")); ?>
 <?php echo $form->cancelButton(); ?>
 </div>
 
