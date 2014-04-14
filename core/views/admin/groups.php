@@ -36,7 +36,7 @@ $(function() {
 <?php endforeach; ?>
 </ul>
 
-<a href='<?php echo URL("admin/groups/create"); ?>' class='button' id='addGroupButton'><i class='icon-plus-sign'></i> <?php echo T("Create Group"); ?></a>
+<a href='<?php echo URL("admin/groups/create"); ?>' class='button' id='addGroupButton'><i class='icon-plus'></i> <?php echo T("Create Group"); ?></a>
 
 </div>
 

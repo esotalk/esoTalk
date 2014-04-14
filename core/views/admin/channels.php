@@ -20,7 +20,7 @@ $(function() {
 
 <p class='help'><?php echo T("message.channelsHelp"); ?></p>
 
-<p><a href='<?php echo URL("admin/channels/create"); ?>' class='button' id='createChannelLink'><span class='icon-plus-sign'></span> <?php echo T("Create Channel"); ?></a></p>
+<p><a href='<?php echo URL("admin/channels/create"); ?>' class='button' id='createChannelLink'><span class='icon-plus'></span> <?php echo T("Create Channel"); ?></a></p>
 
 <ol class='sortable list channelList'>
 

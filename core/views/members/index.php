@@ -29,21 +29,21 @@ function makeURL($startFrom = 0, $searchString = "")
 <!-- Member List Filter -->
 <div id='memberListFilter' class='bodyHeader'>
 
-<h1><?php echo T("Member List"); ?></h1>
+<h1><?php printf(T("%s Members"), number_format($data["countMembers"])); ?></h1>
 
 <ul id='memberListOrderBy' class='tabs'>
-<li><span><?php echo T("Order By:"); ?></span></li>
 <?php foreach ($data["orders"] as $k => $v): ?>
 <li<?php if ($data["orderBy"] == $k): ?> class='selected'<?php endif; ?>><a href='<?php echo URL("members/$k/".($data["searchString"] ? "?search=".$data["searchString"] : "")); ?>'><?php echo T($v[0]); ?></a></li>
 <?php endforeach; ?>
 </ul>
 
 <?php if (ET::$session->isAdmin()): ?>
-<a href='<?php echo URL("members/create"); ?>' class='button' id='createMemberLink'><i class='icon-plus-sign'></i> <?php echo T("Create Member"); ?></a>
+<a href='<?php echo URL("members/create"); ?>' class='button' id='createMemberLink'><i class='icon-plus'></i> <?php echo T("Create Member"); ?></a>
 <?php endif; ?>
 
 <form class='search big' id='memberSearch' action='<?php echo URL(makeURL()); ?>' method='get'>
 <fieldset>
+<i class='icon-search'></i>
 <input name='search' type='text' class='text' value='<?php echo $data["searchString"]; ?>' spellcheck='false' placeholder='<?php echo T("Filter by name or group..."); ?>'/>
 <?php if ($data["searchString"]): ?><a class='control-reset' href='<?php echo URL(makeURL()); ?>'><i class='icon-remove'></i></a><?php endif; ?>
 </fieldset>
