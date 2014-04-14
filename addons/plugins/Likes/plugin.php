@@ -120,7 +120,7 @@ public function handler_conversationController_formatPostForTemplate($sender, &$
 
 	$likes = "<p class='likes".($liked ? " liked" : "")."'>
 		<a href='#' class='like-button'>$likeText</a>
-		<span class='like-separator'".( (! ET::$session->userId or ! $members) ? " style='display:none'" : "").">&nbsp;&middot;&nbsp; <i class='icon-thumbs-up'></i></span>
+		<span class='like-separator'".( (! ET::$session->userId or ! $members) ? " style='display:none'" : "").">&nbsp;&middot;&nbsp;</span>
 		<span class='like-members'>$members</span>
 	</p>";
 
