@@ -116,7 +116,7 @@ span.highlight {background:#fdef34; padding:1px 4px; border-radius:3px}
 
 
 /* Member online icon */
-.online {width:9px; height:9px; font-size:9px !important; color:#81cb37 !important; vertical-align:middle}
+.online {width:9px; height:9px; font-size:9px !important; color:#81cb37 !important}
 
 
 /* Avatars */
@@ -255,7 +255,7 @@ a.channel:hover {text-decoration:none; border-color:#aaa}
 /* Search boxes */
 .search {float:right}
 .search .icon-search {float:left; margin:7px -21px 0 11px; position:relative; color:#ddd}
-.search input.text {width:250px; padding-right:30px; padding-left:25px; background:#fff url(icons.png) no-repeat -13px -290px; float:left; height:18px; font-size:100%}
+.search input.text {width:250px; padding-right:30px; padding-left:25px; background:#fff url(icons.png) no-repeat -13px -290px; float:left; font-size:100%}
 .search .control-reset {float:left; margin-top:-1px; margin-left:-27px; margin-right:0}
 .search .popupButton {margin-left:10px; vertical-align:2px}
 
@@ -442,7 +442,7 @@ a.deleteLink:hover {color:#f00 !important; text-decoration:line-through}
 .postContent:before, .postContent:after {content:" "; border-top-color:transparent !important; border-bottom-color:transparent !important; border-left-color:transparent !important; border-style:solid; border-width:8px; height:0; width:0; left:-16px; top:12px; position:absolute}
 .postContent:after {float:left; left:-15px}
 
-.highlight .postContent {border-color:#fc0}
+.highlight .postContent {box-shadow:border-color:#fc0}
 .highlight .postContent:before {border-color:#fc0}
 
 .postHeader {margin-bottom:2px; padding:10px 10px 10px 15px; overflow:hidden; color:#888}
