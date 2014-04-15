@@ -210,7 +210,7 @@ getConversationIdForElement: function(elm) {
 initSearchResults: function() {
 
 	// Make all "private" labels show a list of members allowed when they are moused over.
-	ETMembersAllowedTooltip.init($("#conversations .label-private"), function(elm) {return ETSearch.getConversationIdForElement(elm)});
+	ETMembersAllowedTooltip.init($("#conversations .label.label-private"), function(elm) {return ETSearch.getConversationIdForElement(elm)});
 	ETMembersAllowedTooltip.showDelay = 500;
 
 	$("#conversations .unreadIndicator").tooltip();
