@@ -529,6 +529,10 @@ initPosts: function() {
 	$("#conversationPosts .controls .control-edit").live("click", function(e) {
 		var postId = $(this).parents(".post").data("id");
 		ETConversation.editPost(postId);
+
+		// Hide the conversation reply form when we are initiating a reply.
+		$("#conversationReply").hide();
+
 		e.preventDefault();
 	});
 
@@ -756,6 +760,9 @@ saveEditPost: function(postId, content) {
 		complete: function() {
 			hideLoadingOverlay("p" + postId, true);
 			$(".button", post).enable();
+
+			// Lets show the conversation reply form again when we are done replying.
+			$("#conversationReply").show();
 		},
 		success: function(data) {
 			if (data.messages) return;
@@ -790,6 +797,9 @@ cancelEditPost: function(postId) {
 	var startHeight = $(".postContent", post).height();
 	post.replaceWith(post.data("oldPost"));
 	var newPost = $("#p" + postId);
+
+	// Lets show the conversation reply form again when we stop editing a reply.
+	$("#conversationReply").show();
 
 	// Animate the post's height.
 	var newHeight = $(".postContent", newPost).height();
