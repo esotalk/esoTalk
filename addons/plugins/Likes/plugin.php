@@ -96,7 +96,7 @@ public function handler_postModel_getPostsAfter($sender, &$posts)
 		->exec();
 
 	while ($row = $result->nextRow()) {
-		$postsById[$row["postId"]]["likes"][$row["memberId"]] = array("username" => $row["username"], "email" => $row["email"], "avatarFormat" => $row["avatarFormat"]);
+		$postsById[$row["postId"]]["likes"][$row["memberId"]] = array("memberId" => $row["memberId"], "username" => $row["username"], "email" => $row["email"], "avatarFormat" => $row["avatarFormat"]);
 	}
 }
 
