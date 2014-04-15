@@ -27,7 +27,8 @@ a {
 .sheet.active,
 .popup,
 input[type=text]:focus, input[type=password]:focus, textarea:focus, .input:focus,
-#hdr {
+#hdr,
+.withArrow.popup:before {
 	border-color:{primary}
 }
 
