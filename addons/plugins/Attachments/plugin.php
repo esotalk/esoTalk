@@ -97,7 +97,7 @@ class ETPlugin_Attachments extends ETPlugin {
 		$sender->addCSSFile($this->getResource("attachments.css"));
 		$sender->addJSFile($this->getResource("fineuploader/jquery.fineuploader.js"));
         $sender->addJSFile($this->getResource("attachments.js"));
-		$sender->addJSLanguage("Delete");
+		$sender->addJSLanguage("Delete", "Embed in post");
 	}
 
 	// When we render the reply box, add the attachments area to the bottom of it.
