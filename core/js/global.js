@@ -795,28 +795,11 @@ $(function() {
 	// Initialize page history.
 	$.history.init();
 
-	// Add click handlers to any login, forgot password, new conversation, and sign up links.
-	// $(".link-login").live("click", function(e) {
-	// 	e.preventDefault();
-	// 	showLoginSheet();
-	// });
-
+	// Add click handlers to some links.
 	$(".link-forgot").live("click", function(e) {
 		e.preventDefault();
 		showForgotSheet();
 	});
-
-	// $(".link-newConversation").live("click", function(e) {
-	// 	if (!ET.userId) {
-	// 		e.preventDefault();
-	// 		showLoginSheet(true);
-	// 	}
-	// });
-
-	// $(".link-join").live("click", function(e) {
-	// 	e.preventDefault();
-	// 	showJoinSheet();
-	// });
 
 	$(".link-membersOnline").live("click", function(e) {
 		e.preventDefault();
