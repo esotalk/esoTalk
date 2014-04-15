@@ -215,8 +215,8 @@ initReply: function() {
 	// Auto resize our reply textareas
 	textarea.TextAreaExpander(200, 700);
 
-	// Disable the "post reply" button if there's not a draft. Disable the save draft button regardless.
-	if (!textarea.val()) $("#reply .postReply").disable();
+	// Disable the post reply and discard draft buttons if there's not a draft. Disable the save draft button regardless.
+	if (!textarea.val()) $("#reply .postReply, #reply .discardDraft").disable();
 	$("#reply .saveDraft").disable();
 
 	// Add event handlers on the textarea to enable/disable buttons.
@@ -330,9 +330,13 @@ addReply: function() {
 		data: {conversationId: ETConversation.id, content: content},
 		success: function(data) {
 
-			// If there are messages, enable the reply/draft buttons and don't continue.
+			// If there are messages, enbale the draft button,
+			// disable the discard Draft button, re-enable the
+			// reply button after 10 seconds and don't continue.
 			if (!data.postId) {
-				$("#reply .postReply, #reply .saveDraft").enable();
+				setTimeout(function(){$("#reply .postReply").enable()}, 10000);
+				$("#reply .saveDraft").enable();
+				$("#reply .discardDraft").disable();
 				return;
 			}
 
@@ -367,6 +371,9 @@ addReply: function() {
 		},
 		complete: function() {
 			hideLoadingOverlay("reply", false);
+
+			// Disable the discard draft button again.
+			$("#reply .discardDraft").disable();
 		}
 	});
 },
@@ -379,8 +386,8 @@ startConversation: function(draft) {
 	var content = $("#reply textarea").val();
 	var channel = $("#conversationHeader .channels :radio:checked").val();
 
-	// Disable the post reply and save draft buttons.
-	$("#reply .postReply, #reply .saveDraft").disable();
+	// Disable the post reply, save draft and discard draft buttons.
+	$("#reply .postReply, #reply .saveDraft, #reply .discardDraft").disable();
 
 	// Make the ajax request.
 	var data = {title: title, content: content, channel: channel};
@@ -434,6 +441,8 @@ saveDraft: function() {
 			// Show the draft label, disable the save draft button, and enable the discard draft button.
 			$("#conversationHeader .labels").html(data.labels);
 			$("#reply .saveDraft").disable();
+			$("#reply .discardDraft").enable();
+			$("#reply .discardDraft").prop('disabled', false);
 			ETConversation.editingReply = false;
 		}
 	});
@@ -460,8 +469,9 @@ discardDraft: function() {
 		},
 		success: function(data) {
 
-			// Hide the draft label and collapse the reply area.
+			// Hide the draft label, disable the discard draft button again and collapse the reply area.
 			$("#conversationHeader .labels").html(data.labels);
+			$("#reply .discardDraft").disable();
 			ETConversation.resetReply();
 
 		}
