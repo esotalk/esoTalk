@@ -214,6 +214,7 @@ initSearchResults: function() {
 	ETMembersAllowedTooltip.showDelay = 500;
 
 	$("#conversations .unreadIndicator").tooltip();
+	$("#conversations .label").tooltip();
 
 },
 

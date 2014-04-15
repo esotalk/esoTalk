@@ -115,6 +115,9 @@ init: function() {
 			if (!ETConversation.confirmDelete()) e.preventDefault();
 		});
 
+		// Add tooltips to labels.
+		$("#conversationHeader .label").tooltip();
+
 		// Initialize the posts.
 		this.initPosts();
 
