@@ -170,7 +170,7 @@ span.highlight {background:#fdef34; padding:1px 4px; border-radius:3px}
 
 /* Tooltips */
 .tooltip {color:#fff; background:#111; background:rgba(0, 0, 0, 0.9); padding:6px 10px 4px; display:block; border-radius:3px; font-size:85%; max-width:400px; line-height:1.5em; cursor:default; z-index:400}
-.withArrow.tooltip:before {display:none;}
+.withArrow.tooltip:before {display:none}
 .withArrow.tooltip:after {border-color:rgba(0, 0, 0, 0.9)}
 
 
@@ -180,13 +180,13 @@ span.highlight {background:#fdef34; padding:1px 4px; border-radius:3px}
 
 .withArrowTop {margin-top:4px}
 .withArrowTop:before, .withArrowTop:after {border-top:0; border-left-color:transparent !important; border-right-color:transparent !important; left:8px; top:-6px}
-.withArrowTop:after {top:-6px}
+.withArrowTop:after {top:-5px}
 
 .withArrowTopRight:before, .withArrowTopRight:after {left:auto; right:8px}
 
 .withArrowBottom {margin:-4px 0 0 0}
 .withArrowBottom:before, .withArrowBottom:after {border-bottom:0; border-left-color:transparent !important; border-right-color:transparent !important; left:8px; bottom:-6px}
-.withArrowBottom:after {bottom:-6px}
+.withArrowBottom:after {bottom:-5px}
 
 
 /* Sheets */
