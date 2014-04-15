@@ -226,7 +226,7 @@ initReply: function() {
 		ETConversation.editingReply = $(this).val() ? true : false;
 
 		// We need to somehow bind the beforeunload event again here to make it work again.
-		$(window).bind("beforeunload.ajax", ETConversation.beforeUnload);		
+		$(window).bind("beforeunload.ajax", ETConversation.beforeUnload);
 	});
 
 	if (ET.mentions) new ETAutoCompletePopup($("#reply textarea"), "@");
@@ -283,7 +283,7 @@ initReply: function() {
 	$("#reply .controls a").tooltip({alignment: "center"});
 
 	// Register the Ctrl+Enter shortcut.
-	textarea.keypress(function(e) {
+	textarea.keydown(function(e) {
 		if (e.ctrlKey && e.which == 13 && !$("#reply .postReply").prop("disabled")) {
 			$("#reply .postReply").click();
 			e.preventDefault();
