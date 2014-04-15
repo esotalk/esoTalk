@@ -248,7 +248,7 @@ public function sendConfirmation($username = "")
 	if (C("esoTalk.registration.requireConfirmation") != "email") return;
 
 	// Get the requested member.
-	$member = reset(ET::memberModel()->get(array("m.username" => $username, "confirmedEmail" => false)));
+	$member = reset(ET::memberModel()->get(array("m.username" => $username, "m.confirmed" => false)));
 	if ($member) {
 		$this->sendConfirmationEmail($member["email"], $member["username"], $member["memberId"].$member["resetPassword"]);
 		$this->renderMessage(T("Success!"), T("message.confirmEmail"));
