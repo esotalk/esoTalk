@@ -224,6 +224,9 @@ initReply: function() {
 		if (e.ctrlKey) return;
 		$("#reply .postReply, #reply .saveDraft")[$(this).val() ? "enable" : "disable"]();
 		ETConversation.editingReply = $(this).val() ? true : false;
+
+		// We need to somehow bind the beforeunload event again here to make it work again.
+		$(window).bind("beforeunload.ajax", ETConversation.beforeUnload);		
 	});
 
 	if (ET.mentions) new ETAutoCompletePopup($("#reply textarea"), "@");
