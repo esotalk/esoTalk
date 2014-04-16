@@ -324,10 +324,12 @@ if (!function_exists("label")) {
  */
 function label($label, $url = "", $className = "")
 {
-	if ($url)
-		return "<a href='$url' class='label label-$label $className' title='".T("label.$label")."'><i class='".ETConversationModel::$labels[$label][1]."'></i></a> ";
-	else
-		return "<span class='label label-$label $className' title='".T("label.$label")."'><i class='".ETConversationModel::$labels[$label][1]."'></i></span> ";
+	// Make sure the ETConversationModel class has been loaded so we can access its static properties.
+	ET::conversationModel();
+
+	return ($url ? "<a href='$url'" : "<span")." class='label label-$label $className' title='".T("label.$label")."'>
+		<i class='".ETConversationModel::$labels[$label][1]."'></i>
+	</".($url ? "a" : "span").">";
 }
 
 }
