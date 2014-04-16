@@ -244,7 +244,7 @@ $(function() {
 
 	// iOS Safari doesn't update position:fixed elements when the keyboard is up.
 	// So, whenever we focus on an input or textarea, change the header's position to absolute,
-	// and revert it when we lose focus. 
+	// and revert it when we lose focus.
 	var iOS = (navigator.userAgent.match(/(iPad|iPhone|iPod)/g) ? true : false);
 	if (iOS) {
 		$("input, textarea").live('focus', function(){
@@ -588,7 +588,7 @@ $.fn.popup = function(options) {
 	if (!popup.length) return;
 
 	// Construct the popup wrapper and button.
-	var wrapper = $("<div class='popupWrapper'></div>");
+	var wrapper = $("<div class='popupWrapper " + options.class + "'></div>");
 	var button = $("<a href='#' class='popupButton button' id='"+popup.attr("id")+"-button'>"+options.content+"</a>");
 	wrapper.append(button).append(popup);
 
@@ -661,7 +661,7 @@ $.fn.tooltip = function(options) {
 			left = Math.max(left, 0);
 			top += options.offset ? options.offset[1] || 0 : 0;
 
-			top = Math.max($(document).scrollTop(), top); 
+			top = Math.max($(document).scrollTop(), top);
 
 			// ...and position it!
 			tooltip.css({left: left, top: top});
