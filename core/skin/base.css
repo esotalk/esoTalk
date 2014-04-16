@@ -164,7 +164,7 @@ span.highlight {background:#fdef34; padding:1px 4px; border-radius:3px}
 
 /* Popup buttons */
 .popupButton {border:solid transparent; border-width:1px 1px 0}
-.popupWrapper.active .popupButton {border:1px solid #666 !important; border-bottom:0 !important; position:relative; z-index:301; border-radius:2px 2px 0 0 !important; background:#fff !important; margin-bottom:2px}
+.popupWrapper.active .popupButton {border:1px solid #666; border-bottom:0 !important; position:relative; z-index:301; border-radius:2px 2px 0 0 !important; background:#fff !important; margin-bottom:2px}
 .popupWrapper {display:inline-block}
 
 
@@ -358,7 +358,7 @@ negative margins so they overlap the padding of the <li>. */
 
 
 /* Unread indicators */
-.unreadIndicator {display:none; font-size:14px;}
+.unreadIndicator {display:none; font-size:14px}
 .conversationList li.unread:hover .col-replies span {display:none}
 .conversationList li.unread:hover .unreadIndicator {display:block}
 
