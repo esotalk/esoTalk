@@ -442,8 +442,7 @@ a.deleteLink:hover {color:#f00 !important; text-decoration:line-through}
 .postContent:before, .postContent:after {content:" "; border-top-color:transparent !important; border-bottom-color:transparent !important; border-left-color:transparent !important; border-style:solid; border-width:8px; height:0; width:0; left:-16px; top:12px; position:absolute}
 .postContent:after {float:left; left:-15px}
 
-.highlight .postContent {box-shadow:border-color:#fc0}
-.highlight .postContent:before {border-color:#fc0}
+.highlight .postContent {box-shadow:0 0 4px #fe9}
 
 .postHeader {margin-bottom:2px; padding:10px 10px 10px 15px; overflow:hidden; color:#888}
 .postHeader h3 {display:inline; font-size:110%; margin:0}
