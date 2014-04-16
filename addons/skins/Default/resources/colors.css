@@ -26,6 +26,7 @@ a {
 
 .sheet.active,
 .popup,
+.popupWrapper.active .popupButton,
 input[type=text]:focus, input[type=password]:focus, textarea:focus, .input:focus,
 #hdr,
 .withArrow.popup:before {
