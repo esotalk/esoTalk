@@ -91,6 +91,9 @@ body {font-size:12px}
 .conversationList .avatar {display:none}
 #conversationsFooter {padding:10px; margin:0}
 
+.conversationList li.unread:hover .col-replies span {display:inline}
+.conversationList li.unread:hover .unreadIndicator {display:none}
+
 
 /* Channel list */
 .channelList > li, .channelList .depth0 {padding:10px}
