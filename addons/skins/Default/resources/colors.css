@@ -20,7 +20,8 @@ a {
 .tabs.big li.selected a,
 #hdr .active .popupButton,
 #hdr #notifications.new,
-.button.submit {
+.button.submit,
+.popupMenu li > a:hover, ul.popupMenu li.selected > a {
 	background-color:{primary}
 }
 
