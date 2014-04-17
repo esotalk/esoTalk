@@ -251,10 +251,13 @@ a.channel:hover {text-decoration:none; border-color:#aaa}
 
 /* Search boxes */
 .search {float:right}
-.search .icon-search {float:left; margin:7px -21px 0 11px; position:relative; color:#ddd}
-.search input.text {width:250px; padding-right:30px; padding-left:25px; background:#fff url(icons.png) no-repeat -13px -290px; float:left; font-size:100%}
+.search .icon-search {float:left; margin:7px -21px 0 11px; position:relative; color:#ddd; pointer-events:none}
+.search input.text {width:250px; padding-right:25px; padding-left:25px; background:#fff url(icons.png) no-repeat -13px -290px; float:left; font-size:100%}
 .search .control-reset {float:left; margin-top:-1px; margin-left:-27px; margin-right:0}
 .search .popupButton {margin-left:10px; vertical-align:2px}
+.search.collapsible {position:relative; z-index:2}
+.search.collapsible input {width:50px; padding-right:0; transition:width 0.2s}
+.search.collapsible input:focus {width:200px}
 
 
 /* Notifications popup + list */
@@ -363,10 +366,10 @@ negative margins so they overlap the padding of the <li>. */
 /* Conversation header */
 #conversationHeader {margin-bottom:0}
 #conversationHeader .star {vertical-align:-2px; margin-left:10px}
-#conversationHeader .channels {margin-left:15px; display:inline-block; margin-bottom:-13px;}
+#conversationHeader .channels {margin-left:15px; display:inline-block; margin-bottom:-13px}
 #conversationHeader > #control-changeChannel {font-size:85%}
 
-#conversationTitle {margin:0; line-height:1.4em; vertical-align:-2px}
+#conversationTitle {margin:0; line-height:1.4em}
 #conversationTitle input.text {font-weight:300}
 #conversationTitle a {cursor:text; padding:1px; color:#000; text-decoration:none}
 #conversationTitle a.editing, #conversationTitle a.editing:hover {padding:0; border:0}
