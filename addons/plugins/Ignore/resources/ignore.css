@@ -1,0 +1,14 @@
+.post.ignored .postHeader {margin:0; padding:6px 5px}
+.post.ignored .thing {border-style:dashed}
+.post.ignored .thing:before, .post.ignored .thing:after {display:none}
+
+.post.ignored .info > *,
+.post.ignored .controls,
+.post.ignored .postBody,
+.post.ignored .avatar,
+.post.ignored .postFooter {
+	display:none;
+}
+.post.ignored .info > .ignoredInfo {
+	display:block;
+}

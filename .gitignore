@@ -18,6 +18,7 @@ addons/skins/*
 !addons/plugins/Emoticons
 !addons/plugins/GitHubLinks
 !addons/plugins/Gravatar
+!addons/plugins/Ignore
 !addons/plugins/MemberNotifications
 !addons/plugins/Profiles
 !addons/plugins/ReportBug
