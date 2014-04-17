@@ -46,7 +46,7 @@ class ETPlugin_GitHubLinks extends ETPlugin {
 
 	public function commitCallback($matches)
 	{
-		return ET::formatter()->formatLink($this->repositoryURL()."/commit/".$matches[1], $matches[1]);
+		return ET::formatter()->formatLink($this->repositoryURL()."/commit/".$matches[1], substr($matches[1], 0, 7));
 	}
 
 	public function issueCallback($matches)
