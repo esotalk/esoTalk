@@ -416,6 +416,7 @@ a.deleteLink:hover {color:#f00 !important; text-decoration:line-through}
 .scrubber > li.selected {border-left-color:#ccc}
 .scrubber li.selected > a {font-weight:bold; color:#000}
 .scrubber > li i {color:#ddd; margin-left:-4px; margin-right:3px} 
+.scrubber > li:hover i {color:#bbb} 
 
 .scrubber li ul {display:none}
 .scrubber li.selected ul {display:block}
