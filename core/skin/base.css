@@ -475,12 +475,15 @@ blockquote .postRef {float:left; margin:-3px 0 0 -30px; visibility:hidden}
 blockquote:hover .postRef {visibility:visible}
 blockquote:hover:before {display:none}
 blockquote.collapsed {max-height:100px; overflow:hidden; position:relative}
-blockquote a.expand {position:absolute; bottom:0; left:50%; margin-left:-13px; background:#ddd; padding:4px 10px; color:#888; border-radius:3px 3px 0 0; width:16px; text-align:center; font-size:14px; text-decoration:none; line-height:1em;}
+blockquote.collapsed:after {content:" "; position:absolute; left:0; right:0; bottom:0; height:4px; background:rgba(0, 0, 0, 0.1)}
+blockquote a.expand {position:absolute; bottom:0; left:50%; margin-left:-13px; background:#ddd; padding:4px 10px; color:#888; border-radius:3px 3px 0 0; width:16px; text-align:center; font-size:14px; text-decoration:none; line-height:1em; z-index:2}
 blockquote a.expand:active {background:#ccc}
 
 pre, code, .fixed {font-family:monospace; font-size:90%; overflow-x:auto; white-space:pre-wrap; white-space:-moz-pre-wrap !important; white-space:-pre-wrap; white-space:-o-pre-wrap; word-wrap:break-word}
 pre {border:1px dashed #ccc; padding:7px}
 code {background:#eee}
+
+.link-external .icon-external-link {font-size:14px; color:#bbb}
 
 
 /* Edit post */
