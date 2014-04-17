@@ -403,12 +403,14 @@ a.deleteLink:hover {color:#f00 !important; text-decoration:line-through}
 #conversationBody {margin-top:20px; clear:both}
 #conversationReply {margin:60px 0 30px; clear:left}
 
-#conversationBody .scrubberContent .button {width:115px; text-align:center; margin-bottom:10px; display:block}
+#conversationBody .scrubberContent .button {text-align:center; margin-bottom:10px; display:block}
+#conversationBody .scrubberContent .popupWrapper {display:block}
 
 
 /* Scrubber */
-.hasScrubber {margin-right:170px}
-.scrubberColumn {float:right; margin-right:-180px; width:150px}
+.hasScrubber {margin-right:180px}
+.scrubberColumn {float:right; margin-right:-180px}
+.scrubberContent {width:150px}
 
 .scrubber {margin:20px 0 20px; padding:0; list-style-type:none}
 .scrubber > li {border-left:5px solid #eee; margin-bottom:1px}
