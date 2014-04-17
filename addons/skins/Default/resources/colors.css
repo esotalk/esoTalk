@@ -3,7 +3,7 @@
 .conversationList .unread .title a,
 .action .name, .action a, .action strong,
 .postHeader h3, .postHeader h3 a,
-.button, .button i,
+.button, .button i, .button:hover,
 #hdr-inner > a, #hdr-inner > h1 a, #hdr-inner > ul > li > a,
 #hdr,
 .tabs li.selected a,
@@ -13,7 +13,10 @@
 #skinList > li,
 #languageList > li,
 .memberList strong a,
-a {
+.scrubber li.selected > a,
+.scrubber li ul li.selected a,
+a
+{
 	color:{primary}
 }
 
@@ -21,7 +24,8 @@ a {
 #hdr .active .popupButton,
 #hdr #notifications.new,
 .button.submit,
-.popupMenu li > a:hover, ul.popupMenu li.selected > a {
+.popupMenu li > a:hover, ul.popupMenu li.selected > a
+{
 	background-color:{primary}
 }
 
@@ -30,7 +34,9 @@ a {
 .popupWrapper.active .popupButton,
 input[type=text]:focus, input[type=password]:focus, textarea:focus, .input:focus,
 #hdr,
-.withArrow.popup:before {
+.withArrow.popup:before,
+.scrubber > li.selected
+{
 	border-color:{primary}
 }
 
@@ -45,7 +51,8 @@ input[type=text]:focus, input[type=password]:focus, textarea:focus, .input:focus
 .postHeader .info > span, .postHeader .info > a,
 #ftr,
 #hdr h1 span,
-.channel {
+.channel
+{
 	color:{secondary}
 }
 
@@ -57,9 +64,11 @@ input[type=text]:focus, input[type=password]:focus, textarea:focus, .input:focus
 .sheet, .sheet h3, .sheet .section, .sheet .buttons,
 input[type=text], input[type=password], textarea, .input,
 .tabs li.selected a,
-.tabs li a:hover {
+.tabs li a:hover
+{
 	border-color:{tertiary}
 }
-.tabs .pathItem.selected a:before {
+.tabs .pathItem.selected a:before
+{
 	border-left-color:{tertiary}
 }
