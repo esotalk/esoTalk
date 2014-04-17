@@ -116,6 +116,6 @@ input[type=text]:focus, input[type=password]:focus, textarea:focus, .input:focus
 a.button {padding:7px 10px; height:auto; line-height:1em; display:inline-block}
 
 .button.submit {color:#fff}
-.button.submit:hover {border-color:#000}
+.button.submit:hover {border-color:#000; color:#fff}
 
 .buttonGroup .button {margin-right:-3px}
