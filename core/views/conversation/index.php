@@ -66,7 +66,7 @@ $oldestYear = date("Y", $conversation["startTime"]);
 $oldestMonth = date("n", $conversation["startTime"]);
 
 // Output the "original post" item. ?>
-<li class='scrubber-op scrubber-nav<?php if ($data["startFrom"] == 0 and empty($data["year"])): ?> selected<?php endif; ?>' data-index='first'><a href='<?php echo URL(makeURL()); ?>'><i class='icon-arrow-up'></i> <?php echo T("Original Post"); ?></a></li>
+<li class='scrubber-op scrubber-nav' data-index='first'><a href='<?php echo URL(makeURL()); ?>'><i class='icon-arrow-up'></i> <?php echo T("Original Post"); ?></a></li>
 <?php
 
 // Work out the year/month which we are viewing from and should therefore highlight as "selected".
