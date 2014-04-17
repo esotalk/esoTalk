@@ -70,7 +70,7 @@ init: function() {
 		if (newer.length && y + $(window).height() > newer.offset().top && !newer.hasClass("loading") && !ET.disableFixedPositions) {
 			newer.find("a").click();
 		}
-	});
+	}).scroll();
 
 	// Alright, so, all the scrolling event stuff is done! Now we need to make the "next/previous page" and
 	// "load more" blocks clickable.
@@ -148,8 +148,7 @@ init: function() {
 					var item = $(this).first();
 
 					// If this item is past the index we're looking for, break out of the loop.
-					if (item.data("index") > index)
-						return false;
+					if (item.data("index") > index) return false;
 
 					moreItem = null;
 					prevPost = $(this);
@@ -171,8 +170,11 @@ init: function() {
 				ETScrubber.loadItemsCallback(index, function(data) {
 
 					// If we're scrolling down to the very bottom, save the scroll position relative to the
-					// bottom of the items area.
-					if (index == Infinity) var scrollOffset = ETScrubber.items.offset().top + ETScrubber.items.outerHeight() - $(document).scrollTop();
+					// bottom of the items area. Stop the current scroll animation and jump to its end first.
+					if (index == Infinity) {
+						$('html,body').stop(true, true);
+						var scrollOffset = ETScrubber.items.offset().top + ETScrubber.items.outerHeight() - $(document).scrollTop();
+					}
 
 					var items = ETScrubber.addItems(data.startFrom, data.view, moreItem);
 
@@ -192,7 +194,7 @@ init: function() {
 
 // Scroll to a specific position, applying an animation and taking the fixed header into account.
 scrollTo: function(position) {
-	$.scrollTo(Math.max(0, position - ETScrubber.header.outerHeight()), "slow");
+	$.scrollTo(Math.max(0, position - ETScrubber.header.outerHeight() - 20), "slow");
 },
 
 // Scroll to the item on or before an index combination.
