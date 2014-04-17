@@ -169,7 +169,9 @@ if (C("esoTalk.installed")) {
 	foreach (C("esoTalk.enabledPlugins") as $v) {
 		if (file_exists($file = PATH_PLUGINS."/".sanitizeFileName($v)."/plugin.php")) include_once $file;
 		$className = "ETPlugin_$v";
-		if (class_exists($className)) ET::$plugins[$v] = new $className("addons/plugins/".$v);
+		if (!class_exists($className)) continue;
+		ET::$plugins[$v] = new $className("addons/plugins/".$v);
+		ET::$plugins[$v]->boot();
 	}
 
 }

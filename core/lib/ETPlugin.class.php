@@ -32,6 +32,15 @@ public function __construct($rootDirectory)
 
 
 /**
+ * This function is called on each page load directly after the plugin is instantiated.
+ * It should be used to perform bootstrapping tasks (e.g. register/override factory classes.)
+ */
+public function boot()
+{
+}
+
+
+/**
  * This function is called on each page load before the controller is initialized and dispatched.
  * It should be used to initialize plugin-specific things such as language definitions.
  */
