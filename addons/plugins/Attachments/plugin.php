@@ -86,7 +86,16 @@ class ETPlugin_Attachments extends ETPlugin {
 				return "<audio controls><source src='".$url."'></video>";
 			}
 
-			return "<a href='".$url."' class='attachment' target='_blank'><i class='icon-file'></i><span class='filename'>".$filename."</span></a>";
+			$icons = array(
+				"pdf" => "file-text-alt",
+				"doc" => "file-text-alt",
+				"docx" => "file-text-alt",
+				"zip" => "archive",
+				"rar" => "archive",
+				"gz" => "archive"
+			);
+			$icon = isset($icons[$extension]) ? $icons[$extension] : "file";
+			return "<a href='".$url."' class='attachment' target='_blank'><i class='icon-$icon'></i><span class='filename'>".$filename."</span></a>";
 		}
 	}
 

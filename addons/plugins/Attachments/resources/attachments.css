@@ -27,7 +27,7 @@
 }
 
 a.attachment {
-	background: #eee;
+	/*background: #eee;*/
 	border-radius: 3px;
 	font-weight: bold;
 	display: inline-block;
@@ -38,39 +38,42 @@ a.attachment {
 	overflow: hidden;
 	position: relative;
 	text-align: center;
+	margin-bottom: 4px;
 }
-a.attachment:before {
+a.attachment:after {
 	content: " ";
 	position: absolute;
 	left: 0;
 	right: 0;
 	bottom: 0;
 	top: 0;
-	border: 1px solid rgba(0, 0, 0, 0.3);
 	border-radius: 3px;
+	border: 1px solid rgba(0, 0, 0, 0.1);
 }
 a.attachment .filename {
 	position: absolute;
 	bottom: 0;
 	left: 0;
 	right: 0;
-	background: rgba(0, 0, 0, 0.5);
-	color: #fff;
-	padding: 3px 7px;
+	color: #666;
+	padding: 7px;
+	font-size: 12px;
+	font-weight: normal;
+	line-height:1.5em;
 }
-a.attachment:hover:before {
-	border-color: rgba(0, 0, 0, 0.7);
+a.attachment:hover:after {
+	border-color: rgba(0, 0, 0, 0.3);
 }
-a.attachment:hover .filename {
-	background: rgba(0, 0, 0, 0.7);
-}
-a.attachment-image {
+a.attachment-image .filename {
+	text-shadow:0 1px 10px #000;
+	color:#fff;
 }
 a.attachment i {
-	font-size: 100px;
+	font-size: 70px;
+	line-height: 100px;
 	margin-right: 5px;
 	text-decoration: none;
-	color: #ccc;
+	color: #ddd;
 }
 
 
