@@ -16,13 +16,9 @@ ET::$pluginInfo["Emoticons"] = array(
 
 class ETPlugin_Emoticons extends ETPlugin {
 
-public function handler_conversationController_renderBefore($sender)
+public function handler_renderBefore($sender)
 {
-	$sender->addToHead("<style type='text/css'>.emoticon {display:inline-block; text-indent:-9999px; width:16px; height:16px; background:url(".getResource($this->getResource("emoticons.png"))."); background-repeat:no-repeat}</style>");
-}
-public function handler_memberController_renderBefore($sender)
-{
-	$this->handler_conversationController_renderBefore($sender);
+	$sender->addCSSFile($this->getResource("emoticons.css"));
 }
 
 public function handler_format_format($sender)
