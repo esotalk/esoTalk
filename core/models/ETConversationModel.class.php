@@ -965,7 +965,7 @@ public function markAsRead($conversationIds, $memberId)
 /**
  * Set a member's muted flag for a conversation.
  *
- * @param array $conversation The conversation to set the draft on. The conversation array's labels
+ * @param array $conversation The conversation to set the flag on. The conversation array's labels
  * 		and muted attribute will be updated.
  * @param int $memberId The member to set the flag for.
  * @param bool $muted Whether or not to set the conversation to muted.
@@ -1032,7 +1032,7 @@ public function setLocked(&$conversation, $locked)
  * @param bool $add true to add the label, false to remove it.
  * @return void
  */
-protected function addOrRemoveLabel(&$conversation, $label, $add = true)
+public function addOrRemoveLabel(&$conversation, $label, $add = true)
 {
 	if ($add and !in_array($label, $conversation["labels"]))
 		$conversation["labels"][] = $label;
