@@ -38,7 +38,7 @@ init: function() {
 
 		// Set up the timeline scrubber.
 		ETScrubber.body = $("#conversation");
-		ETScrubber.scrubber = $("#conversationBody .scrubberContent");
+		ETScrubber.scrubber = $("#conversation .scrubberContent");
 		ETScrubber.items = $("#conversationPosts");
 		ETScrubber.count = this.postCount;
 		ETScrubber.perPage = ET.postsPerPage;

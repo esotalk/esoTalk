@@ -45,18 +45,9 @@ init: function() {
 	$(window).scroll(function() {
 		var y = $(this).scrollTop();
 
-		// If we're past the normal top position of the scrubber, make it fixed.
-		if (y >= scrubberTop && !ET.disableFixedPositions) {
-			ETScrubber.scrubber.addClass("floating").css({position: "fixed", top: ETScrubber.header.outerHeight() + 20, zIndex: 100});
-		}
-		// Otherwise, put it back to normal.
-		else {
-			ETScrubber.scrubber.removeClass("floating").css({position: "", top: ""});
-		}
-
 		// Now we need to work out where we are in the content and highlight the appropriate
 		// index in the scrubber. Go through each of the items on the page...
-		$("li", ETScrubber.items).each(function() {
+		$("> li", ETScrubber.items).each(function() {
 			var item = $(this);
 
 			// If we've scrolled past this item, continue in the loop.
@@ -67,7 +58,6 @@ init: function() {
 				// that index in the scrubber, then break out of the loop.
 				$(".scrubber li").removeClass("selected");
 				var index = item.data("index");
-				if ($(document).scrollTop() <= 0 && ETScrubber.loadedItems.indexOf(0) != -1) index = "op";
 				$(".scrubber-"+index, ETScrubber.scrubber).addClass("selected").parents("li").addClass("selected");
 				return false;
 

@@ -399,27 +399,31 @@ a.deleteLink:hover {color:#f00 !important; text-decoration:line-through}
 #conversationBody {margin-top:20px; clear:both}
 #conversationReply {margin:60px 0 30px; clear:left}
 
-#conversationBody .scrubberContent .button {text-align:center; margin-bottom:10px; display:block}
-#conversationBody .scrubberContent .popupWrapper {display:block}
+#conversation .scrubberContent .button {text-align:center; margin-bottom:10px; display:block}
+#conversation .scrubberContent .popupWrapper {display:block}
 
 
 /* Scrubber */
-.hasScrubber {margin-right:180px}
-.scrubberColumn {float:right; margin-right:-180px}
-.scrubberContent {width:150px}
+.hasScrubber {margin-right:190px}
+.scrubberColumn {width:150px; float:right; margin-right:-190px; margin-top:15px;}
+.scrubberContent {width:150px; position:fixed}
 
-.scrubber {margin:20px 0 20px; padding:0; list-style-type:none}
-.scrubber > li {border-left:5px solid #eee; margin-bottom:1px}
+.scrubber {margin:30px 0; padding:0; list-style-type:none}
+.scrubber > li {border-left:5px solid #eee; margin-bottom:2px}
 .scrubber > li:hover {border-left-color:#ddd}
 .scrubber > li a {color:#888}
-.scrubber > li > a {display:block; padding:3px 8px}
+.scrubber > li > a {display:block; padding:5px 10px}
 .scrubber > li.selected {border-left-color:#ccc}
 .scrubber li.selected > a {font-weight:bold; color:#000}
+.scrubber > li i {color:#ddd; margin-left:-4px; margin-right:3px} 
 
 .scrubber li ul {display:none}
 .scrubber li.selected ul {display:block}
 .scrubber li ul {list-style-type:none; padding:0 0 0 15px; margin:0; font-size:85%}
 .scrubber li ul li.selected a {color:#000}
+
+.scrubber .scrubber-nav {border-left:0}
+.scrubber .scrubber-nav a {padding-left:0}
 
 
 /* Scrubber "load more items" areas */
