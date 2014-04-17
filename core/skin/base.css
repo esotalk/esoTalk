@@ -142,6 +142,7 @@ span.highlight {background:#fdef34; padding:1px 4px; border-radius:3px}
 .popup h3 {margin:0; padding:10px}
 .withArrow.popup:before {border-color:#666}
 .withArrow.popup:after {border-color:#fff}
+.popupWrapper .popup {min-width:99%}
 
 .popup.right {border-radius:2px 0 2px 2px}
 .popup.left {border-radius:0 2px 2px 2px}
@@ -160,7 +161,7 @@ span.highlight {background:#fdef34; padding:1px 4px; border-radius:3px}
 
 /* Popup buttons */
 .popupButton {border:solid transparent; border-width:1px 1px 0}
-.popupWrapper.active .popupButton {border:1px solid #666; border-bottom:0 !important; position:relative; z-index:301; border-radius:2px 2px 0 0 !important; background:#fff !important; margin-bottom:2px}
+.popupWrapper.active .popupButton {border:1px solid #666; border-bottom-color:#fff !important; position:relative; z-index:301; border-radius:2px 2px 0 0 !important; background:#fff !important}
 .popupWrapper {display:inline-block}
 
 
@@ -332,8 +333,8 @@ a.channel:hover {text-decoration:none; border-color:#aaa}
 .conversationList .unread .title a {font-weight:bold; color:#000}
 .conversationList .excerpt {color:#888; font-size:85%}
 .conversationList .starred {background-color:#fffbdb}
-.conversationList .starred:hover {background-color:#FAF6D7}
-.conversationList .justVisited {background-color:#F5FAFC}
+.conversationList .starred:hover {background-color:#faf6d7}
+.conversationList .justVisited {}
 .conversationList .controls {margin-left:10px}
 .conversationList .controls a {margin-right:5px}
 .conversationList .action * {font-weight:normal}
@@ -399,14 +400,15 @@ a.deleteLink:hover {color:#f00 !important; text-decoration:line-through}
 #conversationBody {margin-top:20px; clear:both}
 #conversationReply {margin:60px 0 30px; clear:left}
 
-#conversation .scrubberContent .button {text-align:center; margin-bottom:10px; display:block}
-#conversation .scrubberContent .popupWrapper {display:block}
-
 
 /* Scrubber */
 .hasScrubber {margin-right:190px}
 .scrubberColumn {width:150px; float:right; margin-right:-190px; margin-top:15px;}
-.scrubberContent {width:150px; position:fixed}
+.scrubberContent {width:150px; position:fixed; z-index:2}
+
+.scrubberContent .button {text-align:center; margin-bottom:10px; display:block}
+.scrubberContent .popupWrapper {display:block; margin-bottom:10px}
+.scrubberContent .popupWrapper .button {margin-bottom:0}
 
 .scrubber {margin:30px 0; padding:0; list-style-type:none}
 .scrubber > li {border-left:5px solid #eee; margin-bottom:2px}
@@ -511,10 +513,8 @@ code {background:#eee}
 #memberListFilter {overflow:hidden; margin-bottom:0}
 #memberListBody {margin-top:30px}
 #memberListFilter h1 {float:left; margin-top:4px}
-#memberListOrderBy {float:left; margin-left:20px}
-#createMemberLink {float:right; margin-left:10px; margin-top:1px}
+#memberListFilter #memberListOrderBy {float:left; margin-left:20px}
 
-.letterScrubber {padding-top:0}
 .letterScrubber > li > a {padding:0 8px}
 
 .memberList {border-bottom:0}

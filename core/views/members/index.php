@@ -26,43 +26,14 @@ function makeURL($startFrom = 0, $searchString = "")
 }
 
 ?>
-<!-- Member List Filter -->
-<div id='memberListFilter' class='bodyHeader'>
-
-<h1><?php printf(T("%s Members"), number_format($data["countMembers"])); ?></h1>
-
-<ul id='memberListOrderBy' class='tabs'>
-<?php foreach ($data["orders"] as $k => $v): ?>
-<li<?php if ($data["orderBy"] == $k): ?> class='selected'<?php endif; ?>><a href='<?php echo URL("members/$k/".($data["searchString"] ? "?search=".$data["searchString"] : "")); ?>'><?php echo T($v[0]); ?></a></li>
-<?php endforeach; ?>
-</ul>
-
-<?php if (ET::$session->isAdmin()): ?>
-<a href='<?php echo URL("members/create"); ?>' class='button' id='createMemberLink'><i class='icon-plus'></i> <?php echo T("Create Member"); ?></a>
-<?php endif; ?>
-
-<form class='search big' id='memberSearch' action='<?php echo URL(makeURL()); ?>' method='get'>
-<fieldset>
-<i class='icon-search'></i>
-<input name='search' type='text' class='text' value='<?php echo $data["searchString"]; ?>' spellcheck='false' placeholder='<?php echo T("Filter by name or group..."); ?>'/>
-<?php if ($data["searchString"]): ?><a class='control-reset' href='<?php echo URL(makeURL()); ?>'><i class='icon-remove'></i></a><?php endif; ?>
-</fieldset>
-</form>
-
-</div>
-
-<!-- Member List Body -->
-<div id='memberListBody' class='hasScrubber clearfix'>
-
-<?php // If we're searching but there are no search results, show an error.
-if ($data["searchString"] and !count($data["members"])): ?>
-<div class='area noResults help'>
-<h4><?php echo T("message.noSearchResultsMembers"); ?></h4>
-</div>
-<?php else: ?>
+<div id='members' class='hasScrubber'>
 
 <div class='scrubberColumn'>
 <div class='scrubberContent'>
+
+<?php if (ET::$session->isAdmin()): ?>
+<a href='<?php echo URL("members/create"); ?>' class='button big' id='createMemberLink'><i class='icon-plus'></i> <?php echo T("Create Member"); ?></a>
+<?php endif; ?>
 
 <?php if (!$data["searchString"] and $data["orderBy"] == "name"): ?>
 <!-- Letter scrubber -->
@@ -92,6 +63,37 @@ foreach ($letters as $letter) {
 
 </div>
 </div>
+
+<!-- Member List Filter -->
+<div id='memberListFilter' class='bodyHeader'>
+
+<h1><?php printf(T("%s Members"), number_format($data["countMembers"])); ?></h1>
+
+<ul id='memberListOrderBy' class='tabs'>
+<?php foreach ($data["orders"] as $k => $v): ?>
+<li<?php if ($data["orderBy"] == $k): ?> class='selected'<?php endif; ?>><a href='<?php echo URL("members/$k/".($data["searchString"] ? "?search=".$data["searchString"] : "")); ?>'><?php echo T($v[0]); ?></a></li>
+<?php endforeach; ?>
+</ul>
+
+<form class='search big' id='memberSearch' action='<?php echo URL(makeURL()); ?>' method='get'>
+<fieldset>
+<i class='icon-search'></i>
+<input name='search' type='text' class='text' value='<?php echo $data["searchString"]; ?>' spellcheck='false' placeholder='<?php echo T("Filter by name or group..."); ?>'/>
+<?php if ($data["searchString"]): ?><a class='control-reset' href='<?php echo URL(makeURL()); ?>'><i class='icon-remove'></i></a><?php endif; ?>
+</fieldset>
+</form>
+
+</div>
+
+<!-- Member List Body -->
+<div id='memberListBody' class='clearfix'>
+
+<?php // If we're searching but there are no search results, show an error.
+if ($data["searchString"] and !count($data["members"])): ?>
+<div class='area noResults help'>
+<h4><?php echo T("message.noSearchResultsMembers"); ?></h4>
+</div>
+<?php else: ?>
 
 <!-- Members -->
 <ul id='memberList' class='list memberList'>

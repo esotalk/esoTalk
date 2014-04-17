@@ -123,7 +123,7 @@ init: function() {
 	});
 
 	// Finally, we need to make the indexes in the scrubber clickable.
-	$(".scrubber a", ETScrubber.body).click(function(e) {
+	$(".scrubber a", ETScrubber.scrubber).click(function(e) {
 		e.preventDefault();
 
 		// Get the index of that this element represents.
