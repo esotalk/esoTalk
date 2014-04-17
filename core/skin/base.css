@@ -251,13 +251,10 @@ a.channel:hover {text-decoration:none; border-color:#aaa}
 
 /* Search boxes */
 .search {float:right}
-.search .icon-search {float:left; margin:7px -21px 0 11px; position:relative; color:#ddd; pointer-events:none}
-.search input.text {width:250px; padding-right:25px; padding-left:25px; background:#fff url(icons.png) no-repeat -13px -290px; float:left; font-size:100%}
+.search .icon-search {float:left; width:18px; padding-left:7px; margin:7px 0 0; position:relative; color:#ddd; pointer-events:none}
+.search input.text {width:250px; padding-right:25px; padding-left:25px; margin-left:-25px; float:left; font-size:100%}
 .search .control-reset {float:left; margin-top:-1px; margin-left:-27px; margin-right:0}
 .search .popupButton {margin-left:10px; vertical-align:2px}
-.search.collapsible {position:relative; z-index:2}
-.search.collapsible input {width:50px; padding-right:0; transition:width 0.2s}
-.search.collapsible input:focus {width:200px}
 
 
 /* Notifications popup + list */
@@ -412,6 +409,8 @@ a.deleteLink:hover {color:#f00 !important; text-decoration:line-through}
 .scrubberContent .button {text-align:center; margin-bottom:10px; display:block}
 .scrubberContent .popupWrapper {display:block; margin-bottom:10px}
 .scrubberContent .popupWrapper .button {margin-bottom:0}
+.scrubberContent .search {float:none; margin-bottom:10px}
+.scrubberContent .search input {width:100%; box-sizing:border-box}
 
 .scrubber {margin:30px 0; padding:0; list-style-type:none}
 .scrubber > li {border-left:5px solid #eee; margin-bottom:2px}
