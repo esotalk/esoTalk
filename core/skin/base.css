@@ -334,7 +334,7 @@ a.channel:hover {text-decoration:none; border-color:#aaa}
 .conversationList .excerpt {color:#888; font-size:85%}
 .conversationList .starred {background-color:#fffbdb}
 .conversationList .starred:hover {background-color:#faf6d7}
-.conversationList .justVisited {}
+.conversationList .justVisited {border-color:#aaa; border-style:dotted; position:relative}
 .conversationList .controls {margin-left:10px}
 .conversationList .controls a {margin-right:5px}
 .conversationList .action * {font-weight:normal}
