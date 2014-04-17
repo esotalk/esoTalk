@@ -1373,7 +1373,7 @@ protected function getPostForQuoting($postId, $conversationId)
  * @param bool $post Whether or not $id is the conversationId or a postId.
  * @return bool|array An array of the conversation details, or false if it wasn't found.
  */
-protected function getConversation($id, $post = false)
+public function getConversation($id, $post = false)
 {
 	$conversation = !$post ? ET::conversationModel()->getById($id) : ET::conversationModel()->getByPostId($id);
 
