@@ -59,6 +59,7 @@ p, ul, pre {line-height:1.6em}
 .permissionsGrid .group th {font-weight:300}
 .action .name, .action a, .action strong {font-weight:600}
 .avatar {border-radius:32px}
+.scrubber li.selected > a {font-weight:600}
 
 
 /* Layout */
