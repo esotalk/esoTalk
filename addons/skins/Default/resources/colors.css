@@ -48,9 +48,6 @@ input[type=text]:focus, input[type=password]:focus, textarea:focus, .input:focus
 .channel {
 	color:{secondary}
 }
-[class*="control-"] {
-	color:{secondary} !important
-}
 
 
 /* Tertiary color (light lines) */
