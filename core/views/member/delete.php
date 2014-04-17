@@ -39,7 +39,7 @@ $member = $data["member"];
 </div>
 
 <div class='buttons'>
-<?php echo $form->button("delete", T("Delete Member"), array("class" => "big")); ?>
+<?php echo $form->button("delete", T("Delete Member"), array("class" => "big submit")); ?>
 <?php echo $form->cancelButton(); ?>
 </div>
 

@@ -10,9 +10,15 @@ init: function() {
 		ETMembers.loadCreateMemberSheet();
 	});
 
+	var selected = $("#memberListOrderBy").find(".selected").removeClass("selected").find("a").prepend("<i class='icon-ok'></i>");
+	$(".scrubberContent").prepend($("#memberListOrderBy").removeClass("tabs").popup({
+		alignment: "right",
+		content: "Sort By "+selected.text()+" <i class='icon-caret-down'></i>"
+	}).find(".button").addClass("big").end());
+
 	// Set up the letter scrubber.
 	ETScrubber.body = $("#memberListBody");
-	ETScrubber.scrubber = $("#memberListBody .scrubberContent");
+	ETScrubber.scrubber = $("#members .scrubberContent");
 	ETScrubber.items = $("#memberList");
 	ETScrubber.count = ET.countMembers;
 	ETScrubber.perPage = ET.membersPerPage;

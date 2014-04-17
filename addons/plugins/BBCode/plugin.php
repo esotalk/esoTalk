@@ -127,15 +127,7 @@ public function handler_format_format($sender)
  */
 public function linksCallback($matches)
 {
-	// If this is an internal link...
-	$url = ($matches[1] ? $matches[1] : "http://").$matches[2];
-	$baseURL = C("esoTalk.baseURL");
-	if (substr($url, 0, strlen($baseURL)) == $baseURL) {
-		return "<a href='".$url."' target='_blank' class='link-internal'>".$matches[3]."</a>";
-	}
-
-	// Otherwise, return an external HTML anchor tag.
-	return "<a href='".$url."' rel='nofollow external' target='_blank' class='link-external'>".$matches[3]." <i class='icon-external-link'></i></a>";
+	return ET::formatter()->formatLink($matches[1].$matches[2], $matches[3]);
 }
 
 

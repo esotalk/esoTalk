@@ -226,15 +226,23 @@ public function linksCallback($matches)
 		return "<div class='video'><object width='$width' height='$height'><param name='movie' value='//www.youtube.com/v/$id'></param><param name='allowFullScreen' value='true'></param><param name='allowscriptaccess' value='always'></param><embed src='//www.youtube.com/v/$id' type='application/x-shockwave-flash' allowscriptaccess='always' allowfullscreen='true' width='$width' height='$height'></embed></object></div>";
 	}
 
+	return $this->formatLink($matches[1].$matches[2], $matches[0]);
+}
+
+
+public function formatLink($url, $text = null)
+{
+	if ($text === null) $text = $url;
+	if (!preg_match("/^(\w+:\/\/)/", $url)) $url = "http://".$url;
+
 	// If this is an internal link...
-	$url = ($matches[1] ? $matches[1] : "http://").$matches[2];
 	$baseURL = C("esoTalk.baseURL");
 	if (substr($url, 0, strlen($baseURL)) == $baseURL) {
-		return "<a href='".$url."' target='_blank' class='link-internal'>".$matches[0]."</a>";
+		return "<a href='".$url."' target='_blank' class='link-internal'>".$text."</a>";
 	}
 
 	// Otherwise, return an external HTML anchor tag.
-	return "<a href='".$url."' rel='nofollow external' target='_blank' class='link-external'>".$matches[0]." <i class='icon-external-link'></i></a>";
+	return "<a href='".$url."' rel='nofollow external' target='_blank' class='link-external'>".$text." <i class='icon-external-link'></i></a>";
 }
 
 

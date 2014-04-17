@@ -114,9 +114,11 @@ body {font-size:12px}
 
 /* Hide scrubbers. */
 .hasScrubber {margin-right:0}
-.scrubberColumn {float:none; margin:0; padding:0 10px; width:auto}
-#conversationBody .scrubberContent .button {display:inline-block; width:auto; margin-right:5px}
-#conversationBody .scrubberContent .popupWrapper {display:inline-block}
+.scrubberColumn {float:none; margin:0; padding:10px 10px 0; width:auto}
+.scrubberContent {position:static; width:auto}
+.scrubberContent .button {display:inline-block; width:auto; margin-right:5px}
+.scrubberContent .popupWrapper {display:inline-block}
+.scrubberContent .popupWrapper {display:inline-block}
 .scrubber {display:none}
 
 

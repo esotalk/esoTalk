@@ -12,10 +12,13 @@ addons/skins/*
 !addons/plugins/Answers
 !addons/plugins/Attachments
 !addons/plugins/BBCode
+!addons/plugins/Bookmarks
 !addons/plugins/ChannelNotifications
 !addons/plugins/Debug
 !addons/plugins/Emoticons
+!addons/plugins/GitHubLinks
 !addons/plugins/Gravatar
+!addons/plugins/Ignore
 !addons/plugins/MemberNotifications
 !addons/plugins/Profiles
 !addons/plugins/ReportBug

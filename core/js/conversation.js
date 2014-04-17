@@ -31,14 +31,14 @@ init: function() {
 
 		// Make the controls into a popup button.
 		if ($("#conversationControls").length)
-			$("#conversationBody .scrubberContent").prepend($("#conversationControls").popup({
+			$("#conversation .search").after($("#conversationControls").popup({
 				alignment: "right",
 				content: "<i class='icon-cog'></i> <span class='text'>"+T("Controls")+"</span> <i class='icon-caret-down'></i>"
 			}).find(".button").addClass("big").end());
 
 		// Set up the timeline scrubber.
 		ETScrubber.body = $("#conversation");
-		ETScrubber.scrubber = $("#conversationBody .scrubberContent");
+		ETScrubber.scrubber = $("#conversation .scrubberContent");
 		ETScrubber.items = $("#conversationPosts");
 		ETScrubber.count = this.postCount;
 		ETScrubber.perPage = ET.postsPerPage;

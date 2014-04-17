@@ -45,18 +45,9 @@ init: function() {
 	$(window).scroll(function() {
 		var y = $(this).scrollTop();
 
-		// If we're past the normal top position of the scrubber, make it fixed.
-		if (y >= scrubberTop && !ET.disableFixedPositions) {
-			ETScrubber.scrubber.addClass("floating").css({position: "fixed", top: ETScrubber.header.outerHeight() + 20, zIndex: 100});
-		}
-		// Otherwise, put it back to normal.
-		else {
-			ETScrubber.scrubber.removeClass("floating").css({position: "", top: ""});
-		}
-
 		// Now we need to work out where we are in the content and highlight the appropriate
 		// index in the scrubber. Go through each of the items on the page...
-		$("li", ETScrubber.items).each(function() {
+		$("> li", ETScrubber.items).each(function() {
 			var item = $(this);
 
 			// If we've scrolled past this item, continue in the loop.
@@ -67,7 +58,6 @@ init: function() {
 				// that index in the scrubber, then break out of the loop.
 				$(".scrubber li").removeClass("selected");
 				var index = item.data("index");
-				if ($(document).scrollTop() <= 0 && ETScrubber.loadedItems.indexOf(0) != -1) index = "op";
 				$(".scrubber-"+index, ETScrubber.scrubber).addClass("selected").parents("li").addClass("selected");
 				return false;
 
@@ -80,7 +70,7 @@ init: function() {
 		if (newer.length && y + $(window).height() > newer.offset().top && !newer.hasClass("loading") && !ET.disableFixedPositions) {
 			newer.find("a").click();
 		}
-	});
+	}).scroll();
 
 	// Alright, so, all the scrolling event stuff is done! Now we need to make the "next/previous page" and
 	// "load more" blocks clickable.
@@ -133,7 +123,7 @@ init: function() {
 	});
 
 	// Finally, we need to make the indexes in the scrubber clickable.
-	$(".scrubber a", ETScrubber.body).click(function(e) {
+	$(".scrubber a", ETScrubber.scrubber).click(function(e) {
 		e.preventDefault();
 
 		// Get the index of that this element represents.
@@ -158,8 +148,7 @@ init: function() {
 					var item = $(this).first();
 
 					// If this item is past the index we're looking for, break out of the loop.
-					if (item.data("index") > index)
-						return false;
+					if (item.data("index") > index) return false;
 
 					moreItem = null;
 					prevPost = $(this);
@@ -181,8 +170,11 @@ init: function() {
 				ETScrubber.loadItemsCallback(index, function(data) {
 
 					// If we're scrolling down to the very bottom, save the scroll position relative to the
-					// bottom of the items area.
-					if (index == Infinity) var scrollOffset = ETScrubber.items.offset().top + ETScrubber.items.outerHeight() - $(document).scrollTop();
+					// bottom of the items area. Stop the current scroll animation and jump to its end first.
+					if (index == Infinity) {
+						$('html,body').stop(true, true);
+						var scrollOffset = ETScrubber.items.offset().top + ETScrubber.items.outerHeight() - $(document).scrollTop();
+					}
 
 					var items = ETScrubber.addItems(data.startFrom, data.view, moreItem);
 
@@ -202,7 +194,7 @@ init: function() {
 
 // Scroll to a specific position, applying an animation and taking the fixed header into account.
 scrollTo: function(position) {
-	$.scrollTo(Math.max(0, position - ETScrubber.header.outerHeight()), "slow");
+	$.scrollTo(Math.max(0, position - ETScrubber.header.outerHeight() - 20), "slow");
 },
 
 // Scroll to the item on or before an index combination.

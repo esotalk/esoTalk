@@ -800,7 +800,7 @@ public function head()
 
 		// For each of the files that we need to include in the page, add a <link> tag.
 		foreach ($files as $file)
-			$head .= "<link rel='stylesheet' href='".getResource($file)."?".filemtime($file)."'>\n";
+			$head .= "<link rel='stylesheet' href='".getResource($file)."?".@filemtime($file)."'>\n";
 
 	}
 
