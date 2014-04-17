@@ -483,7 +483,7 @@ pre, code, .fixed {font-family:monospace; font-size:90%; overflow-x:auto; white-
 pre {border:1px dashed #ccc; padding:7px}
 code {background:#eee}
 
-.link-external .icon-external-link {font-size:14px; color:#bbb}
+.link-external .icon-external-link {font-size:14px}
 
 
 /* Edit post */
