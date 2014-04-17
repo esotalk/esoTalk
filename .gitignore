@@ -15,6 +15,7 @@ addons/skins/*
 !addons/plugins/ChannelNotifications
 !addons/plugins/Debug
 !addons/plugins/Emoticons
+!addons/plugins/GitHubLinks
 !addons/plugins/Gravatar
 !addons/plugins/MemberNotifications
 !addons/plugins/Profiles
