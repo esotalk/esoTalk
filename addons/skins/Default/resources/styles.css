@@ -49,6 +49,7 @@ p, ul, pre {line-height:1.6em}
 .postBody h4 {font-weight:300}
 .replyPlaceholder .postHeader h3 {font-weight:300}
 .postBody {line-height:1.75em; font-size:16px}
+.postBody a {font-weight:600}
 
 
 /* Tabs */
@@ -103,7 +104,6 @@ p, ul, pre {line-height:1.6em}
 /* Text inputs */
 input[type=text], input[type=password], textarea, .input {font-weight:300; background:#fff; border:1px solid; padding:5px; border-radius:3px; vertical-align:-1px; margin:0; -webkit-appearance:none}
 input[type=text]:focus, input[type=password]:focus, textarea:focus, .input:focus {outline:0}
-.postBody textarea:focus {box-shadow:none}
 
 
 /* Buttons */
