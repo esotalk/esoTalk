@@ -88,9 +88,6 @@ a.attachment i {
 .attachments-edit.has-attachments {
 	clear:left;
 	float:none;
-	border:solid #eee;
-	border-width:1px 0;
-	margin:-1px 0;
 }
 .attachments-edit ul {
 	margin:0;
