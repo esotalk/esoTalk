@@ -61,7 +61,7 @@ echo "<span class='action'>".avatar(array(
 	"</span>";
 ?></div>
 <div class='col-replies'>
-<?php echo "<span>".$conversation["replies"]."</span>";
+<?php echo "<span><a href='".URL($conversationURL."/unread")."'>".$conversation["replies"]."</a></span>";
 
 // Output an "unread indicator", showing the number of unread posts.
 if (ET::$session->user and $conversation["unread"])
