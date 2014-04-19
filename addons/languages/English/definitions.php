@@ -184,6 +184,7 @@ $definitions["forumDescription"] = "%s is a web-forum discussing %s, and %s.";
 
 $definitions["Give this group the 'moderate' permission on all existing channels"] = "Give this group the 'moderate' permission on all existing channels";
 $definitions["Global permissions"] = "Global permissions";
+$definitions["Go back to the Conversation"] = "Go back to the Conversation";
 $definitions["Go to top"] = "Go to top";
 $definitions["Group name"] = "Group name";
 $definitions["group.administrator"] = "Administrator";
@@ -328,6 +329,7 @@ $definitions["Save Draft"] = "Save Draft";
 $definitions["Search conversations..."] = "Search conversations...";
 $definitions["Search within this conversation..."] = "Search within this conversation...";
 $definitions["Search"] = "Search";
+$definitions["Searching in"] = "Searching in";
 $definitions["See the private conversations I've had with %s"] = "See the private conversations I've had with %s";
 $definitions["Set a New Password"] = "Set a New Password";
 $definitions["Settings"] = "Settings";

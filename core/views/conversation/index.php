@@ -50,12 +50,13 @@ if ($conversation["startMemberId"] == ET::$session->userId) $classes[] = "mine";
 
 <?php
 // Star
+if (!$data["searchString"])
 echo starButton($conversation["conversationId"], $conversation["starred"])."\n";
 ?>
 
-<?php if (!ET::$session->user): ?>
+<?php if (!ET::$session->user or !$data["searchString"]): ?>
 <a href='<?php echo URL("user/login?return=".urlencode($this->selfURL)."/#reply"); ?>' class='button big'><i class="icon-plus"></i> <?php echo T("Post a Reply"); ?></a>
-<?php else: ?>
+<?php elseif (!$data["searchString"]): ?>
 <a href='#reply' class='button big' id='jumpToReply'><i class='icon-plus'></i> <?php echo T("Post a Reply"); ?></a>
 <?php endif; ?>
 
@@ -156,10 +157,12 @@ foreach ($recentMonths as $month) {
 
 <?php
 
-// Title ?>
+// Title
+$searchingIn = !$data["searchString"] ? "" : T("Searching in").": ";
+?>
 <h1 id='conversationTitle'><?php
-if ($conversation["canModerate"] or $conversation["startMemberId"] == ET::$session->userId): ?><a href='<?php echo URL("conversation/edit/".$conversation["conversationId"]); ?>'><?php echo sanitizeHTML($conversation["title"]); ?></a><?php
-else: echo sanitizeHTML($conversation["title"]);
+if (!$data["searchString"] && $conversation["canModerate"] or !$data["searchString"] && $conversation["startMemberId"] == ET::$session->userId): ?><a href='<?php echo URL("conversation/edit/".$conversation["conversationId"]); ?>'><?php echo sanitizeHTML($conversation["title"]); ?></a><?php
+else: echo $searchingIn.sanitizeHTML($conversation["title"]);
 endif;
 ?></h1>
 <?php
@@ -176,6 +179,7 @@ $this->renderView("conversation/channelPath", array("conversation" => $conversat
 
 <?php
 // Controls
+if (!$data["searchString"])
 if ($data["controlsMenu"]->count()): ?>
 <ul id='conversationControls' class='controls'>
 <?php echo $data["controlsMenu"]->getContents(); ?>
@@ -184,6 +188,7 @@ if ($data["controlsMenu"]->count()): ?>
 
 <?php
 // Members allowed list (only if conversation is private or editable)
+if (!$data["searchString"])
 if (count($conversation["membersAllowedSummary"]) or $conversation["startMemberId"] == ET::$session->userId or $conversation["canModerate"]): ?>
 <div id='conversationPrivacy' class='area'>
 <span class='allowedList action'><?php $this->renderView("conversation/membersAllowedSummary", $data); ?></span>
@@ -201,6 +206,7 @@ if ($data["searchString"] and !$conversation["countPosts"]): ?>
 <li><?php echo T("message.fulltextKeywordWarning"); ?></li>
 <li><?php echo T("message.searchAllConversations"); ?></li>
 </ul>
+<?php echo "<a href='".conversationURL($conversation["conversationId"], $conversation["title"])."'><i class='icon-chevron-left'></i> ".T("Go back to the Conversation")."</a>"; ?>
 </div>
 <?php else: ?>
 

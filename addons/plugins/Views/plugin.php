@@ -53,6 +53,7 @@ class ETPlugin_Views extends ETPlugin {
 	// Display the conversation's view count above the scrubber.
 	public function handler_conversationController_renderScrubberBefore($sender, $data)
 	{
+		if (!$data["searchString"])
 		echo "<div class='conversationViews'><i class='icon-eye-open'></i> ".Ts("%s view", "%s views", $data["conversation"]["views"])."</div>";
 	}
 
