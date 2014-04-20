@@ -13,7 +13,7 @@ init: function() {
 	var selected = $("#memberListOrderBy").find(".selected").removeClass("selected").find("a").prepend("<i class='icon-ok'></i>");
 	$(".scrubberContent").prepend($("#memberListOrderBy").removeClass("tabs").popup({
 		alignment: "right",
-		content: "Sort By "+selected.text()+" <i class='icon-caret-down'></i>"
+		content: T("Sort By") + " " + selected.text()+" <i class='icon-caret-down'></i>"
 	}).find(".button").addClass("big").end());
 
 	// Set up the letter scrubber.
