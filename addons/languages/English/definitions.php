@@ -340,6 +340,7 @@ $definitions["Show the conversation list by default"] = "Show the conversation l
 $definitions["Show the forum title in the header"] = "Show the forum title in the header";
 $definitions["Sign Up"] = "Sign Up";
 $definitions["Skins"] = "Skins";
+$definitions["Sort By"] = "Sort By";
 $definitions["Specify Setup Information"] = "Specify Setup Information";
 $definitions["Star to receive notifications"] = "Follow to receive notifications";
 $definitions["Starred"] = "Following";
