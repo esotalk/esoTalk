@@ -78,7 +78,7 @@ class ETPlugin_GitHubLinks extends ETPlugin {
 		}
 
 		$sender->data("gitHubLinksSettingsForm", $form);
-		return $this->getView("settings");
+		return $this->view("settings");
 	}
 
 }

@@ -45,12 +45,12 @@ class ETPlugin_Bookmarks extends ETPlugin {
 	 */
 	public function handler_conversationController_renderBefore($sender)
 	{
-		$sender->addJSFile($this->getResource("bookmarks.js"));
+		$sender->addJSFile($this->resource("bookmarks.js"));
 	}
 
 	public function handler_renderBefore($sender)
 	{
-		$sender->addCSSFile($this->getResource("bookmarks.css"));
+		$sender->addCSSFile($this->resource("bookmarks.css"));
 	}
 
 	public function handler_conversationController_conversationIndexDefault($sender, $conversation, $controls, $replyForm, $replyControls)
@@ -66,7 +66,7 @@ class ETPlugin_Bookmarks extends ETPlugin {
 	 * @param int $conversationId The ID of the conversation.
 	 * @return void
 	 */
-	public function conversationController_bookmark($controller, $conversationId = false)
+	public function action_conversationController_bookmark($controller, $conversationId = false)
 	{
 		if (!ET::$session->user or !$controller->validateToken()) return;
 

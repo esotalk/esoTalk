@@ -17,7 +17,7 @@ ET::$pluginInfo["Likes"] = array(
 class ETPlugin_Likes extends ETPlugin {
 
 // Like a post.
-public function conversationController_like($sender, $postId = false)
+public function action_conversationController_like($sender, $postId = false)
 {
 	$sender->responseType = RESPONSE_TYPE_JSON;
 	if (!$sender->validateToken() or !ET::$session->userId or ET::$session->isSuspended()) return;
@@ -41,7 +41,7 @@ public function conversationController_like($sender, $postId = false)
 }
 
 // Unlike a post.
-public function conversationController_unlike($sender, $postId = false)
+public function action_conversationController_unlike($sender, $postId = false)
 {
 	$sender->responseType = RESPONSE_TYPE_JSON;
 	if (!$sender->validateToken() or !ET::$session->userId) return;
@@ -65,7 +65,7 @@ public function conversationController_unlike($sender, $postId = false)
 }
 
 // Show a list of members who liked a post.
-public function conversationController_liked($sender, $postId = false)
+public function action_conversationController_liked($sender, $postId = false)
 {
 	if (!($postId = (int)$postId)) return;
 	$post = ET::postModel()->getById($postId);
@@ -73,7 +73,7 @@ public function conversationController_liked($sender, $postId = false)
 
 	$sender->data("members", $post["likes"]);
 
-	$sender->render($this->getView("liked"));
+	$sender->render($this->view("liked"));
 }
 
 // Get the likes from the database and attach them to the posts.
@@ -103,8 +103,8 @@ public function handler_postModel_getPostsAfter($sender, &$posts)
 public function handler_conversationController_renderBefore($sender)
 {
 	$sender->addJSLanguage("Like", "Unlike");
-	$sender->addJSFile($this->getResource("likes.js"));
-	$sender->addCSSFile($this->getResource("likes.css"));
+	$sender->addJSFile($this->resource("likes.js"));
+	$sender->addCSSFile($this->resource("likes.css"));
 }
 
 public function handler_conversationController_formatPostForTemplate($sender, &$formatted, $post, $conversation)

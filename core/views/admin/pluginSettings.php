@@ -11,13 +11,14 @@ if (!defined("IN_ESOTALK")) exit;
  */
 
 $plugin = $data["plugin"];
+$view = $data["view"];
 ?>
 <div class='sheet' id='pluginSettingsSheet'>
 <div class='sheetContent'>
 
 <h3><?php printf(T("%s Settings"), $plugin["info"]["name"]); ?></h3>
 
-<?php $this->renderView($plugin["settingsView"], $data); ?>
+<?php $this->renderView($view, $data); ?>
 
 </div>
 </div>

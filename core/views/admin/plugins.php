@@ -37,7 +37,7 @@ foreach ($data["plugins"] as $k => $plugin): ?>
 </ul>
 
 <div class='controls pluginControls'>
-<?php if ($plugin["settingsView"]): ?><a href='<?php echo URL("admin/plugins/settings/$k"); ?>' class='button pluginSettings' data-plugin='<?php echo $k; ?>'><?php echo T("Settings"); ?></a> <?php endif; ?>
+<?php if ($plugin["settings"]): ?><a href='<?php echo URL("admin/plugins/settings/$k"); ?>' class='button pluginSettings' data-plugin='<?php echo $k; ?>'><?php echo T("Settings"); ?></a> <?php endif; ?>
 <a href='<?php echo URL("admin/plugins/toggle/$k?token=".ET::$session->token); ?>' class='button toggle'><?php echo $plugin["loaded"] ? "<i class='icon-check'></i> " : "<i class='icon-check-empty'></i> "; ?></a>
 </div>
 

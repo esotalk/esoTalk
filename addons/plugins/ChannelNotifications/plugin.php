@@ -52,7 +52,7 @@ class ETPlugin_ChannelNotifications extends ETPlugin {
 	}
 
 	// Add an action to toggle the follow status of a channel.
-	public function channelsController_follow($controller, $channelId = "")
+	public function action_channelsController_follow($controller, $channelId = "")
 	{
 		if (!ET::$session->user or !$controller->validateToken()) return;
 

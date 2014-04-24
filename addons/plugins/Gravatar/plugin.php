@@ -90,7 +90,7 @@ class ETPlugin_Gravatar extends ETPlugin {
 		}
 
 		$sender->data("gravatarSettingsForm", $form);
-		return $this->getView("settings");
+		return $this->view("settings");
 	}
 
 }

@@ -70,6 +70,6 @@ class ETPlugin_SMTP extends ETPlugin {
 		}
 
 		$sender->data("smtpSettingsForm", $form);
-		return $this->getView("settings");
+		return $this->view("settings");
 	}
 }

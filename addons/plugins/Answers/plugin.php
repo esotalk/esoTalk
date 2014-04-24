@@ -37,7 +37,7 @@ class ETPlugin_Answers extends ETPlugin {
 
 	public function handler_renderBefore($sender)
 	{
-		$sender->addCSSFile($this->getResource("answers.css"));
+		$sender->addCSSFile($this->resource("answers.css"));
 	}
 
 	public function handler_conversationController_formatPostForTemplate($sender, &$formatted, $post, $conversation)
@@ -68,7 +68,7 @@ class ETPlugin_Answers extends ETPlugin {
 		}
 	}
 
-	public function conversationController_answer($sender, $postId)
+	public function action_conversationController_answer($sender, $postId)
 	{
 		$conversation = ET::conversationModel()->getByPostId($postId);
 
@@ -86,7 +86,7 @@ class ETPlugin_Answers extends ETPlugin {
 		redirect(URL(R("return", postURL($postId))));
 	}
 
-	public function conversationController_unanswer($sender, $conversationId)
+	public function action_conversationController_unanswer($sender, $conversationId)
 	{
 		$conversation = ET::conversationModel()->getById($conversationId);
 

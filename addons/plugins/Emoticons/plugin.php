@@ -18,7 +18,7 @@ class ETPlugin_Emoticons extends ETPlugin {
 
 public function handler_renderBefore($sender)
 {
-	$sender->addCSSFile($this->getResource("emoticons.css"));
+	$sender->addCSSFile($this->resource("emoticons.css"));
 }
 
 public function handler_format_format($sender)

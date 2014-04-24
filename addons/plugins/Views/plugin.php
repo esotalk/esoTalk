@@ -37,7 +37,7 @@ class ETPlugin_Views extends ETPlugin {
 	// When we load the conversation index, increase the conversation's view count.
 	public function handler_conversationController_conversationIndexDefault($sender, &$conversation)
 	{
-		$sender->addCSSFile($this->getResource("views.css"));
+		$sender->addCSSFile($this->resource("views.css"));
 
 		if ($conversation["startMemberId"] == ET::$session->userId) return;
 

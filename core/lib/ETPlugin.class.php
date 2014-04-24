@@ -16,18 +16,18 @@ abstract class ETPlugin extends ETPluggable {
  * The path to the directory, from the esoTalk root, which this plugin resides in.
  * @var string
  */
-protected $rootDirectory;
+protected $path;
 
 
 /**
  * Class constructor, which sets up the plugin so it knows which folder it's in.
  *
- * @param string $rootDirectory The path to the directory, from the esoTalk root, which this plugin resides in.
+ * @param string $path The path to the directory, from the esoTalk root, which this plugin resides in.
  * @return void
  */
-public function __construct($rootDirectory)
+public function __construct($path)
 {
-	$this->rootDirectory = $rootDirectory;
+	$this->path = $path;
 }
 
 
@@ -45,21 +45,6 @@ public function boot()
  * It should be used to initialize plugin-specific things such as language definitions.
  */
 public function init()
-{
-}
-
-
-/**
- * This function is called when the ETPluginsAdminController's settings method is called for the plugin.
- * Generally, it should create a form, perform any processing if there is a valid post back, and then return
- * the full path to the plugin's settings view to render (see getView()).
- *
- * If this function does not return a view path, it is assumed that the plugin has no settings.
- *
- * @param ETPluginsAdminController $sender
- * @return string
- */
-public function settings($sender)
 {
 }
 
@@ -95,18 +80,21 @@ public function uninstall()
 }
 
 
+public function file($file, $absolute = false)
+{
+	return ($absolute ? PATH_ROOT."/" : "").$this->path."/".$file;
+}
+
+
 /**
  * Get the relative path to a resource contained within the plugin's resources folder.
  *
  * @param string $file The name of the resource file.
- * @param bool $absolutePath Whether or not to get the absolute filepath of the resource.
- * @return void
+ * @return string The path to the resource, relative to the esoTalk root.
  */
-public function getResource($file, $absolutePath = false)
+public function resource($file)
 {
-	$path = $this->rootDirectory."/resources/".$file;
-	//if (!$absolutePath) $path = getResource($path);
-	return $path;
+	return $this->file("resources/".$file);
 }
 
 
@@ -114,11 +102,11 @@ public function getResource($file, $absolutePath = false)
  * Get the full path to a view contained within the plugin folder.
  *
  * @param string $view The name of the view.
- * @return string
+ * @return string The absolute path to the view.
  */
-public function getView($view)
+public function view($file)
 {
-	return PATH_ROOT."/".$this->rootDirectory."/views/".$view.".php";
+	return $this->file("views/".$file, true);
 }
 
 }

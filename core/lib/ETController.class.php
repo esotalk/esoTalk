@@ -169,8 +169,8 @@ public function dispatch($method, $arguments)
 	// Go through plugins and look for a handler for this controller/method.
 	$called = false;
 	foreach (ET::$plugins as $plugin) {
-		if (method_exists($plugin, $eventName)) {
-			call_user_func_array(array($plugin, $eventName), $eventArguments);
+		if (method_exists($plugin, "action_".$eventName)) {
+			call_user_func_array(array($plugin, "action_".$eventName), $eventArguments);
 			$called = true;
 			break;
 		}
@@ -424,7 +424,7 @@ public function render($view = "")
 		// For an AJAX or JSON response, set the master view and the content type.
 		// If it's an AJAX response, set one of the JSON parameters to the specified view's contents.
 		case RESPONSE_TYPE_AJAX:
-			if ($view) $this->json("view", $this->getViewContents($view, $this->data));
+			if ($view) $this->json("view", $this->viewContents($view, $this->data));
 
 		case RESPONSE_TYPE_JSON:
 			$this->masterView = "json.master";
@@ -626,11 +626,11 @@ public function getViewPath($view)
 	if (pathinfo($view, PATHINFO_EXTENSION) == "php") return $view;
 
 	// Check the skin to see if it contains this view.
-	if (file_exists($skinView = ET::$skin->getView($view))) return $skinView;
+	if (file_exists($skinView = ET::$skin->view($view))) return $skinView;
 
 	// Check loaded plugins to see if one of them contains the view.
 	foreach (ET::$plugins as $k => $v) {
-		if (file_exists($pluginView = $v->getView($view))) return $pluginView;
+		if (file_exists($pluginView = $v->view($view))) return $pluginView;
 	}
 
 	// Otherwise, just return the default view.

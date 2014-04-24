@@ -36,7 +36,7 @@ class ETPlugin_Ignore extends ETPlugin {
 	}
 
 	// Add an action to toggle the ignoring status of a member.
-	public function memberController_ignore($controller, $memberId = "")
+	public function action_memberController_ignore($controller, $memberId = "")
 	{
 		if (!ET::$session->user or !$controller->validateToken()) return;
 
@@ -84,8 +84,8 @@ class ETPlugin_Ignore extends ETPlugin {
 
 	public function handler_conversationController_renderBefore($sender)
 	{
-		$sender->addCSSFile($this->getResource("ignore.css"));
-		$sender->addJSFile($this->getResource("ignore.js"));
+		$sender->addCSSFile($this->resource("ignore.css"));
+		$sender->addJSFile($this->resource("ignore.js"));
 	}
 
 	public function handler_conversationController_formatPostForTemplate($sender, &$formatted, $post, $conversation)

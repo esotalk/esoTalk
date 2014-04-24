@@ -129,13 +129,13 @@ class ETPlugin_Profiles extends ETPlugin {
 	}
 
 	// Set the default member pane as the 'about' pane.
-	public function memberController_index($sender, $member = "")
+	public function action_memberController_index($sender, $member = "")
 	{
 		$this->memberController_about($sender, $member);
 	}
 
 	// Render the 'about' member profile pane.
-	public function memberController_about($sender, $member = "")
+	public function action_memberController_about($sender, $member = "")
 	{
 		if (!($member = $sender->profile($member, "about"))) return;
 
@@ -158,7 +158,7 @@ class ETPlugin_Profiles extends ETPlugin {
 		}
 
 		$sender->data("fields", $fields);
-		$sender->renderProfile($this->getView("about"));
+		$sender->renderProfile($this->view("about"));
 	}
 
 	/*

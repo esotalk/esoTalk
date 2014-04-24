@@ -102,7 +102,7 @@ class ETPlugin_WordFilter extends ETPlugin {
 		}
 
 		$sender->data("wordFilterSettingsForm", $form);
-		return $this->getView("settings");
+		return $this->view("settings");
 	}
 
 

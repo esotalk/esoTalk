@@ -102,10 +102,10 @@ class ETPlugin_Attachments extends ETPlugin {
 	// Add the attachments/fineuploader JS/CSS to the conversation view.
 	public function handler_conversationController_renderBefore($sender)
 	{
-		$sender->addCSSFile($this->getResource("fineuploader/fineuploader.css"));
-		$sender->addCSSFile($this->getResource("attachments.css"));
-		$sender->addJSFile($this->getResource("fineuploader/jquery.fineuploader.js"));
-        $sender->addJSFile($this->getResource("attachments.js"));
+		$sender->addCSSFile($this->resource("fineuploader/fineuploader.css"));
+		$sender->addCSSFile($this->resource("attachments.css"));
+		$sender->addJSFile($this->resource("fineuploader/jquery.fineuploader.js"));
+        $sender->addJSFile($this->resource("attachments.js"));
 		$sender->addJSLanguage("Delete", "Embed in post");
 	}
 
@@ -301,6 +301,6 @@ class ETPlugin_Attachments extends ETPlugin {
 		}
 
 		$sender->data("attachmentsSettingsForm", $form);
-		return $this->getView("settings");
+		return $this->view("settings");
 	}
 }

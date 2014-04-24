@@ -53,7 +53,7 @@ class ETPlugin_MemberNotifications extends ETPlugin {
 	}
 
 	// Add an action to toggle the following status of a member.
-	public function memberController_follow($controller, $memberId = "")
+	public function action_memberController_follow($controller, $memberId = "")
 	{
 		if (!ET::$session->user or !$controller->validateToken()) return;
 

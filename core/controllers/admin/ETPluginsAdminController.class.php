@@ -43,13 +43,13 @@ protected function getPlugins()
 
 				// Add the plugin's information and status to the array.
 				$plugins[$file] = array(
-					"loaded" => in_array($file, C("esoTalk.enabledPlugins")),
-					"info" => ET::$pluginInfo[$file],
-					"settingsView" => false
+					"loaded"   => in_array($file, C("esoTalk.enabledPlugins")),
+					"info"     => ET::$pluginInfo[$file],
+					"settings" => false
 				);
 
 				// If this skin's settings function returns a view path, then store it.
-				if ($plugins[$file]["loaded"]) $plugins[$file]["settingsView"] = ET::$plugins[$file]->settings($this);
+				if ($plugins[$file]["loaded"]) $plugins[$file]["settings"] = method_exists(ET::$plugins[$file], "settings");
 			}
 
 	    }
@@ -152,8 +152,15 @@ public function settings($plugin = "")
 	if (!$plugin or !array_key_exists($plugin, $plugins)) return;
 	$pluginArray = $plugins[$plugin];
 
-	// Render the pluginSettings view, which will render the plugin's settingsView. lol.
+	// If the plugin isn't loaded or doesn't have settings, we can't access its settings.
+	if (!$pluginArray["loaded"] or !$pluginArray["settings"]) return;
+
+	// Call the plugin's settings function and get the view it wants rendered.
+	$view = ET::$plugins[$plugin]->settings($this);
+
+	// Render the pluginSettings view, which will render the plugin's settings view.
 	$this->data("plugin", $pluginArray);
+	$this->data("view", $view);
 	$this->render("admin/pluginSettings");
 }
 
