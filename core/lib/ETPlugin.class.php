@@ -106,7 +106,7 @@ public function resource($file)
  */
 public function view($file)
 {
-	return $this->file("views/".$file, true);
+	return $this->file("views/".$file.".php", true);
 }
 
 }

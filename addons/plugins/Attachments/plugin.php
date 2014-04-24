@@ -183,7 +183,7 @@ class ETPlugin_Attachments extends ETPlugin {
 		$formatted["body"] = preg_replace_callback("/\[attachment:(\w+)\]/i", array($this, "attachmentCallback"), $formatted["body"]);
 
 		if (empty($this->attachments)) return;
-		$formatted["body"] .= $sender->getViewContents("attachments/list", array("attachments" => $this->attachments));
+		$formatted["body"] .= $sender->getViewContents($this->view("attachments/list"), array("attachments" => $this->attachments));
 	}
 
 	// A temporary array of attachments that will be listed at the end of a post.
