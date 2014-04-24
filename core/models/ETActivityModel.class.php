@@ -446,7 +446,7 @@ public static function groupChangeActivity($item, $member)
 public static function mentionNotification($item)
 {
 	return array(
-		sprintf("@ ".T("%s tagged you in a post."), "<strong>".name($item["fromMemberName"])."</strong>"),
+		sprintf("@ ".T("%s mentioned you in %s."), name($item["fromMemberName"]), "<strong>".sanitizeHTML($item["data"]["title"])."</strong>"),
 		URL(postURL($item["data"]["postId"]))
 	);
 }
@@ -464,7 +464,7 @@ public static function mentionEmail($item, $member)
 	$content = ET::formatter()->init($item["data"]["content"])->format()->get();
 	$url = URL(postURL($item["data"]["postId"]), true);
 	return array(
-		sprintf(T("email.mention.subject"), name($item["fromMemberName"], false)),
+		sprintf(T("email.mention.subject"), name($item["fromMemberName"], false), $item["data"]["title"]),
 		sprintf(T("email.mention.body"), name($item["fromMemberName"]), sanitizeHTML($item["data"]["title"]), $content, "<a href='$url'>$url</a>")
 	);
 }
@@ -496,7 +496,7 @@ public static function privateAddEmail($item, $member)
 	$content = ET::formatter()->init($item["data"]["content"])->format()->get();
 	$url = URL(conversationURL($item["data"]["conversationId"], $item["data"]["title"]), true);
 	return array(
-		T("email.privateAdd.subject"),
+		sprintf(T("email.privateAdd.subject"), $item["data"]["title"]),
 		sprintf(T("email.privateAdd.body"), sanitizeHTML($item["data"]["title"]), $content, "<a href='$url'>$url</a>")
 	);
 }

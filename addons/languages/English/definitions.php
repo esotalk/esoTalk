@@ -51,7 +51,7 @@ $definitions["%s reply"] = "%s reply";
 $definitions["%s replies"] = "%s replies";
 $definitions["%s Settings"] = "%s Settings";
 $definitions["%s started the conversation %s."] = "%s started the conversation %s.";
-$definitions["%s tagged you in a post."] = "%s mentioned you in a post.";
+$definitions["%s mentioned you in %s."] = "%s mentioned you in %s.";
 $definitions["%s will be able to view this conversation."] = "%s will be able to view this conversation.";
 $definitions["%s will be able to:"] = "%s will be able to:";
 
@@ -526,10 +526,10 @@ $definitions["email.approved.body"] = "<p>Your account on %1\$s has been approve
 $definitions["email.forgotPassword.subject"] = "Did you forget your password, %1\$s?";
 $definitions["email.forgotPassword.body"] = "<p>Someone (hopefully you!) has submitted a forgotten password request for your account on the forum '%1\$s'. If you do not wish to change your password, just ignore this email and nothing will happen.</p><p>However, if you did forget your password and wish to set a new one, visit the following link:<br>%2\$s</p>";
 
-$definitions["email.mention.subject"] = "%1\$s mentioned you in a post";
+$definitions["email.mention.subject"] = "[Mentioned by %1\$s] %2\$s";
 $definitions["email.mention.body"] = "<p><strong>%1\$s</strong> mentioned you in a post in the conversation <strong>%2\$s</strong>.</p><hr>%3\$s<hr><p>To view the post in context, check out the following link:<br>%4\$s</p>";
 
-$definitions["email.privateAdd.subject"] = "You have been added to a private conversation";
+$definitions["email.privateAdd.subject"] = "[Private] %1\$s";
 $definitions["email.privateAdd.body"] = "<p>You have been added to a private conversation titled <strong>%1\$s</strong>.</p><hr>%2\$s<hr><p>To view this conversation, check out the following link:<br>%3\$s</p>";
 
 $definitions["email.post.subject"] = "[New Reply] %1\$s";
