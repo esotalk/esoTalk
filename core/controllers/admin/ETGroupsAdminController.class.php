@@ -17,7 +17,7 @@ class ETGroupsAdminController extends ETAdminController {
  *
  * @return void
  */
-public function index()
+public function action_index()
 {
 	$groups = ET::groupModel()->getAll();
 
@@ -34,7 +34,7 @@ public function index()
  * @param int $groupId The ID of the group to edit.
  * @return void
  */
-public function edit($groupId = "")
+public function action_edit($groupId = "")
 {
 	// Get this group's details. If it doesn't exist, show an error.
 	if (!($group = ET::groupModel()->getById((int)$groupId))) {
@@ -80,7 +80,7 @@ public function edit($groupId = "")
  *
  * @return void
  */
-public function create()
+public function action_create()
 {
 	// Set up the form.
 	$form = ETFactory::make("form");
@@ -144,7 +144,7 @@ public function create()
  * @param int $groupId The ID of the group to delete.
  * @return void
  */
-public function delete($groupId = "")
+public function action_delete($groupId = "")
 {
 	if (!$this->validateToken()) return;
 

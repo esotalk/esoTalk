@@ -31,7 +31,7 @@ class AttachmentController extends ETController {
 	}
 
 	// View an attachment.
-	public function index($attachmentId = false)
+	public function action_index($attachmentId = false)
 	{
 		$attachmentId = explode("_", $attachmentId);
 		$attachmentId = $attachmentId[0];
@@ -91,7 +91,7 @@ class AttachmentController extends ETController {
 	}
 
 	// Generate/view a thumbnail of an image attachment.
-	public function thumb($attachmentId = false)
+	public function action_thumb($attachmentId = false)
 	{
 		if (!($attachment = $this->getAttachment($attachmentId))) return;
 
@@ -116,7 +116,7 @@ class AttachmentController extends ETController {
 	}
 
 	// Upload an attachment.
-	public function upload()
+	public function action_upload()
 	{
 		require_once 'qqFileUploader.php';
 		$uploader = new qqFileUploader();
@@ -161,7 +161,7 @@ class AttachmentController extends ETController {
 	}
 
 	// Remove an attachment.
-	public function remove($attachmentId)
+	public function action_remove($attachmentId)
 	{
 		if (!$this->validateToken()) return;
 

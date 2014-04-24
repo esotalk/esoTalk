@@ -17,7 +17,7 @@ class ETLanguagesAdminController extends ETAdminController {
  *
  * @return void
  */
-public function index()
+public function action_index()
 {
 	$languages = ET::getLanguages();
 	$languagesNew = array();
@@ -35,7 +35,7 @@ public function index()
  * @param string $language The name of the language.
  * @return void
  */
-public function uninstall($language = "")
+public function action_uninstall($language = "")
 {
 	if (!$this->validateToken()) return;
 

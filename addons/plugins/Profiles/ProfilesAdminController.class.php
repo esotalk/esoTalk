@@ -16,7 +16,7 @@ class ProfilesAdminController extends ETAdminController {
 		return ET::$plugins["Profiles"];
 	}
 
-	public function index()
+	public function action_index()
 	{
 		$fields = $this->model()->get();
 
@@ -30,7 +30,7 @@ class ProfilesAdminController extends ETAdminController {
 		$this->render($this->plugin()->getView("admin/fields"));
 	}
 
-	public function edit($fieldId = "")
+	public function action_edit($fieldId = "")
 	{
 		// Get this field's details. If it doesn't exist, show an error.
 		if (!($field = $this->model()->getById((int)$fieldId))) {
@@ -73,7 +73,7 @@ class ProfilesAdminController extends ETAdminController {
 	}
 
 
-	public function create()
+	public function action_create()
 	{
 		// Set up the form.
 		$form = ETFactory::make("form");
@@ -111,7 +111,7 @@ class ProfilesAdminController extends ETAdminController {
 	}
 
 
-	public function delete($fieldId = "")
+	public function action_delete($fieldId = "")
 	{
 		if (!$this->validateToken()) return;
 
@@ -126,7 +126,7 @@ class ProfilesAdminController extends ETAdminController {
 		$this->redirect(URL("admin/profiles"));
 	}
 
-	public function reorder()
+	public function action_reorder()
 	{
 		if (!$this->validateToken()) return;
 

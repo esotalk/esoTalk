@@ -169,15 +169,16 @@ public function dispatch($method, $arguments)
 	// Go through plugins and look for a handler for this controller/method.
 	$called = false;
 	foreach (ET::$plugins as $plugin) {
-		if (method_exists($plugin, "action_".$eventName)) {
-			call_user_func_array(array($plugin, "action_".$eventName), $eventArguments);
+		$actionName = "action_".$eventName;
+		if (method_exists($plugin, $actionName)) {
+			call_user_func_array(array($plugin, $actionName), $eventArguments);
 			$called = true;
 			break;
 		}
 	}
 
 	// If one wasn't found, call the method on $this.
-	if (!$called) call_user_func_array(array($this, $method), $arguments);
+	if (!$called) call_user_func_array(array($this, "action_".$method), $arguments);
 
 	// Trigger an "after" event for this method.
 	ET::trigger($eventName."_after", $eventArguments);
@@ -424,7 +425,7 @@ public function render($view = "")
 		// For an AJAX or JSON response, set the master view and the content type.
 		// If it's an AJAX response, set one of the JSON parameters to the specified view's contents.
 		case RESPONSE_TYPE_AJAX:
-			if ($view) $this->json("view", $this->viewContents($view, $this->data));
+			if ($view) $this->json("view", $this->getViewContents($view, $this->data));
 
 		case RESPONSE_TYPE_JSON:
 			$this->masterView = "json.master";

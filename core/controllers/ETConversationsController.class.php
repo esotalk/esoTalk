@@ -19,7 +19,7 @@ class ETConversationsController extends ETController {
  *
  * @return void
  */
-function index($channelSlug = false)
+public function action_index($channelSlug = false)
 {
 	if (!$this->allowed()) return;
 	
@@ -323,7 +323,7 @@ protected function getSelectedChannels($channelSlug = "")
  *
  * @return void
  */
-public function markAllAsRead()
+public function action_markAllAsRead()
 {
 	// Update the user's preferences.
 	ET::$session->setPreferences(array("markedAllConversationsAsRead" => time()));
@@ -341,13 +341,13 @@ public function markAllAsRead()
  *
  * @return void
  */
-public function markAsRead($channelSlug = false)
+public function action_markAsRead($channelSlug = false)
 {
 	// We simply let the index method handle this, because we want to perform a search like normal
 	// but then mark the results as read before we display them. The index method will check if the 
 	// original method called on the controller was "markAsRead" and if it is, mark the results as
 	// read.
-	$this->index($channelSlug);
+	$this->action_index($channelSlug);
 }
 
 
@@ -359,7 +359,7 @@ public function markAsRead($channelSlug = false)
  * @param string $query The search query.
  * @return void
  */
-public function update($channelSlug = "", $query = "")
+public function action_update($channelSlug = "", $query = "")
 {
 	// This must be done as an AJAX request.
 	$this->responseType = RESPONSE_TYPE_AJAX;

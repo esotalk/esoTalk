@@ -268,11 +268,15 @@ function parseRequest($parts, $controllers)
 			if (in_array($suffix, array(RESPONSE_TYPE_VIEW, RESPONSE_TYPE_JSON, RESPONSE_TYPE_AJAX, RESPONSE_TYPE_ATOM))) $type = $suffix;
 		}
 
-		// Get all of the immediately public methods in the controller class.
+		// Get all of the action methods in the controller class.
 		$methods = get_class_methods($controller);
-		$parentMethods = get_class_methods(get_parent_class($controller));
-		$methods = array_diff($methods, $parentMethods);
-		foreach ($methods as $k => $v) $methods[$k] = strtolower($v);
+		foreach ($methods as $k => $v) {
+			if (strpos($v = strtolower($v), "action_") !== 0) {
+				unset($methods[$k]);
+				continue;
+			}
+			$methods[$k] = substr($v, 7);
+		}
 
 		// If the method we want to use doesn't exist in the controller...
 		if (!$method or !in_array($method, $methods)) {
@@ -280,13 +284,13 @@ function parseRequest($parts, $controllers)
 			// Search for a plugin with this method. If found, use that.
 			$found = false;
 			foreach (ET::$plugins as $plugin) {
-				if (method_exists($plugin, $c."Controller_".$method)) {
+				if (method_exists($plugin, "action_".$c."Controller_".$method)) {
 					$found = true;
 					break;
 				}
 			}
 
-			// If one wasn't found, default to the "index" method.
+			// If one wasn't found, default to the "action_index" method.
 			if (!$found) {
 				$method = "index";
 				$arguments = array_slice($parts, 1);

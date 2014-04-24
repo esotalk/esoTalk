@@ -33,7 +33,7 @@ public function init()
  *
  * @return void
  */
-public function index()
+public function action_index()
 {
 	try {
 

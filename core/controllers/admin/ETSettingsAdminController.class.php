@@ -18,7 +18,7 @@ class ETSettingsAdminController extends ETAdminController {
  *
  * @return void
  */
-public function index()
+public function action_index()
 {
 	// Make an array of languages for the default forum language select.
 	$languages = array();

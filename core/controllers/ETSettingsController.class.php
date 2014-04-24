@@ -47,9 +47,9 @@ public function renderProfile($view = "")
  *
  * @return void
  */
-public function index()
+public function action_index()
 {
-	$this->general();
+	$this->action_general();
 }
 
 
@@ -81,7 +81,7 @@ protected function profile($pane = "")
 	// Add a link to go back to the user's member profile.
 	$actions->add("viewProfile", "<a href='".URL("member/me")."'><i class='icon-eye-open'></i> ".T("View your profile")."</a>");
 
-	$this->trigger("init", array($panes, $controls, $actions));
+	$this->trigger("initProfile", array($panes, $controls, $actions));
 
 	// Pass along these menus to the view.
 	$this->data("member", $member);
@@ -99,7 +99,7 @@ protected function profile($pane = "")
  *
  * @return void
  */
-public function general()
+public function action_general()
 {
 	$member = $this->profile("general");
 
@@ -389,7 +389,7 @@ public function saveAvatar($form, $key, &$preferences)
  * @param $popup bool Whether or not we are getting the contents of the notifications popup.
  * @return void
  */
-public function notifications($popup = false)
+public function action_notifications($popup = false)
 {
 	$member = $this->profile("notifications");
 
@@ -410,7 +410,7 @@ public function notifications($popup = false)
 /**
  *
  */
-public function notificationCheck()
+public function action_notificationCheck()
 {
 	$this->responseType = RESPONSE_TYPE_AJAX;
 
@@ -428,7 +428,7 @@ public function notificationCheck()
  *
  * @return void
  */
-public function password()
+public function action_password()
 {
 	$member = $this->profile("password");
 

@@ -22,7 +22,7 @@ class ETMembersController extends ETController {
  * 		- A letter to start from, if $orderBy is "name".
  * @return void
  */
-public function index($orderBy = false, $start = 0)
+public function action_index($orderBy = false, $start = 0)
 {
 	if (!$this->allowed("esoTalk.members.visibleToGuests")) return;
 
@@ -201,7 +201,7 @@ public function index($orderBy = false, $start = 0)
  *
  * @return void
  */
-public function create()
+public function action_create()
 {
 	// Non-admins can't do this! Suckers.
 	if (!ET::$session->isAdmin()) return;
@@ -255,7 +255,7 @@ public function create()
  *
  * @return void
  */
-public function online()
+public function action_online()
 {
 	// Check if we have permission to view the online list.
 	if (!C("esoTalk.members.visibleToGuests") and !ET::$session->user) {
@@ -297,7 +297,7 @@ public function online()
  * @param string $input The string to match member usernames against.
  * @return void
  */
-public function autocomplete($input = "")
+public function action_autocomplete($input = "")
 {
 	// Force the response type to JSON.
 	$this->responseType = RESPONSE_TYPE_JSON;

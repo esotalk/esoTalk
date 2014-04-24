@@ -45,7 +45,7 @@ public function init()
  *
  * @return void
  */
-public function index()
+public function action_index()
 {
 	$this->warnings();
 }
@@ -56,7 +56,7 @@ public function index()
  *
  * @return void
  */
-public function errors()
+public function action_errors()
 {
 	$this->data("fatal", true);
 	$this->render("install/warnings");
@@ -68,7 +68,7 @@ public function errors()
  *
  * @return void
  */
-public function warnings()
+public function action_warnings()
 {
 	$errors = $this->warningChecks();
 	if (!$errors) $this->redirect(URL("install/info"));
@@ -83,7 +83,7 @@ public function warnings()
  *
  * @return void
  */
-public function info()
+public function action_info()
 {
 	// Set up the form.
 	$form = ETFactory::make("form");
@@ -168,7 +168,7 @@ public function info()
  *
  * @return void
  */
-public function install()
+public function action_install()
 {
 	// If we aren't supposed to be here, get out.
 	if (!($info = ET::$session->get("install"))) $this->redirect(URL("install/info"));

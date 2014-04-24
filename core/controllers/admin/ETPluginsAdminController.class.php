@@ -17,7 +17,7 @@ class ETPluginsAdminController extends ETAdminController {
  *
  * @return void
  */
-public function index()
+public function action_index()
 {
 	$plugins = $this->getPlugins();
 
@@ -68,7 +68,7 @@ protected function getPlugins()
  * @param string $plugin The name of the plugin.
  * @return void
  */
-public function toggle($plugin = "")
+public function action_toggle($plugin = "")
 {
 	if (!$this->validateToken()) return;
 
@@ -145,7 +145,7 @@ public function toggle($plugin = "")
  * @param string $plugin The name of the plugin.
  * @return void
  */
-public function settings($plugin = "")
+public function action_settings($plugin = "")
 {
 	// Get the plugin.
 	$plugins = $this->getPlugins();
@@ -171,7 +171,7 @@ public function settings($plugin = "")
  * @param string $plugin The name of the plugin.
  * @return void
  */
-public function uninstall($plugin = "")
+public function action_uninstall($plugin = "")
 {
 	if (!$this->validateToken()) return;
 

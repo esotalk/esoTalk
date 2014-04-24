@@ -17,7 +17,7 @@ class ETDashboardAdminController extends ETAdminController {
  *
  * @return void
  */
-public function index()
+public function action_index()
 {
 	$this->title = T("Dashboard");
 
@@ -64,7 +64,7 @@ public function index()
  *
  * @return void
  */
-public function news()
+public function action_news()
 {
 	// Check for updates and add the update notification view to the response.
 	ET::upgradeModel()->checkForUpdates();

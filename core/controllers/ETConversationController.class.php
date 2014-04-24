@@ -23,7 +23,7 @@ class ETConversationController extends ETController {
  * @param int $month If specified, the YYYY/MM combination will be used.
  * @return void
  */
-public function index($conversationId = false, $year = false, $month = false)
+public function action_index($conversationId = false, $year = false, $month = false)
 {
 	if (!$this->allowed()) return;
 	
@@ -331,7 +331,7 @@ public function index($conversationId = false, $year = false, $month = false)
  * @param string $member A member's name to make the conversation private with.
  * @return void
  */
-public function start($member = false)
+public function action_start($member = false)
 {
 	// If the user isn't logged in, redirect them to the login page.
 	if (!ET::$session->user) $this->redirect(URL("user/login?return=conversation/start"));
@@ -438,7 +438,7 @@ public function start($member = false)
  * @param int $postId The post ID to show.
  * @return void
  */
-public function post($postId = false)
+public function action_post($postId = false)
 {
 	// Construct a subquery that will find the position of a post within its conversation.
 	$subquery = ET::SQL()
@@ -480,7 +480,7 @@ public function post($postId = false)
  * @param int $postId The post ID.
  * @return void
  */
-public function quotePost($postId = false)
+public function action_quotePost($postId = false)
 {
 	$this->responseType = RESPONSE_TYPE_JSON;
 
@@ -509,7 +509,7 @@ public function quotePost($postId = false)
  * @param int $conversationId The ID of the conversation to delete.
  * @return void
  */
-public function delete($conversationId = false)
+public function action_delete($conversationId = false)
 {
 	if (!$this->validateToken()) return;
 
@@ -534,7 +534,7 @@ public function delete($conversationId = false)
  * @param int $conversationId The ID of the conversation.
  * @return void
  */
-public function sticky($conversationId = false)
+public function action_sticky($conversationId = false)
 {
 	$this->toggle($conversationId, "sticky");
 }
@@ -546,7 +546,7 @@ public function sticky($conversationId = false)
  * @param int $conversationId The ID of the conversation.
  * @return void
  */
-public function lock($conversationId = false)
+public function action_lock($conversationId = false)
 {
 	$this->toggle($conversationId, "locked");
 }
@@ -559,7 +559,7 @@ public function lock($conversationId = false)
  * @param string $type The name of the flag to toggle.
  * @return void
  */
-protected function toggle($conversationId, $type)
+public function toggle($conversationId, $type)
 {
 	if (!$this->validateToken()) return;
 
@@ -594,7 +594,7 @@ protected function toggle($conversationId, $type)
  * @param int $conversationId The ID of the conversation to edit.
  * @return void
  */
-public function edit($conversationId = false)
+public function action_edit($conversationId = false)
 {
 	if (!($conversation = $this->getConversation($conversationId))) return;
 
@@ -633,7 +633,7 @@ public function edit($conversationId = false)
  * @param int $conversationId The ID of the conversation to edit.
  * @return void
  */
-public function changeChannel($conversationId = "")
+public function action_changeChannel($conversationId = "")
 {
 	// Get the conversation.
 	if (!$conversationId) $conversation = ET::conversationModel()->getEmptyConversation();
@@ -677,7 +677,7 @@ public function changeChannel($conversationId = "")
  * @param int $conversationId The conversation ID.
  * @return void
  */
-public function save($conversationId = false)
+public function action_save($conversationId = false)
 {
 	if (!$this->validateToken()) return;
 
@@ -764,7 +764,7 @@ public function save($conversationId = false)
  * @param int $conversationId The ID of the conversation to edit.
  * @return void
  */
-public function membersAllowed($conversationId = false)
+public function action_membersAllowed($conversationId = false)
 {
 	// Get the conversation.
 	if (!$conversationId) $conversation = ET::conversationModel()->getEmptyConversation();
@@ -797,7 +797,7 @@ public function membersAllowed($conversationId = false)
  * @param int $conversationId The ID of the conversation to get members allowed for.
  * @return void
  */
-public function membersAllowedList($conversationId = false)
+public function action_membersAllowedList($conversationId = false)
 {
 	// Get the conversation.
 	if (!$conversationId) $conversation = ET::conversationModel()->getEmptyConversation();
@@ -818,7 +818,7 @@ public function membersAllowedList($conversationId = false)
  * @param int $conversationId The ID of the conversation.
  * @return void
  */
-public function addMember($conversationId = false)
+public function action_addMember($conversationId = false)
 {
 	if (!$this->validateToken()) return;
 
@@ -873,7 +873,7 @@ public function addMember($conversationId = false)
  * @param int $conversationId The ID of the conversation.
  * @return void
  */
-public function removeMember($conversationId = false)
+public function action_removeMember($conversationId = false)
 {
 	if (!$this->validateToken()) return;
 
@@ -927,7 +927,7 @@ public function removeMember($conversationId = false)
  * @param int $conversationId The ID of the conversation.
  * @return void
  */
-public function star($conversationId = false)
+public function action_star($conversationId = false)
 {
 	if (!ET::$session->user or !$this->validateToken()) return;
 
@@ -955,7 +955,7 @@ public function star($conversationId = false)
  * @param int $conversationId The ID of the conversation.
  * @return void
  */
-public function mute($conversationId = false)
+public function action_mute($conversationId = false)
 {
 	if (!ET::$session->user or !$this->validateToken()) return;
 
@@ -987,7 +987,7 @@ public function mute($conversationId = false)
  * @param int $conversationId The ID of the conversation.
  * @return void
  */
-public function read($conversationId = false)
+public function action_read($conversationId = false)
 {
 	if (!ET::$session->user or !$this->validateToken()) return;
 
@@ -1016,7 +1016,7 @@ public function read($conversationId = false)
  * @param int $conversationId The ID of the conversation.
  * @return void
  */
-public function reply($conversationId = false)
+public function action_reply($conversationId = false)
 {
 	if (!ET::$session->user or !$this->validateToken()) return;
 
@@ -1106,7 +1106,7 @@ public function reply($conversationId = false)
  *
  * @return void
  */
-public function preview()
+public function action_preview()
 {
 	$this->responseType = RESPONSE_TYPE_JSON;
 	$this->json("content", $this->displayPost(R("content")));
@@ -1120,7 +1120,7 @@ public function preview()
  * @param int $postId The post ID.
  * @return void
  */
-public function editPost($postId = false)
+public function action_editPost($postId = false)
 {
 	if (!($post = $this->getPostForEditing($postId))) return;
 
@@ -1170,7 +1170,7 @@ public function editPost($postId = false)
  * @param int $postId The post ID.
  * @return void
  */
-public function deletePost($postId = false)
+public function action_deletePost($postId = false)
 {
 	if (!($post = $this->getPostForEditing($postId)) or !$this->validateToken()) return;
 
@@ -1196,7 +1196,7 @@ public function deletePost($postId = false)
  * @param int $postId The post ID.
  * @return void
  */
-public function restorePost($postId = false)
+public function action_restorePost($postId = false)
 {
 	if (!($post = $this->getPostForEditing($postId)) or !$this->validateToken()) return;
 

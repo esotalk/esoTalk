@@ -17,7 +17,7 @@ class ETChannelsAdminController extends ETAdminController {
  *
  * @return void
  */
-public function index()
+public function action_index()
 {
 	// Get all of the channels.
 	$channels = ET::channelModel()->getAll();
@@ -38,7 +38,7 @@ public function index()
  * @param int $channelId The ID of the channel to edit.
  * @return void
  */
-public function edit($channelId = "")
+public function action_edit($channelId = "")
 {
 	// Get the channel!
 	$channels = ET::channelModel()->getAll();
@@ -105,7 +105,7 @@ public function edit($channelId = "")
  *
  * @return void
  */
-public function reorder()
+public function action_reorder()
 {
 	if (!$this->validateToken()) return;
 
@@ -135,7 +135,7 @@ public function reorder()
  * @param int $channelId The ID of the channel.
  * @return void
  */
-public function getPermissions($channelId)
+public function action_getPermissions($channelId)
 {
 	$this->responseType = RESPONSE_TYPE_JSON;
 	$channels = ET::channelModel()->getAll();
@@ -152,7 +152,7 @@ public function getPermissions($channelId)
  *
  * @return void
  */
-public function create()
+public function action_create()
 {
 	// Get the channels!
 	$channels = ET::channelModel()->getAll();
@@ -216,7 +216,7 @@ public function create()
  * @param int $channelId The ID of the channel to delete.
  * @return void
  */
-public function delete($channelId)
+public function action_delete($channelId)
 {
 	// Get the channel.
 	$channels = ET::channelModel()->getAll();

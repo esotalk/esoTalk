@@ -27,7 +27,7 @@ public $loginMessage;
  *
  * @return void
  */
-public function index()
+public function action_index()
 {
 	$this->redirect(URL(""));
 }
@@ -38,7 +38,7 @@ public function index()
  *
  * @return void
  */
-public function login()
+public function action_login()
 {
 	// If we're already logged in, redirect to the forum index.
 	if (ET::$session->user) $this->redirect(URL(""));
@@ -84,7 +84,7 @@ public function login()
  *
  * @return void
  */
-public function logout()
+public function action_logout()
 {
 	ET::$session->remove("messages");
 	ET::$session->logout();
@@ -98,7 +98,7 @@ public function logout()
  *
  * @return void
  */
-public function join()
+public function action_join()
 {
 	// If we're already logged in, get out of here.
 	if (ET::$session->user) $this->redirect(URL(""));
@@ -201,7 +201,7 @@ protected function sendConfirmationEmail($email, $username, $hash)
  * @param string $hash The hash stored in the member's resetPassword field, prefixed with the member's ID.
  * @return void
  */
-public function confirm($hash = "")
+public function action_confirm($hash = "")
 {
 	// If email confirmation is not necessary, get out of here.
 	if (C("esoTalk.registration.requireConfirmation") != "email") return;
@@ -242,7 +242,7 @@ public function confirm($hash = "")
  * @param string $username The username of the member to resend to.
  * @return void
  */
-public function sendConfirmation($username = "")
+public function action_sendConfirmation($username = "")
 {
 	// If email confirmation is not necessary, get out of here.
 	if (C("esoTalk.registration.requireConfirmation") != "email") return;
@@ -263,7 +263,7 @@ public function sendConfirmation($username = "")
  *
  * @return void
  */
-public function forgot()
+public function action_forgot()
 {
 	// If the user is logged in, kick them out.
 	if (ET::$session->user) $this->redirect(URL(""));
@@ -317,7 +317,7 @@ public function forgot()
  * @param string $hashString The hash stored in the member's resetPassword field, prefixed by their ID.
  * @return void
  */
-public function reset($hashString = "")
+public function action_reset($hashString = "")
 {
 	if (empty($hashString)) return;
 

@@ -18,7 +18,7 @@ class ETUnapprovedAdminController extends ETAdminController {
  *
  * @return void
  */
-public function index()
+public function action_index()
 {
 	ET::activityModel()->markNotificationsAsRead('unapproved');
 	
@@ -38,7 +38,7 @@ public function index()
  * @param int $memberId The ID of the member to approve.
  * @return void
  */
-public function approve($memberId)
+public function action_approve($memberId)
 {
 	if (!$this->validateToken()) return;
 
@@ -66,7 +66,7 @@ public function approve($memberId)
  * @param int $memberId The ID of the member to deny.
  * @return void
  */
-public function deny($memberId)
+public function action_deny($memberId)
 {
 	// Get this member's details. If it doesn't exist or is already approved, show an error.
 	if (!($member = ET::memberModel()->getById((int)$memberId)) or $member["confirmed"]) {
