@@ -30,7 +30,7 @@ class ETPlugin_Answers extends ETPlugin {
 	public function init()
 	{
 		ET::conversationModel();
-		ETConversationModel::addLabel("answered", "IF(c.answered,1,0)", "icon-ok-sign");
+		ETConversationModel::addLabel("answered", "c.answered = 1", "icon-ok-sign");
 
 		ET::define("label.answered", "Answered");
 	}

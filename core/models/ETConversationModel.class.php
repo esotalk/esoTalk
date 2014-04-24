@@ -1330,8 +1330,8 @@ protected function privateAddNotification($conversation, $memberIds, $notifyAll 
 
 
 // Add default labels.
-ETConversationModel::addLabel("sticky", "IF(c.sticky=1,1,0)", "icon-pushpin");
-ETConversationModel::addLabel("private", "IF(c.private=1,1,0)", "icon-envelope-alt");
-ETConversationModel::addLabel("locked", "IF(c.locked=1,1,0)", "icon-lock");
-ETConversationModel::addLabel("draft", "IF(s.draft IS NOT NULL,1,0)", "icon-pencil");
-ETConversationModel::addLabel("muted", "IF(s.muted=1,1,0)", "icon-eye-close");
+ETConversationModel::addLabel("sticky", "c.sticky = 1", "icon-pushpin");
+ETConversationModel::addLabel("private", "c.private = 1", "icon-envelope-alt");
+ETConversationModel::addLabel("locked", "c.locked = 1", "icon-lock");
+ETConversationModel::addLabel("draft", "s.draft IS NOT NULL", "icon-pencil");
+ETConversationModel::addLabel("muted", "s.muted = 1", "icon-eye-close");
