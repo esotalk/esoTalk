@@ -481,7 +481,7 @@ hideSheet: function(id, callback) {
 },
 
 // Quickly load a view via an AJAX request and display it as a sheet.
-loadSheet: function(id, url, callback, data) {
+loadSheet: function(id, url, afterCallback, data, beforeCallback) {
 	$.ETAjax({
 		id: id,
 		url: url,
@@ -493,7 +493,8 @@ loadSheet: function(id, url, callback, data) {
 				ETSheet.hideSheet(id);
 				return;
 			}
-			ETSheet.showSheet(id, data.view || data, callback);
+			if (typeof beforeCallback == "function" && beforeCallback(data) === false) return;
+			ETSheet.showSheet(id, data.view || data, afterCallback);
 		}
 	})
 }
