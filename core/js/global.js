@@ -489,7 +489,7 @@ loadSheet: function(id, url, afterCallback, data, beforeCallback) {
 		type: data && data.length ? "POST" : "GET",
 		global: true,
 		success: function(data) {
-			if (data.modalMessage) {
+			if (data.modalMessage || !data || (typeof data != "string" && !data.view)) {
 				ETSheet.hideSheet(id);
 				return;
 			}
