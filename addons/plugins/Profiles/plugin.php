@@ -131,7 +131,7 @@ class ETPlugin_Profiles extends ETPlugin {
 	// Set the default member pane as the 'about' pane.
 	public function action_memberController_index($sender, $member = "")
 	{
-		$this->memberController_about($sender, $member);
+		$this->action_memberController_about($sender, $member);
 	}
 
 	// Render the 'about' member profile pane.
