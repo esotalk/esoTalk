@@ -64,7 +64,7 @@ if (count($names)) {
 
 // If there are no names, assume that everyone can view the conversation.
 else {
-	printf(T("%s ".($conversation["countPosts"] > 0 ? "can" : "will be able to")." view this conversation."), T("Everyone"));
+	printf("<i class='icon-eye-open'></i> ".T("%s ".($conversation["countPosts"] > 0 ? "can" : "will be able to")." view this conversation."), T("Everyone"));
 }
 
 ?>

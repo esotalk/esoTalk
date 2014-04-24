@@ -175,7 +175,7 @@ public function action_index($orderBy = false, $start = 0)
 		$this->addJSVar("startFrom", $start);
 		$this->addJSVar("searchString", $searchString);
 		$this->addJSVar("orderBy", $orderBy);
-
+                $this->addJSLanguage("Sort By");
 	}
 
 	// Pass data to the view.

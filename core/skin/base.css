@@ -71,7 +71,7 @@ span.highlight {background:#fdef34; padding:1px 4px; border-radius:3px}
 
 
 /* "Things" - distinguishable items such as posts, activity items, plugins, and skins. */
-.thing {border:1px solid #ddd; border-radius:3px; background:#fff; padding:1px; position:relative}
+.thing {border:1px solid #ddd; border-radius:3px; background:#fff; position:relative}
 .thing:before {border-color:#ddd}
 .thing:after {border-color:#fff}
 
@@ -86,8 +86,8 @@ span.highlight {background:#fdef34; padding:1px 4px; border-radius:3px}
 
 /* Controls (icons with hover/click effects) */
 [class*=control-] {opacity:0.4; transition:opacity 0.05s linear; width:12px; height:12px; padding:6px; margin:-6px -1px; font-size:14px; text-decoration:none !important; color:#444 !important}
-[class*=control-]:hover {opacity:0.7}
-[class*=control-]:active {opacity:1}
+[class*=control-]:hover {opacity:1; color:#000 !important;}
+[class*=control-]:active {opacity:1; color:#000 !important;}
 
 
 /* Stars */
@@ -192,7 +192,7 @@ span.highlight {background:#fdef34; padding:1px 4px; border-radius:3px}
 .sheetOverlay {background:rgba(255, 255, 255, 0.9); z-index:150; position:fixed; top:0; left:0; bottom:0; right:0}
 
 .sheet h3 {font-weight:normal; font-size:120%; margin-bottom:-1px !important; position:relative}
-.sheet .close {float:right; margin:12px 12px 0 0; position:relative; z-index:1}
+.sheet .close {float:right; margin:5px 12px 0 0; position:relative; z-index:1}
 .sheet .section, .sheet h3, .sheet .buttons {padding:10px 15px; margin:0}
 .sheet .section {padding:15px}
 .sheet .buttons {overflow:hidden; margin-top:-1px; position:relative}
@@ -419,8 +419,8 @@ a.deleteLink:hover {color:#f00 !important; text-decoration:line-through}
 .scrubber > li > a {display:block; padding:5px 10px}
 .scrubber > li.selected {border-left-color:#ccc}
 .scrubber li.selected > a {font-weight:bold; color:#000}
-.scrubber > li i {color:#ddd; margin-left:-4px; margin-right:3px} 
-.scrubber > li:hover i {color:#bbb} 
+.scrubber > li i {color:#ddd; margin-left:-4px; margin-right:3px}
+.scrubber > li:hover i {color:#bbb}
 
 .scrubber li ul {display:none}
 .scrubber li.selected ul {display:block}

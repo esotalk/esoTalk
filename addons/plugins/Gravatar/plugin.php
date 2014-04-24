@@ -29,10 +29,10 @@ class ETPlugin_Gravatar extends ETPlugin {
 		 */
 		function avatar($member = array(), $className = "")
 		{
-			$esoTalkDefault = getResource("core/skin/avatar.png", true);
+			$esoTalkDefault = "http://www.gravatar.com/avatar/0?d=mm&f=y";
 			if (empty($member["email"])) $url = $esoTalkDefault;
 			else {
-			
+
 				$default = C("plugin.Gravatar.default");
 				if (!$default or empty($member)) $default = $esoTalkDefault;
 
@@ -58,9 +58,9 @@ class ETPlugin_Gravatar extends ETPlugin {
 	}
 
 	/**
-	 * Construct and process the settings form for this skin, and return the path to the view that should be 
+	 * Construct and process the settings form for this skin, and return the path to the view that should be
 	 * rendered.
-	 * 
+	 *
 	 * @param ETController $sender The page controller.
 	 * @return string The path to the settings view to render.
 	 */
