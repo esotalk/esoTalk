@@ -20,14 +20,14 @@ class ProfilesAdminController extends ETAdminController {
 	{
 		$fields = $this->model()->get();
 
-		$this->addCSSFile($this->plugin()->getResource("admin.css"));
+		$this->addCSSFile($this->plugin()->resource("admin.css"));
 
 		$this->addJSFile("core/js/lib/jquery.ui.js");
-		$this->addJSFile($this->plugin()->getResource("admin.js"));
+		$this->addJSFile($this->plugin()->resource("admin.js"));
 		$this->addJSLanguage("message.confirmDelete");
 
 		$this->data("fields", $fields);
-		$this->render($this->plugin()->getView("admin/fields"));
+		$this->render($this->plugin()->view("admin/fields"));
 	}
 
 	public function action_edit($fieldId = "")
@@ -69,7 +69,7 @@ class ProfilesAdminController extends ETAdminController {
 
 		$this->data("form", $form);
 		$this->data("field", $field);
-		$this->render($this->plugin()->getView("admin/editField"));
+		$this->render($this->plugin()->view("admin/editField"));
 	}
 
 
@@ -107,7 +107,7 @@ class ProfilesAdminController extends ETAdminController {
 
 		$this->data("form", $form);
 		$this->data("field", null);
-		$this->render($this->plugin()->getView("admin/editField"));
+		$this->render($this->plugin()->view("admin/editField"));
 	}
 
 
