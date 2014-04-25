@@ -12,69 +12,55 @@ if (!defined("IN_ESOTALK")) exit;
 
 $form = $data["form"];
 ?>
-<h1><?php echo T("Specify Setup Information"); ?></h1>
+<h1><?php echo T("Welcome to esoTalk"); ?></h1>
+<h2><?php printf(T("message.installerWelcome"), "http://esotalk.org/docs/debug"); ?></h2>
 
 <?php echo $form->open(); ?>
 
-<?php printf(T("message.installerWelcome"), "http://esotalk.org/forum"); ?>
-<hr/>
+<div class='details'>
 
-<ul class='form'>
-<li><label><?php echo T("Forum title"); ?></label> <?php echo $form->input("forumTitle", "text", array("placeholder" => "Simon's Great Forum")); ?></li>
-</ul>
+	<ul class='form'>
+		<li><?php echo $form->input("forumTitle", "text", array("placeholder" => "Forum Title")); ?></li>
+		<li class='advanced'><?php echo $form->input("baseURL", "text", array("placeholder" => "Base URL")); ?></li>
+		<li class='advanced'><label><?php echo $form->checkbox("friendlyURLs"); ?> <?php echo T("Use friendly URLs"); ?></label></li>
+	</ul>
 
-<hr/>
+	<br>
 
-<p class='msg plain'><?php echo T("message.installerMySQLHelp"); ?></p>
+	<ul class='form'>
+		<li class='half'><?php echo $form->input("mysqlHost", "text", array("placeholder" => "MySQL Host")); ?></li>
+		<li class='half'><?php echo $form->input("mysqlUser", "text", array("placeholder" => "MySQL Username")); ?></li>
+		<li class='half clear'><?php echo $form->input("mysqlPass", "password", array("placeholder" => "MySQL Password")); ?></li>
+		<li class='half'><?php echo $form->input("mysqlDB", "text", array("placeholder" => "MySQL Database")); ?></li>
+		<li class='advanced clear'><?php echo $form->input("tablePrefix", "text", array("placeholder" => "MySQL Table Prefix")); ?></li>
+		<li class='clear'><?php echo $form->getError("mysql"); ?></li>
+	</ul>
 
+	<br>
 
-<ul class='form'>
-<li><label><?php echo T("MySQL host address"); ?></label> <?php echo $form->input("mysqlHost", "text", array("placeholder" => "localhost")); ?></li>
-<li><label><?php echo T("MySQL username"); ?></label> <?php echo $form->input("mysqlUser", "text", array("placeholder" => "simon")); ?></li>
-<li><label><?php echo T("MySQL password"); ?></label> <?php echo $form->input("mysqlPass", "password"); ?></li>
-<li><label><?php echo T("MySQL database"); ?></label> <?php echo $form->input("mysqlDB", "text", array("placeholder" => "esotalk")); ?></li>
-<li><?php echo $form->getError("mysql"); ?></li>
-</ul>
+	<ul class='form'>
+		<li class='half'><?php echo $form->input("adminUser", "text", array("placeholder" => "Admin Username")); ?></li>
+		<li class='half'><?php echo $form->input("adminEmail", "text", array("placeholder" => "Admin Email")); ?></li>
+		<li class='half clear'><?php echo $form->input("adminPass", "password", array("placeholder" => "Admin Password")); ?></li>
+		<li class='half'><?php echo $form->input("adminConfirm", "password", array("placeholder" => "Confirm Password")); ?></li>
+	</ul>
 
-<hr/>
+	<br>
 
-<p class='msg plain'><?php echo T("message.installerAdminHelp"); ?></p>
+	<ul class='form' style='text-align:center'>
+		<li><?php echo $form->button("submit", T("Install esoTalk")." &#155;", array("class" => "submit")); ?></li>
+		<li><a href='#advanced' id='advancedLink'><?php echo T("Advanced Options"); ?></a></li>
+	</ul>
 
-<ul class='form'>
-<li><label><?php echo T("Administrator username"); ?></label> <?php echo $form->input("adminUser", "text", array("placeholder" => "Simon")); ?></li>
-<li><label><?php echo T("Administrator email"); ?></label> <?php echo $form->input("adminEmail", "text", array("placeholder" => "simon@example.com")); ?></li>
-<li><label><?php echo T("Administrator password"); ?></label> <?php echo $form->input("adminPass", "password"); ?></li>
-<li><label><?php echo T("Confirm password"); ?></label> <?php echo $form->input("adminConfirm", "password"); ?></li>
-</ul>
-
-<br/>
-
-<a href='#advanced' id='advancedLink'><?php echo T("Advanced options"); ?></a>
-
-<hr/>
-
-<div id='advanced'>
-
-<ul class='form'>
-<li><label><?php echo T("MySQL table prefix"); ?></label> <?php echo $form->input("tablePrefix", "text", array("style" => "width:30px")); ?>_</li>
-<li><label><?php echo T("Base URL"); ?></label> <?php echo $form->input("baseURL"); ?></li>
-<li><label><?php echo T("Use friendly URLs"); ?></label> <?php echo $form->checkbox("friendlyURLs"); ?></li>
-</ul>
-
-<hr/>
-
-</div>
-
-<script>
-$(function() {
-	$("#advancedLink").click(function(e) {
-		e.preventDefault();
-		$("#advanced").slideToggle("fast");
+	<script>
+	$(function() {
+		$("#advancedLink").click(function(e) {
+			e.preventDefault();
+			$(".advanced").slideToggle("fast");
+		});
+		<?php if (empty($form->errors["tablePrefix"])): ?>$(".advanced").hide();<?php endif; ?>
 	});
-	<?php if (empty($form->errors["tablePrefix"])): ?>$("#advanced").hide();<?php endif; ?>
-});
-</script>
+	</script>
 
-<p><?php echo $form->button("submit", T("Install My Forum")." &#155;", array("class" => "big")); ?></p>
-
-<?php echo $form->close(); ?>
+	<?php echo $form->close(); ?>
+</div>

@@ -12,14 +12,16 @@ if (!defined("IN_ESOTALK")) exit;
 ?>
 <h1><?php echo T("Fatal Error"); ?></h1>
 
-<?php printf(T("message.fatalErrorUpgrader"), "http://esotalk.org/forum"); ?>
+<h2><?php printf(T("message.fatalError"), "http://esotalk.org/docs/debug"); ?></h2>
 
 <div class='details'>
-<?php echo $data["error"]; ?>
+	<div class='code'>
+		<?php echo $data["error"]; ?>
+	</div>
 </div>
 
-<hr/>
+<br>
 
 <p>
-<a href='<?php echo URL("upgrade"); ?>' class='button big'><?php echo T("Try Again"); ?></a>
+<a href='<?php echo URL("upgrade"); ?>' class='button submit'><?php echo T("Try Again"); ?></a>
 </p>

@@ -177,6 +177,7 @@ if (C("esoTalk.installed")) {
 }
 
 
+
 //***** 6. INITIALIZE SESSION AND DATABASE, AND CACHE
 
 // Initialize the cache.
@@ -240,20 +241,24 @@ $requestParts = explode("/", $request);
 
 //***** 8. SET UP SKIN
 
-// If the user is an administrator and we're in the admin section, use the admin skin.
-if (ET::$session->isAdmin() and $requestParts[0] == "admin") $skinName = C("esoTalk.adminSkin");
+if (C("esoTalk.installed")) {
 
-// If it's a mobile browser, use the mobile skin.
-elseif (isMobileBrowser()) $skinName = C("esoTalk.mobileSkin");
+	// If the user is an administrator and we're in the admin section, use the admin skin.
+	if (ET::$session->isAdmin() and $requestParts[0] == "admin") $skinName = C("esoTalk.adminSkin");
 
-// Otherwise, use the default skin.
-else $skinName = C("esoTalk.skin");
+	// If it's a mobile browser, use the mobile skin.
+	elseif (isMobileBrowser()) $skinName = C("esoTalk.mobileSkin");
 
-// Include the skin file and instantiate its class.
-ET::$skinName = $skinName;
-if (file_exists($file = PATH_SKINS."/$skinName/skin.php")) include_once $file;
-$skinClass = "ETSkin_".$skinName;
-if (class_exists($skinClass)) ET::$skin = new $skinClass("addons/skins/".$skinName);
+	// Otherwise, use the default skin.
+	else $skinName = C("esoTalk.skin");
+
+	// Include the skin file and instantiate its class.
+	ET::$skinName = $skinName;
+	if (file_exists($file = PATH_SKINS."/$skinName/skin.php")) include_once $file;
+	$skinClass = "ETSkin_".$skinName;
+	if (class_exists($skinClass)) ET::$skin = new $skinClass("addons/skins/".$skinName);
+	
+}
 
 // If we haven't got a working skin, just use the base class. It'll be ugly, but it'll do.
 if (empty(ET::$skin)) ET::$skin = new ETSkin("");

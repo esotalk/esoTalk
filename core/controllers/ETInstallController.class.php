@@ -47,7 +47,7 @@ public function init()
  */
 public function action_index()
 {
-	$this->warnings();
+	$this->action_warnings();
 }
 
 
@@ -124,7 +124,7 @@ public function action_info()
 			ET::$database->init($values["mysqlHost"], $values["mysqlUser"], $values["mysqlPass"], $values["mysqlDB"]);
 			ET::$database->connection();
 		} catch (PDOException $e) {
-			$form->error("mysql", sprintf(T("message.connectionError"), $e->getMessage()));
+			$form->error("mysql", $e->getMessage());
 		}
 
 		// Check to see if there are any conflicting tables already in the database.
@@ -138,7 +138,7 @@ public function action_info()
 			while ($table = $result->result()) $theirTables[] = $table;
 
 			// Just do a check for the member table. If it exists with this prefix, we have a conflict.
-			if (in_array($values["tablePrefix"]."member", $theirTables)) {
+			if (in_array($values["tablePrefix"]."_member", $theirTables)) {
 
 				$form->error("tablePrefix", T("message.tablePrefixConflict"));
 
@@ -292,7 +292,7 @@ protected function fatalChecks()
 	$errors = array();
 
 	// Make sure the installer is not locked.
-	if ($this->controllerMethod != "finish" and C("esoTalk.installed")) $errors[] = T("message.esoTalkAlreadyInstalled");
+	if (C("esoTalk.installed")) $errors[] = T("message.esoTalkAlreadyInstalled");
 
 	// Check the PHP version.
 	if (!version_compare(PHP_VERSION, "5.0.0", ">=")) $errors[] = T("message.greaterPHPVersionRequired");

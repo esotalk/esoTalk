@@ -22,11 +22,12 @@ small {font-size:85%}
 
 
 /* Block styles */
+h1 {font-size:150%; font-weight:300}
 h2 {font-size:160%; font-weight:300}
 h3 {font-size:115%; font-weight:600}
 h4 {font-weight:600}
 p, ul, pre {line-height:1.6em}
-.bodyHeader h1 {line-height:1.5em; font-size:150%; font-weight:300}
+.bodyHeader h1 {line-height:1.5em}
 
 
 /* Sheets */

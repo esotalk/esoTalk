@@ -12,21 +12,19 @@ if (!defined("IN_ESOTALK")) exit;
 ?>
 <h1><?php echo T("Warning"); ?></h1>
 
-<p>
-<?php if (empty($data["fatal"])): echo T("message.preInstallWarnings"); ?>
-<?php else: echo T("message.preInstallErrors"); endif; ?>
-</p>
+<h2>
+	<?php if (empty($data["fatal"])): echo T("message.preInstallWarnings"); ?>
+	<?php else: echo T("message.preInstallErrors"); endif; ?>
+</h2>
 
-<hr/>
+<hr>
 
-<ul>
-<?php foreach ($data["errors"] as $error) echo "<li><p>$error</p></li>"; ?>
-</ul>
+<div class='details'>
 
-<hr/>
+	<?php foreach ($data["errors"] as $error) echo "<p class='warning'>$error</p><hr>"; ?>
 
-<p><?php printf(T("If you run into any other problems or just want some help with the installation, feel free to ask for assistance at the <a href='%s'>esoTalk support forum</a>."), "http://esotalk.org/forum"); ?></p>
+</div>
 
-<hr/>
+<br>
 
-<p><a href='<?php echo URL("install/info"); ?>' class='button big'><?php echo empty($data["fatal"]) ? T("Next Step")." &#155;" : T("Try Again"); ?></a></p>
+<p><a href='<?php echo URL("install/info"); ?>' class='button submit'><?php echo empty($data["fatal"]) ? T("Next Step")." &#155;" : T("Try Again"); ?></a></p>
