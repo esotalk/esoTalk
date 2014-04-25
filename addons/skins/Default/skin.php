@@ -61,14 +61,12 @@ protected function writeColors($primary)
 
 	$rgb = colorUnpack($primary, true);
 	$hsl = rgb2hsl($rgb);
-	$hsl[1] = min(0.4, $hsl[1]);
-	$hsl[2] = min(0.4, $hsl[2]);
 
 	$primary = colorPack(hsl2rgb($hsl), true);
 
-	$hsl[1] = 0;
+	$hsl[1] = max(0, $hsl[1] - 0.3);
 	$secondary = colorPack(hsl2rgb(array(2 => 0.6) + $hsl), true);
-	$tertiary = colorPack(hsl2rgb(array(2 => 0.9) + $hsl), true);
+	$tertiary = colorPack(hsl2rgb(array(2 => 0.92) + $hsl), true);
 
 	$css = file_get_contents($this->resource("colors.css"));
 	$css = str_replace(array("{primary}", "{secondary}", "{tertiary}"), array($primary, $secondary, $tertiary), $css);
