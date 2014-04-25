@@ -1248,7 +1248,7 @@ protected function formatPostForTemplate($post, $conversation)
 	$date = smartTime($post["time"], true);
 
 	// Add the date/time to the post info as a permalink.
-	$formatted["info"][] = "<a href='".URL(postURL($post["postId"]))."' class='time' title='".strftime(T("date.full"), $post["time"])."'>".(!empty($conversation["searching"]) ? T("Context") : $date)."</a>";
+	$formatted["info"][] = "<a href='".URL(postURL($post["postId"]))."' class='time' title='".strftime(T("date.full"), $post["time"])."'>".(!empty($conversation["searching"]) ? T("Show in context") : $date)."</a>";
 
 	// If the post isn't deleted, add a lot of stuff!
 	if (!$post["deleteMemberId"]) {
