@@ -456,7 +456,10 @@ public function render($view = "")
 
 			// Add the <head> contents and the page title.
 			$data["head"] = $this->head();
-			$data["pageTitle"] = ($this->title ? $this->title." - " : "").C("esoTalk.forumTitle");
+			$titleParts = array();
+			if ($this->title) $titleParts[] = $this->title;
+			if ($t = C("esoTalk.forumTitle")) $titleParts[] = $t;
+			$data["pageTitle"] = implode(" - ", $titleParts);
 
 			// Add the forum title, or logo if the forum has one.
 			$logo = C("esoTalk.forumLogo");
