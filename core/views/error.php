@@ -42,11 +42,11 @@ if (!defined("IN_ESOTALK")) exit;
 		echo "<div class='code'>";
 		foreach ($backtrace as $k => $v) {
 			echo "<pre>";
-			echo isset($v["file"]) ? "<em>[".$v["file"].":".$v["line"]."]</em> " : "",
-				"<strong>",
+			echo "<strong>",
 				isset($v["class"]) ? $v["class"] : "",
-				isset($v["type"]) ? $v["type"] : "::",
-				$v["function"],"();</strong>";
+				isset($v["type"]) ? $v["type"] : "",
+				$v["function"],"()</strong>";
+			echo isset($v["file"]) ? " <em>[".$v["file"].":".$v["line"]."]</em>" : "";
 			echo "</pre>";
 		}
 	    echo "</div>";
