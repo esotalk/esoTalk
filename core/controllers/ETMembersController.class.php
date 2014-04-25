@@ -225,11 +225,11 @@ public function action_create()
 		if (!$form->errorCount()) {
 
 			$data = array(
-				"username" => $form->getValue("username"),
-				"email" => $form->getValue("email"),
-				"password" => $form->getValue("password"),
-				"account" => ACCOUNT_MEMBER,
-				"confirmedEmail" => true
+				"username"  => $form->getValue("username"),
+				"email"     => $form->getValue("email"),
+				"password"  => $form->getValue("password"),
+				"account"   => ACCOUNT_MEMBER,
+				"confirmed" => true
 			);
 
 			$model = ET::memberModel();
