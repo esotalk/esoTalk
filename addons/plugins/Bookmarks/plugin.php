@@ -34,7 +34,7 @@ class ETPlugin_Bookmarks extends ETPlugin {
 		ET::define("label.bookmarked", "Bookmarked");
 
 		ET::conversationModel();
-		ETConversationModel::addLabel("bookmarked", "s.bookmarked = 1", "icon-bookmark");
+		ETConversationModel::addLabel("bookmarked", "IF(s.bookmarked=1,1,0)", "icon-bookmark");
 	}
 
 	/**
