@@ -56,7 +56,7 @@ protected function getPlugins()
 	    closedir($handle);
 	}
 
-	ksort($plugins);
+	ksort($plugins, SORT_NATURAL | SORT_FLAG_CASE);
 
 	return $plugins;
 }
