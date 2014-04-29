@@ -186,7 +186,7 @@ public function action_join()
  * @param string $hash The hash stored in the member's resetPassword field, prefixed with the member's ID.
  * @return void
  */
-protected function sendConfirmationEmail($email, $username, $hash)
+public function sendConfirmationEmail($email, $username, $hash)
 {
 	sendEmail($email,
 		sprintf(T("email.confirmEmail.subject"), $username),
