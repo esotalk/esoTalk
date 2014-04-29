@@ -201,7 +201,10 @@ public function action_index($conversationId = false, $year = false, $month = fa
 
 		// Add essential variables and language definitions to be accessible through JavaScript.
 		if ($conversation["canModerate"]) {
-			$this->addJSLanguage("Lock", "Unlock", "Sticky", "Unsticky", "message.confirmDelete");
+			$this->addJSLanguage("Lock", "Unlock", "Sticky", "Unsticky");
+		}
+		if ($conversation["canDeleteConversation"]) {
+			$this->addJSLanguage("message.confirmDelete");
 		}
 		if (ET::$session->user) {
 			$this->addJSLanguage("Starred", "Unstarred", "message.confirmLeave", "message.confirmDiscardReply",
@@ -249,10 +252,14 @@ public function action_index($conversationId = false, $year = false, $month = fa
 
 			// Add the lock/unlock control.
 			$controls->add("lock", "<a href='".URL("conversation/lock/".$conversation["conversationId"]."/?token=".ET::$session->token."&return=".urlencode($this->selfURL))."' id='control-lock'><i class='icon-lock'></i> <span>".T($conversation["locked"] ? "Unlock" : "Lock")."</span></a>");
+		}
+
+		if ($conversation["canDeleteConversation"]) {
 
 			// Add the delete conversation control.
 			$controls->separator();
 			$controls->add("delete", "<a href='".URL("conversation/delete/".$conversation["conversationId"]."/?token=".ET::$session->token)."' id='control-delete'><i class='icon-remove'></i> <span>".T("Delete conversation")."</span></a>");
+
 		}
 
 		// Add the meta description tag to the head. It will contain an excerpt from the first post's content.
@@ -516,7 +523,7 @@ public function action_delete($conversationId = false)
 	if (!($conversation = $this->getConversation($conversationId))) return;
 
 	// Do we have permission to do this?
-	if (!$conversation["canModerate"]) {
+	if (!$conversation["canDeleteConversation"]) {
 		$this->renderMessage(T("Error"), T("message.noPermission"));
 		return;
 	}

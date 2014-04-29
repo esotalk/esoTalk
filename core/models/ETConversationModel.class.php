@@ -178,13 +178,15 @@ public function get($wheres = array())
 	if (!ET::$session->isAdmin()) {
 		$sql->select("BIT_OR(p.reply)", "canReply")
 			->select("BIT_OR(p.moderate)", "canModerate")
+			->select("BIT_OR(p.moderate)", "canDeleteConversation")
 			->from("channel_group p", "c.channelId=p.channelId AND p.groupId IN (:groupIds)", "left")
 			->bind(":groupIds", ET::$session->getGroupIds());
 	}
 	// If the user is an administrator, they can always reply and moderate.
 	else {
 		$sql->select("1", "canReply")
-			->select("1", "canModerate");
+			->select("1", "canModerate")
+			->select("1", "canDeleteConversation");
 	}
 
 	// Execute the query.
@@ -202,6 +204,18 @@ public function get($wheres = array())
 
 	// If the conversation is locked and the user can't moderate, then they can't reply.
 	if ($conversation["locked"] and !$conversation["canModerate"]) $conversation["canReply"] = false;
+
+	// If the current user owns this conversation, and it's a draft, or they're the only poster,
+	// then allow them to delete it. We can only know that they're the only poster if there is only
+	// one post in the conversation, or if there are two and the last one is theirs. In an ideal world,
+	// we would check all of the post authors, but it's probably not worth the performance hit here.
+	if ($conversation["startMemberId"] == ET::$session->userId 
+		and ($conversation["countPosts"] <= 1
+			or ($conversation["countPosts"] == 2 and $conversation["lastPostMemberId"] == ET::$session->userId)))
+	{
+		$conversation["canDeleteConversation"] = true;
+	}
+		
 
 	return $conversation;
 }
