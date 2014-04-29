@@ -585,6 +585,9 @@ collapseQuotes: function(items) {
 highlightPost: function(post) {
 	$("#conversationPosts .post.highlight").removeClass("highlight");
 	$(post).addClass("highlight");
+	setTimeout(function() {
+		$(post).removeClass("highlight");
+	}, 2000);
 },
 
 // Hide consecutive avatars from the same member.
