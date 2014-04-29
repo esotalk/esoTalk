@@ -651,8 +651,8 @@ public function create($data, $membersAllowed = array(), $isDraft = false)
 			->exec();
 	}
 
-	// If the user has the "star on reply" preference checked, star the conversation.
-	if (ET::$session->preference("starOnReply"))
+	// If the user has the "star on reply" or "star private" preferences checked, star the conversation.
+	if (ET::$session->preference("starOnReply") or ($conversation["private"] and ET::$session->preference("starPrivate")))
 		$this->setStatus($conversation["conversationId"], ET::$session->userId, array("starred" => true));
 
 	$this->trigger("createAfter", array($conversation, $postId, $content));
