@@ -194,8 +194,8 @@ function ETAutoCompletePopup(field, character, clickHandler) {
 	// This function fetches a list of members that match the specified value with AJAX.
 	this.fetchNewContent = function(value) {
 
-		// If we've not already search for this value, and it's greater than 2 characters, proceed!
-		if (value && value != ac.value && ac.searches.indexOf(value) == -1 && value.length > 2) {
+		// If we've not already search for this value, and it's 2 or more characters, proceed!
+		if (value && value != ac.value && ac.searches.indexOf(value) == -1 && value.length >= 2) {
 			clearTimeout(ac.timeout);
 
 			// Set a timeout to make an AJAX request for a list of members.

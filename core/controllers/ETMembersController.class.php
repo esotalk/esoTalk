@@ -303,7 +303,7 @@ public function action_autocomplete($input = "")
 	$this->responseType = RESPONSE_TYPE_JSON;
 
 	// Don't do this for strings less than three characters for performance reasons.
-	if (strlen($input) < 3) return;
+	if (strlen($input) < 2) return;
 
 	// Construct a query to fetch matching members.
 	$results = ET::SQL()
