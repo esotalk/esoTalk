@@ -151,6 +151,25 @@ public static function trigger($event, $parameters = array())
 
 
 /**
+ * Trigger an event and call event handlers within plugins, stopping and returning the first
+ * non-null value that is returned.
+ *
+ * @param string $event The name of the event.
+ * @param array $parameters An array of parameters to pass to the event handlers as arguments.
+ * @return array The value returned by the first event handler to return a non-null value.
+ */
+public static function first($event, $parameters = array())
+{
+	foreach (self::$plugins as $plugin) {
+		if (method_exists($plugin, "handler_$event")) {
+			$return = call_user_func_array(array($plugin, "handler_$event"), $parameters);
+			if ($return !== null) return $return;
+		}
+	}
+}
+
+
+/**
  * Check for updates to the esoTalk software.
  *
  * @return array|bool The new version information, or false if we are running the latest version.

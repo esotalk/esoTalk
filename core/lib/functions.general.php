@@ -215,8 +215,7 @@ function sendEmail($to, $subject, $body)
 	require_once($phpmailer);
 	$mail = new PHPMailer(true);
 
-	if (($return = ET::trigger("sendEmailBefore", array($mail, &$to, &$subject, &$body))) and !empty($return))
-		return reset($return);
+	if ($return = ET::first("sendEmailBefore", array($mail, &$to, &$subject, &$body))) return $return;
 
 	$mail->CharSet = 'UTF-8';
 	$mail->IsHTML(true);
@@ -406,8 +405,8 @@ function isMobileBrowser()
  *
  * @package esoTalk
  */
-function slug($string) {
-	
+function slug($string)
+{
 	// If there are any characters other than basic alphanumeric, space, punctuation, then we need to attempt transliteration.
 	if (preg_match("/[^\x20-\x7f]/", $string)) {
 	
@@ -452,6 +451,9 @@ function slug($string) {
 		}
 
 	}
+
+	// Allow plugins to alter the slug.
+	ET::trigger("slug", array(&$string));
 
 	// Now replace non-alphanumeric characters with a hyphen, and remove multiple hyphens.
 	$slug = strtolower(trim(preg_replace(array("/[^0-9a-z]/i", "/-+/"), "-", $string), "-"));
