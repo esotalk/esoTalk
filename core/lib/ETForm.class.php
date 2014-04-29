@@ -181,10 +181,10 @@ public function runFieldCallbacks(&$collector = null)
  */
 public function open()
 {
-	$this->addHidden("token", ET::$session->token, true);
+	$this->addHidden("token", ET::$session->token);
 	$hidden = "";
-	foreach ($this->hiddenInputs as $field => $value)
-		$hidden .= "<input type='hidden' name='$field' value='".htmlentities($value, ENT_QUOTES, "UTF-8")."'/>\n";
+	foreach ($this->hiddenInputs as $field)
+		$hidden .= "<input type='hidden' name='$field' value='".htmlentities($this->getValue($field), ENT_QUOTES, "UTF-8")."'/>\n";
 
 	return "<form action='$this->action' method='post' enctype='multipart/form-data'>\n".$hidden;
 }
@@ -335,12 +335,12 @@ public function setValues($values)
  *
  * @param string $name The name of the field.
  * @param string $value The value of the hidden input.
- * @param bool $forceValue Whether or not to force the value, and never use the value that has been posted back.
  * @return void
  */
-public function addHidden($name, $value, $forceValue = false)
+public function addHidden($name, $value)
 {
-	$this->hiddenInputs[$name] = $forceValue ? $value : $this->getValue($name, $value);
+	$this->hiddenInputs[] = $name;
+	$this->setValue($name, $value);
 }
 
 
@@ -355,10 +355,6 @@ public function addHidden($name, $value, $forceValue = false)
 public function input($name, $type = "text", $attributes = array())
 {
 	$attributes["name"] = $name;
-
-	// If this is a textarea, a text input, or a password input, add the "text" class.
-	// if ($type == "textarea" or $type == "text" or $type == "password")
-	// 	$this->addClass($attributes, "text");
 
 	// If there's an error for this field, add the "error" class.
 	if (!empty($this->errors[$name])) $this->addClass($attributes, "error");
