@@ -911,20 +911,15 @@ removeMember: function(type, id) {
 changeChannel: function() {
 	ETSheet.loadSheet("changeChannelSheet", "conversation/changeChannel.view/"+ETConversation.id, function() {
 
-		// Highlight the currently selected channel.
-		// $("#changeChannelSheet .channelList input:checked").parents("li").addClass("selected");
-
 		// Hide the radio buttons, and set up a handler for when they're changed.
 		$("#changeChannelSheet .channelList input").hide().click(function() {
-			// $("#changeChannelSheet .channelList li").removeClass("selected");
-			// $(this).parents("li").addClass("selected");
 			$("#changeChannelSheet form").submit();
 		});
 
 		$("#changeChannelSheet .buttons").hide();
 
 		// Add tooltips to channels that cannot be changed to.
-		$("#changeChannelSheet .channelList li").tooltip({alignment: "left", offset: [0, 35], className: "hoverable"});
+		$("#changeChannelSheet .channelList li").tooltip({alignment: "left", offset: [20, 43], className: "hoverable"});
 
 		// Add a submit event to the form.
 		$("#changeChannelSheet form").submit(function(e) {
