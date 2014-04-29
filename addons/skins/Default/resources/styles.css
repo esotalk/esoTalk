@@ -112,7 +112,7 @@ input[type=text]:focus, input[type=password]:focus, textarea:focus, .input:focus
 .button.big {height:30px; font-size:90%; padding:0 10px 2px; line-height:30px}
 .button:hover, .button:active {border-color:#ddd}
 .button:active {background-color:#ddd}
-.button.disabled {background:#f2f2f2 !important; color:#999 !important; box-shadow:none !important; border-color:#f2f2f2 !important}
+.button.disabled {opacity:0.25; cursor:default; border-color:transparent !important}
 
 a.button {padding:7px 10px; height:auto; line-height:1em; display:inline-block}
 
