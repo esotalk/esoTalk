@@ -116,9 +116,9 @@ class AttachmentModel extends ETModel {
 	{
 		$extension = pathinfo($path, PATHINFO_EXTENSION);
 
-		if ( ! array_key_exists($extension, static::$mimes)) return "application/octet-stream";
+		if ( ! array_key_exists($extension, self::$mimes)) return "application/octet-stream";
 
-		return (is_array(static::$mimes[$extension])) ? static::$mimes[$extension][0] : static::$mimes[$extension];
+		return (is_array(self::$mimes[$extension])) ? self::$mimes[$extension][0] : self::$mimes[$extension];
 	}
 
 	// Find attachments for a specific post or conversation that are being stored in the session, remove
