@@ -69,7 +69,7 @@ class ETPlugin_WordFilter extends ETPlugin {
 
 		// Set up the settings form.
 		$form = ETFactory::make("form");
-		$form->action = URL("admin/plugins");
+		$form->action = URL("admin/plugins/settings/WordFilter");
 		$form->setValue("filters", $filterText);
 
 		// If the form was submitted...

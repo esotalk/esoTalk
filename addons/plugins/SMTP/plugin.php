@@ -40,7 +40,7 @@ class ETPlugin_SMTP extends ETPlugin {
 	{
 		// Set up the settings form.
 		$form = ETFactory::make("form");
-		$form->action = URL("admin/plugins");
+		$form->action = URL("admin/plugins/settings/SMTP");
 		$form->setValue("server", C("plugin.SMTP.server"));
 		$form->setValue("username", C("plugin.SMTP.username"));
 		$form->setValue("password", C("plugin.SMTP.password"));

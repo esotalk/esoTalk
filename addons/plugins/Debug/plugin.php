@@ -171,7 +171,7 @@ class ETPlugin_Debug extends ETPlugin {
 	{
 		// Set up the settings form.
 		$form = ETFactory::make("form");
-		$form->action = URL("admin/plugins");
+		$form->action = URL("admin/plugins/settings/Debug");
 		
 		// If the form was submitted...
 		if ($form->validPostBack("upgradeDB")) {

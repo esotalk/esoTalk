@@ -59,7 +59,7 @@ class ETPlugin_GitHubLinks extends ETPlugin {
 	{
 		// Set up the settings form.
 		$form = ETFactory::make("form");
-		$form->action = URL("admin/plugins");
+		$form->action = URL("admin/plugins/settings/GitHubLinks");
 		$form->setValue("repository", C("GitHubLinks.repository"));
 
 		// If the form was submitted...

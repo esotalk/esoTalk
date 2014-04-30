@@ -276,7 +276,7 @@ class ETPlugin_Attachments extends ETPlugin {
 	{
 		// Set up the settings form.
 		$form = ETFactory::make("form");
-		$form->action = URL("admin/plugins");
+		$form->action = URL("admin/plugins/settings/Attachments");
 		$form->setValue("allowedFileTypes", implode(" ", (array)C("plugin.Attachments.allowedFileTypes")));
 		$form->setValue("maxFileSize", C("plugin.Attachments.maxFileSize"));
 
