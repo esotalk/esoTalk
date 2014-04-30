@@ -20,10 +20,10 @@ init: function() {
 	ETScrubber.body = $("#memberListBody");
 	ETScrubber.scrubber = $("#members .scrubberContent");
 	ETScrubber.items = $("#memberList");
-	ETScrubber.count = ET.countMembers;
-	ETScrubber.perPage = ET.membersPerPage;
+	ETScrubber.count = parseInt(ET.countMembers);
+	ETScrubber.perPage = parseInt(ET.membersPerPage);
 	ETScrubber.moreText = T("Load more members");
-	ETScrubber.startFrom = ET.startFrom;
+	ETScrubber.startFrom = parseInt(ET.startFrom);
 
 	// Set a callback that will load new member rows.
 	ETScrubber.loadItemsCallback = function(position, success) {
