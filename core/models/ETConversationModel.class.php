@@ -1089,7 +1089,7 @@ public function setTitle(&$conversation, $title)
  */
 public function validateTitle($title)
 {
-	if (!strlen($title)) return "emptyTitle";
+	if (!strlen(trim($title))) return "emptyTitle";
 }
 
 
