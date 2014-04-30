@@ -192,7 +192,7 @@ span.highlight {background:#fdef34; padding:1px 4px; border-radius:3px}
 .sheetOverlay {background:rgba(255, 255, 255, 0.9); z-index:150; position:fixed; top:0; left:0; bottom:0; right:0}
 
 .sheet h3 {font-weight:normal; font-size:120%; margin-bottom:-1px !important; position:relative}
-.sheet .close {float:right; margin:12px 12px 0 0; position:relative; z-index:1}
+.sheet .close {float:right; margin:5px 12px 0 0; position:relative; z-index:1}
 .sheet .section, .sheet h3, .sheet .buttons {padding:10px 15px; margin:0}
 .sheet .section {padding:15px}
 .sheet .buttons {overflow:hidden; margin-top:-1px; position:relative}
