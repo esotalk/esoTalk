@@ -200,6 +200,7 @@ $definitions["Guests can view the:"] = "Guests can view the:";
 
 $definitions["Header"] = "Header";
 $definitions["Header color"] = "Header color";
+$definitions["Heads Up!"] = "Heads Up!";
 $definitions["Hide"] = "Hide";
 $definitions["Home page"] = "Home page";
 $definitions["HTML is allowed."] = "HTML is allowed.";
@@ -398,7 +399,7 @@ $definitions["View"] = "View";
 $definitions["Viewing: %s"] = "Viewing: %s";
 $definitions["viewingPosts"] = "<b>%s-%s</b> of %s posts";
 
-$definitions["Warning"] = "Heads Up!";
+$definitions["Warning"] = "Warning";
 $definitions["Welcome to esoTalk!"] = "Welcome to esoTalk!";
 $definitions["We've logged you in and taken you straight to your forum's administration panel. You're welcome."] = "We've logged you in and taken you straight to your forum's administration panel. You're welcome.";
 $definitions["Write a reply..."] = "Write a reply...";
