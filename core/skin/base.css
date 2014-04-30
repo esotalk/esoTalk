@@ -516,7 +516,7 @@ code {background:#eee}
 #memberListFilter h1 {float:left; margin-top:4px}
 #memberListFilter #memberListOrderBy {float:left; margin-left:20px}
 
-.letterScrubber > li > a {padding:0 8px}
+.letterScrubber > li > a {padding:0 8px; line-height:18px;}
 
 .memberList {border-bottom:0}
 .memberList strong a {color:#000}
