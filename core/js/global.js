@@ -589,7 +589,7 @@ $.fn.popup = function(options) {
 	if (!popup.length) return;
 
 	// Construct the popup wrapper and button.
-	var wrapper = $("<div class='popupWrapper " + options.class + "'></div>");
+	var wrapper = $("<div class='popupWrapper "+options.class+"'></div>");
 	var button = $("<a href='#' class='popupButton button' id='"+popup.attr("id")+"-button'>"+options.content+"</a>");
 	wrapper.append(button).append(popup);
 
