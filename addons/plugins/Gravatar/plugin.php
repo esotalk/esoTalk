@@ -29,17 +29,11 @@ class ETPlugin_Gravatar extends ETPlugin {
 		 */
 		function avatar($member = array(), $className = "")
 		{
-			$esoTalkDefault = getResource("core/skin/avatar.png", true);
-			if (empty($member["email"])) $url = $esoTalkDefault;
-			else {
-			
-				$default = C("plugin.Gravatar.default");
-				if (!$default or empty($member)) $default = $esoTalkDefault;
+			$default = C("plugin.Gravatar.default");
+			if (!$default) $default = "mm";
 
-				$protocol = C("esoTalk.https") ? "https" : "http";
-				$url = "$protocol://www.gravatar.com/avatar/".md5(strtolower(trim($member["email"])))."?d=".urlencode($default)."&s=64";
-
-			}
+			$protocol = C("esoTalk.https") ? "https" : "http";
+			$url = "$protocol://www.gravatar.com/avatar/".md5(strtolower(trim($member["email"])))."?d=".urlencode($default)."&s=64";
 
 			return "<img src='$url' alt='' class='avatar $className'/>";
 		}
@@ -68,7 +62,7 @@ class ETPlugin_Gravatar extends ETPlugin {
 	{
 		// Set up the settings form.
 		$form = ETFactory::make("form");
-		$form->action = URL("admin/plugins");
+		$form->action = URL("admin/plugins/settings/Gravatar");
 		$form->setValue("default", C("plugin.Gravatar.default"));
 
 		// If the form was submitted...
