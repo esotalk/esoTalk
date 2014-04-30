@@ -10,7 +10,7 @@ if (!defined("IN_ESOTALK")) exit;
  * @package esoTalk
  */
 ?>
-<h1><?php echo T("Warning"); ?></h1>
+<h1><?php echo T("Heads Up!"); ?></h1>
 
 <h2>
 	<?php if (empty($data["fatal"])): echo T("message.preInstallWarnings"); ?>

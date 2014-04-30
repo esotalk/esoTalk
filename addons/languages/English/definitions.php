@@ -200,6 +200,7 @@ $definitions["Guests can view the:"] = "Guests can view the:";
 
 $definitions["Header"] = "Header";
 $definitions["Header color"] = "Header color";
+$definitions["Heads Up!"] = "Heads Up!";
 $definitions["Hide"] = "Hide";
 $definitions["Home page"] = "Home page";
 $definitions["HTML is allowed."] = "HTML is allowed.";
