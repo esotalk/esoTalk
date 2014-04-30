@@ -68,7 +68,7 @@ input[type=text], input[type=password], textarea, .input,
 .tabs.big,
 #adminMenu li.separator
 {
-	border-color:{tertiary} !important
+	border-color:{tertiary}
 }
 .tabs .pathItem.selected a:before
 {
