@@ -214,7 +214,7 @@ span.highlight {background:#fdef34; padding:1px 4px; border-radius:3px}
 
 
 /* Tabs */
-.tabs {margin:0; padding:3px; line-height:1em; overflow:hidden}
+.tabs {margin:0; padding:1px; line-height:1em; overflow:hidden}
 .tabs li {float:left; list-style-type:none; margin:4px 7px 4px 0}
 .tabs li > a, .tabs li > span {padding:5px 7px; white-space:nowrap; font-size:85%; display:block}
 .tabs li > a {color:#666; cursor:pointer; border-radius:3px}
@@ -223,7 +223,7 @@ span.highlight {background:#fdef34; padding:1px 4px; border-radius:3px}
 .tabs li.selected a {background-color:#fff; border:1px solid #d5d5d5; margin:-1px; color:#666}
 .tabs li > a i, .tabs li > span i {margin-right:5px; font-size:14px; width:14px; display:inline-block}
 
-.tabs.big {font-size:120%}
+.tabs.big {font-size:120%; border-bottom:1px solid #ddd; padding-bottom:5px}
 .tabs.big li a {padding:10px 13px}
 
 
@@ -273,7 +273,6 @@ a.channel:hover {text-decoration:none; border-color:#aaa}
 
 /* Channel list icon */
 .channel-list i {font-size:14px;  margin:0 !important}
-/*.selected .channel-list i {color:#000}*/
 
 #conversationsFilter .channels {padding-left:130px}
 #conversationsFilter .channelListItem {margin-left:-129px}

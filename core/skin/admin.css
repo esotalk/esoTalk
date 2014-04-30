@@ -1,5 +1,5 @@
 /* Admin Styles */
-#adminMenu {width:160px; float:left; padding:1px 20px 1px 1px}
+#adminMenu {width:160px; float:left; padding:1px 20px 1px 1px; border-bottom:0}
 #adminMenu li {margin:0 0 5px; float:none; padding:1px}
 #adminMenu li.separator {border-bottom:1px solid #ddd; margin:15px 0}
 #adminContent {margin-left:200px; margin-top:15px; padding-top:1px}

@@ -64,9 +64,11 @@ input[type=text]:focus, input[type=password]:focus, textarea:focus, .input:focus
 .sheet, .sheet h3, .sheet .section, .sheet .buttons,
 input[type=text], input[type=password], textarea, .input,
 .tabs li.selected a,
-.tabs li a:hover
+.tabs li a:hover,
+.tabs.big,
+#adminMenu li.separator
 {
-	border-color:{tertiary}
+	border-color:{tertiary} !important
 }
 .tabs .pathItem.selected a:before
 {
