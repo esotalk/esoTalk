@@ -331,9 +331,10 @@ addReply: function() {
 		data: {conversationId: ETConversation.id, content: content},
 		success: function(data) {
 
-			// If there are messages, enable the reply/draft buttons and don't continue.
+			// If there are messages, re-enable the reply button after
+			// 10 seconds and don't continue. and don't continue.
 			if (!data.postId) {
-				$("#reply .postReply, #reply .saveDraft").enable();
+				setTimeout(function(){$("#reply .postReply").enable()}, 10000);
 				return;
 			}
 
