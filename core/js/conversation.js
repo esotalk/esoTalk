@@ -462,9 +462,12 @@ discardDraft: function() {
 		},
 		success: function(data) {
 
-			// Hide the draft label and collapse the reply area.
+			// Hide the draft label, collapse the reply area,
+			// disable the draft and post reply buttons again.
 			$("#conversationHeader .labels").html(data.labels);
 			ETConversation.resetReply();
+			$("#reply .saveDraft").disable();
+			$("#reply .postReply").disable();
 
 		}
 	});
