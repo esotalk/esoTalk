@@ -331,8 +331,6 @@ a.channel:hover {text-decoration:none; border-color:#aaa}
 .conversationList .title a {color:#000}
 .conversationList .unread .title a {font-weight:bold; color:#000}
 .conversationList .excerpt {color:#888; font-size:85%}
-.conversationList .starred {background-color:#fffbdb}
-.conversationList .starred:hover {background-color:#faf6d7}
 .conversationList .justVisited {border-color:#aaa; border-style:dotted; position:relative}
 .conversationList .controls {margin-left:10px}
 .conversationList .controls a {margin-right:5px}
@@ -418,8 +416,8 @@ a.deleteLink:hover {color:#f00 !important; text-decoration:line-through}
 .scrubber > li > a {display:block; padding:5px 10px}
 .scrubber > li.selected {border-left-color:#ccc}
 .scrubber li.selected > a {font-weight:bold; color:#000}
-.scrubber > li i {color:#ddd; margin-left:-4px; margin-right:3px} 
-.scrubber > li:hover i {color:#bbb} 
+.scrubber > li i {color:#ddd; margin-left:-4px; margin-right:3px}
+.scrubber > li:hover i {color:#bbb}
 
 .scrubber li ul {display:none}
 .scrubber li.selected ul {display:block}
