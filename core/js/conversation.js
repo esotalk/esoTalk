@@ -185,7 +185,7 @@ init: function() {
 	if ($("#reply").length) ETConversation.initReply();
 
 	// Add an onbeforeunload handler (to warn the user if they have an unsaved post/draft).
-	$(window).bind("beforeunload.ajax", ETConversation.beforeUnload);
+	$(window).bind("beforeunload.conversation", ETConversation.beforeUnload);
 },
 
 
@@ -196,6 +196,7 @@ scrollTo: function(position) {
 
 // On page exit, display a confirmation message if the user is editing posts or hasn't saved their reply.
 beforeUnload: function onbeforeunload() {
+	alert('hi')
 	if (ETConversation.editingPosts > 0) return T("message.confirmLeave");
 	else if (ETConversation.editingReply) return T("message.confirmDiscardReply");
 },
