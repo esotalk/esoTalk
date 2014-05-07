@@ -213,6 +213,7 @@ initSearchResults: function() {
 	ETMembersAllowedTooltip.init($("#conversations .label.label-private"), function(elm) {return ETSearch.getConversationIdForElement(elm)});
 	ETMembersAllowedTooltip.showDelay = 500;
 
+	$("#conversations .starButton").tooltip();
 	$("#conversations .unreadIndicator").tooltip();
 	$("#conversations .label").tooltip();
 
