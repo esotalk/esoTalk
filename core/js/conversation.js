@@ -277,7 +277,8 @@ initReply: function() {
 
 	}
 
-	$("#reply .controls a").tooltip({alignment: "center"});
+	$("#reply .controls a").tooltip();
+	$("#reply [name=discardDraft]").tooltip();
 
 	// Register the Ctrl+Enter shortcut.
 	textarea.keydown(function(e) {
@@ -447,6 +448,12 @@ discardDraft: function() {
 		if (ETConversation.confirmDelete()) window.location = $("#control-delete").attr("href");
 		return;
 	}
+
+	// Confirm this action!
+	else {
+		if (!confirm(T("message.confirmDiscardReply"))) return;
+	}
+
 	// Make the ajax request.
 	$.ETAjax({
 		url: "conversation/reply.ajax/" + ETConversation.id,
