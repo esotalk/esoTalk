@@ -91,6 +91,9 @@ if (C("esoTalk.https") and (!array_key_exists("HTTPS", $_SERVER) or $_SERVER["HT
     exit;
 }
 
+// Load the forum's default language. We will load the user's preferred language later on.
+ET::loadLanguage(C("esoTalk.language"));
+
 
 
 //***** 3. REQUIRE AND REGISTER ESSENTIAL CLASSES
@@ -270,7 +273,9 @@ array_unshift(ET::$plugins, ET::$skin);
 
 //***** 9. SET UP LANGUAGE
 
-ET::loadLanguage(ET::$session->preference("language"));
+// If the user's preferred language differs from the forum's default, then load it now.
+if (C("esoTalk.language") != ET::$session->preference("language"))
+	ET::loadLanguage(ET::$session->preference("language"));
 
 
 
