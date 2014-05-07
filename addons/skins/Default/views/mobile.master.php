@@ -24,7 +24,8 @@ $.fn.tooltip = function() { return this; };
 // Make the user menu into a popup, and take notifications out of the user menu.
 $(function() {
 	$("#forumTitle").before($("#userMenu").popup({alignment: "right", content: "<i class='icon-reorder'></i>"}));
-	$("#forumTitle").before($("#notifications").parent());
+	$("#forumTitle").before($("#notifications").parent())
+		.css("webkitTransform", "scale(1)"); // force a redraw to fix a webkit layout bug
 });
 </script>
 </head>
