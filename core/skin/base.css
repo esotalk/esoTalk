@@ -342,7 +342,7 @@ a.channel:hover {text-decoration:none; border-color:#aaa}
 /* Conversation list column layout. The conversation column is almost 100% width, then the others have
 negative margins so they overlap the padding of the <li>. */
 .conversationList .col-conversation {width:95%; display:inline-block}
-.conversationList .col-star {float:left; width:1em; margin-left:-13em; padding-left:0.5em}
+.conversationList .col-star {float:left; width:1em; margin-left:-13em; padding-left:0.7em}
 .conversationList .col-channel {float:left; width:10em; margin-left:-11em; text-align:right}
 .conversationList .col-lastPost {float:right; width:23em; margin-right:-27em; font-size:85%; overflow:hidden; white-space:nowrap}
 .conversationList .col-replies {float:right; margin-right:-31em; width:4em; text-align:center; margin-bottom:-2px}
@@ -350,10 +350,14 @@ negative margins so they overlap the padding of the <li>. */
 .list .col-replies {color:#888; font-size:85%}
 .list .col-replies span i {font-size:14px; color:#ddd; margin-right:5px}
 
+/* Show/hide stars on hover */
+.conversationList .col-star {visibility:hidden}
+.conversationList .starred .col-star, .conversationList li:hover .col-star {visibility:visible}
+
 
 /* Unread indicators */
 .unreadIndicator {display:none; font-size:14px}
-.conversationList li.unread:hover .col-replies span {display:none}
+.conversationList li.unread:hover .col-star .starButton {display:none}
 .conversationList li.unread:hover .unreadIndicator {display:block}
 
 

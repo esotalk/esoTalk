@@ -22,7 +22,13 @@ foreach ($conversation["labels"] as $label) $className .= " label-$label";
 ?>
 <li id='c<?php echo $conversation["conversationId"]; ?>' class='<?php echo $className; ?>'>
 <?php if (ET::$session->user): ?>
-<div class='col-star'><?php echo star($conversation["conversationId"], $conversation["starred"]); ?></div>
+<div class='col-star'><?php
+echo star($conversation["conversationId"], $conversation["starred"]);
+
+// Output an "unread indicator", allowing the user to mark the conversation as read.
+if (ET::$session->user and $conversation["unread"])
+	echo " <a href='".URL("conversation/markAsRead/".$conversation["conversationId"]."?token=".ET::$session->token."&return=".urlencode(ET::$controller->selfURL))."' class='unreadIndicator' title='".T("Mark as read")."'><i class='icon-ok'></i></a> ";
+?></div>
 <?php endif; ?>
 <div class='col-conversation'><?php
 $conversationURL = conversationURL($conversation["conversationId"], $conversation["title"]);
@@ -60,12 +66,7 @@ echo "<span class='action'>".avatar(array(
 		"<a href='".URL($conversationURL."/unread")."' class='lastPostTime'>".relativeTime($conversation["lastPostTime"], true)."</a>"),
 	"</span>";
 ?></div>
-<div class='col-replies'>
-<?php echo "<span><a href='".URL($conversationURL."/unread")."'>".$conversation["replies"]."</a></span>";
-
-// Output an "unread indicator", showing the number of unread posts.
-if (ET::$session->user and $conversation["unread"])
-	echo " <a href='".URL("conversation/markAsRead/".$conversation["conversationId"]."?token=".ET::$session->token."&return=".urlencode(ET::$controller->selfURL))."' class='unreadIndicator' title='".T("Mark as read")."'><i class='icon-ok'></i></a> ";
-
+<div class='col-replies'><?php
+echo "<span><a href='".URL($conversationURL."/unread")."'>".$conversation["replies"]."</a></span>";
 ?></div>
 </li>
