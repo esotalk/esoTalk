@@ -296,6 +296,9 @@ public static function loadLanguage($language = "")
 	$languagePath = PATH_LANGUAGES."/".sanitizeFileName(self::$language);
 	self::loadDefinitions("$languagePath/definitions.php");
 
+	// Set the locale.
+	if (isset(ET::$languageInfo[self::$language]["locale"])) setlocale(LC_ALL, ET::$languageInfo[self::$language]["locale"]);
+
 	// Loop through the loaded plugins and include their definition files, if they exist.
 	foreach (C("esoTalk.enabledPlugins") as $plugin) {
 		if (file_exists($file = "$languagePath/definitions.".sanitizeFileName($plugin).".php"))
