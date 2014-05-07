@@ -430,7 +430,7 @@ $definitions["message.cookieAuthenticationTheft"] = "For security reasons, we co
 $definitions["message.deleteChannelHelp"] = "Woah, hold up there! If you delete this channel, there'll be no way to get it back. Unless you build a time machine. But, uh, there'll be no <em>easy</em> way to get it back. All of the conversations in this channel can be moved to another of your choice.";
 $definitions["message.emailConfirmed"] = "Cool! Your account has been validated and you can now start participating in conversations. Why not <a href='".URL("conversation/start")."'>start one</a> yourself?";
 $definitions["message.emailDoesntExist"] = "That email address doesn't match any members in the database. Did you make a typo?";
-$definitions["message.emailNotYetConfirmed"] = "You need to confirm your email before you can log in with it! If you didn't receive the confirmation email, <a href='%s'>click here to get it sent again</a>.";
+$definitions["message.emailNotYetConfirmed"] = "You need to confirm your email before you can log in with it! If you didn't receive the confirmation email, please check your spam folder or <a href='%s'>click here to get it sent again</a>.";
 $definitions["message.emailTaken"] = "Curses, there is already a member with this email!";
 $definitions["message.empty"] = "You must fill out this field.";
 $definitions["message.emptyPost"] = "Yeah... uh, you should probably type something in your post.";
