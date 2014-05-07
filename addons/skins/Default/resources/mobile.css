@@ -18,7 +18,7 @@ body {font-size:12px}
 #hdr .popupWrapper {float:right; margin:0 0 0 7px}
 #hdr #backButton {float:left; margin:13px 5px 0 5px}
 #userMenu {margin:0 !important; text-align:left; padding:0}
-#hdr #notifications {font-size:14px}
+#hdr #notifications {font-size:12px}
 
 
 /* Footer */
@@ -81,7 +81,7 @@ body {font-size:12px}
 
 /* Conversation list */
 .conversationList li {padding:10px 10px 13px 30px; overflow:hidden}
-.conversationList .col-star {float:left; margin-left:-28px; margin-top:2px; margin-right:0}
+.conversationList .col-star {float:left; margin-left:-28px; margin-top:2px; margin-right:0; visibility:visible; padding-left:0.5em}
 .conversationList .col-conversation {display:block; margin:0 0 5px; width:auto}
 .conversationList .col-channel {display:block; padding-right:5px; margin:0; width:auto; text-align:left}
 .conversationList .col-lastPost {padding-right:0; width:auto; margin-right:0; float:none; display: inline-block}
