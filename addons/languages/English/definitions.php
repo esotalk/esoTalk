@@ -441,7 +441,7 @@ $definitions["message.esoTalkUpdateAvailable"] = "A new version of esoTalk, %s, 
 $definitions["message.esoTalkUpdateAvailableHelp"] = "It's recommended to always have the latest version of esoTalk installed to reduce security risk. And hey, there might be some cool new features!";
 $definitions["message.esoTalkUpToDate"] = "Your version of esoTalk is up-to-date.";
 $definitions["message.esoTalkUpToDateHelp"] = "esoTalk is developed in the spare time of a college student. Please consider <a href='%s' target='_blank'>donating</a> to keep it alive!";
-$definitions["message.fatalError"] = "esoTalk has encountered a fatal error. Try again, or <a href='%1\$s'>get help</a>.";
+$definitions["message.fatalError"] = "esoTalk has encountered a fatal error. Try again, or <a href='%1\$s' target='_blank'>get help</a>.";
 $definitions["message.fileUploadFailed"] = "Something went wrong and the file you selected could not be uploaded. Perhaps it's too big, or in the wrong format?";
 $definitions["message.fileUploadFailedMove"] = "The file you uploaded could not be copied to its destination. Please contact the forum administrator.";
 $definitions["message.fileUploadNotImage"] = "The file you uploaded is not an image in an acceptable format.";
@@ -456,7 +456,7 @@ $definitions["message.incorrectLogin"] = "Your login details were incorrect.";
 $definitions["message.incorrectPassword"] = "Your current password is incorrect.";
 $definitions["message.installerAdminHelp"] = "esoTalk will use the following information to set up your administrator account on your forum.";
 $definitions["message.installerFilesNotWritable"] = "<strong>esoTalk cannot write to the following files/folders: %s.</strong> To resolve this, you must navigate to these files/folders in your FTP client and <code>chmod</code> them to <code>0777</code>.";
-$definitions["message.installerWelcome"] = "Set up your fat-free forum but by filling out the form below.<br>If you have any trouble, get help on the <a href='%s'>esoTalk website</a>.";
+$definitions["message.installerWelcome"] = "Set up your fat-free forum but by filling out the form below.<br>If you have any trouble, get help on the <a href='%s' target='_blank'>esoTalk website</a>.";
 $definitions["message.invalidChannel"] = "You selected an invalid channel!";
 $definitions["message.invalidEmail"] = "Seems this email address isn't valid...";
 $definitions["message.invalidUsername"] = "You must choose a username between 3 and 20 alphanumeric characters.";
