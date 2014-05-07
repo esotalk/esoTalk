@@ -2,6 +2,7 @@
 .project
 .settings
 .htaccess
+sitemap*
 cache/*
 config/*
 uploads/*
