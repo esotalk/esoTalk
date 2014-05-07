@@ -488,7 +488,10 @@ public function radio($name, $value, $attributes = array())
 public function button($name, $label = "", $attributes = array())
 {
 	$this->addClass($attributes, "button");
-	return "<input type='submit' name='$name' value='$label'".$this->getAttributes($attributes)."/>";
+	if (isset($attributes["tag"]) and $attributes["tag"] == "button")
+		return "<button type='submit' name='$name'".$this->getAttributes($attributes).">$label</button>";
+	else
+		return "<input type='submit' name='$name' value='$label'".$this->getAttributes($attributes)."/>";
 }
 
 
