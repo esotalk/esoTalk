@@ -78,7 +78,7 @@ class AttachmentController extends ETController {
 			if ($range[0] > 0) fseek($file, $range[0]);
 
 			while ((feof($file) !== true) && (connection_status() === CONNECTION_NORMAL))
-				echo fread($file, round($speed * 1024)); flush(); sleep(1);
+				echo fread($file, round($speed * 1024)); flush();
 
 			fclose($file);
 			exit;
@@ -142,12 +142,13 @@ class AttachmentController extends ETController {
 
 		if (!empty($result["success"])) {
 
-			$result['uploadName'] = $uploader->getUploadName();
-			$result['attachmentId'] = $attachmentId;
+			$result["uploadName"] = $uploader->getUploadName();
+			$result["attachmentId"] = $attachmentId;
 
 			// Save attachment information to the session.
 			$session = (array)ET::$session->get("attachments");
 			$session[$attachmentId] = array(
+				"attachmentId" => $attachmentId,
 				"postId" => R("postId"),
 				"name" => $name,
 				"secret" => $secret
@@ -166,13 +167,15 @@ class AttachmentController extends ETController {
 		if (!$this->validateToken()) return;
 
 		$session = (array)ET::$session->get("attachments");
+		$model = ET::getInstance("attachmentModel");
+
 		if (isset($session[$attachmentId])) {
+			$attachment = $session[$attachmentId];
 			unset($session[$attachmentId]);
 			ET::$session->store("attachments", $session);
 		}
 
 		else {
-			$model = ET::getInstance("attachmentModel");
 			$attachment = $model->getById($attachmentId);
 
 			// Make sure the user has permission to edit this post.
@@ -191,10 +194,24 @@ class AttachmentController extends ETController {
 				return false;
 			}
 
-			// Remove the attachment from the database and filesystem.
+			// Remove the attachment from the database.
 			$model->deleteById($attachmentId);
-			@unlink($model->path().$attachmentId.$attachment["secret"]);
-			@unlink($model->path().$attachmentId.$attachment["secret"]."_thumb");
+		}
+
+		// Remove the attachment from the filesystem.
+		$model->removeFile($attachment);
+	}
+
+	// Remove attachments stored in the session for a specific post.
+	public function action_removeSession($postId)
+	{
+		if (!$this->validateToken()) return;
+
+		$model = ET::getInstance("attachmentModel");
+		$attachments = $model->extractFromSession("p".$postId);
+		print_r($attachments);
+		foreach ($attachments as $attachment) {
+			$model->removeFile($attachment);
 		}
 	}
 

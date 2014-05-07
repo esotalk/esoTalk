@@ -246,25 +246,38 @@ class ETPlugin_Attachments extends ETPlugin {
 	// Hook onto ConversationModel::setDraft and commit attachments from the session to the database.
 	public function handler_conversationModel_setDraftAfter($sender, $conversation, $memberId, $draft)
 	{
-		// If we're discarding the draft, delete all relevant attachments from the database.
+		$model = ET::getInstance("attachmentModel");
+
+		// Get the attachments for this conversation that are being stored in the session.
+		$attachments = $model->extractFromSession(ET::$controller->controllerMethod == "start" ? "c0" : "c".$conversation["conversationId"]);
+
+		// If we're discarding the draft, remove the attachments from the session/filesystem/database.
 		if ($draft === null) {
 
+			// Get attachments from the database.
+			$dbAttachments = $model->get(array(
+				"draftMemberId" => $memberId,
+				"draftConversationId" => $conversation["conversationId"]
+			));
+
+			// Delete them from the database.
 			ET::SQL()
 				->delete()
 				->from("attachment")
-				->where("draftMemberId", ET::$session->userId)
+				->where("draftMemberId", $memberId)
 				->where("draftConversationId", $conversation["conversationId"])
 				->exec();
 
-			// TODO: delete them from the filesystem as well.
+			// Delete all attachments (session and database) from the filesystem.
+			$attachments = array_merge($attachments, $dbAttachments);
+			foreach ($attachments as $attachment) {
+				$model->removeFile($attachment);
+			}
 		}
 
-		// If we're saving a draft, commit attachments from the session to the database.
-		else {
-			$model = ET::getInstance("attachmentModel");
-			$attachments = $model->extractFromSession(ET::$controller->controllerMethod == "start" ? "c0" : "c".$conversation["conversationId"]);
-
-			if (!empty($attachments)) $model->insertAttachments($attachments, array(
+		// If we're saving a draft, commit those attachments from the session to the database.
+		elseif (!empty($attachments)) {
+			$model->insertAttachments($attachments, array(
 				"draftMemberId" => $memberId,
 				"draftConversationId" => $conversation["conversationId"]
 			));

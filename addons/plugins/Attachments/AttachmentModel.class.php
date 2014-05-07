@@ -151,4 +151,10 @@ class AttachmentModel extends ETModel {
 			->exec();
 	}
 
+	public function removeFile($attachment)
+	{
+		@unlink($this->path().$attachment["attachmentId"].$attachment["secret"]);
+		@unlink($this->path().$attachment["attachmentId"].$attachment["secret"]."_thumb");
+	}
+
 }

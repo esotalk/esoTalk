@@ -92,7 +92,15 @@ $(function() {
 	var resetReply = ETConversation.resetReply;
 	ETConversation.resetReply = function() {
 		resetReply();
-		$("#reply .attachments ul").html("");
+		$("#reply .attachments-edit ul").html("");
+	};
+
+	var cancelEditPost = ETConversation.cancelEditPost;
+	ETConversation.cancelEditPost = function(postId) {
+		cancelEditPost(postId);
+		$.ETAjax({
+			url: "attachment/removeSession/"+postId
+		});
 	};
 
 });
