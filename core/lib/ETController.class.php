@@ -303,7 +303,7 @@ public function init()
 			$this->addToMenu("statistics", "statistic-online", $stat);
 		}
 
-		$this->addToMenu("meta", "copyright", "<a href='http://esotalk.org/' target='_blank'>Powered by esoTalk".(ET::$session->isAdmin() ? " ".ESOTALK_VERSION : "")."</a>");
+		$this->addToMenu("meta", "copyright", "<a href='http://esotalk.org/' target='_blank'>".T("Powered by esoTalk").(ET::$session->isAdmin() ? " ".ESOTALK_VERSION : "")."</a>");
 
 		// Set up some default JavaScript files and language definitions.
 		$this->addJSFile("core/js/lib/jquery.js", true);
@@ -402,7 +402,7 @@ public function render($view = "")
 	$this->trigger("renderBefore");
 
 	if ($this->responseType == RESPONSE_TYPE_DEFAULT and ET::$session->user) {
-		
+
 		// Fetch all unread notifications so we have a count for the notifications button.
 		$notifications = ET::activityModel()->getNotifications(-1);
 		$count = count($notifications);
@@ -410,7 +410,7 @@ public function render($view = "")
 
 		// Show messages with these notifications.
 		$this->notificationMessages($notifications);
-		
+
 	}
 
 	// Set up the master view, content type, and other stuff depending on the response type.
