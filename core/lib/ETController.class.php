@@ -303,7 +303,7 @@ public function init()
 			$this->addToMenu("statistics", "statistic-online", $stat);
 		}
 
-		$this->addToMenu("meta", "copyright", "<a href='http://esotalk.org/' target='_blank'>Powered by esoTalk".(ET::$session->isAdmin() ? " ".ESOTALK_VERSION : "")."</a>");
+		$this->addToMenu("meta", "copyright", "<a href='http://esotalk.org/' target='_blank'>".T("Powered by")." esoTalk</a>");
 
 		// Set up some default JavaScript files and language definitions.
 		$this->addJSFile("core/js/lib/jquery.js", true);

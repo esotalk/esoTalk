@@ -300,6 +300,7 @@ $definitions["Plugins"] = "Plugins";
 $definitions["Post a Reply"] = "Post a Reply";
 $definitions["Post count"] = "Post count";
 $definitions["Posts"] = "Posts";
+$definitions["Powered by"] = "Powered by";
 $definitions["Preview"] = "Preview";
 $definitions["Previous"] = "Previous";
 
