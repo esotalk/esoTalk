@@ -286,7 +286,7 @@ public function init()
 			if (ET::$session->isAdmin())
 				$this->addToMenu("user", "administration", "<a href='".URL("admin")."' class='link-administration'>".T("Administration")."</a>");
 
-			$this->addToMenu("user", "logout", "<a href='".URL("user/logout")."' class='link-logout'>".T("Log Out")."</a>");
+			$this->addToMenu("user", "logout", "<a href='".URL("user/logout?token=".ET::$session->token)."' class='link-logout'>".T("Log Out")."</a>");
 		}
 
 		// Get the number of members currently online and add it as a statistic.
