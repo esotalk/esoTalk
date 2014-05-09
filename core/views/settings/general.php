@@ -23,7 +23,7 @@ $form = $data["form"];
 // Loop through the form sections (eg. "avatar", "notifications").
 foreach ($form->getSections() as $k => $v): ?>
 
-<li><label><?php echo $v; ?></label> <div class='checkboxGroup'>
+<li><label><?php echo $v; ?></label> <div class='fieldGroup'>
 <?php
 // Loop through each of the fields in this section and output it.
 foreach ($form->getFieldsInSection($k) as $field): ?>

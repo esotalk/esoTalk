@@ -614,7 +614,7 @@ input.error, input.error:focus {border-color:#f59e79 !important}
 .form > li > label {line-height:1.8em; margin:0 10px 1px 0; width:140px; margin-left:-150px; float:left}
 .form > li > small {font-size:85%; margin:0 0 5px 0; padding:5px 10px; display:block; padding:0; background:none; border:0}
 .form > li.sep {border-top:1px solid #e5e5e5; border-bottom:1px solid #fff; margin:15px 0}
-.checkboxGroup {line-height:1.7em}
+.fieldGroup, .checkboxGroup {line-height:1.7em}
 .colorSwatch {display:inline-block; height:21px; width:21px; border-radius:3px; margin-right:5px; vertical-align:-8px; border:1px solid rgba(0, 0, 0, 0.2)}
 
 .form input[type=text], form input[type=password], .form select, .form textarea, .form .input {margin:0 3px 3px 0; width:260px; font-size:110%; padding:5px}
