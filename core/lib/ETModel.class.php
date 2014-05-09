@@ -217,8 +217,7 @@ public function errorCount()
  */
 public function error($field, $code = null)
 {
-	if ($code !== null) $field = array($field => $code);
-	$this->errors = array_merge($this->errors, (array)$field);
+	$this->errors = array_merge($this->errors, array($field => $code ?: $field));
 }
 
 

@@ -226,12 +226,16 @@ class ETPlugin_Profiles extends ETPlugin {
 	{
 		$model = ET::getInstance("profileFieldModel");
 		$fields = $model->getData(ET::$session->userId);
+		$plugin = $this; // for use in closures
 
 		foreach ($fields as $field) {
 			$key = "profile_".$field["fieldId"];
 			$form->addSection($key, $field["name"]);
 			$form->setValue($key, $field["data"]);
-			$form->addField($key, $key, array($this, "field", $field), array($this, "saveField"));
+			$form->addField($key, $key, function($form) use ($plugin, $field)
+			{
+				return $plugin->field($form, $field);
+			}, array($this, "saveField"));
 		}
 	}
 

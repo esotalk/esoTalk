@@ -48,29 +48,55 @@ public function action_login()
 	$form->action = URL("user/login");
 	$form->addHidden("return", R("return"));
 
+	$controller = $this; // for use in closures
+
+	// Add the username field to the form structure.
+	$form->addSection("username", T("Username or Email"));
+	$form->addField("username", "username", function($form)
+	{
+		return $form->input("username");
+	});
+
+	// Add the password field to the form structure. We also use a processing callback on this field to attempt
+	// the login because the password is the specific mechanism of authentication in this instance.
+	$form->addSection("password", T("Password")." <small><a href='".URL("user/forgot")."' class='link-forgot' tabindex='-1'>".T("Forgot?")."</a></small>");
+	$form->addField("password", "password", function($form)
+	{
+		return $form->input("password", "password");
+	},
+	function($form, $key, &$success) use ($controller)
+	{
+		// If the login was successful...
+		if (ET::$session->login($form->getValue("username"), $form->getValue("password"), $form->getValue("remember"))) $success = true;
+
+		// If not, get the errors that occurred and pass them to the form.
+		else $form->errors(ET::$session->errors());
+	});
+
+	// Add the "remember me" field to the form structure.
+	$form->addSection("remember");
+	$form->addField("remember", "remember", function($form)
+	{
+		return "<label class='checkbox'>".$form->checkbox("remember")." ".T("Keep me logged in")."</label>";
+	});
+
 	// If the cancel button was pressed, return to where the user was before.
 	if ($form->isPostBack("cancel")) $this->redirect(URL(R("return")));
 
-	// If the login form was submitted, attempt to log in.
-	if ($form->validPostBack("username")) {
+	// If the login form was submitted, run the field processing callbacks. If one of them says we
+	// were successful in logging in, then we can redirect back to where the user came from.
+	$success = false;
+	if ($form->validPostBack()) $form->runFieldCallbacks($success);
+	if ($success) $this->redirect(URL(R("return")));
 
-		// If the login was successful, redirect or set a json flag, depending on the response type.
-		if (ET::$session->login($form->getValue("username"), $form->getValue("password"), $form->getValue("remember")))
-			$this->redirect(URL(R("return")));
-
-		// Otherwise, get the errors that occurred and pass them to the form.
-		else {
-			$errors = ET::$session->errors();
-			if (in_array("emailNotYetConfirmed", $errors)) {
-				$this->renderMessage("Error", sprintf(T("message.emailNotYetConfirmed"), URL("user/sendConfirmation/".$form->getValue("username"))));
-				return;
-			}
-			if (in_array("accountNotYetApproved", $errors)) {
-				$this->renderMessage("Error", T("message.accountNotYetApproved"));
-				return;
-			}
-			$form->errors($errors);
-		}
+	// Instead of showing some specific errors on the form, render them as messages.
+	if (isset($form->errors["emailNotYetConfirmed"])) {
+		$this->renderMessage("Error", sprintf(T("message.emailNotYetConfirmed"), URL("user/sendConfirmation/".$form->getValue("username"))));
+		return;
+	}
+	if (isset($form->errors["accountNotYetApproved"])) {
+		$this->renderMessage("Error", T("message.accountNotYetApproved"));
+		return;
 	}
 
 	$this->data("form", $form);

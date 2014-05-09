@@ -148,9 +148,7 @@ public function getFieldsInSection($section)
 	$fields = array();
 	if (isset($this->fields[$section])) {
 		foreach ($this->fields[$section] as $name => $callbacks) {
-			$func = array_slice($callbacks["renderCallback"], 0, 2);
-			$args = array_slice($callbacks["renderCallback"], 2);
-			$fields[$name] = call_user_func_array($func, array_merge(array($this), $args));
+			$fields[$name] = call_user_func_array($callbacks["renderCallback"], array($this));
 		}
 	}
 	return $fields;
@@ -167,7 +165,8 @@ public function runFieldCallbacks(&$collector = null)
 {
 	foreach ($this->fields as $fields) {
 		foreach ($fields as $k => $callbacks) {
-			if ($callbacks["processCallback"] !== null) call_user_func_array($callbacks["processCallback"], array($this, $k, &$collector));
+			if ($callbacks["processCallback"] !== null)
+				call_user_func_array($callbacks["processCallback"], array($this, $k, &$collector));
 		}
 	}
 }
