@@ -80,6 +80,8 @@ public function action_login()
 		return "<label class='checkbox'>".$form->checkbox("remember")." ".T("Keep me logged in")."</label>";
 	});
 
+	$this->trigger("initLogin", array($form));
+
 	// If the cancel button was pressed, return to where the user was before.
 	if ($form->isPostBack("cancel")) $this->redirect(URL(R("return")));
 
@@ -190,6 +192,8 @@ public function action_join()
 		if ($form->getValue("password") != $form->getValue($key))
 			$form->error($key, T("message.passwordsDontMatch"));
 	});
+
+	$this->trigger("initJoin", array($form));
 
 	// If the cancel button was pressed, return to where the user was before.
 	if ($form->isPostBack("cancel")) $this->redirect(URL(R("return")));
