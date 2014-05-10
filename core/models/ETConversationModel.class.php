@@ -832,7 +832,7 @@ public function delete($wheres = array())
 		->where("c.conversationId IN (:conversationIds)")
 		->bind(":conversationIds", $ids);
 
-	$this->trigger("beforeDelete", array($sql, $ids));
+	$this->trigger("deleteBefore", array($sql, $ids));
 
 	$sql->exec();
 
