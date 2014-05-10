@@ -75,7 +75,7 @@ $config["esoTalk.meta.description"] = null;
 $config["esoTalk.skin"] = "Default"; // The active skin.
 $config["esoTalk.mobileSkin"] = "Default"; // The active skin for mobile devices.
 $config["esoTalk.adminSkin"] = "Default"; // The active skin for the administrator section.
-$config["esoTalk.enabledPlugins"] = array("BBCode", "ReportBug"); // A list of enabled plugins.
+$config["esoTalk.enabledPlugins"] = array("BBCode"); // A list of enabled plugins.
 
 // Login and registration settings.
 $config["esoTalk.badLoginsPerMinute"] = 10;
