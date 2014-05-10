@@ -15,7 +15,7 @@ $member = $data["member"];
 ?>
 <div class='activity hasControls'<?php if (!empty($activity["activityId"])): ?> id='a<?php echo $activity["activityId"]; ?>'<?php endif; ?>>
 <div class='controls'>
-<span class='time'><?php echo date(T("date.full"), $activity["time"]); ?></span>
+<span class='time'><?php echo strftime(T("date.full"), $activity["time"]); ?></span>
 <?php if (($member["memberId"] == ET::$session->userId or $activity["fromMemberId"] == ET::$session->userId) and !empty($activity["activityId"])): ?>
 <a href='<?php echo URL("member/deleteActivity/".$activity["activityId"]."/?token=".ET::$session->token); ?>' class='control-delete' title='<?php echo T("Delete"); ?>'><?php echo T("Delete"); ?></a>
 <?php endif; ?>
