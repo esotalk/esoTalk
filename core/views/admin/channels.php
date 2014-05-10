@@ -18,6 +18,8 @@ $(function() {
 
 <div class='area' id='adminChannels'>
 
+<h3><?php echo T("Manage Channels"); ?></h3>
+
 <p class='help'><?php echo T("message.channelsHelp"); ?></p>
 
 <p><a href='<?php echo URL("admin/channels/create"); ?>' class='button' id='createChannelLink'><span class='icon-plus'></span> <?php echo T("Create Channel"); ?></a></p>
