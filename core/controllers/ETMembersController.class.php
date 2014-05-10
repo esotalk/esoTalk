@@ -42,7 +42,8 @@ public function action_index($orderBy = false, $start = 0)
 		$groups[GROUP_ID_GUEST] = array("name" => ACCOUNT_SUSPENDED);
 
 		$conditions = array();
-		$bindings = array();
+
+		$this->trigger("parseTerms", array(&$terms, $sql, &$conditions));
 
 		foreach ($terms as $k => $term) {
 
