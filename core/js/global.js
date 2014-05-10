@@ -896,7 +896,7 @@ function ETIntervalCallback(callback, interval)
 
 	// Run the callback, resetting the timeout and the hold flag.
 	ic.runCallback = function() {
-		ic.callback();
+		if (!ETIntervalCallback.paused) ic.callback();
 		ic.setTimeout();
 		ic.hold = false;
 	};
@@ -905,7 +905,7 @@ function ETIntervalCallback(callback, interval)
 	ic.reset = function(interval) {
 		if (interval > 0) ic.interval = interval;
 		ic.setTimeout();
-	}
+	};
 
 	// When the window gains focus, if we're "holding", stop holding. Otherwise, run the callback.
 	$(window).focus(function(e) {
@@ -923,6 +923,15 @@ function ETIntervalCallback(callback, interval)
 	// Set the initial timeout.
 	ic.setTimeout();
 }
+
+// Pause all intervals. Until resume is called, callbacks will never be run.
+ETIntervalCallback.paused = false;
+ETIntervalCallback.pause = function() {
+	this.paused = true;
+};
+ETIntervalCallback.resume = function() {
+	this.paused = false;
+};
 
 
 

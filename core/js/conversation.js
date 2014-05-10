@@ -112,7 +112,14 @@ init: function() {
 			ETConversation.toggleMute();
 		});
 		$("#control-delete").click(function(e) {
-			if (!ETConversation.confirmDelete()) e.preventDefault();
+			// Pause all auto-updaters so that we don't try to update when we regain focus
+			// on the window from the confirm popup.
+			ETIntervalCallback.pause();
+
+			if (!ETConversation.confirmDelete()) {
+				e.preventDefault();
+				ETIntervalCallback.resume();
+			}
 		});
 
 		// Add tooltips to labels.
