@@ -1064,9 +1064,8 @@ function colorPicker(id, callback) {
 	}
 
 	// Set up a farbtastic instance inside the picker we've created.
-	var farb = $.farbtastic(picker, function(color) {
-		handler(color);
-	}).setColor($("#"+id+" input").val());
+	var color = $("#"+id+" input").val();
+	var farb = $.farbtastic(picker, handler).setColor(color);
 
 	// When the "reset" link is clicked, reset the color.
 	$("#"+id+" .reset").click(function(e) {

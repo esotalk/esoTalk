@@ -97,8 +97,7 @@ public function settings($sender)
 	}
 
 	$sender->data("skinSettingsForm", $form);
-	$sender->addCSSFile("core/js/lib/farbtastic/farbtastic.css");
-	$sender->addJSFile("core/js/lib/farbtastic/farbtastic.js");
+	$sender->addJSFile("core/js/lib/farbtastic.js");
 	return $this->view("settings");
 }
 
