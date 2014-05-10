@@ -24,13 +24,21 @@ $form = $data["form"];
 <div class='section'>
 <ul class='form'>
 
-<li><label><?php echo T("Username"); ?></label> <?php echo $form->input("username"); ?></li>
+<?php
+// Loop through the form sections (eg. "avatar", "notifications").
+foreach ($form->getSections() as $k => $v): ?>
 
-<li><label><?php echo T("Email"); ?></label> <?php echo $form->input("email"); ?><small><?php echo T("Used to verify your account and subscribe to conversations"); ?></small></li>
+<li><label><?php echo $v; ?></label> <div class='fieldGroup'>
+<?php
+// Loop through each of the fields in this section and output it.
+foreach ($form->getFieldsInSection($k) as $field): ?>
 
-<li><label><?php echo T("Password"); ?></label> <?php echo $form->input("password", "password"); ?><small><?php printf(T("Choose a secure password of at least %s characters"), C("esoTalk.minPasswordLength")); ?></small></li>
+<?php echo $field; ?>
 
-<li><label><?php echo T("Confirm password"); ?></label> <?php echo $form->input("confirm", "password"); ?></li>
+<?php endforeach; ?>
+</div></li>
+
+<?php endforeach; ?>
 
 </ul>
 </div>

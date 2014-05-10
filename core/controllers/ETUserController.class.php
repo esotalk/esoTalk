@@ -145,23 +145,64 @@ public function action_join()
 	$form = ETFactory::make("form");
 	$form->action = URL("user/join");
 
+	// Add the username field to the form structure.
+	$form->addSection("username", T("Username"));
+	$form->addField("username", "username", function($form)
+	{
+		return $form->input("username");
+	},
+	function($form, $key, &$data)
+	{
+		$data["username"] = $form->getValue($key);
+	});
+
+	// Add the email field to the form structure.
+	$form->addSection("email", T("Email"));
+	$form->addField("email", "email", function($form)
+	{
+		return $form->input("email")."<br><small>".T("Used to verify your account and subscribe to conversations")."</small>";
+	},
+	function($form, $key, &$data)
+	{
+		$data["email"] = $form->getValue($key);
+	});
+
+	// Add the password field to the form structure.
+	$form->addSection("password", T("Password"));
+	$form->addField("password", "password", function($form)
+	{
+		return $form->input("password", "password")."<br><small>".sprintf(T("Choose a secure password of at least %s characters"), C("esoTalk.minPasswordLength"))."</small>";
+	},
+	function($form, $key, &$data)
+	{
+		$data["password"] = $form->getValue($key);
+	});
+
+	// Add the confirm password field to the form structure.
+	$form->addSection("confirm", T("Confirm password"));
+	$form->addField("confirm", "confirm", function($form)
+	{
+		return $form->input("confirm", "password");
+	},
+	function($form, $key, &$data)
+	{
+		// Make sure the passwords match.
+		if ($form->getValue("password") != $form->getValue($key))
+			$form->error($key, T("message.passwordsDontMatch"));
+	});
+
+	// If the cancel button was pressed, return to where the user was before.
 	if ($form->isPostBack("cancel")) $this->redirect(URL(R("return")));
 
 	// If the form has been submitted, validate it and add the member into the database.
 	if ($form->validPostBack("submit")) {
 
-		// Make sure the passwords match. The model will do the rest of the validation.
-		if ($form->getValue("password") != $form->getValue("confirm"))
-			$form->error("confirm", T("message.passwordsDontMatch"));
+		$data = array();
+		if ($form->validPostBack()) $form->runFieldCallbacks($data);
 
 		if (!$form->errorCount()) {
 
-			$data = array(
-				"username" => $form->getValue("username"),
-				"email" => $form->getValue("email"),
-				"password" => $form->getValue("password"),
-				"account" => ACCOUNT_MEMBER
-			);
+			$data["account"] = ACCOUNT_MEMBER;
 
 			if (!C("esoTalk.registration.requireConfirmation")) $data["confirmed"] = true;
 			else $data["resetPassword"] = md5(uniqid(rand()));
