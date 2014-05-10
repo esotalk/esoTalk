@@ -42,6 +42,7 @@ $definitions["%s conversations"] = "%s conversations";
 $definitions["%s has registered and is awaiting approval."] = "%s has registered and is awaiting approval.";
 $definitions["%s invited you to %s."] = "%s invited you to %s.";
 $definitions["%s joined the forum."] = "%s joined the forum.";
+$definitions["%s mentioned you in %s."] = "%s mentioned you in %s.";
 $definitions["%s post"] = "%s post";
 $definitions["%s posted %s"] = "%s posted %s";
 $definitions["%s posted in %s."] = "%s posted in %s.";
@@ -50,7 +51,6 @@ $definitions["%s reply"] = "%s reply";
 $definitions["%s replies"] = "%s replies";
 $definitions["%s Settings"] = "%s Settings";
 $definitions["%s started the conversation %s."] = "%s started the conversation %s.";
-$definitions["%s mentioned you in %s."] = "%s mentioned you in %s.";
 $definitions["%s will be able to view this conversation."] = "%s will be able to view this conversation.";
 $definitions["%s will be able to:"] = "%s will be able to:";
 
@@ -215,8 +215,6 @@ $definitions["Installed skins"] = "Installed skins";
 $definitions["is %s"] = "is %s";
 
 $definitions["Joined"] = "Joined";
-$definitions["Jump to last"] = "Jump to last";
-$definitions["Jump to unread"] = "Jump to unread";
 $definitions["just now"] = "just now";
 
 $definitions["Keep me logged in"] = "Keep me logged in";
@@ -230,6 +228,7 @@ $definitions["label.sticky"] = "Sticky";
 $definitions["Labels"] = "Labels";
 $definitions["Last active"] = "Last active";
 $definitions["Last active %s"] = "Last active %s";
+$definitions["Latest"] = "Latest";
 $definitions["Latest News"] = "Latest News";
 $definitions["Loading..."] = "Loading...";
 $definitions["Lock"] = "Lock";
