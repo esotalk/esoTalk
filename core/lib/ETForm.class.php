@@ -274,18 +274,18 @@ public function getValue($field, $default = "")
 			// Go through each "part" in the field name and drill down into the $_POST array.
 			foreach ($parts as $part) {
 				$part = rtrim($part, "]");
-				if (isset($value[$part])) $value = $value[$part];
-				else {
-					$value = $default;
-					break;
-				}
+				$value = @$value[$part];
 			}
 
 			return $value;
 		}
 
 		// If it's just a normal field name, get the value straight from POST.
-		else return isset($_POST[$field]) ? $_POST[$field] : $default;
+		// We don't return the $default value here, because we know this is a postback 
+		// and therefore we can assume that whatever data has been posted back is what
+		// we want to use. This is important especially for checkboxes ($_POST['checkbox']
+		// isn't set, but that implies that its value is empty, not whatever $default is.)
+		else return isset($_POST[$field]) ? $_POST[$field] : "";
 	}
 	else
 		return isset($this->values[$field]) ? $this->values[$field] : $default;
