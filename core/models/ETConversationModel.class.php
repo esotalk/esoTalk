@@ -271,7 +271,7 @@ public function getEmptyConversation()
 		"draft" => "",
 		"private" => false,
 		"starred" => false,
-		"muted" => false,
+		"ingored" => false,
 		"locked" => false,
 		"channelId" => ET::$session->get("channelId"),
 		"channelTitle" => "",
@@ -854,7 +854,7 @@ public function deleteById($id)
 
 /**
  * Set a member's status entry for a conversation (their record in the member_conversation table.)
- * This should not be used directly for setting a draft or 'muted'. setDraft and setMuted should be
+ * This should not be used directly for setting a draft or 'ignored'. setDraft and setIgnored should be
  * used for that.
  *
  * @param array|int $conversationIds The conversation ID(s) to set the member(s) status for.
@@ -977,22 +977,22 @@ public function markAsRead($conversationIds, $memberId)
 
 
 /**
- * Set a member's muted flag for a conversation.
+ * Set a member's ignored flag for a conversation.
  *
  * @param array $conversation The conversation to set the flag on. The conversation array's labels
- * 		and muted attribute will be updated.
+ * 		and ignored attribute will be updated.
  * @param int $memberId The member to set the flag for.
- * @param bool $muted Whether or not to set the conversation to muted.
+ * @param bool $ignored Whether or not to set the conversation to ignored.
  * @return void
  */
-public function setMuted(&$conversation, $memberId, $muted)
+public function setIgnored(&$conversation, $memberId, $ignored)
 {
-	$muted = (bool)$muted;
+	$ignored = (bool)$ignored;
 
-	$this->setStatus($conversation["conversationId"], $memberId, array("muted" => $muted));
+	$this->setStatus($conversation["conversationId"], $memberId, array("ignored" => $ignored));
 
-	$this->addOrRemoveLabel($conversation, "muted", $muted);
-	$conversation["muted"] = $muted;
+	$this->addOrRemoveLabel($conversation, "ignored", $ignored);
+	$conversation["ignored"] = $ignored;
 }
 
 
@@ -1348,4 +1348,4 @@ ETConversationModel::addLabel("sticky", "IF(c.sticky=1,1,0)", "icon-pushpin");
 ETConversationModel::addLabel("private", "IF(c.private=1,1,0)", "icon-envelope-alt");
 ETConversationModel::addLabel("locked", "IF(c.locked=1,1,0)", "icon-lock");
 ETConversationModel::addLabel("draft", "IF(s.draft IS NOT NULL,1,0)", "icon-pencil");
-ETConversationModel::addLabel("muted", "IF(s.muted=1,1,0)", "icon-eye-close");
+ETConversationModel::addLabel("ignored", "IF(s.ignored=1,1,0)", "icon-eye-close");

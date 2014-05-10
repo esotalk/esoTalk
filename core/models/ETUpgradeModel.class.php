@@ -179,7 +179,7 @@ protected function structure($drop = false)
 		->column("starred", "tinyint(1)", 0)
 		->column("lastRead", "smallint(5)", 0)
 		->column("draft", "text")
-		->column("muted", "tinyint(1)", 0)
+		->column("ignored", "tinyint(1)", 0)
 		->key(array("conversationId", "type", "id"), "primary")
 		->key(array("type", "id"))
 		->exec($drop);
@@ -321,9 +321,12 @@ public function install($info)
  */
 public function upgrade($currentVersion = "")
 {
-	// 1.0.0g4: - Rename the 'confirmedEmail' column on the members table to 'confirmed'
+	// 1.0.0g4:
+	// - Rename the 'confirmedEmail' column on the members table to 'confirmed'
+	// - Rename the 'muted' column on the member_conversation table to 'ignored'
 	if (version_compare($currentVersion, "1.0.0g4", "<")) {
 		ET::$database->structure()->table("member")->renameColumn("confirmedEmail", "confirmed");
+		ET::$database->structure()->table("member_conversation")->renameColumn("muted", "ignored");
 	}
 
 	// Make sure the application's table structure is up-to-date.
@@ -331,7 +334,8 @@ public function upgrade($currentVersion = "")
 
 	// Perform any custom upgrade procedures, from $currentVersion to ESOTALK_VERSION, here.
 
-	// 1.0.0g3: - Re-calculate all conversation post counts due to a bug which could get them un-synced
+	// 1.0.0g3:
+	/// - Re-calculate all conversation post counts due to a bug which could get them un-synced
 	if (version_compare($currentVersion, "1.0.0g3", "<")) {
 		ET::SQL()
 			->update("conversation c")

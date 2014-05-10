@@ -208,7 +208,7 @@ public function action_index($conversationId = false, $year = false, $month = fa
 		}
 		if (ET::$session->user) {
 			$this->addJSLanguage("Starred", "Unstarred", "message.confirmLeave", "message.confirmDiscardReply",
-				"Mute conversation", "Unmute conversation", "Controls", "Follow", "Following");
+				"Ignore conversation", "Unignore conversation", "Controls", "Follow", "Following");
 		}
 
 		$this->addJSVar("postsPerPage", C("esoTalk.conversation.postsPerPage"));
@@ -227,9 +227,9 @@ public function action_index($conversationId = false, $year = false, $month = fa
 
 		$controls = ETFactory::make("menu");
 
-		// Mute conversation control
+		// Ignore conversation control
 		if (ET::$session->user) {
-			$controls->add("mute", "<a href='".URL("conversation/mute/".$conversation["conversationId"]."/?token=".ET::$session->token."&return=".urlencode($this->selfURL))."' id='control-mute'><i class='icon-eye-close'></i> <span>".T($conversation["muted"] ? "Unmute conversation" : "Mute conversation")."</span></a>");
+			$controls->add("ignore", "<a href='".URL("conversation/ignore/".$conversation["conversationId"]."/?token=".ET::$session->token."&return=".urlencode($this->selfURL))."' id='control-ignore'><i class='icon-eye-close'></i> <span>".T($conversation["ignored"] ? "Unignore conversation" : "Ignore conversation")."</span></a>");
 		}
 
 		// Mark as unread/read control
@@ -957,23 +957,23 @@ public function action_star($conversationId = false)
 
 
 /**
- * Toggle the muted flag of a conversation for the current user.
+ * Toggle the ignored flag of a conversation for the current user.
  *
  * @param int $conversationId The ID of the conversation.
  * @return void
  */
-public function action_mute($conversationId = false)
+public function action_ignore($conversationId = false)
 {
 	if (!ET::$session->user or !$this->validateToken()) return;
 
 	// Get the conversation.
 	if (!($conversation = $this->getConversation($conversationId))) return;
 
-	// Mute/unmute the conversation.
-	$muted = !$conversation["muted"];
-	ET::conversationModel()->setMuted($conversation, ET::$session->userId, $muted);
+	// Ignore/unignore the conversation.
+	$ignored = !$conversation["ignored"];
+	ET::conversationModel()->setIgnored($conversation, ET::$session->userId, $ignored);
 
-	$this->json("muted", $muted);
+	$this->json("ignored", $ignored);
 
 	// Redirect back to the conversation.
 	if ($this->responseType === RESPONSE_TYPE_DEFAULT) {

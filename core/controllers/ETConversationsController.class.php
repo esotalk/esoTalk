@@ -152,7 +152,7 @@ public function action_index($channelSlug = false)
 			addToArrayString($gambits["main"], T("gambit.private"), array("gambit-private", "icon-envelope-alt"), 1);
 			addToArrayString($gambits["main"], T("gambit.starred"), array("gambit-starred", "icon-star"), 2);
 			addToArrayString($gambits["main"], T("gambit.draft"), array("gambit-draft", "icon-pencil"), 3);
-			addToArrayString($gambits["main"], T("gambit.muted"), array("gambit-muted", "icon-eye-close"), 4);
+			addToArrayString($gambits["main"], T("gambit.ignored"), array("gambit-ignored", "icon-eye-close"), 4);
 			addToArrayString($gambits["time"], T("gambit.unread"), array("gambit-unread", "icon-inbox"), 0);
 			addToArrayString($gambits["member"], T("gambit.author:").T("gambit.myself"), array("gambit-authorMyself", "icon-smile"), 0);
 			addToArrayString($gambits["member"], T("gambit.contributor:").T("gambit.myself"), array("gambit-contributorMyself", "icon-smile"), 2);

@@ -107,9 +107,9 @@ init: function() {
 			e.preventDefault();
 			ETConversation.toggleLock();
 		});
-		$("#control-mute").click(function(e) {
+		$("#control-ignore").click(function(e) {
 			e.preventDefault();
-			ETConversation.toggleMute();
+			ETConversation.toggleIgnore();
 		});
 		$("#control-delete").click(function(e) {
 			// Pause all auto-updaters so that we don't try to update when we regain focus
@@ -1039,10 +1039,10 @@ toggleLock: function() {
 },
 
 // Toggle lock.
-toggleMute: function() {
-	$("#control-mute span").html(T($("#control-mute span").html() == T("Mute conversation") ? "Unmute conversation" : "Mute conversation"));
+toggleIgnore: function() {
+	$("#control-ignore span").html(T($("#control-ignore span").html() == T("Ignore conversation") ? "Unignore conversation" : "Ignore conversation"));
 	$.ETAjax({
-		url: "conversation/mute.ajax/" + ETConversation.id,
+		url: "conversation/ignore.ajax/" + ETConversation.id,
 		success: function(data) {
 			$("#conversationHeader .labels").html(data.labels);
 		}

@@ -224,7 +224,7 @@ $definitions["<strong>Keep this member's posts.</strong> All of this member's po
 
 $definitions["label.draft"] = "Draft";
 $definitions["label.locked"] = "Locked";
-$definitions["label.muted"] = "Muted";
+$definitions["label.ignored"] = "Ignored";
 $definitions["label.private"] = "Private";
 $definitions["label.sticky"] = "Sticky";
 $definitions["Labels"] = "Labels";
@@ -554,7 +554,7 @@ $definitions["gambit.private"] = "private";
 $definitions["gambit.random"] = "random";
 $definitions["gambit.reverse"] = "reverse";
 $definitions["gambit.starred"] = "followed";
-$definitions["gambit.muted"] = "muted";
+$definitions["gambit.ignored"] = "ignored";
 $definitions["gambit.sticky"] = "sticky";
 $definitions["gambit.unread"] = "unread";
 $definitions["gambit.limit:"] = "limit:";
