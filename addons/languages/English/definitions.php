@@ -215,8 +215,6 @@ $definitions["Installed skins"] = "Installed skins";
 $definitions["is %s"] = "is %s";
 
 $definitions["Joined"] = "Joined";
-$definitions["Jump to last"] = "Jump to last";
-$definitions["Jump to unread"] = "Jump to unread";
 $definitions["just now"] = "just now";
 
 $definitions["Keep me logged in"] = "Keep me logged in";
@@ -230,6 +228,7 @@ $definitions["label.sticky"] = "Sticky";
 $definitions["Labels"] = "Labels";
 $definitions["Last active"] = "Last active";
 $definitions["Last active %s"] = "Last active %s";
+$definitions["Latest"] = "Latest";
 $definitions["Latest News"] = "Latest News";
 $definitions["Loading..."] = "Loading...";
 $definitions["Lock"] = "Lock";
