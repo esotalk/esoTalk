@@ -21,6 +21,8 @@ $(function() {
 
 <div class='area' id='adminSettings'>
 
+<h3><?php echo T("Manage Forum Settings"); ?></h3>
+
 <?php echo $form->open(); ?>
 
 <ul class='form'>
