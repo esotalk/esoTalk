@@ -237,7 +237,6 @@ $definitions["Log Out"] = "Log Out";
 
 $definitions["Make member and online list visible to:"] = "Make member and online list visible to:";
 $definitions["Manage Channels"] = "Manage Channels";
-$definitions["Manage Forum Settings"] = "Manage Forum Settings";
 $definitions["Manage Groups"] = "Manage Groups";
 $definitions["Manage Languages"] = "Manage Languages";
 $definitions["Manage your forum's channels (categories)"] = "Manage your forum's channels (categories)";
