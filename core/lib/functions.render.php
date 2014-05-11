@@ -279,7 +279,7 @@ function star($conversationId, $starred)
 	else {
 		$conversationId = (int)$conversationId;
 		$url = URL("conversation/star/".$conversationId."?token=".ET::$session->token."&return=".urlencode(ET::$controller->selfURL));
-		return "<a href='$url' class='starButton' title='".T("Follow")."' data-id='$conversationId'><i class='star icon-star".($starred ? "" : "-empty")."'></i></a>";
+		return "<a href='$url' class='starButton' title='".($starred ? T("Following") : T("Follow"))."' data-id='$conversationId'><i class='star icon-star".($starred ? "" : "-empty")."'></i></a>";
 	}
 }
 
