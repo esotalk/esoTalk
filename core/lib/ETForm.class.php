@@ -425,11 +425,11 @@ public function select($name, $options, $attributes = array())
 	$select = "<select".$this->getAttributes($attributes).">\n";
 
 	// Get the currently-selected value of this field.
-	$value = $this->getValue($name);
+	$values = (array)$this->getValue($name);
 
 	// Loop through the options and add a tag for each one, selecting the appropriate one.
 	foreach ($options as $k => $v)
-		$select .= "<option value='$k'".($value == $k ? " selected='selected'" : "").">$v</option>\n";
+		$select .= "<option value='$k'".(in_array($k, $values) ? " selected='selected'" : "").">$v</option>\n";
 
 	$select .= "</select>";
 
