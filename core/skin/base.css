@@ -574,6 +574,10 @@ code {background:#eee}
 .avatarChooser small {display:block}
 
 
+/* Install */
+.advanced {display:none}
+
+
 /* Login */
 #loginSheet {width:470px}
 #loginSheet .link-forgot {margin-left:5px}
