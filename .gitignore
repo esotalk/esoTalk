@@ -15,7 +15,11 @@ addons/skins/*
 !addons/plugins/Emoticons
 !addons/plugins/SMTP
 !addons/plugins/index.html
-!addons/languages/English
+!addons/languages/English/definitions.php
+!addons/languages/English/definitions.BBCode.php
+!addons/languages/English/definitions.Debug.php
+!addons/languages/English/definitions.Emoticons.php
+!addons/languages/English/definitions.SMTP.php
 !addons/languages/index.html
 !addons/skins/Default
 !addons/skins/index.html
