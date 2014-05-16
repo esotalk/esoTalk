@@ -453,7 +453,7 @@ discardDraft: function() {
 	// If there are no posts in the conversation (ie. it's a draft conversation), delete the conversation.
 	if (this.postCount == 0) {
 		if ($("#control-delete").length && ETConversation.confirmDelete()) window.location = $("#control-delete").attr("href");
-		else if (confirm(T("message.confirmDiscardReply"))) window.location = "/"+ET.webPath;
+		else if (confirm(T("message.confirmDiscardReply"))) window.location = $("#forumTitle a").attr("href");
 		return;
 	}
 
