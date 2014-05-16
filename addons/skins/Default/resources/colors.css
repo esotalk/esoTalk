@@ -32,7 +32,7 @@ a
 .sheet.active,
 .popup,
 .popupWrapper.active .popupButton,
-input[type=text]:focus, input[type=password]:focus, textarea:focus, .input:focus,
+input[type=text]:focus, input[type=password]:focus, input[type=number]:focus, input[type=email]:focus, textarea:focus, .input:focus,
 #hdr,
 .withArrow.popup:before,
 .scrubber > li.selected
@@ -62,7 +62,7 @@ input[type=text]:focus, input[type=password]:focus, textarea:focus, .input:focus
 .list > li,
 .thing,
 .sheet, .sheet h3, .sheet .section, .sheet .buttons,
-input[type=text], input[type=password], textarea, .input,
+input[type=text], input[type=password], input[type=number], input[type=email], textarea, .input,
 .tabs li.selected a,
 .tabs li a:hover,
 .tabs.big,
