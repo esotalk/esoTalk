@@ -1132,6 +1132,9 @@ togglePreview: function(id, preview) {
 		$("#" + id + " .formattingButtons").hide();
 		$("#" + id + "-preview").html("");
 
+		// Hide the attachments block.
+		$(".attachments-edit").hide();
+
 		// Get the formatted post and show it.
 		$.ETAjax({
 			url: "conversation/preview.ajax",
@@ -1156,6 +1159,9 @@ togglePreview: function(id, preview) {
 		$("#" + id + " .formattingButtons").show();
 		$("#" + id + " textarea").show();
 		$("#" + id + "-preview").hide();
+
+		// Show the attachments block.
+		$(".attachments-edit").show();
 	}
 }
 
