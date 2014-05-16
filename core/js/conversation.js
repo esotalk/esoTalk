@@ -454,6 +454,7 @@ discardDraft: function() {
 	if (this.postCount == 0) {
 		if ($("#control-delete").length && ETConversation.confirmDelete()) window.location = $("#control-delete").attr("href");
 		else if (confirm(T("message.confirmDiscardReply"))) window.location = $("#forumTitle a").attr("href");
+		$(window).unbind("beforeunload.conversation");
 		return;
 	}
 
