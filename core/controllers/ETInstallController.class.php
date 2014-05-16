@@ -97,7 +97,7 @@ public function action_info()
 	if ($values = ET::$session->get("install")) $form->setValues($values);
 
 	// Work out what the base URL is.
-	$dir = substr($_SERVER["PHP_SELF"], 0, strrpos($_SERVER["PHP_SELF"], "/"));
+	$dir = substr($_SERVER["PHP_SELF"], 0, strrpos($_SERVER["PHP_SELF"], "/index.php"));
 	$baseURL = "http://{$_SERVER["HTTP_HOST"]}{$dir}/";
 	$form->setValue("baseURL", $baseURL);
 
