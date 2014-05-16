@@ -1158,7 +1158,7 @@ togglePreview: function(id, preview) {
 		$("#" + id + "-preview").hide();
 
 		// Make sure the preview checkbox is unchecked again.
-		$("#reply-previewCheckbox").attr("checked", false);
+		$("#reply-previewCheckbox").prop("checked", false);
 	}
 }
 
