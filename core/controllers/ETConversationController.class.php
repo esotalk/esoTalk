@@ -207,7 +207,7 @@ public function action_index($conversationId = false, $year = false, $month = fa
 			$this->addJSLanguage("message.confirmDelete");
 		}
 		if (ET::$session->user) {
-			$this->addJSLanguage("Starred", "Unstarred", "message.confirmLeave", "message.confirmDiscardReply",
+			$this->addJSLanguage("Starred", "Unstarred", "message.confirmLeave", "message.confirmDiscardPost",
 				"Ignore conversation", "Unignore conversation", "Controls", "Follow", "Following");
 		}
 
@@ -379,7 +379,7 @@ public function action_start($member = false)
 		$this->addJSFile("core/js/autocomplete.js");
 		$this->addJSFile("core/js/conversation.js");
 		$this->addJSVar("mentions", C("esoTalk.format.mentions"));
-		$this->addJSLanguage("message.confirmLeave", "message.confirmDiscardReply");
+		$this->addJSLanguage("message.confirmLeave", "message.confirmDiscardPost");
 
 		// If there's a member name in the querystring, make the conversation that we're starting private
 		// with them and redirect.

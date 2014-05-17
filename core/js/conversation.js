@@ -204,7 +204,7 @@ scrollTo: function(position) {
 // On page exit, display a confirmation message if the user is editing posts or hasn't saved their reply.
 beforeUnload: function onbeforeunload() {
 	if (ETConversation.editingPosts > 0) return T("message.confirmLeave");
-	else if (ETConversation.editingReply) return T("message.confirmDiscardReply");
+	else if (ETConversation.editingReply) return T("message.confirmDiscardPost");
 },
 
 
@@ -453,14 +453,14 @@ discardDraft: function() {
 	// If there are no posts in the conversation (ie. it's a draft conversation), delete the conversation.
 	if (this.postCount == 0) {
 		if ($("#control-delete").length && ETConversation.confirmDelete()) window.location = $("#control-delete").attr("href");
-		else if (confirm(T("message.confirmDiscardReply"))) window.location = $("#forumTitle a").attr("href");
+		else if (confirm(T("message.confirmDiscardPost"))) window.location = $("#forumTitle a").attr("href");
 		$(window).unbind("beforeunload.conversation");
 		return;
 	}
 
 	// Confirm this action!
 	else {
-		if (!confirm(T("message.confirmDiscardReply"))) return;
+		if (!confirm(T("message.confirmDiscardPost"))) return;
 	}
 
 	// Make the ajax request.
