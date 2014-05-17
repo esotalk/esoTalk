@@ -902,8 +902,8 @@ public function setDraft(&$conversation, $memberId, $draft = null)
 
 	if ($this->errorCount()) return false;
 
-	// Save the draft.
-	$this->setStatus($conversation["conversationId"], $memberId, array("draft" => $draft));
+	// Save the draft to the database if the conversation exists.
+	if ($conversation["conversationId"]) $this->setStatus($conversation["conversationId"], $memberId, array("draft" => $draft));
 
 	// Add or remove the draft label.
 	$this->addOrRemoveLabel($conversation, "draft", $draft !== null);

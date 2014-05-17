@@ -536,6 +536,36 @@ public function action_delete($conversationId = false)
 
 
 /**
+ * Discard a draft.
+ *
+ * @param int $conversationId The ID of the conversation to discard the draft for.
+ * @return void
+ */
+public function action_discard($conversationId = false)
+{
+	if (!$this->validateToken()) return;
+
+	$conversation = ET::conversationModel()->getById($conversationId) ?: ET::conversationModel()->getEmptyConversation();
+
+	ET::conversationModel()->setDraft($conversation, ET::$session->userId, null);
+
+	// If there are no other posts in the conversation, delete the conversation.
+	if (!$conversation["countPosts"]) {
+		if ($conversation["conversationId"]) $this->action_delete($conversation["conversationId"]);
+		else $this->redirect(URL(""));
+		return;
+	}
+
+	// For an AJAX request, add the conversation labels to the output.
+	if ($this->responseType === RESPONSE_TYPE_AJAX) {
+		$this->json("labels", $this->getViewContents("conversation/labels", array("labels" => $conversation["labels"])));
+		$this->render();
+		return;
+	}
+}
+
+
+/**
  * Toggle the sticky flag on a conversation.
  *
  * @param int $conversationId The ID of the conversation.
@@ -1039,17 +1069,11 @@ public function action_reply($conversationId = false)
 	// Set up a form to handle the input.
 	$form = ETFactory::make("form");
 
-	// Save or discard a draft.
-	if ($form->validPostBack("saveDraft") or $form->validPostBack("discardDraft")) {
+	// Save a draft.
+	if ($form->validPostBack("saveDraft")) {
 
-		$content = $form->isPostBack("saveDraft") ? $form->getValue("content") : null;
+		$content = $form->getValue("content");
 		ET::conversationModel()->setDraft($conversation, ET::$session->userId, $content);
-
-		// If there are no other posts in the conversation, delete the conversation.
-		if ($form->isPostBack("discardDraft") and !$conversation["countPosts"]) {
-			$this->delete($conversation["conversationId"]);
-			return;
-		}
 
 		// For an AJAX request, add the conversation labels to the output.
 		if ($this->responseType === RESPONSE_TYPE_AJAX) {

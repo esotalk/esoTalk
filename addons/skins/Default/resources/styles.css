@@ -108,13 +108,14 @@ input[type=text]:focus, input[type=password]:focus, textarea:focus, input[type=n
 
 
 /* Buttons */
-.button {background:#f6f6f6; font-weight:600; border:1px solid transparent; margin-bottom:1px; white-space:nowrap; height:30px; font-size:100%; padding:0 10px 2px; line-height:30px; -webkit-appearance:none}
+.button {background:#f6f6f6; font-weight:600; border:1px solid transparent; margin-bottom:1px; white-space:nowrap; height:30px; font-size:90%; padding:0 10px 2px; line-height:30px; -webkit-appearance:none}
 .button.big {height:30px; font-size:90%; padding:0 10px 2px; line-height:30px}
 .button:hover, .button:active {border-color:#ddd}
 .button:active {background-color:#ddd}
 .button.disabled {opacity:0.25; cursor:default; border-color:transparent !important}
 
 a.button {padding:7px 10px; height:auto; line-height:1em; display:inline-block}
+a.button.big {padding:9px 10px 7px; height:auto; line-height:1em}
 
 .button.submit {color:#fff}
 .button.submit:hover {border-color:#000; color:#fff}

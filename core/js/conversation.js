@@ -285,7 +285,7 @@ initReply: function() {
 	}
 
 	$("#reply .controls a").tooltip();
-	$("#reply [name=discardDraft]").tooltip();
+	$("#reply .discardDraft").tooltip();
 
 	// Register the Ctrl+Enter shortcut.
 	textarea.keydown(function(e) {
@@ -450,24 +450,16 @@ saveDraft: function() {
 // Discard a draft.
 discardDraft: function() {
 
-	// If there are no posts in the conversation (ie. it's a draft conversation), delete the conversation.
-	if (this.postCount == 0) {
-		if ($("#control-delete").length && ETConversation.confirmDelete()) window.location = $("#control-delete").attr("href");
-		else if (confirm(T("message.confirmDiscardPost"))) window.location = $("#forumTitle a").attr("href");
-		$(window).unbind("beforeunload.conversation");
-		return;
-	}
+	if (!confirm(T("message.confirmDiscardPost"))) return;
 
-	// Confirm this action!
-	else {
-		if (!confirm(T("message.confirmDiscardPost"))) return;
-	}
+	// Disable the beforeUnload confirmation prompt, because the ajax request we make may
+	// redirect us back to the home page.
+	$(window).unbind("beforeunload.conversation");
 
 	// Make the ajax request.
 	$.ETAjax({
-		url: "conversation/reply.ajax/" + ETConversation.id,
+		url: "conversation/discard.ajax/" + ETConversation.id,
 		type: "post",
-		data: {discardDraft: true},
 		beforeSend: function() {
 			createLoadingOverlay("reply", "reply");
 		},
@@ -479,6 +471,8 @@ discardDraft: function() {
 			// Hide the draft label and collapse the reply area.
 			$("#conversationHeader .labels").html(data.labels);
 			ETConversation.resetReply();
+
+			$(window).bind("beforeunload.conversation", ETConversation.beforeUnload);
 
 		}
 	});
