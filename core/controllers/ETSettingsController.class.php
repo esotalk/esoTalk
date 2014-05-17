@@ -20,7 +20,10 @@ class ETSettingsController extends ETController {
 public function init()
 {
 	parent::init();
-	if (!ET::$session->userId) $this->redirect(URL(""));
+	if (!ET::$session->userId) {
+		if ($this->responseType === RESPONSE_TYPE_DEFAULT) $this->redirect(URL(""));
+		else exit;
+	}
 }
 
 
