@@ -1156,6 +1156,9 @@ togglePreview: function(id, preview) {
 		$("#" + id + " .formattingButtons").show();
 		$("#" + id + " textarea").show();
 		$("#" + id + "-preview").hide();
+
+		// Make sure the preview checkbox is unchecked again.
+		$("#reply-previewCheckbox").prop("checked", false);
 	}
 }
 
