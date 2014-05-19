@@ -125,4 +125,4 @@ showDeleteSheet: function() {
 
 $(function() {
 	ETMember.init();
-})
+});
