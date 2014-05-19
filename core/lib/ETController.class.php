@@ -808,6 +808,16 @@ public function head()
 
 	}
 
+	// Output all necessary config variables and language definitions, as well as other variables.
+	$esoTalkJS = array(
+		"webPath" => ET::$webPath.((C("esoTalk.urls.friendly") and !C("esoTalk.urls.rewrite")) ? "/index.php" : ""),
+		"userId" => ET::$session->user ? (int)ET::$session->userId : false,
+		"token" => ET::$session->token,
+		"debug" => C("esoTalk.debug"),
+		"language" => $this->jsLanguage
+	) + (array)$this->jsData;
+	$head .= "<script>var ET=".json_encode($esoTalkJS)."</script>\n";
+
 	// Add remote JavaScript.
 	if (!empty($this->jsFiles["remote"])) {
 		foreach ($this->jsFiles["remote"] as $url) {
@@ -831,17 +841,6 @@ public function head()
 		foreach ($files as $file)
 			$head .= "<script src='".getResource($file)."?".filemtime($file)."'></script>\n";
 	}
-
-
-	// Output all necessary config variables and language definitions, as well as other variables.
-	$esoTalkJS = array(
-		"webPath" => ET::$webPath.((C("esoTalk.urls.friendly") and !C("esoTalk.urls.rewrite")) ? "/index.php" : ""),
-		"userId" => ET::$session->user ? (int)ET::$session->userId : false,
-		"token" => ET::$session->token,
-		"debug" => C("esoTalk.debug"),
-		"language" => $this->jsLanguage
-	) + (array)$this->jsData;
-	$head .= "<script>var ET=".json_encode($esoTalkJS)."</script>";
 
 	// Finally, append the custom HTML string constructed via $this->addToHead().
 	$head .= $this->head;
