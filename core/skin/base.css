@@ -321,7 +321,7 @@ a.channel:hover {text-decoration:none; border-color:#aaa}
 
 /* Gambits */
 #gambits {display:none}
-#gambits.popup {width:300px; height:280px; overflow:auto !important; margin:0}
+#gambits.popup {width:300px; max-height:280px; overflow:auto !important; margin:0}
 
 
 /* Conversation list */
