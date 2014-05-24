@@ -46,6 +46,47 @@ init: function() {
 	// Add a tooltip to the online indicators.
 	$("#memberList .online").tooltip({alignment: "left", className: "withArrow withArrowBottom", offset: [-9, 0]}).css("cursor", "pointer");
 
+
+	// INITIALIZE THE GAMBITS.
+
+	// Hide the gambits area.
+	$("#gambits").hide();
+
+	// The gambits area should hide when the search input loses focus.
+	$("#memberSearch input[name=search]").blur(function() {
+		$("#gambits").fadeOut("fast");
+	}).focus(function() {
+		var input = $("#memberSearch input[name=search]");
+		$("#gambits").addClass("popup").css({
+			position: "absolute",
+			top: input.offset().top + input.outerHeight() + 5,
+			left: input.offset().left
+		}).fadeIn("fast");
+	});
+
+	// However, prevent the search input from losing focus if a click takes place on the gambits popup.
+	$("#gambits").mousedown(function(e) {
+		e.preventDefault();
+	});
+
+	// Add click and double click handlers to all the gambits.
+	$("#gambits a").click(function(e) {
+		if ($(this).data("gambit").indexOf("?") != -1) {
+			e.preventDefault();
+			var placeholderIndex = $(this).data("gambit").indexOf("?");
+			$("#memberSearch input[name=search]")
+				.val($(this).data("gambit"))
+				.selectRange(placeholderIndex, placeholderIndex + 1);
+		}
+	})
+
+	// Prevent the search field from being unfocussed when a gambit is clicked.
+	.bind("mousedown", function(e) {
+		if ($(this).data("gambit").indexOf("?") != -1) {
+			e.preventDefault();
+		}
+	});
+
 },
 
 // Open the "create member" sheet.
