@@ -137,7 +137,7 @@ public function action_index($conversationId = false, $year = false, $month = fa
 
 	// Make sure the startFrom number is within range.
 	$startFrom = max(0, $startFrom);
-	if ($this->responseType === RESPONSE_TYPE_DEFAULT) $startFrom = min($startFrom, $conversation["countPosts"] - 1);
+	if ($this->responseType === RESPONSE_TYPE_DEFAULT) $startFrom = min($startFrom, max(0, $conversation["countPosts"] - 1));
 
 	if (ET::$session->userId) {
 
