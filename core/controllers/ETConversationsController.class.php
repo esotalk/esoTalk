@@ -332,7 +332,7 @@ public function action_markAllAsRead()
 	if ($this->responseType === RESPONSE_TYPE_DEFAULT) $this->redirect(URL("conversations"));
 
 	// For an ajax response, just pretend this is a normal search response.
-	$this->index();
+	$this->action_index();
 }
 
 
