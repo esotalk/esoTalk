@@ -56,3 +56,4 @@ addons/skins/*
 ehthumbs.db
 Thumbs.db
 *~
+/nbproject/private/

@@ -12,7 +12,7 @@ if (!defined("IN_ESOTALK")) exit;
  * (by plugins, for example), and to aid in writing safe queries.
  *
  * This implementation tries to be as SQL-neutral as possible, but is ultimately written to work
- * with MySQL. It can be extended to provide a query constructor for a different database engine.
+ * with SQLite. It can be extended to provide a query constructor for a different database engine.
  *
  * @package esoTalk
  */
@@ -513,14 +513,13 @@ protected function getSelect()
 
 	// Construct some other clauses.
 	$from = count($this->tables) ? "\nFROM ".implode("\n\t", $this->indent($this->tables)) : "";
-	$index = $this->index ? "\nUSE INDEX ($this->index)" : "";
 	$having = count($this->having) ? "\nHAVING (".implode(") AND (", $this->indent($this->having)).")" : "";
 	$groupBy = count($this->groupBy) ? "\nGROUP BY ".implode(", ", $this->groupBy) : "";
 	$limit = $this->limit ? "\nLIMIT $this->limit" : "";
 	$offset = $this->offset ? "\nOFFSET $this->offset" : "";
 
 	// Put the whole query together and return it.
-	return $select.$from.$index.$this->getWhere().$groupBy.$this->getOrderBy().$limit.$offset;
+	return $select.$from.$this->getWhere().$groupBy.$this->getOrderBy().$limit.$offset;
 }
 
 
@@ -566,7 +565,7 @@ protected function getInsert()
 	foreach ($this->setDuplicateKey as $k => $v) $onDuplicateKey[] = "$k=$v";
 	$onDuplicateKey = implode(", ", $onDuplicateKey);
 
-	return "INSERT INTO $tables ($fields) VALUES $values".($onDuplicateKey ? " ON DUPLICATE KEY UPDATE $onDuplicateKey" : "");
+	return "INSERT ".($onDuplicateKey ? " OR REPLACE" : "")." INTO $tables ($fields) VALUES $values";
 }
 
 
@@ -591,10 +590,9 @@ protected function getReplace()
  */
 protected function getDelete()
 {
-	$tables = implode(", ", $this->select);
 	$from = implode("\n\t", $this->indent($this->tables));
 
-	return "DELETE $tables FROM $from ".$this->getWhere();
+	return "DELETE FROM $from ".$this->getWhere();
 }
 
 
@@ -607,7 +605,7 @@ protected function getUnion()
 {
 	// Convert the queries that we want to UNION to strings.
 	$selects = $this->union;
-	foreach ($selects as &$sql) $sql = "\t(".$sql->get().")";
+	foreach ($selects as &$sql) $sql = $sql->get();
 
 	// Implode them with the UNION keyword.
 	$selects = implode("\nUNION\n", $this->indent($selects));

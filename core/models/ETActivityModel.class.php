@@ -195,7 +195,7 @@ public function getActivity($member, $offset = 0, $limit = 11)
 	// Construct a query that will get all the activity data from the activity table.
 	$activity = ET::SQL()
 		->select("activityId")
-		->select("IF(fromMemberId IS NOT NULL,fromMemberId,a.memberId)", "fromMemberId")
+		->select("CASE WHEN fromMemberId IS NOT NULL THEN fromMemberId ELSE a.memberId END", "fromMemberId")
 		->select("m.username", "fromMemberName")
 		->select("email")
 		->select("avatarFormat")
@@ -207,13 +207,11 @@ public function getActivity($member, $offset = 0, $limit = 11)
 		->select("NULL", "start")
 		->select("time")
 		->from("activity a")
-		->from("member m", "m.memberId=IF(fromMemberId IS NOT NULL,fromMemberId,a.memberId)", "left")
+		->from("member m", "m.memberId=CASE WHEN fromMemberId IS NOT NULL THEN fromMemberId ELSE a.memberId END", "left")
 		->where("a.memberId=:memberId")
 		->bind(":memberId", $member["memberId"])
 		->where("a.type IN (:types)")
-		->bind(":types", $this->getTypesWithProjection(self::PROJECTION_ACTIVITY))
-		->orderBy("time DESC")
-		->limit($offset + $limit);
+		->bind(":types", $this->getTypesWithProjection(self::PROJECTION_ACTIVITY));
 
 	// Construct a query that will get all of the user's most recent posts.
 	// All of the posts will be handled through the "post" activity type.
@@ -236,9 +234,7 @@ public function getActivity($member, $offset = 0, $limit = 11)
 		->where("p.deleteTime IS NULL")
 		->bind(":memberId", $member["memberId"])
 		->where("c.countPosts>0")
-		->where("c.private=0")
-		->orderBy("time DESC")
-		->limit($offset + $limit);
+		->where("c.private=0");
 	ET::channelModel()->addPermissionPredicate($posts);
 
 	// Marry these two queries so we get their activity AND their posts in one resultset.

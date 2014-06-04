@@ -127,7 +127,7 @@ class ETPlugin_Debug extends ETPlugin {
 		// Include the geshi library so we can syntax-highlight MySQL queries.
 		include "geshi/geshi.php";
 
-		echo "<h3><a href='#' onclick='$(\"#debugQueries\").slideToggle(\"fast\");return false'>".T("MySQL queries")." (<span id='debugQueriesCount'>".count($this->queries)."</span>)</a></h3>
+		echo "<h3><a href='#' onclick='$(\"#debugQueries\").slideToggle(\"fast\");return false'>".T("SQLite queries")." (<span id='debugQueriesCount'>".count($this->queries)."</span>)</a></h3>
 		<div id='debugQueries' class='section'>";
 		foreach ($this->queries as $query) {
 			$geshi = new GeSHi(trim($query[0]), "mysql");

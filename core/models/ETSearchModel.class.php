@@ -400,11 +400,10 @@ public function getConversationIDs($channelIDs = array(), $searchString = "", $o
 		$fulltextQuery = ET::SQL()
 			->select("DISTINCT conversationId")
 			->from("post")
-			->where("MATCH (title, content) AGAINST (:fulltext IN BOOLEAN MODE)")
+			->where("title LIKE :fulltext OR content LIKE :fulltext")
 			->where($idCondition)
-			->orderBy("MATCH (title, content) AGAINST (:fulltextOrder) DESC")
-			->bind(":fulltext", $fulltextString)
-			->bind(":fulltextOrder", $fulltextString);
+			->orderBy("conversationId DESC")
+			->bind(":fulltext", "%".$fulltextString."%");
 
 		$this->trigger("fulltext", array($fulltextQuery, $this->fulltext));
 
@@ -415,7 +414,7 @@ public function getConversationIDs($channelIDs = array(), $searchString = "", $o
 		// Change the ID condition to this list of matching IDs, and order by relevance.
 		if (count($ids)) $idCondition = "conversationId IN (".implode(",", $ids).")";
 		else return false;
-		$this->orderBy = array("FIELD(c.conversationId,".implode(",", $ids).")");
+		$this->orderBy = array("c.conversationId DESC");
 	}
 
 	// Set a default limit if none has previously been set.
@@ -464,7 +463,7 @@ public function getResults($conversationIDs, $checkForPermission = false)
 		->select("lpm.username", "lastPostMember")
 		->select("lpm.email", "lastPostMemberEmail")
 		->select("lpm.avatarFormat", "lastPostMemberAvatarFormat")
-		->select("IF((IF(c.lastPostTime IS NOT NULL,c.lastPostTime,c.startTime)>:markedAsRead AND (s.lastRead IS NULL OR s.lastRead<c.countPosts)),(c.countPosts - IF(s.lastRead IS NULL,0,s.lastRead)),0)", "unread")
+		->select("CASE WHEN (CASE WHEN c.lastPostTime IS NOT NULL THEN c.lastPostTime ELSE c.startTime END)>:markedAsRead AND (s.lastRead IS NULL OR s.lastRead<c.countPosts) THEN (c.countPosts - CASE WHEN s.lastRead IS NULL THEN 0 ELSE s.lastRead END) ELSE 0 END", "unread")
 		->select("p.content", "firstPost")
 		->from("conversation c")
 		->from("member_conversation s", "s.conversationId=c.conversationId AND s.type='member' AND s.id=:memberId", "left")
@@ -482,7 +481,7 @@ public function getResults($conversationIDs, $checkForPermission = false)
 	ET::conversationModel()->addLabels($sql);
 
 	// Limit the results to the specified conversation IDs
-	$sql->where("c.conversationId IN (:conversationIds)")->orderBy("FIELD(c.conversationId,:conversationIdsOrder)");
+	$sql->where("c.conversationId IN (:conversationIds)")->orderBy("c.conversationId");
 	$sql->bind(":conversationIds", $conversationIDs, PDO::PARAM_INT);
 	$sql->bind(":conversationIdsOrder", $conversationIDs, PDO::PARAM_INT);
 
@@ -854,7 +853,7 @@ public static function gambitSticky(&$search, $term, $negate)
  */
 public static function gambitRandom(&$search, $term, $negate)
 {
-	if (!$negate) $search->orderBy("RAND()");
+	if (!$negate) $search->orderBy("RANDOM()");
 }
 
 

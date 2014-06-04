@@ -1,6 +1,6 @@
 ## esoTalk – Fat-free forum software
 
-esoTalk is a free, open-source forum software package built with PHP and MySQL. It is designed to be:
+esoTalk is a free, open-source forum software package built with PHP and SQLite. It is designed to be:
 
  - **Fast.** esoTalk's code was architectured to have little overhead and to be as efficient as possible.
  - **Simple.** All of esoTalk's interfaces are designed around simplicity, ease-of-use, and speed.
@@ -14,7 +14,7 @@ I've put many hundreds of hours and a lot of love into developing and maintainin
 
 ### System Requirements
 
-esoTalk requires **PHP 5.3+** and a modern version of **MySQL**.
+esoTalk requires **PHP 5.3+** and a modern version of **SQLite**.
 
 The PHP **gd extension** is required to support avatar uploading.
 

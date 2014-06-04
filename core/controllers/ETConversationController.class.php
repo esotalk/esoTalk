@@ -265,7 +265,7 @@ public function action_index($conversationId = false, $year = false, $month = fa
 		// Add the meta description tag to the head. It will contain an excerpt from the first post's content.
 		if ($conversation["countPosts"] > 0) {
 			$description = ET::SQL()
-				->select("LEFT(content, 156)")
+				->select("SUBSTR(content, 0, 156)")
 				->from("post")
 				->where("conversationId=:conversationId")
 				->bind(":conversationId", $conversation["conversationId"])
@@ -453,7 +453,7 @@ public function action_post($postId = false)
 		->from("post p2")
 		->where("p2.conversationId=p.conversationId")
 		->where("p2.time<=p.time")
-		->where("IF(p2.time=p.time,p2.postId<p.postId,1)")
+		->where("CASE WHEN p2.time=p.time THEN p2.postId<p.postId ELSE 1 END")
 		->get();
 
 	// Construct and run a query that will get the position of the post, the conversation ID, and the title.

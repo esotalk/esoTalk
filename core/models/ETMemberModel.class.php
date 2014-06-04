@@ -132,7 +132,7 @@ public function getWithSQL($sql)
 	$sql->select("m.*")
 		->select("GROUP_CONCAT(g.groupId) AS groups")
 		->select("GROUP_CONCAT(g.name) AS groupNames")
-		->select("BIT_OR(g.canSuspend) AS canSuspend")
+		->select("g.canSuspend AS canSuspend")
 		->from("member m")
 		->from("member_group mg", "mg.memberId=m.memberId", "left")
 		->from("group g", "g.groupId=mg.groupId", "left")
@@ -175,9 +175,8 @@ public function getByIds($ids)
 {
 	$sql = ET::SQL()
 		->where("m.memberId IN (:memberIds)")
-		->orderBy("FIELD(m.memberId,:memberIdsOrder)")
-		->bind(":memberIds", $ids, PDO::PARAM_INT)
-		->bind(":memberIdsOrder", $ids, PDO::PARAM_INT);
+		->orderBy("m.memberId")
+		->bind(":memberIds", $ids, PDO::PARAM_INT);
 
 	return $this->getWithSQL($sql);
 }
