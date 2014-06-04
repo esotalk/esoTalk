@@ -50,37 +50,31 @@ protected function structure($drop = false)
 	// Activity table.
 	$structure
 		->table("activity")
-		->column("activityId", "int(11) unsigned", false)
+		->column("activityId", "integer", false)
 		->column("type", "varchar(255)")
-		->column("memberId", "int(11) unsigned", false)
-		->column("fromMemberId", "int(11) unsigned")
+		->column("memberId", "integer", false)
+		->column("fromMemberId", "integer")
 		->column("data", "tinyblob")
-		->column("conversationId", "int(11) unsigned")
-		->column("postId", "int(11) unsigned")
-		->column("time", "int(11) unsigned")
+		->column("conversationId", "integer")
+		->column("postId", "integer")
+		->column("time", "integer")
 		->column("read", "tinyint(1)", 0)
 		->key("activityId", "primary")
-		->key("memberId")
-		->key("time")
-		->key("type")
-		->key("conversationId")
-		->key("postId")
-		->key("read")
 		->exec($drop);
 
 	// Channel table.
 	$structure
 		->table("channel")
-		->column("channelId", "int(11) unsigned", false)
+		->column("channelId", "integer", false)
 		->column("title", "varchar(31)", false)
 		->column("slug", "varchar(31)", false)
 		->column("description", "varchar(255)")
-		->column("parentId", "int(11)")
-		->column("lft", "int(11)", 0)
-		->column("rgt", "int(11)", 0)
-		->column("depth", "int(11)", 0)
-		->column("countConversations", "int(11)", 0)
-		->column("countPosts", "int(11)", 0)
+		->column("parentId", "integer")
+		->column("lft", "integer", 0)
+		->column("rgt", "integer", 0)
+		->column("depth", "integer", 0)
+		->column("countConversations", "integer", 0)
+		->column("countPosts", "integer", 0)
 		->column("attributes", "mediumblob")
 		->key("channelId", "primary")
 		->key("slug", "unique")
@@ -89,8 +83,8 @@ protected function structure($drop = false)
 	// Channel-group table.
 	$structure
 		->table("channel_group")
-		->column("channelId", "int(11) unsigned", false)
-		->column("groupId", "int(11)", false)
+		->column("channelId", "integer", false)
+		->column("groupId", "integer", false)
 		->column("view", "tinyint(1)", 0)
 		->column("reply", "tinyint(1)", 0)
 		->column("start", "tinyint(1)", 0)
@@ -100,34 +94,26 @@ protected function structure($drop = false)
 
 	// Conversation table.
 	$structure
-		->table("conversation", "MyISAM")
-		->column("conversationId", "int(11) unsigned", false)
+		->table("conversation")
+		->column("conversationId", "integer", false)
 		->column("title", "varchar(100)")
-		->column("channelId", "int(11) unsigned")
+		->column("channelId", "integer")
 		->column("private", "tinyint(1)", 0)
 		->column("sticky", "tinyint(1)", 0)
 		->column("locked", "tinyint(1)", 0)
 		->column("countPosts", "smallint(5)", 0)
-		->column("startMemberId", "int(11) unsigned", false)
-		->column("startTime", "int(11) unsigned", false)
-		->column("lastPostMemberId", "int(11) unsigned")
-		->column("lastPostTime", "int(11) unsigned")
+		->column("startMemberId", "integer", false)
+		->column("startTime", "integer", false)
+		->column("lastPostMemberId", "integer")
+		->column("lastPostTime", "integer")
 		->column("attributes", "mediumblob")
 		->key("conversationId", "primary")
-		->key(array("sticky", "lastPostTime")) // for the ordering of results
-		->key("lastPostTime") // also for the ordering of results, and the last post gambit
-		->key("countPosts") // for the posts gambit
-		->key("startTime") // for the "order by newest" gambit
-		->key("locked") // for the locked gambit
-		->key("private") // for the private gambit
-		->key("startMemberId") // for the author gambit
-		->key("channelId") // for filtering by channel
 		->exec($drop);
 
 	// Group table.
 	$structure
 		->table("group")
-		->column("groupId", "int(11) unsigned", false)
+		->column("groupId", "integer", false)
 		->column("name", "varchar(31)", "")
 		->column("canSuspend", "tinyint(1)", 0)
 		->column("private", "tinyint(1)", 0)
@@ -136,35 +122,31 @@ protected function structure($drop = false)
 
 	// Member table.
 	$structure
-		->table("member", "MyISAM")
-		->column("memberId", "int(11) unsigned", false)
+		->table("member")
+		->column("memberId", "integer", false)
 		->column("username", "varchar(31)", "")
 		->column("email", "varchar(63)", false)
-		->column("account", "enum('administrator','member','suspended')", "member")
+		->column("account", "text", "member")
 		->column("confirmed", "tinyint(1)", 0)
 		->column("password", "char(64)", "")
 		->column("resetPassword", "char(32)")
-		->column("joinTime", "int(11) unsigned", false)
-		->column("lastActionTime", "int(11) unsigned")
+		->column("joinTime", "integer", false)
+		->column("lastActionTime", "integer")
 		->column("lastActionDetail", "tinyblob")
-		->column("avatarFormat", "enum('jpg','png','gif')")
+		->column("avatarFormat", "text")
 		->column("preferences", "mediumblob")
-		->column("countPosts", "int(11) unsigned", 0)
-		->column("countConversations", "int(11) unsigned", 0)
+		->column("countPosts", "integer", 0)
+		->column("countConversations", "integer", 0)
 		->key("memberId", "primary")
 		->key("username", "unique")
 		->key("email", "unique")
-		->key("lastActionTime")
-		->key("account")
-		->key("countPosts")
-		->key("resetPassword")
 		->exec($drop);
 
 	// Member-channel table.
 	$structure
 		->table("member_channel")
-		->column("memberId", "int(11) unsigned", false)
-		->column("channelId", "int(11) unsigned", false)
+		->column("memberId", "integer", false)
+		->column("channelId", "integer", false)
 		->column("unsubscribed", "tinyint(1)", 0)
 		->key(array("memberId", "channelId"), "primary")
 		->exec($drop);
@@ -172,67 +154,62 @@ protected function structure($drop = false)
 	// Member-conversation table.
 	$structure
 		->table("member_conversation")
-		->column("conversationId", "int(11) unsigned", false)
-		->column("type", "enum('member','group')", "member")
-		->column("id", "int(11)", false)
+		->column("conversationId", "integer", false)
+		->column("type", "text", "member")
+		->column("id", "integer", false)
 		->column("allowed", "tinyint(1)", 0)
 		->column("starred", "tinyint(1)", 0)
 		->column("lastRead", "smallint(5)", 0)
 		->column("draft", "text")
 		->column("ignored", "tinyint(1)", 0)
 		->key(array("conversationId", "type", "id"), "primary")
-		->key(array("type", "id"))
 		->exec($drop);
 
 	// Member-group table.
 	$structure
 		->table("member_group")
-		->column("memberId", "int(11) unsigned", false)
-		->column("groupId", "int(11) unsigned", false)
+		->column("memberId", "integer", false)
+		->column("groupId", "integer", false)
 		->key(array("memberId", "groupId"), "primary")
 		->exec($drop);
 
 	// Member-user table.
 	$structure
 		->table("member_member")
-		->column("memberId1", "int(11) unsigned", false)
-		->column("memberId2", "int(11) unsigned", false)
+		->column("memberId1", "integer", false)
+		->column("memberId2", "integer", false)
 		->key(array("memberId1", "memberId2"), "primary")
 		->exec($drop);
 
 	// Post table.
 	$structure
 		->table("post", "MyISAM")
-		->column("postId", "int(11) unsigned", false)
-		->column("conversationId", "int(11) unsigned", false)
-		->column("memberId", "int(11) unsigned", false)
-		->column("time", "int(11) unsigned", false)
-		->column("editMemberId", "int(11) unsigned")
-		->column("editTime", "int(11) unsigned")
-		->column("deleteMemberId", "int(11) unsigned")
-		->column("deleteTime", "int(11) unsigned")
+		->column("postId", "integer", false)
+		->column("conversationId", "integer", false)
+		->column("memberId", "integer", false)
+		->column("time", "integer", false)
+		->column("editMemberId", "integer")
+		->column("editTime", "integer")
+		->column("deleteMemberId", "integer")
+		->column("deleteTime", "integer")
 		->column("title", "varchar(100)", false)
 		->column("content", "text", false)
 		->column("attributes", "mediumblob")
 		->key("postId", "primary")
-		->key("memberId")
-		->key(array("conversationId", "time"))
-		->key(array("title", "content"), "fulltext")
 		->exec($drop);
 
 	// Search table.
 	$structure
 		->table("search")
-		->column("type", "enum('conversations')", "conversations")
-		->column("ip", "int(11) unsigned", false)
-		->column("time", "int(11) unsigned", false)
-		->key(array("type", "ip"))
+		->column("type", "text", "conversations")
+		->column("ip", "integer", false)
+		->column("time", "integer", false)
 		->exec($drop);
 
 	// Cookie table.
 	$structure
 		->table("cookie")
-		->column("memberId", "int(11) unsigned", false)
+		->column("memberId", "integer", false)
 		->column("series", "char(32)", false)
 		->column("token", "char(32)", false)
 		->key(array("memberId", "series"), "primary")

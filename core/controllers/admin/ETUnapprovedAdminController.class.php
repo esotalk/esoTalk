@@ -24,7 +24,7 @@ public function action_index()
 	
 	$sql = ET::SQL();
 	$sql->where("confirmed", 0);
-	$sql->orderBy("m.memberId desc");
+	$sql->orderBy("m.memberId DESC");
 	$members = ET::memberModel()->getWithSQL($sql);
 
 	$this->data("members", $members);

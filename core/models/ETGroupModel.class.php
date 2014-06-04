@@ -78,15 +78,21 @@ public function getAll()
 public function delete($wheres = array())
 {
 	ET::SQL()
-		->delete("g")
-		->delete("m")
-		->delete("c")
-		->from("group g")
-		->from("member_group m", "m.groupId=g.groupId", "left")
-		->from("channel_group c", "c.groupId=g.groupId", "left")
+		->delete()
+		->from("group")
 		->where($wheres)
 		->exec();
-
+	ET::SQL()
+		->delete()
+		->from("member_group")
+		->where($wheres)
+		->exec();
+	ET::SQL()
+		->delete()
+		->from("channel_group")
+		->where($wheres)
+		->exec();
+	
 	return true;
 }
 
@@ -99,7 +105,7 @@ public function delete($wheres = array())
  */
 public function deleteById($id)
 {
-	return $this->delete(array("g.groupId" => $id));
+	return $this->delete(array("groupId" => $id));
 }
 
 

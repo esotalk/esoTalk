@@ -46,7 +46,7 @@ $(function() {
 <li class='sep'></li>
 <li><label><?php echo T("esoTalk version"); ?></label> <?php echo ESOTALK_VERSION; ?></li>
 <li><label><?php echo T("PHP version"); ?></label> <?php echo phpversion(); ?></li>
-<li><label><?php echo T("MySQL version"); ?></label> <?php echo ET::SQL("SELECT VERSION()")->result(); ?></li>
+<li><label><?php echo T("SQLite version"); ?></label> <?php echo ET::SQL("SELECT sqlite_version()")->result(); ?></li>
 </ul>
 </div>
 

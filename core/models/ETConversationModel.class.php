@@ -60,7 +60,7 @@ public static function addLabels(&$sql)
 {
 	$expressions = array();
 	foreach (self::$labels as $label) $expressions[] = $label[0];
-	if (count($expressions)) $sql->select("CONCAT_WS(',',".implode(",", $expressions).")", "labels");
+	if (count($expressions)) $sql->select(implode("||", $expressions), "labels");
 	else $sql->select("NULL", "labels");
 }
 
@@ -154,7 +154,7 @@ public function get($wheres = array())
 
 		// Get the groups that are allowed to view this channel, and the names of those groups.
 		->select("GROUP_CONCAT(pv.groupId)", "channelPermissionView")
-		->select("GROUP_CONCAT(IF(pvg.name IS NOT NULL, pvg.name, ''))", "channelPermissionViewNames")
+		->select("GROUP_CONCAT(CASE WHEN pvg.name NOT NULL THEN pvg.name ELSE '' END)", "channelPermissionViewNames")
 
 		// Join the appropriate tables.
 		->from("conversation c")
@@ -176,9 +176,9 @@ public function get($wheres = array())
 
 	// Fetch the user's reply and moderate permissions for this conversation.
 	if (!ET::$session->isAdmin()) {
-		$sql->select("BIT_OR(p.reply)", "canReply")
-			->select("BIT_OR(p.moderate)", "canModerate")
-			->select("BIT_OR(p.moderate)", "canDeleteConversation")
+		$sql->select("p.reply", "canReply")
+			->select("p.moderate", "canModerate")
+			->select("p.moderate", "canDeleteConversation")
 			->from("channel_group p", "c.channelId=p.channelId AND p.groupId IN (:groupIds)", "left")
 			->bind(":groupIds", ET::$session->getGroupIds());
 	}
@@ -296,7 +296,7 @@ public function getEmptyConversation()
 		->select("c.lft")
 		->select("c.rgt")
 		->select("GROUP_CONCAT(pv.groupId)", "channelPermissionView")
-		->select("GROUP_CONCAT(IF(pvg.name IS NOT NULL, pvg.name, ''))", "channelPermissionViewNames")
+		->select("GROUP_CONCAT(CASE WHEN pvg.name NOT NULL THEN pvg.name ELSE '' END)", "channelPermissionViewNames")
 		->from("channel c")
 		->from("channel_group pv", "pv.channelId=c.channelId", "left")
 		->from("group pvg", "pv.groupId=pvg.groupId", "left")
@@ -368,7 +368,7 @@ public function getMembersAllowed($conversation)
 	// We will marry these later on.
 	$qMembers = ET::SQL()
 		->select("'member'", "type")
-		->select("CAST(".($conversation["conversationId"] ? "s.id" : "m.memberId")." AS SIGNED)")
+		->select($conversation["conversationId"] ? "s.id" : "m.memberId")
 		->select("m.username")
 		->select("m.email")
 		->select("m.avatarFormat")
@@ -436,7 +436,7 @@ public function getMembersAllowed($conversation)
 	$qMembers->from("member_group g", "m.memberId=g.memberId", "left");
 
 	// You may now kiss the bride.
-	$result = ET::SQL("(".$qMembers->get().") UNION (".$qGroups->get().")");
+	$result = ET::SQL($qMembers->get()." UNION ".$qGroups->get());
 
 	// Go through the results and construct our final "members allowed" array.
 	while ($entity = $result->nextRow()) {
@@ -792,14 +792,14 @@ public function delete($wheres = array())
 	foreach ($ids as $id) {
 		ET::SQL()
 			->update("member")
-			->set("countConversations", "GREATEST(0, CAST(countConversations AS SIGNED) - 1)", false)
+			->set("countConversations", "MAX(0, countConversations - 1)", false)
 			->where("memberId = (".ET::SQL()->select("startMemberId")->from("conversation")->where("conversationId", $id)->get().")")
 			->exec();
 
 		ET::SQL()
 			->update("channel")
-			->set("countConversations", "GREATEST(0, CAST(countConversations AS SIGNED) - 1)", false)
-			->set("countPosts", "GREATEST(0, CAST(countPosts AS SIGNED) - (".ET::SQL()->select("countPosts")->from("conversation")->where("conversationId", $id)->get()."))", false)
+			->set("countConversations", "MAX(0, countConversations - 1)", false)
+			->set("countPosts", "MAX(0, countPosts - (".ET::SQL()->select("countPosts")->from("conversation")->where("conversationId", $id)->get()."))", false)
 			->where("channelId = (".ET::SQL()->select("channelId")->from("conversation")->where("conversationId", $id)->get().")")
 			->exec();
 
@@ -816,7 +816,7 @@ public function delete($wheres = array())
 		while ($row = $result->nextRow()) {
 			ET::SQL()
 				->update("member")
-				->set("countPosts", "GREATEST(0, CAST(countPosts AS SIGNED) - ".$row["count"].")", false)
+				->set("countPosts", "MAX(0, countPosts - ".$row["count"].")", false)
 				->where("memberId", $row["memberId"])
 				->exec();
 		}
@@ -824,15 +824,36 @@ public function delete($wheres = array())
 	
 	// Delete the conversation, posts, member_conversation, and activity rows.
 	$sql = ET::SQL()
-		->delete("c, m, p")
-		->from("conversation c")
-		->from("member_conversation m", "m.conversationId=c.conversationId", "left")
-		->from("post p", "p.conversationId=c.conversationId", "left")
-		->from("activity a", "a.conversationId=c.conversationId", "left")
-		->where("c.conversationId IN (:conversationIds)")
+		->delete()
+		->from("conversation")
+		->where("conversationId IN (:conversationIds)")
 		->bind(":conversationIds", $ids);
 
 	$this->trigger("deleteBefore", array($sql, $ids));
+
+	$sql->exec();
+
+	$sql = ET::SQL()
+		->delete()
+		->from("member_conversation")
+		->where("conversationId IN (:conversationIds)")
+		->bind(":conversationIds", $ids);
+
+	$sql->exec();
+
+	$sql = ET::SQL()
+		->delete()
+		->from("post")
+		->where("conversationId IN (:conversationIds)")
+		->bind(":conversationIds", $ids);
+
+	$sql->exec();
+
+	$sql = ET::SQL()
+		->delete()
+		->from("activity")
+		->where("conversationId IN (:conversationIds)")
+		->bind(":conversationIds", $ids);
 
 	$sql->exec();
 
@@ -987,7 +1008,7 @@ public function markAsRead($conversationIds, $memberId)
  */
 public function setIgnored(&$conversation, $memberId, $ignored)
 {
-	$ignored = (bool)$ignored;
+	$ignored = (int)$ignored;
 
 	$this->setStatus($conversation["conversationId"], $memberId, array("ignored" => $ignored));
 
@@ -1006,7 +1027,7 @@ public function setIgnored(&$conversation, $memberId, $ignored)
  */
 public function setSticky(&$conversation, $sticky)
 {
-	$sticky = (bool)$sticky;
+	$sticky = (int)$sticky;
 
 	$this->updateById($conversation["conversationId"], array(
 		"sticky" => $sticky
@@ -1027,7 +1048,7 @@ public function setSticky(&$conversation, $sticky)
  */
 public function setLocked(&$conversation, $locked)
 {
-	$locked = (bool)$locked;
+	$locked = (int)$locked;
 
 	$this->updateById($conversation["conversationId"], array(
 		"locked" => $locked
@@ -1175,7 +1196,7 @@ public function getMemberFromName($name)
 		->bind(":name", $name)
 		->bind(":nameLike", "%".$name."%")
 		->groupBy("m.memberId")
-		->orderBy("m.username=:nameOrder DESC")
+		->orderBy("m.username")
 		->bind(":nameOrder", $name)
 		->limit(1)
 		->exec();
@@ -1344,8 +1365,8 @@ protected function privateAddNotification($conversation, $memberIds, $notifyAll 
 
 
 // Add default labels.
-ETConversationModel::addLabel("sticky", "IF(c.sticky=1,1,0)", "icon-pushpin");
-ETConversationModel::addLabel("private", "IF(c.private=1,1,0)", "icon-envelope-alt");
-ETConversationModel::addLabel("locked", "IF(c.locked=1,1,0)", "icon-lock");
-ETConversationModel::addLabel("draft", "IF(s.draft IS NOT NULL,1,0)", "icon-pencil");
-ETConversationModel::addLabel("ignored", "IF(s.ignored=1,1,0)", "icon-eye-close");
+ETConversationModel::addLabel("sticky", "CASE WHEN c.sticky=1 THEN 1 ELSE 0 END", "icon-pushpin");
+ETConversationModel::addLabel("private", "CASE WHEN c.private=1 THEN 1 ELSE 0 END", "icon-envelope-alt");
+ETConversationModel::addLabel("locked", "CASE WHEN c.locked=1 THEN 1 ELSE 0 END", "icon-lock");
+ETConversationModel::addLabel("draft", "CASE WHEN s.draft IS NOT NULL THEN 1 ELSE 0 END", "icon-pencil");
+ETConversationModel::addLabel("ignored", "CASE WHEN s.ignored=1 THEN 1 ELSE 0 END", "icon-eye-close");

@@ -90,7 +90,6 @@ public function action_info()
 	$form->action = URL("install/info");
 
 	// Set some default values.
-	$form->setValue("mysqlHost", "localhost");
 	$form->setValue("tablePrefix", "et");
 
 	// If we have values stored in the session, use them.
@@ -121,10 +120,10 @@ public function action_info()
 
 		// Try and connect to the database.
 		try {
-			ET::$database->init($values["mysqlHost"], $values["mysqlUser"], $values["mysqlPass"], $values["mysqlDB"]);
+			ET::$database->init($values["sqliteDB"]);
 			ET::$database->connection();
 		} catch (PDOException $e) {
-			$form->error("mysql", $e->getMessage());
+			$form->error("sqlite", $e->getMessage());
 		}
 
 		// Check to see if there are any conflicting tables already in the database.
@@ -134,7 +133,7 @@ public function action_info()
 
 			// Get a list of all existing tables.
 			$theirTables = array();
-			$result = ET::SQL("SHOW TABLES");
+			$result = ET::SQL("SELECT name FROM sqlite_master WHERE type='table'");
 			while ($table = $result->result()) $theirTables[] = $table;
 
 			// Just do a check for the member table. If it exists with this prefix, we have a conflict.
@@ -180,10 +179,7 @@ public function action_install()
 	$config = array(
 		"esoTalk.installed" => true,
 		"esoTalk.version" => ESOTALK_VERSION,
-		"esoTalk.database.host" => $info["mysqlHost"],
-		"esoTalk.database.user" => $info["mysqlUser"],
-		"esoTalk.database.password" => $info["mysqlPass"],
-		"esoTalk.database.dbName" => $info["mysqlDB"],
+		"esoTalk.database.dbName" => $info["sqliteDB"],
 		"esoTalk.database.prefix" => $info["tablePrefix"]."_",
 		"esoTalk.forumTitle" => $info["forumTitle"],
 		"esoTalk.baseURL" => $info["baseURL"],
@@ -196,8 +192,8 @@ public function action_install()
 	// Merge these new config settings into our current conifg variable.
 	ET::$config = array_merge(ET::$config, $config);
 
-	// Initialize the database with our MySQL details.
-	ET::$database->init(C("esoTalk.database.host"), C("esoTalk.database.user"), C("esoTalk.database.password"), C("esoTalk.database.dbName"), C("esoTalk.database.prefix"), C("esoTalk.database.connectionOptions"));
+	// Initialize the database with our SQLite details.
+	ET::$database->init(C("esoTalk.database.dbName"), C("esoTalk.database.prefix"), C("esoTalk.database.connectionOptions"));
 
 	// Run the upgrade model's install function.
 	try {
@@ -296,9 +292,6 @@ protected function fatalChecks()
 
 	// Check the PHP version.
 	if (!version_compare(PHP_VERSION, "5.3.0", ">=")) $errors[] = sprintf(T("message.greaterPHPVersionRequired"), "5.3.0");
-
-	// Check for the MySQL extension.
-	if (!extension_loaded("mysql")) $errors[] = T("message.greaterMySQLVersionRequired");
 
 	// Check file permissions.
 	$fileErrors = array();

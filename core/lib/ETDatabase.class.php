@@ -27,34 +27,6 @@ protected $structure;
 
 
 /**
- * The database host.
- * @var string
- */
-protected $host;
-
-
-/**
- * The database port.
- * @var string
- */
-protected $port;
-
-
-/**
- * The database user.
- * @var string
- */
-protected $user;
-
-
-/**
- * The database password.
- * @var string
- */
-protected $password;
-
-
-/**
  * The database name.
  * @var string
  */
@@ -120,7 +92,7 @@ public function SQL()
 public function connection()
 {
 	if (!$this->pdoConnection) {
-		$dsn = "mysql:host=".$this->host.($this->port ? ";port=".$this->port : "").";dbname=".$this->dbName;
+		$dsn = "sqlite:".$this->dbName;
 		$this->pdoConnection = @new PDO($dsn, $this->user, $this->password, $this->connectionOptions);
 	}
 	return $this->pdoConnection;
@@ -134,7 +106,7 @@ public function connection()
  */
 public function getVersion()
 {
-	return $this->query("SELECT VERSION()")->result();
+	return $this->query("SELECT sqlite_version()")->result();
 }
 
 
@@ -142,29 +114,18 @@ public function getVersion()
  * Initialize the database class with database details. These details will be used when a PDO connection
  * is made.
  *
- * @param string $host The database host.
- * @param string $user The database user.
- * @param string $password The database password.
  * @param string $dbName The database name.
  * @param string $tablePrefix The database table prefix.
  * @param array $connectionOptions An array of connection options to use when making the PDO connection.
  * @return void
  */
-public function init($host, $user, $password, $dbName, $tablePrefix = "", $connectionOptions = array(), $port = null)
+public function init($dbName, $tablePrefix = "", $connectionOptions = array())
 {
 	$this->pdoConnection = null;
 
-	$this->host = $host;
-	$this->port = $port;
-	$this->user = $user;
-	$this->password = $password;
 	$this->dbName = $dbName;
 	$this->tablePrefix = $tablePrefix;
 	$this->connectionOptions = $connectionOptions;
-
-	// We don't use PDO's prepared statements as they have some flaws. We emulate parameter binding behaviour
-	// (see ETSQLQuery and escapeValue()), and then send direct queries.
-	$this->connectionOptions[PDO::MYSQL_ATTR_DIRECT_QUERY] = true;
 }
 
 
@@ -225,7 +186,7 @@ public function commitTransaction()
  */
 public function lastInsertId()
 {
-	return $this->query("SELECT LAST_INSERT_ID()")->result();
+	return $this->pdoConnection->lastInsertId();
 }
 
 
@@ -269,7 +230,7 @@ public function escapeValue($value, $dataType = null)
 			return $value ? (string)$value : "0";
 
 		default:
-			$value = str_replace(array('\\', "\0", "\n", "\r", "'", '"', "\x1a"), array('\\\\', '\\0', '\\n', '\\r', "\\'", '\\"', '\\Z'), $value);
+			$value = str_replace("'", "''", $value);
 			return "'".$value."'";
 	}
 }

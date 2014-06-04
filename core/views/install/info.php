@@ -28,12 +28,9 @@ $form = $data["form"];
 	<br>
 
 	<ul class='form'>
-		<li class='half'><?php echo $form->input("mysqlHost", "text", array("placeholder" => T("MySQL Host"))); ?></li>
-		<li class='half'><?php echo $form->input("mysqlUser", "text", array("placeholder" => T("MySQL Username"))); ?></li>
-		<li class='half clear'><?php echo $form->input("mysqlPass", "password", array("placeholder" => T("MySQL Password"))); ?></li>
-		<li class='half'><?php echo $form->input("mysqlDB", "text", array("placeholder" => T("MySQL Database"))); ?></li>
-		<li class='advanced clear'><?php echo $form->input("tablePrefix", "text", array("placeholder" => T("MySQL Table Prefix"))); ?></li>
-		<li class='clear'><?php echo $form->getError("mysql"); ?></li>
+		<li><?php echo $form->input("sqliteDB", "text", array("placeholder" => T("SQLite Database file"))); ?></li>
+		<li class='advanced clear'><?php echo $form->input("tablePrefix", "text", array("placeholder" => T("SQLite Table Prefix"))); ?></li>
+		<li class='clear'><?php echo $form->getError("sqlite"); ?></li>
 	</ul>
 
 	<br>

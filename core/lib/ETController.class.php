@@ -294,7 +294,7 @@ public function init()
 			$online = ET::SQL()
 				->select("COUNT(*)")
 				->from("member")
-				->where("UNIX_TIMESTAMP()-:seconds<lastActionTime")
+				->where("datetime('now','-:seconds seconds')<lastActionTime")
 				->bind(":seconds", C("esoTalk.userOnlineExpire"))
 				->exec()
 				->result();
