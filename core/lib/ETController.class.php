@@ -40,14 +40,14 @@ public $title = "";
  * An array of JavaScript files to be included in the head of the page.
  * @var array
  */
-private $jsFiles = array("global" => array(), "local" => array());
+private $jsFiles = array("global" => array(), "local" => array(), "remote" => array());
 
 
 /**
  * An array of CSS files to be included in the head of the page.
  * @var array
  */
-private $cssFiles = array("global" => array(), "local" => array());
+private $cssFiles = array("global" => array(), "local" => array(), "remote" => array());
 
 
 /**
@@ -695,7 +695,7 @@ public function addJSFile($file, $global = false)
 {
 	if (strpos($file, "://") !== false) $key = "remote";
 	$key = $global ? "global" : "local";
-	$this->jsFiles[$key][] = $file;
+	if (!in_array($file, $this->jsFiles[$key])) $this->jsFiles[$key][] = $file;
 }
 
 
@@ -712,7 +712,7 @@ public function addCSSFile($file, $global = false)
 {
 	if (strpos($file, "://") !== false) $key = "remote";
 	else $key = $global ? "global" : "local";
-	$this->cssFiles[$key][] = $file;
+	if (!in_array($file, $this->cssFiles[$key])) $this->cssFiles[$key][] = $file;
 }
 
 
