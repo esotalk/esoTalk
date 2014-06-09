@@ -32,8 +32,8 @@ public function action_index($orderBy = false, $start = 0)
 	// If we've limited results by a search string...
 	if ($searchString = R("search")) {
 
-		// Explode separate terms by the comma character.
-		$terms = explode(",", $searchString);
+		// Explode separate terms by the plus character.
+		$terms = explode("+", $searchString);
 
 		// Get an array of all groups which we can possibly filter by.
 		$groups = ET::groupModel()->getAll();
@@ -48,6 +48,8 @@ public function action_index($orderBy = false, $start = 0)
 		foreach ($terms as $k => $term) {
 
 			$term = strtolower(trim($term));
+
+			if (!$term) continue;
 
 			// If the search string matches the start of any group names, then we'll filter members by their account/group.
 			$group = false;
@@ -78,7 +80,7 @@ public function action_index($orderBy = false, $start = 0)
 
 		}
 
-		$sql->where(implode(" OR ", $conditions));
+		$sql->where(implode(" AND ", $conditions));
 	}
 
 	// Create a query to get the total number of results. Clone the results one to retain the same WHERE conditions.
