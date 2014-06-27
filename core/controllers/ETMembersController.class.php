@@ -47,7 +47,7 @@ public function action_index($orderBy = false, $start = 0)
 
 		foreach ($terms as $k => $term) {
 
-			$term = strtolower(trim($term));
+			$term = mb_strtolower(trim($term), "UTF-8");
 
 			if (!$term) continue;
 
@@ -55,7 +55,8 @@ public function action_index($orderBy = false, $start = 0)
 			$group = false;
 			foreach ($groups as $id => $g) {
 				$name = $g["name"];
-				if (strpos(strtolower(T("group.$name", $name)), $term) === 0 or strpos(strtolower(T("group.$name.plural", $name)), $term) === 0) {
+					if (strpos(mb_strtolower(T("group.$name", $name), "UTF-8"), $term) === 0
+					or strpos(mb_strtolower(T("group.$name.plural", $name), "UTF-8"), $term) === 0) {
 					$group = $id;
 					break;
 				}
@@ -80,7 +81,7 @@ public function action_index($orderBy = false, $start = 0)
 
 		}
 
-		$sql->where(implode(" AND ", $conditions));
+		$sql->where(implode(" OR ", $conditions));
 	}
 
 	// Create a query to get the total number of results. Clone the results one to retain the same WHERE conditions.
