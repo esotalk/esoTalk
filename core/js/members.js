@@ -49,6 +49,8 @@ init: function() {
 
 	// INITIALIZE THE GAMBITS.
 
+	ETMembers.formInput = $("#memberSearch input[name=search]");
+
 	// Hide the gambits area.
 	$("#gambits").hide();
 
@@ -71,22 +73,50 @@ init: function() {
 
 	// Add click and double click handlers to all the gambits.
 	$("#gambits a").click(function(e) {
-		if ($(this).data("gambit").indexOf("?") != -1) {
-			e.preventDefault();
-			var placeholderIndex = $(this).data("gambit").indexOf("?");
-			$("#memberSearch input[name=search]")
-				.val($(this).data("gambit"))
-				.selectRange(placeholderIndex, placeholderIndex + 1);
-		}
+		e.preventDefault();
+		ETMembers.gambit(desanitize($(this).data("gambit")));
+	}).dblclick(function(e) {
+		e.preventDefault();
+		ETMembers.formInput.val(desanitize($(this).data("gambit")));
+		$("#memberSearch").submit();
 	})
 
 	// Prevent the search field from being unfocussed when a gambit is clicked.
 	.bind("mousedown", function(e) {
-		if ($(this).data("gambit").indexOf("?") != -1) {
-			e.preventDefault();
-		}
+		e.preventDefault();
 	});
 
+},
+
+// Add (or take away) a gambit from the search input.
+gambit: function(gambit) {
+
+	// Get the initial length of the search text.
+	var initialLength = $.trim(ETMembers.formInput.val()).length;
+
+	// Make a regular expression to find any instances of the gambit already in there.
+	var safe = gambit.replace(/([?^():\[\]])/g, "\\$1");
+	var regexp = new RegExp("( ?\\+ *" + safe + " *$|^ *" + safe + " *\\+ ?| ?\\+ *" + safe + "|^ *" + safe + " *$)", "i");
+
+	// If there is an instance, take it out.
+	if (ETMembers.formInput.val().match(regexp)) ETMembers.formInput.val(ETMembers.formInput.val().replace(regexp, ""));
+
+	// Otherwise, insert the gambit with a +, -, or ! before it.
+	else {
+		var insert = (initialLength ? " + " : "") + gambit;
+		ETMembers.formInput.focus();
+		ETMembers.formInput.val(ETMembers.formInput.val() + insert);
+
+		// If there is an instance of "?" in the gambit, we want to select it so the user can type over it.
+		var placeholderIndex, placeholder;
+		if (insert.indexOf("?") != -1) {
+			placeholderIndex = insert.indexOf("?");
+			placeholder = "?";
+		}
+		if (placeholderIndex) {
+			ETMembers.formInput.selectRange(initialLength + placeholderIndex, initialLength + placeholderIndex + placeholder.length);
+		}
+	}
 },
 
 // Open the "create member" sheet.
