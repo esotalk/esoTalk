@@ -51,6 +51,8 @@ public function action_index($orderBy = false, $start = 0)
 
 			if (!$term) continue;
 
+			$thisCondition = array();
+
 			// If the search string matches the start of any group names, then we'll filter members by their account/group.
 			$group = false;
 			foreach ($groups as $id => $g) {
@@ -65,23 +67,25 @@ public function action_index($orderBy = false, $start = 0)
 			// Did we find any matching groups just before? If so, add a WHERE condition to the query to filter by group.
 			if ($group !== false) {
 				if ($group < 0) {
-					$conditions[] = "account=:account$k";
+					$thisCondition[] = "account=:account$k";
 					$sql->bind(":account$k", $groups[$group]["name"]);
 				}
 				elseif (!$groups[$group]["private"] or ET::groupModel()->groupIdsAllowedInGroupIds(ET::$session->getGroupIds(), $group, true)) {
 					$sql->from("member_group mg", "mg.memberId=m.memberId", "left");
-					$conditions[] = "mg.groupId=:group$k";
+					$thisCondition[] = "mg.groupId=:group$k";
 					$sql->bind(":group$k", $group);
 				}
 			}
 
 			// Also perform a normal LIKE search.
-			$conditions[] = "username LIKE :search$k";
+			$thisCondition[] = "username LIKE :search$k";
 			$sql->bind(":search$k", "%".$term."%");
+
+			$conditions[] = "(".implode(" OR ", $thisCondition).")";
 
 		}
 
-		$sql->where(implode(" OR ", $conditions));
+		$sql->where(implode(" AND ", $conditions));
 	}
 
 	// Create a query to get the total number of results. Clone the results one to retain the same WHERE conditions.
