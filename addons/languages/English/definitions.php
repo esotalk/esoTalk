@@ -287,6 +287,7 @@ $definitions["Now"] = "Now";
 $definitions["OK"] = "OK";
 $definitions["Online"] = "Online";
 $definitions["online"] = "online";
+$definitions["%s Members"] = "%s Members";
 $definitions["Only allow members of this group to see who else is in it"] = "Only allow members of this group to see who else is in it";
 $definitions["Open registration"] = "Open registration";
 $definitions["optional"] = "optional";
