@@ -75,6 +75,7 @@ $definitions["Appearance"] = "Appearance";
 $definitions["Approve"] = "Approve";
 $definitions["Automatically star conversations that I reply to"] = "Automatically follow conversations that I reply to";
 $definitions["Avatar"] = "Avatar";
+$definitions["Privacy"] = "Privacy";
 
 $definitions["Back to channels"] = "Back to channels";
 $definitions["Back to conversation"] = "Back to conversation";
