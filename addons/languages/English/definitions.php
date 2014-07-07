@@ -304,6 +304,7 @@ $definitions["Posts"] = "Posts";
 $definitions["Powered by"] = "Powered by";
 $definitions["Preview"] = "Preview";
 $definitions["Previous"] = "Previous";
+$definitions["Primary color"] = "Primary color";
 
 $definitions["Quote"] = "Quote";
 $definitions["quote"] = "quote";
