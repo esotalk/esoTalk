@@ -68,6 +68,10 @@ $definitions["Administrator email"] = "Administrator email";
 $definitions["Administrator password"] = "Administrator password";
 $definitions["Administrator username"] = "Administrator username";
 $definitions["Advanced options"] = "Advanced options";
+$definitions["Admin Username"] = "Admin Username";
+$definitions["Admin Email"] = "Admin Email";
+$definitions["Admin Password"] = "Admin Password";
+$definitions["Advanced Options"] = "Advanced Options";
 $definitions["All Channels"] = "All Channels";
 $definitions["Allow members to edit their own posts:"] = "Allow members to edit their own posts:";
 $definitions["Already have an account? <a href='%s' class='link-login'>Log in!</a>"] = "Already have an account? <a href='%s' class='link-login'>Log in!</a>";
@@ -75,7 +79,6 @@ $definitions["Appearance"] = "Appearance";
 $definitions["Approve"] = "Approve";
 $definitions["Automatically star conversations that I reply to"] = "Automatically follow conversations that I reply to";
 $definitions["Avatar"] = "Avatar";
-$definitions["Privacy"] = "Privacy";
 
 $definitions["Back to channels"] = "Back to channels";
 $definitions["Back to conversation"] = "Back to conversation";
@@ -110,6 +113,7 @@ $definitions["Choose what people will see when they first visit your forum."] = 
 $definitions["Click on a member's name to remove them."] = "Click on a member's name to remove them.";
 $definitions["Close registration"] = "Close registration";
 $definitions["Confirm password"] = "Confirm password";
+$definitions["Confirm Password"] = "Confirm Password";
 $definitions["Controls"] = "Controls";
 $definitions["Conversation"] = "Conversation";
 $definitions["Conversations participated in"] = "Conversations participated in";
@@ -266,6 +270,11 @@ $definitions["MySQL queries"] = "MySQL queries";
 $definitions["MySQL table prefix"] = "MySQL table prefix";
 $definitions["MySQL username"] = "MySQL username";
 $definitions["MySQL version"] = "MySQL version";
+$definitions["MySQL Host"] = "MySQL Host";
+$definitions["MySQL Username"] = "MySQL Username";
+$definitions["MySQL Password"] = "MySQL Password";
+$definitions["MySQL Database"] = "MySQL Database";
+$definitions["MySQL Table Prefix"] = "MySQL Table Prefix";
 
 $definitions["Name"] = "Name";
 $definitions["never"] = "never";
@@ -306,6 +315,7 @@ $definitions["Powered by"] = "Powered by";
 $definitions["Preview"] = "Preview";
 $definitions["Previous"] = "Previous";
 $definitions["Primary color"] = "Primary color";
+$definitions["Privacy"] = "Privacy";
 
 $definitions["Quote"] = "Quote";
 $definitions["quote"] = "quote";
