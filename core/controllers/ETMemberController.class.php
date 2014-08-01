@@ -53,7 +53,7 @@ public function action_name($name = "")
 
 	// If we didn't find the member, run the index function with a false argument (which will in turn show
 	// a not found error.)
-	$this->index(false);
+	$this->action_index(false);
 }
 
 
