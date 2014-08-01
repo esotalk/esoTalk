@@ -179,7 +179,7 @@ function avatar($member = array(), $className = "")
 	}
 
 	// Default to an avatar with the first letter of the member's name.
-	return "<span class='avatar $className'>".(!empty($member["username"]) ? strtoupper($member["username"][0]) : "&nbsp;")."</span>";
+	return "<span class='avatar $className'>".(!empty($member["username"]) ? mb_strtoupper(mb_substr($member["username"], 0, 1, "UTF-8"), "UTF-8") : "&nbsp;")."</span>";
 }
 
 }
