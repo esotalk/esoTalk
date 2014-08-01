@@ -87,16 +87,6 @@ $(function() {
 <li class='sep'></li>
 
 <li>
-<label><?php echo T("Member groups"); ?></label>
-<div class='subText'><?php echo T("Groups can be used to categorize members and give them certain privileges."); ?></div>
-<?php foreach ($groups as $k => $v) $groups[$k] = "<strong class='group-{$v["name"]}'>".groupName($v["name"])."</strong>";
-echo implode(", ", $groups); ?><br/>
-<a href='<?php echo URL("admin/groups"); ?>' id='manageGroupsLink'><?php echo T("Manage Groups"); ?></a>
-</li>
-
-<li class='sep'></li>
-
-<li>
 <label><?php echo T("Editing permissions"); ?></label>
 <div class='subText'><?php echo T("Allow members to edit their own posts:"); ?></div>
 <div class='checkboxGroup'>
