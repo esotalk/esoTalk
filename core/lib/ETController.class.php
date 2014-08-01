@@ -236,6 +236,9 @@ public function messages($messages, $options = "")
  */
 public function notificationMessages($notifications)
 {
+	// Only show the first 3 notifications.
+	$notifications = array_slice($notifications, 0, 3);
+	
 	foreach ($notifications as $notification) {
 
 		// If we've already shown this notification as a message before, don't show it again.
