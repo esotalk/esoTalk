@@ -11,7 +11,6 @@ if (!defined("IN_ESOTALK")) exit;
  */
 
 $form = $data["form"];
-$groups = $data["groups"];
 ?>
 <script>
 $(function() {
