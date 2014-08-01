@@ -122,6 +122,7 @@ protected function structure($drop = false)
 		->key("private") // for the private gambit
 		->key("startMemberId") // for the author gambit
 		->key("channelId") // for filtering by channel
+		->key("title") // for the title gambit
 		->exec($drop);
 
 	// Group table.

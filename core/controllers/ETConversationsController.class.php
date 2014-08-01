@@ -141,6 +141,9 @@ public function action_index($channelSlug = false)
 				T("gambit.has >10 replies") => array("gambit-replies", "icon-comments"),
 				T("gambit.order by replies") => array("gambit-orderByReplies", "icon-list-ol"),
 			),
+			"text" => array(
+				T("gambit.title:")." ?" => array("gambit-title", "icon-font")
+			),
 			"misc" => array(
 				T("gambit.random") => array("gambit-random", "icon-random"),
 				T("gambit.reverse") => array("gambit-reverse", "icon-exchange"),
