@@ -143,7 +143,7 @@ init: function() {
 	});
 
 	// Save the scroll position and the conversation ID whenever a conversation link is clicked on.
-	$("#conversations a").live("click", function() {
+	$(document).on("click", "#conversations a", function() {
 		$.cookie("scrollTop", $(document).scrollTop(), {path: "/"});
 		$.cookie("cid", ETSearch.getConversationIdForElement(this), {path: "/"});
 	});
@@ -159,14 +159,14 @@ init: function() {
 	}, 1);
 
 	// Add click handlers to the unread indicators.
-	$("#conversations .unreadIndicator").live("click", function(e) {
+	$(document).on("click", "#conversations .unreadIndicator", function(e) {
 		e.preventDefault();
 		ETSearch.markAsRead(ETSearch.getConversationIdForElement(this));
 		$.hideToolTip();
 	});
 
 	// Add click handlers to the channels.
-	$("#conversations .channel").live("click", function(e) {
+	$(document).on("click", "#conversations .channel", function(e) {
 		ETSearch.changeChannel($(this).data("channel"));
 		e.preventDefault();
 	});
@@ -175,24 +175,24 @@ init: function() {
 	ETSearch.initSearchResults();
 
 	// Add a click handler to the mark all as read button.
-	$("#control-markAllAsRead").live("click", function(e) {
+	$(document).on("click", "#control-markAllAsRead", function(e) {
 		e.preventDefault();
 		ETSearch.currentSearch = "";
 		ETSearch.changeChannel("all", false, true);
 	});
-	$("#control-markListedAsRead").live("click", function(e) {
+	$(document).on("click", "#control-markListedAsRead", function(e) {
 		e.preventDefault();
 		ETSearch.search(ETSearch.currentSearch, "markAsRead");
 	});
 
 	// Add a click handler to the view more button.
-	$("#conversations .viewMore a").live("click", function(e) {
+	$(document).on("click", "#conversations .viewMore a", function(e) {
 		e.preventDefault();
 		ETSearch.search(decodeURIComponent($(this).attr("href").split("search=")[1].replace(/\+/g, ' ')));
 	});
 
 	// Add click handlers to the channels.
-	$("#channels a:not(.channel-list)").live("click", function(e) {
+	$(document).on("click", "#channels a:not(.channel-list)", function(e) {
 		if (e.metaKey || e.ctrlKey) return;
 		e.preventDefault();
 		ETSearch.changeChannel($(this).data("channel"), e.shiftKey);
