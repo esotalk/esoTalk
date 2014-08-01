@@ -642,7 +642,7 @@ public function create($data, $membersAllowed = array(), $isDraft = false)
 		$this->setDraft($conversation, ET::$session->userId, $content);
 	}
 	else {
-		$postId = ET::postModel()->create($conversationId, ET::$session->userId, $content);
+		$postId = ET::postModel()->create($conversationId, ET::$session->userId, $content, $conversation["title"]);
 
 		// If the conversation is private, send out notifications to the allowed members.
 		if (!empty($membersAllowed)) {
