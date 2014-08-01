@@ -46,6 +46,9 @@ public function __construct()
  */
 public function create(&$values)
 {
+	// Trim the username.
+	$values["username"] = trim($values["username"]);
+
 	// Validate the username, email, and password.
 	$this->validate("username", $values["username"], array($this, "validateUsername"));
 	$this->validate("email", $values["email"], array($this, "validateEmail"));
@@ -101,8 +104,10 @@ public function create(&$values)
  */
 public function update($values, $wheres = array())
 {
-	if (isset($values["username"]))
+	if (isset($values["username"])) {
+		$values["username"] = trim($values["username"]);
 		$this->validate("username", $values["username"], array($this, "validateUsername"));
+	}
 
 	if (isset($values["email"]))
 		$this->validate("email", $values["email"], array($this, "validateEmail"));
