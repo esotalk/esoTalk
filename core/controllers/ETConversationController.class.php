@@ -376,7 +376,7 @@ public function action_start($member = false)
 		$this->addJSFile("core/js/autocomplete.js");
 		$this->addJSFile("core/js/conversation.js");
 		$this->addJSVar("mentions", C("esoTalk.format.mentions"));
-		$this->addJSLanguage("message.confirmLeave", "message.confirmDiscardPost");
+		$this->addJSLanguage("message.confirmLeave", "message.confirmDiscardPost", "message.confirmDelete");
 
 		// If there's a member name in the querystring, make the conversation that we're starting private
 		// with them and redirect.
