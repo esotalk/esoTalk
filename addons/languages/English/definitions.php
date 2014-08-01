@@ -452,6 +452,7 @@ $definitions["message.gambitsHelp"] = "Gambits are phrases that describe what yo
 $definitions["message.gdNotEnabledWarning"] = "<strong>The GD extension is not enabled.</strong> This is required to resize and save avatars. Get your host or administrator to install/enable it.";
 $definitions["message.greaterMySQLVersionRequired"] = "<strong>You must have MySQL 4 or greater installed and the <a href='http://php.net/manual/en/mysql.installation.php' target='_blank'>MySQL extension enabled in PHP</a>.</strong> Please install/upgrade both of these requirements or request that your host or administrator install them.";
 $definitions["message.greaterPHPVersionRequired"] = "<strong>Your server must have PHP %s or greater installed to run esoTalk.</strong> Please upgrade your PHP installation or request that your host or administrator upgrade the server.";
+$definitions["message.groupsHelp"] = "Groups are used to categorize members on your forum. You can create as many groups as needed.";
 $definitions["message.incorrectLogin"] = "Your login details were incorrect.";
 $definitions["message.incorrectPassword"] = "Your current password is incorrect.";
 $definitions["message.installerAdminHelp"] = "esoTalk will use the following information to set up your administrator account on your forum.";
