@@ -602,6 +602,7 @@ input[type=checkbox], input[type=radio] {padding:0; margin:4px 2px 0 0; cursor:p
 .radio, .checkbox {padding-left:23px; display:block}
 .radio, .radio label, .checkbox, .checkbox label {cursor:pointer}
 .radio input[type=radio], .checkbox input[type=checkbox] {float:left; margin-left:-20px}
+.radio.inline, .checkbox.inline {margin-right:10px; display:inline-block; vertical-align:middle}
 
 input.error, input.error:focus {border-color:#f59e79 !important}
 .form div.error {color:#db3000; font-size:85%}
