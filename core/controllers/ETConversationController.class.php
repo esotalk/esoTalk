@@ -1296,7 +1296,7 @@ protected function formatPostForTemplate($post, $conversation)
 		}
 
 		// If the post has been edited, show the time and by whom next to the controls.
-		if ($post["editMemberId"]) $formatted["controls"][] = "<span class='editedBy'>".sprintf(T("Edited %s by %s"), "<span title='".strftime(T("date.full"), $post["editTime"])."'>".relativeTime($post["editTime"], true)."</span>", name($post["editMemberName"]))."</span>";
+		if ($post["editMemberId"]) $formatted["controls"][] = "<span class='editedBy'>".sprintf(T("Edited %s by %s"), "<span title='".strftime(T("date.full"), $post["editTime"])."'>".relativeTime($post["editTime"], true)."</span>", memberLink($post["editMemberId"], $post["editMemberName"]))."</span>";
 
 		// If the user can reply, add a quote control.
 		if ($conversation["canReply"])
@@ -1314,7 +1314,7 @@ protected function formatPostForTemplate($post, $conversation)
 	else {
 
 		// Add the "deleted by" information.
-		if ($post["deleteMemberId"]) $formatted["controls"][] = "<span>".sprintf(T("Deleted %s by %s"), "<span title='".strftime(T("date.full"), $post["deleteTime"])."'>".relativeTime($post["deleteTime"], true)."</span>", name($post["deleteMemberName"]))."</span>";
+		if ($post["deleteMemberId"]) $formatted["controls"][] = "<span>".sprintf(T("Deleted %s by %s"), "<span title='".strftime(T("date.full"), $post["deleteTime"])."'>".relativeTime($post["deleteTime"], true)."</span>", memberLink($post["deleteMemberId"], $post["deleteMemberName"]))."</span>";
 
 		// If the user can edit the post, add a restore control.
 		if ($canEdit)
