@@ -26,9 +26,6 @@ public function action_index()
 		$languages[$v] = ET::$languageInfo[$v]["name"];
 	}
 
-	// Get a list of member groups.
-	$groups = ET::groupModel()->getAll();
-
 	// Set up the form.
 	$form = ETFactory::make("form");
 	$form->action = URL("admin/settings");
@@ -86,7 +83,6 @@ public function action_index()
 
 	$this->data("form", $form);
 	$this->data("languages", $languages);
-	$this->data("groups", $groups);
 	$this->title = T("Forum Settings");
 	$this->render("admin/settings");
 }
