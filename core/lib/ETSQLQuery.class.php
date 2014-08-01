@@ -661,9 +661,12 @@ public function get()
 	}
 
 	// Substitute in bound parameter values.
-	$query = preg_replace('/(:[A-Za-z0-9_]+)/e', 'array_key_exists("$1", $this->parameters)
-		? ET::$database->escapeValue($this->parameters["$1"][0], $this->parameters["$1"][1])
-		: "$1"', $query);
+	$self = $this;
+	$query = preg_replace_callback('/(:[A-Za-z0-9_]+)/', function ($matches) use ($self) {
+		return array_key_exists($matches[1], $self->parameters)
+			? ET::$database->escapeValue($self->parameters[$matches[1]][0], $self->parameters[$matches[1]][1])
+			: $matches[1];
+	}, $query);
 
 	return $query;
 }
