@@ -33,7 +33,8 @@ public function init()
 	$this->defaultMenu->add("settings", "<a href='".URL("admin/settings")."'><i class='icon-cog'></i> ".T("Forum Settings")."</a>");
 	$this->defaultMenu->add("appearance", "<a href='".URL("admin/appearance")."'><i class='icon-eye-open'></i> ".T("Appearance")."</a>");
 	$this->defaultMenu->add("channels", "<a href='".URL("admin/channels")."'><i class='icon-tags'></i> ".T("Channels")."</a>");
-	$this->defaultMenu->add("members", "<a href='".URL("members")."'><i class='icon-group'></i> ".T("Members")."</a>");
+    $this->defaultMenu->add("groups", "<a href='".URL("admin/groups")."'><i class='icon-group'></i> ".T("Groups")."</a>");
+	$this->defaultMenu->add("members", "<a href='".URL("members")."'><i class='icon-user'></i> ".T("Members")."</a>");
 	$this->defaultMenu->add("plugins", "<a href='".URL("admin/plugins")."'><i class='icon-puzzle-piece'></i> ".T("Plugins")."</a>");
 
 	$this->defaultMenu->highlight(ET::$controllerName);
