@@ -880,6 +880,21 @@ public static function gambitLocked(&$search, $term, $negate)
 }
 
 
+/**
+ * The "title" gambit callback. Applies a filter to fetch only conversation matching
+ * the specified title.
+ *
+ * @see gambitUnread for parameter descriptions.
+ */
+public static function gambitTitle(&$search, $term, $negate)
+{
+	$term = trim(substr($term, strlen(T("gambit.title:"))));
+
+	$search->sql->where("title ".($negate ? "NOT" : "")." LIKE :titleTerm")
+		->bind(":titleTerm", "%".$term."%");
+}
+
+
 }
 
 // Add default gambits.
@@ -898,6 +913,7 @@ ETSearchModel::addGambit('return $term == strtolower(T("gambit.order by newest")
 ETSearchModel::addGambit('return $term == strtolower(T("gambit.unread"));', array("ETSearchModel", "gambitUnread"));
 ETSearchModel::addGambit('return $term == strtolower(T("gambit.reverse"));', array("ETSearchModel", "gambitReverse"));
 ETSearchModel::addGambit('return strpos($term, strtolower(T("gambit.limit:"))) === 0;', array("ETSearchModel", "gambitLimit"));
+ETSearchModel::addGambit('return strpos($term, strtolower(T("gambit.title:"))) === 0;', array("ETSearchModel", "gambitTitle"));
 
 if (!C("esoTalk.search.disableRandomGambit"))
 	ETSearchModel::addGambit('return $term == strtolower(T("gambit.random"));', array("ETSearchModel", "gambitRandom"));

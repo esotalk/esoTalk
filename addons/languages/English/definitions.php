@@ -559,6 +559,7 @@ $definitions["gambit.ignored"] = "ignored";
 $definitions["gambit.sticky"] = "sticky";
 $definitions["gambit.unread"] = "unread";
 $definitions["gambit.limit:"] = "limit:";
+$definitions["gambit.title:"] = "title:";
 
 // Aliases
 // These are gambits which tell the gambit system to use another gambit.
