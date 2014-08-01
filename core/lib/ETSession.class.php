@@ -62,48 +62,21 @@ public function __construct()
 	$this->userId = &$_SESSION["userId"];
 
 	// If a persistent login cookie is set, attempt to log in.
-	// We use this implementation: http://jaspan.com/improved_persistent_login_cookie_best_practice
-	if (!$this->userId and ($cookie = $this->getCookie("persistent"))) {
+	if (!C("esoTalk.disablePersistenceCookies") and !$this->userId and ($cookie = $this->getCookie("persistent"))) {
 
-		// Get the token, series, and member ID from the cookie.
+		// Get the token and member ID from the cookie.
 		$token = substr($cookie, -32);
-		$series = substr($cookie, -64, 32);
-		$memberId = (int)substr($cookie, 0, -64);
+		$memberId = (int)substr($cookie, 0, -32);
 
-		// Get an entry in the database with this memberId and series.
-		$result = ET::SQL()
-			->select("*")
-			->from("cookie")
-			->where("memberId", $memberId)
-			->where("series", $series)
-			->exec();
+		// Find a user with this memberId and token.
+		$member = ET::memberModel()->get(array(
+			"m.memberId" => $memberId,
+			"rememberToken" => $token
+		));
 
-		// If a matching record exists...
-		if ($row = $result->firstRow() and $row["series"] == $series) {
-
-			// If the token doesn't match, the user's cookie has probably been stolen by someone else.
-			if ($row["token"] != $token) {
-
-				// Delete this member's cookie identifier for this series, so the attacker will not be able
-				// to log in again.
-				ET::SQL()->delete()->from("cookie")->where("memberId", $memberId)->where("series", $series)->exec();
-
-				// Add an error to the model.
-				$this->error("cookieAuthenticationTheft");
-
-			}
-
-			// Otherwise, authenticate the user.
-			else {
-				$this->loginWithMemberId($memberId);
-
-				// Generate a new token for the member.
-				$token = $this->createPersistentToken($memberId, $series);
-
-				// Set the cookie.
-				$this->setCookie("persistent", $memberId.$series.$token, time() + C("esoTalk.cookie.expire"));
-			}
-
+		// If we found them, log them in.
+		if ($member) {
+			$this->loginWithMemberId($memberId);
 		}
 	}
 
@@ -217,32 +190,47 @@ public function login($name, $password, $remember = false)
 	$return = $this->processLogin($member);
 
 	// Set a persistent login "remember me" cookie?
-	if ($return === true and $remember) $this->setRememberCookie($this->userId);
+	if (!C("esoTalk.disablePersistenceCookies") and $return === true and $remember) {
+		$this->setRememberCookie($this->userId);
+	}
 
 	return $return;
 }
 
 
 /**
- * Create or update a memberId-series-token triplet in the cookie table that can be used to verify a cookie.
+ * Get the rememberToken for a member. If none exists, a new one will be generated.
  *
- * @param int $memberId The ID of the member that the cookie is being set for.
- * @param string $series The series identifier.
- * @return string $token The token that was generated.
+ * @param int $memberId The ID of the member to get the rememberToken for.
+ * @return string The rememberToken.
  */
-protected function createPersistentToken($memberId, $series)
+protected function getRememberToken($memberId)
 {
-	// Generate a new token.
-	$token = md5(generateRandomString(32));
+	$member = ET::memberModel()->getById($memberId);
 
-	// Insert or update it in the database.
-	ET::SQL()->insert("cookie")->set(array(
-		"memberId" => $memberId,
-		"series" => $series,
-		"token" => $token
-	))->setOnDuplicateKey("token", $token)->exec();
+	if (!empty($member["rememberToken"])) {
+		$token = $member["rememberToken"];
+	} else {
+		$token = generateRandomString(32);
+		ET::memberModel()->updateById($memberId, array("rememberToken" => $token));
+	}
 
 	return $token;
+}
+
+
+/**
+ * Clear the rememberToken for a user, effectively invalidating all persistence cookies.
+ *
+ * @param int $memberId The ID of the member to clear the rememberToken for.
+ * @return void
+ */
+protected function clearRememberToken($memberId)
+{
+	ET::memberModel()->updateById($memberId, array("rememberToken" => null));
+
+	// Eat the persistent login cookie. OM NOM NOM
+	if ($this->getCookie("persistent")) $this->setCookie("persistent", false, -1);
 }
 
 
@@ -255,7 +243,7 @@ protected function createPersistentToken($memberId, $series)
  */
 public function setCookie($name, $value, $expire = 0)
 {
-	return setcookie(C("esoTalk.cookie.name")."_".$name, $value, $expire, C("esoTalk.cookie.path", getWebPath('')), C("esoTalk.cookie.domain"));
+	return setcookie(C("esoTalk.cookie.name")."_".$name, $value, $expire, C("esoTalk.cookie.path", getWebPath('')), C("esoTalk.cookie.domain"), C("esoTalk.https"), true);
 }
 
 
@@ -266,14 +254,9 @@ public function setCookie($name, $value, $expire = 0)
  */
 public function setRememberCookie($userId)
 {
-	// We use this implementation: http://jaspan.com/improved_persistent_login_cookie_best_practice
+	$token = $this->getRememberToken($userId);
 
-	// Generate a new series identifier, and a token.
-	$series = md5(generateRandomString(32));
-	$token = $this->createPersistentToken($userId, $series);
-
-	// Set the cookie.
-	$this->setCookie("persistent", $userId.$series.$token, time() + C("esoTalk.cookie.expire"));
+	$this->setCookie("persistent", $userId.$token, time() + C("esoTalk.cookie.expire"));
 }
 
 
@@ -298,12 +281,12 @@ public function getCookie($name, $default = null)
  */
 public function logout()
 {
+	// Clear the rememberToken for this user, effectively invalidating all persistence cookies.
+	$this->clearRememberToken($_SESSION["userId"]);
+
 	// Destroy session data and regenerate the unique token to prevent session fixation.
 	unset($_SESSION["userId"]);
 	$this->regenerateToken();
-
-	// Eat the persistent login cookie. OM NOM NOM
-	if ($this->getCookie("persistent")) $this->setCookie("persistent", false, -1);
 
 	$this->trigger("logout");
 }
