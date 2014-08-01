@@ -52,7 +52,7 @@ init: function() {
 
 			// If we've scrolled past this item, continue in the loop.
 			if (y > item.offset().top + item.outerHeight() - ETScrubber.header.outerHeight()) return true;
-			else {
+			else if (item.data("index")) {
 
 				// This must be the first item within our viewport. Get the index of it and highlight
 				// that index in the scrubber, then break out of the loop.
