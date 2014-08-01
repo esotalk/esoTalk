@@ -450,7 +450,7 @@ saveDraft: function() {
 // Discard a draft.
 discardDraft: function() {
 
-	if (!confirm(T("message.confirmDiscardPost"))) return;
+	if (!confirm(T("message.confirmDelete"))) return;
 
 	// Disable the beforeUnload confirmation prompt, because the ajax request we make may
 	// redirect us back to the home page.

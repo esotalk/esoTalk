@@ -203,12 +203,9 @@ public function action_index($conversationId = false, $year = false, $month = fa
 		if ($conversation["canModerate"]) {
 			$this->addJSLanguage("Lock", "Unlock", "Sticky", "Unsticky");
 		}
-		if ($conversation["canDeleteConversation"]) {
-			$this->addJSLanguage("message.confirmDelete");
-		}
 		if (ET::$session->user) {
 			$this->addJSLanguage("Starred", "Unstarred", "message.confirmLeave", "message.confirmDiscardPost",
-				"Ignore conversation", "Unignore conversation", "Controls", "Follow", "Following");
+				"message.confirmDelete", "Ignore conversation", "Unignore conversation", "Controls", "Follow", "Following");
 		}
 
 		$this->addJSVar("postsPerPage", C("esoTalk.conversation.postsPerPage"));
