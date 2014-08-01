@@ -1163,24 +1163,31 @@ public function action_editPost($postId = false)
 	// Are we saving the post?
 	if ($form->validPostBack("save")) {
 
-		ET::postModel()->editPost($post, $form->getValue("content"));
+		$model = ET::postModel();
+		$model->editPost($post, $form->getValue("content"));
 
-		$this->trigger("editPostAfter", array(&$post));
+		if ($model->errorCount()) {
+			$this->messages($model->errors(), "warning");
+		} else {
 
-		// Normally, redirect back to the conversation.
-		if ($this->responseType === RESPONSE_TYPE_DEFAULT) {
-			redirect(URL(R("return", postURL($postId))));
-		}
+			$this->trigger("editPostAfter", array(&$post));
 
-		// For an AJAX request, render the post view.
-		elseif ($this->responseType === RESPONSE_TYPE_AJAX) {
-			$this->data("post", $this->formatPostForTemplate($post, $post["conversation"]));
-			$this->render("conversation/post");
-			return;
-		}
+			// Normally, redirect back to the conversation.
+			if ($this->responseType === RESPONSE_TYPE_DEFAULT) {
+				redirect(URL(R("return", postURL($postId))));
+			}
 
-		else {
-			// JSON?
+			// For an AJAX request, render the post view.
+			elseif ($this->responseType === RESPONSE_TYPE_AJAX) {
+				$this->data("post", $this->formatPostForTemplate($post, $post["conversation"]));
+				$this->render("conversation/post");
+				return;
+			}
+
+			else {
+				// JSON?
+			}
+
 		}
 
 	}
