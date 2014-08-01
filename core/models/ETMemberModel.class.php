@@ -244,7 +244,8 @@ public function validateUsername($username, $checkForDuplicate = true)
 	if (in_array(strtolower($username), self::$reservedNames)) return "nameTaken";
 
 	// Make sure the username is not too small or large.
-	if (strlen($username) < 3 or strlen($username) > 20) return "invalidUsername";
+	$length = mb_strlen($username, "UTF-8");
+	if ($length < 3 or $length > 20) return "invalidUsername";
 
 	// Make sure there's no other member with the same username.
 	if ($checkForDuplicate and ET::SQL()->select("1")->from("member")->where("username=:username")->bind(":username", $username)->exec()->numRows())
