@@ -93,7 +93,7 @@ init: function() {
 
 		// Store the conversation title and add a click handler to edit it.
 		this.title = $("#conversationTitle a").text() || $("#conversationTitle").text();
-		$("#conversationTitle a").live("click", function(e) {
+		$(document).on("click", "#conversationTitle a", function(e) {
 			e.preventDefault();
 			ETConversation.editTitle();
 		});
@@ -526,32 +526,32 @@ initPosts: function() {
 	$("#conversationPosts .online").tooltip({alignment: "left", offset: [-9, 0], className: "withArrow withArrowBottom"}).css("cursor", "pointer");
 
 	// Add click handlers to the post controls.
-	$("#conversationPosts .controls .control-edit").live("click", function(e) {
+	$(document).on("click", "#conversationPosts .controls .control-edit", function(e) {
 		var postId = $(this).parents(".post").data("id");
 		ETConversation.editPost(postId);
 		e.preventDefault();
 	});
 
-	$("#conversationPosts .controls .control-delete").live("click", function(e) {
+	$(document).on("click", "#conversationPosts .controls .control-delete", function(e) {
 		var postId = $(this).parents(".post").data("id");
 		ETConversation.deletePost(postId);
 		e.preventDefault();
 	});
 
-	$("#conversationPosts .controls .control-restore").live("click", function(e) {
+	$(document).on("click", "#conversationPosts .controls .control-restore", function(e) {
 		var postId = $(this).parents(".post").data("id");
 		ETConversation.restorePost(postId);
 		e.preventDefault();
 	});
 
-	$("#conversationPosts .post:not(.edit) .controls .control-quote").live("click", function(e) {
+	$(document).on("click", "#conversationPosts .post:not(.edit) .controls .control-quote", function(e) {
 		var postId = $(this).parents(".post").data("id");
 		ETConversation.quotePost(postId, e.shiftKey);
 		e.preventDefault();
 	});
 
 	// Add a click handler to any "post links" to scroll back up to the right post, if it's loaded.
-	$("#conversationPosts .postBody a[rel=post]").live("click", function(e) {
+	$(document).on("click", "#conversationPosts .postBody a[rel=post]", function(e) {
 		var id = $(this).data("id");
 
 		$("#conversationPosts .post").each(function() {
@@ -848,7 +848,8 @@ initMembersAllowed: function() {
 	});
 
 	// Add click handlers to each of the names, to remove them.
-	$("#membersAllowedSheet .allowedList .name a").die("click").live("click", function(e) {
+	var selector = "#membersAllowedSheet .allowedList .name a";
+	$(document).off("click", selector).on("click", selector, function(e) {
 		e.preventDefault();
 		ETConversation.removeMember($(this).data("type"), $(this).data("id"));
 	});

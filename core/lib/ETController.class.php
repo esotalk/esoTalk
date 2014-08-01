@@ -310,6 +310,7 @@ public function init()
 
 		// Set up some default JavaScript files and language definitions.
 		$this->addJSFile("core/js/lib/jquery.js", true);
+		$this->addJSFile("core/js/lib/jquery.migrate.js", true);
 		$this->addJSFile("core/js/lib/jquery.misc.js", true);
 		$this->addJSFile("core/js/lib/jquery.history.js", true);
 		$this->addJSFile("core/js/lib/jquery.scrollTo.js", true);
