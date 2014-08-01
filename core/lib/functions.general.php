@@ -456,9 +456,9 @@ function slug($string)
 	ET::trigger("slug", array(&$string));
 
 	// Now replace non-alphanumeric characters with a hyphen, and remove multiple hyphens.
-	$slug = strtolower(trim(preg_replace(array("/[^0-9a-z]/i", "/-+/"), "-", $string), "-"));
+	$slug = mb_strtolower(trim(preg_replace(array("/[^0-9a-z]/i", "/-+/"), "-", $string), "-"), "UTF-8");
 
-	return substr($slug, 0, 63);
+	return mb_substr($slug, 0, 63, "UTF-8");
 }
 
 
