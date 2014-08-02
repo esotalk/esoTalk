@@ -79,7 +79,7 @@ $config["esoTalk.enabledPlugins"] = array("BBCode", "Emoticons"); // A list of e
 
 // Login and registration settings.
 $config["esoTalk.badLoginsPerMinute"] = 10;
-$config["esoTalk.disablePersistenceCookies"] = false;
+$config["esoTalk.enablePersistenceCookies"] = false;
 $config["esoTalk.registration.open"] = true;
 $config["esoTalk.registration.requireConfirmation"] = "email"; // false | "email" = require email confirmation | "approval" = require admin approval
 

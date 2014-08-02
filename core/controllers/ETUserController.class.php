@@ -74,7 +74,7 @@ public function action_login()
 	});
 
 	// Add the "remember me" field to the form structure.
-	if (!C("esoTalk.disablePersistenceCookies")) {
+	if (C("esoTalk.enablePersistenceCookies")) {
 		$form->addSection("remember");
 		$form->addField("remember", "remember", function($form)
 		{

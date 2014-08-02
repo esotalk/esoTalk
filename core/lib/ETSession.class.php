@@ -62,7 +62,7 @@ public function __construct()
 	$this->userId = &$_SESSION["userId"];
 
 	// If a persistent login cookie is set, attempt to log in.
-	if (!C("esoTalk.disablePersistenceCookies") and !$this->userId and ($cookie = $this->getCookie("persistent"))) {
+	if (C("esoTalk.enablePersistenceCookies") and !$this->userId and ($cookie = $this->getCookie("persistent"))) {
 
 		// Get the token and member ID from the cookie.
 		$token = substr($cookie, -32);
@@ -190,7 +190,7 @@ public function login($name, $password, $remember = false)
 	$return = $this->processLogin($member);
 
 	// Set a persistent login "remember me" cookie?
-	if (!C("esoTalk.disablePersistenceCookies") and $return === true and $remember) {
+	if (C("esoTalk.enablePersistenceCookies") and $return === true and $remember) {
 		$this->setRememberCookie($this->userId);
 	}
 
