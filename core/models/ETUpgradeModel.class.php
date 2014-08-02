@@ -317,8 +317,13 @@ public function upgrade($currentVersion = "")
 {
 	// 1.0.0g5:
 	// - Drop the cookie table
+	// - Write config to enable persistence cookies. These are disabled by
+	//   default in g5 because otherwise the ETSession class will encounter
+	//   a fatal error (rememberToken column doesn't exist) before reaching
+	//   the upgrade script.
 	if (version_compare($currentVersion, "1.0.0g5", "<")) {
 		ET::$database->structure()->table("cookie")->drop();
+		ET::writeConfig(array("esoTalk.enablePersistenceCookies" => true));
 	}
 
 	// 1.0.0g4:
