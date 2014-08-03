@@ -236,7 +236,7 @@ public function action_join()
 				}
 
 				else {
-					ET::$session->login($form->getValue("username"), $form->getValue("password"));
+					ET::$session->login($data["username"], $form->getValue("password"));
 					$this->redirect(URL(""));
 				}
 
