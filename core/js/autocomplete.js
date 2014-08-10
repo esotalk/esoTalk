@@ -2,7 +2,7 @@
 // field: the field to monitor for input.
 // character: a character to look for that indicates a member name (eg. @)
 // clickHandler: a function to be called in a member is selected from the popup.
-function ETAutoCompletePopup(field, character, clickHandler) {
+function ETAutoCompletePopup(field, character, clickHandler, insertField) {
 
 	var ac = this;
 
@@ -16,6 +16,7 @@ function ETAutoCompletePopup(field, character, clickHandler) {
 	this.searches = [];
 	this.value = "";
 	this.clickHandler = clickHandler;
+	this.insertField = insertField || "name";
 
 	// If no click handler was specified, use our own default one. The default click handler will replace
 	// everything from the cursor until the character denoting the beginning of this "token" with the member's
@@ -39,8 +40,8 @@ function ETAutoCompletePopup(field, character, clickHandler) {
 
 			// If we found the position of the character, replace it all with the member's name.
 			if (nameStart) {
-				ac.field.val(value.substring(0, nameStart) + member["name"] + " " + value.substr(selection.start));
-				var p = nameStart + member["name"].length + 1;
+				ac.field.val(value.substring(0, nameStart) + member[ac.insertField] + " " + value.substr(selection.start));
+				var p = nameStart + member[ac.insertField].length + 1;
 				ac.field.selectRange(p, p);
 			}
 		}
@@ -281,8 +282,7 @@ function ETAutoCompletePopup(field, character, clickHandler) {
 	}
 
 	// Update the selected index of the popup.
-	this.updateIndex = function(index)
-	{
+	this.updateIndex = function(index) {
 		ac.index = index;
 
 		// Make sure the index is valid.
