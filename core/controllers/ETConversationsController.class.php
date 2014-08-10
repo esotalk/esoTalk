@@ -186,7 +186,7 @@ public function action_index($channelSlug = false)
 
 		// Add meta tags to the header.
 		$this->addToHead("<meta name='keywords' content='".sanitizeHTML(($k = C("esoTalk.meta.keywords")) ? $k : implode(",", $keywords))."'>");
-		list($lastKeyword) = array_splice($keywords, count($keywords) - 1, 1);
+		$lastKeyword = reset(array_splice($keywords, count($keywords) - 1, 1));
 		$this->addToHead("<meta name='description' content='".sanitizeHTML(($d = C("esoTalk.meta.description")) ? $d
 			: sprintf(T("forumDescription"), C("esoTalk.forumTitle"), implode(", ", $keywords), $lastKeyword))."'>");
 
