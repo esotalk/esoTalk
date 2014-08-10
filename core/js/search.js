@@ -28,8 +28,8 @@ init: function() {
 	ETSearch.formInput = $("#search .text");
 	ETSearch.formReset = $("#search .control-reset");
 
-	new ETAutoCompletePopup(ETSearch.formInput, "author:");
-	new ETAutoCompletePopup(ETSearch.formInput, "contributor:");
+	new ETAutoCompletePopup(ETSearch.formInput, "author:", null, "memberId");
+	new ETAutoCompletePopup(ETSearch.formInput, "contributor:", null, "memberId");
 
 	// Make the controls into a popup button.
 	if ($("#searchControls").length) {

@@ -715,19 +715,16 @@ public function gambitActive(&$search, $term, $negate)
  */
 public static function gambitAuthor(&$search, $term, $negate)
 {
-	// Get the name of the member.
+	// Get the ID of the member.
 	$term = trim(str_replace("\xc2\xa0", " ", substr($term, strlen(T("gambit.author:")))));
 
-	// If the user is referring to themselves, then we already have their member ID.
-	if ($term == T("gambit.myself")) $q = (int)ET::$session->userId;
-
-	// Otherwise, make a query to find the member ID of the specified member name.
-	else {
-		$q = ET::SQL()->select("memberId")->from("member")->where("username=:username")->bind(":username", $term)->get();
-	}
+	// Allow the user to refer to themselves using the "myself" keyword.
+	if ($term == T("gambit.myself")) $term = (int) ET::$session->userId;
 
 	// Apply the condition.
-	$search->sql->where("c.startMemberId".($negate ? " NOT" : "")." IN ($q)");
+	$search->sql
+		->where("c.startMemberId ".($negate ? "!=" : "=")." :authorId")
+		->bind(":authorId", (int) $term);
 }
 
 
@@ -739,22 +736,18 @@ public static function gambitAuthor(&$search, $term, $negate)
  */
 public static function gambitContributor(&$search, $term, $negate)
 {
-	// Get the name of the member.
+	// Get the ID of the member.
 	$term = trim(str_replace("\xc2\xa0", " ", substr($term, strlen(T("gambit.contributor:")))));
 
-	// If the user is referring to themselves, then we already have their member ID.
-	if ($term == T("gambit.myself")) $q = (int)ET::$session->userId;
-
-	// Otherwise, make a query to find the member ID of the specified member name.
-	else {
-		$q = ET::SQL()->select("memberId")->from("member")->where("username=:username")->bind(":username", $term)->get();
-	}
+	// Allow the user to refer to themselves using the "myself" keyword.
+	if ($term == T("gambit.myself")) $term = (int) ET::$session->userId;
 
 	// Apply the condition.
 	$sql = ET::SQL()
 		->select("DISTINCT conversationId")
 		->from("post")
-		->where("memberId IN ($q)");
+		->where("memberId = :contributorId")
+		->bind(":contributorId", (int) $term);
 	$search->addIDFilter($sql, $negate);
 }
 
