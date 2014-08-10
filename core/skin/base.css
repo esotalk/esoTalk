@@ -82,6 +82,9 @@ span.highlight {background:#fdef34; padding:1px 4px; border-radius:3px}
 
 .hasControls .controls {opacity:0; float:right; transition:opacity 0.1s linear}
 .hasControls:hover .controls, .edit .controls, .showControls .controls {opacity:1}
+@media only screen and (max-device-width: 1024px) {
+	.hasControls .controls {opacity: 1}
+}
 
 
 /* Controls (icons with hover/click effects) */
@@ -211,6 +214,9 @@ span.highlight {background:#fdef34; padding:1px 4px; border-radius:3px}
 .list .controls {visibility:hidden}
 .list > li:hover .controls {visibility:visible}
 .popup .list > li:last-child {border-bottom:0}
+@media only screen and (max-device-width: 1024px) {
+	.list .controls {visibility:visible}
+}
 
 
 /* Tabs */
@@ -353,12 +359,18 @@ negative margins so they overlap the padding of the <li>. */
 /* Show/hide stars on hover */
 .conversationList .col-star {visibility:hidden}
 .conversationList .starred .col-star, .conversationList li:hover .col-star {visibility:visible}
+@media only screen and (max-device-width: 1024px) {
+	.conversationList .col-star {visibility:visible}
+}
 
 
 /* Unread indicators */
 .unreadIndicator {display:none; font-size:14px}
 .conversationList li.unread:hover .col-star .starButton {display:none}
 .conversationList li.unread:hover .unreadIndicator {display:block}
+@media only screen and (max-device-width: 1024px) {
+	.unreadIndicator {display:block}
+}
 
 
 /* Conversation header */
