@@ -367,7 +367,7 @@ public function action_autocomplete($input = "")
 		unset($results[$k]["email"]);
 
 		// Convert spaces in the member name to non-breaking spaces.
-		$results[$k]["name"] = str_replace(" ", "\xc2\xa0", $results[$k]["name"]);
+		$results[$k]["name"] = str_replace(" ", "\xc2\xa0", name($results[$k]["name"], false));
 	}
 
 	$this->json("results", $results);
