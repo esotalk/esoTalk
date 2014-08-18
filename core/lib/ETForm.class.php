@@ -185,7 +185,7 @@ public function open()
 	foreach ($this->hiddenInputs as $field)
 		$hidden .= "<input type='hidden' name='$field' value='".htmlentities($this->getValue($field), ENT_QUOTES, "UTF-8")."'/>\n";
 
-	return "<form action='$this->action' method='post' enctype='multipart/form-data'>\n".$hidden;
+	return "<form action='".sanitizeHTML($this->action)."' method='post' enctype='multipart/form-data'>\n".$hidden;
 }
 
 
