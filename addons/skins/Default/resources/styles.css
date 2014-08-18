@@ -78,7 +78,7 @@ p, ul, pre {line-height:1.6em}
 
 /* Header */
 #hdr {background:#fff; position:fixed; width:100%; z-index:100; border-bottom:1px solid}
-#hdr-inner {padding-right:580px; white-space:nowrap}
+#hdr-inner {padding-right:580px;}
 #hdr h1 {display:inline-block; max-width:100%; font-size:20px; padding:14px 0; margin:0; font-weight:300; overflow:hidden; white-space:nowrap; text-overflow:ellipsis}
 #hdr h1 img {display:inline; vertical-align:-5px; margin-right:5px; border:0}
 #hdr h1 span {margin-left:10px}
