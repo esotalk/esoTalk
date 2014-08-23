@@ -365,12 +365,7 @@ negative margins so they overlap the padding of the <li>. */
 
 
 /* Unread indicators */
-.unreadIndicator {display:none; font-size:14px}
-.conversationList li.unread:hover .col-star .starButton {display:none}
-.conversationList li.unread:hover .unreadIndicator {display:block}
-@media only screen and (max-device-width: 1024px) {
-	.unreadIndicator {display:block}
-}
+.unreadIndicator {font-size:12px; font-weight:bold; color:#fff; padding:0 5px; border-radius:3px; margin-right:5px}
 
 
 /* Conversation header */

@@ -22,16 +22,14 @@ foreach ($conversation["labels"] as $label) $className .= " label-$label";
 ?>
 <li id='c<?php echo $conversation["conversationId"]; ?>' class='<?php echo $className; ?>'>
 <?php if (ET::$session->user): ?>
-<div class='col-star'><?php
-echo star($conversation["conversationId"], $conversation["starred"]);
-
-// Output an "unread indicator", allowing the user to mark the conversation as read.
-if (ET::$session->user and $conversation["unread"])
-	echo " <a href='".URL("conversation/markAsRead/".$conversation["conversationId"]."?token=".ET::$session->token."&return=".urlencode(ET::$controller->selfURL))."' class='unreadIndicator' title='".T("Mark as read")."'><i class='icon-ok'></i></a> ";
-?></div>
+<div class='col-star'><?php echo star($conversation["conversationId"], $conversation["starred"]); ?></div>
 <?php endif; ?>
 <div class='col-conversation'><?php
 $conversationURL = conversationURL($conversation["conversationId"], $conversation["title"]);
+
+// Output an "unread indicator", allowing the user to mark the conversation as read.
+if (ET::$session->user and $conversation["unread"])
+	echo " <a href='".URL("conversation/markAsRead/".$conversation["conversationId"]."?token=".ET::$session->token."&return=".urlencode(ET::$controller->selfURL))."' class='unreadIndicator' title='".T("Mark as read")."'>".$conversation["unread"]."</a> ";
 
 // Output the conversation's labels.
 echo "<span class='labels'>";
