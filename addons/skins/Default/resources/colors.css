@@ -24,7 +24,8 @@ a
 #hdr .active .popupButton,
 #hdr #notifications.new,
 .button.submit,
-.popupMenu li > a:hover, ul.popupMenu li.selected > a
+.popupMenu li > a:hover, ul.popupMenu li.selected > a,
+.unreadIndicator
 {
 	background-color:{primary}
 }
