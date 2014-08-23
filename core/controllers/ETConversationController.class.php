@@ -64,7 +64,7 @@ public function action_index($conversationId = false, $year = false, $month = fa
 	if ($year) {
 
 		// Redirect to the user's oldest unread post.
-		if ($year == "unread") {
+		if ($year == "unread" and ET::$session->user) {
 
 			// Fetch the post ID of the user's oldest unread post (according to $conversation["lastRead"].)
 			$id = ET::SQL()
