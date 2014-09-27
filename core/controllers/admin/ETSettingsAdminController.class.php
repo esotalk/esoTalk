@@ -47,16 +47,24 @@ public function action_index()
 		$form->setValue("editPostMode", "custom");
 		$form->setValue("editPostTimeLimit", $c);
 	}
-	
+
 
 	// If the save button was clicked...
 	if ($form->validPostBack("save")) {
+		$forumLogo = false;
+		if ($form->getValue("forumHeader") == "image"){
+			if ($form->getValue("forumHeaderOld") != "image"){
+				$forumLogo = $this->uploadHeaderImage($form);
+			}else{
+				$forumLogo = !empty($_FILES["forumHeaderImage"]['tmp_name']) ? $this->uploadHeaderImage($form) : C("esoTalk.forumLogo");
+			}
+		}
 
 		// Construct an array of config options to write.
 		$config = array(
 			"esoTalk.forumTitle" => $form->getValue("forumTitle"),
 			"esoTalk.language" => $form->getValue("language"),
-			"esoTalk.forumLogo" => $form->getValue("forumHeader") == "image" ? $this->uploadHeaderImage($form) : false,
+			"esoTalk.forumLogo" => $forumLogo,
 			"esoTalk.defaultRoute" => $form->getValue("defaultRoute"),
 			"esoTalk.visibleToGuests" => $form->getValue("forumVisibleToGuests"),
 			"esoTalk.members.visibleToGuests" => $form->getValue("forumVisibleToGuests") and $form->getValue("memberListVisibleToGuests"),
