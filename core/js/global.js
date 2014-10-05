@@ -245,8 +245,8 @@ $(function() {
 	// iOS Safari doesn't update position:fixed elements when the keyboard is up.
 	// So, whenever we focus on an input or textarea, change the header's position to absolute,
 	// and revert it when we lose focus.
-	var iOS = (navigator.userAgent.match(/(iPad|iPhone|iPod)/g) ? true : false);
-	if (iOS) {
+	ET.iOS = /(iPad|iPhone|iPod)/g.test( navigator.userAgent );
+	if (ET.iOS) {
 		$(document).on('focus', "input, textarea", function(){
 			$("#hdr").css({position:'absolute'});
 		});

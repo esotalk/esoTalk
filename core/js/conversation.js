@@ -220,7 +220,7 @@ initReply: function() {
 	ETConversation.editingReply = false;
 
 	// Auto resize our reply textareas
-	if (!ET.mobile) textarea.TextAreaExpander(200, 700);
+	if (!ET.iOS) textarea.TextAreaExpander(200, 700);
 
 	// Disable the "post reply" button if there's not a draft. Disable the save draft button regardless.
 	if (!textarea.val()) $("#reply .postReply").disable();
@@ -700,7 +700,7 @@ updateEditPost: function(postId, html) {
 
 	// Set up the text area.
 	var len = textarea.val().length;
-	if (!ET.mobile) textarea.TextAreaExpander(200, 700).focus().selectRange(len, len);
+	if (!ET.iOS) textarea.TextAreaExpander(200, 700).focus().selectRange(len, len);
 	new ETAutoCompletePopup(textarea, "@");
 
 	// Add click handlers to the cancel/submit buttons.
