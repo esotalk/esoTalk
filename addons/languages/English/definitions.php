@@ -104,6 +104,7 @@ $definitions["Channel List"] = "Channel List";
 $definitions["Channel title"] = "Channel title";
 $definitions["Channel slug"] = "Channel slug";
 $definitions["Channels"] = "Channels";
+$definitions["Choose a Channel"] = "Choose a Channe";
 $definitions["Choose a secure password of at least %s characters"] = "Choose a secure password of at least %s characters";
 $definitions["Choose what people will see when they first visit your forum."] = "Choose what people will see when they first visit your forum.";
 $definitions["Click on a member's name to remove them."] = "Click on a member's name to remove them.";
@@ -205,6 +206,7 @@ $definitions["Home page"] = "Home page";
 $definitions["HTML is allowed."] = "HTML is allowed.";
 
 $definitions["If you run into any other problems or just want some help with the installation, feel free to ask for assistance at the <a href='%s'>esoTalk support forum</a>."] = "If you run into any other problems or just want some help with the installation, feel free to ask for assistance at the <a href='%s'>esoTalk support forum</a>.";
+$definitions["Ignore conversation"] = "Ignore conversation";
 $definitions["Install esoTalk"] = "Install esoTalk";
 $definitions["Install My Forum"] = "Install My Forum";
 $definitions["Installed Languages"] = "Installed Languages";
@@ -303,6 +305,7 @@ $definitions["Posts"] = "Posts";
 $definitions["Powered by"] = "Powered by";
 $definitions["Preview"] = "Preview";
 $definitions["Previous"] = "Previous";
+$definitions["Primary color"] = "Primary color";
 
 $definitions["Quote"] = "Quote";
 $definitions["quote"] = "quote";
