@@ -20,7 +20,7 @@ $(function() {
 
 <div class='area' id='adminSettings'>
 
-<?php echo $form->open(); ?>
+<?php echo $form->open(); echo $form->input("forumHeaderOld", "hidden", array("value" => $form->values['forumHeader'])); ?>
 
 <ul class='form'>
 
