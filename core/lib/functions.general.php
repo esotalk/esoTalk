@@ -222,6 +222,7 @@ function sendEmail($to, $subject, $body)
 	$mail->AddAddress($to);
 	$mail->SetFrom(C("esoTalk.emailFrom"), sanitizeForHTTP(C("esoTalk.forumTitle")));
 	$mail->Subject = sanitizeForHTTP($subject);
+	$mail->AltBody = strip_tags($body);
 	$mail->Body = $body;
 	$mail->Encoding = 'quoted-printable';
 
