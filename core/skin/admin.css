@@ -1,0 +1,106 @@
+/* Admin Styles */
+#adminMenu {width:160px; float:left; padding:1px 20px 1px 1px; border-bottom:0}
+#adminMenu li {margin:0 0 5px; float:none; padding:1px}
+#adminMenu li.separator {border-bottom:1px solid #ddd; margin:15px 0}
+#adminContent {margin-left:200px; margin-top:15px; padding-top:1px}
+
+
+/* Dashboard view */
+#adminDashboard {margin-left:357px}
+#adminNews li small {margin-left:10px}
+#adminNews li h4 {display:inline}
+#adminNews li p {margin-top:5px}
+
+
+/* Statistics */
+#adminStatistics {float:left; width:310px}
+#adminStatistics label {width:220px}
+#adminStatistics div {font-size:14px}
+
+
+/* Update notification area */
+#adminUpdateNotification p, #adminUpdateNotification h3 {margin-bottom:0.3em}
+#adminUpdateNotification .button {margin-top:3px}
+
+
+/* Forum Settings */
+#adminSettings .form li {padding-left:180px}
+#adminSettings .form li > label {margin-left:-180px; width:170px}
+
+
+/* Manage channels */
+#adminChannels .channelList ol {margin:0; list-style-type:none}
+#adminChannels .channelList .controls {float:right;}
+#adminChannels .channelList li:hover .controls {visibility:hidden}
+#adminChannels .channelList div:hover .controls {visibility:visible}
+#adminChannels .channelList li  {padding:0}
+
+#adminChannels .list li {border:solid #e1e1e1; border-width:1px 0 0; padding:6px 0; margin:-1px 0}
+
+#adminChannels .channelList li > div {padding:6px 0; cursor:move}
+#adminChannels .channelList > li > div {padding:10px 0;}
+#adminChannels .channelList > li > div .channel {font-weight:bold}
+#adminChannels .channelList > li:hover {background-color:#fff}
+#adminChannels .channelList li.placeholder {background:#eee; border-top:1px solid #ccc}
+
+
+/* Edit channel sheet */
+#editChannelSheet textarea[name=description] {width:350px; height:50px}
+#permissions-copy {margin-top:10px}
+
+
+/* Manage groups */
+#adminGroups ul {margin-bottom:15px}
+
+
+/* Unapproved members */
+#adminUnapproved .list .controls {margin:-3px 0; float:right; font-size:100%}
+#adminUnapproved .list small {margin-left:10px}
+
+
+/* Plugins */
+#pluginList {list-style:none; margin:20px 0 0 0; padding:0}
+#pluginList > li {margin-bottom:10px; padding:10px 12px}
+#pluginList > li.disabled {background:#f1f1f1; color:#aaa; border:0; padding:11px 13px}
+#pluginList > li > small {margin-left:7px}
+#pluginList img {opacity:0.5; vertical-align:-3px; margin-right:10px}
+#pluginList > li.enabled img {opacity:1}
+
+#pluginList > li .pluginControls {margin:-3px -5px 0; float:right; font-size:100%}
+#pluginList > li .pluginControls > a {display:inline-block}
+#pluginList .toggle {width:15px; text-align:center}
+
+#pluginList > li .popupWrapper {visibility:hidden}
+#pluginList > li .popupButton .text {display:none}
+#pluginList > li:hover .popupWrapper, #pluginList .popupWrapper.active {visibility:visible}
+
+
+/* Skins */
+#skinList {list-style:none; margin:0; padding:0 0 5px; overflow:auto; white-space:nowrap}
+#skinList > li {margin:0 15px 0 0; padding:10px; display:inline-block; vertical-align:top; position:relative}
+#skinList > li.disabled {background:#f1f1f1; color:#aaa; border:0; padding:11px}
+#skinList > li .version {margin-left:5px}
+#skinList img {opacity:0.5}
+#skinList > li.enabled img {opacity:1}
+
+#skinList > li .skinControls {float:right; font-size:100%}
+#skinList > li .skinControls .button {margin:-4px 0}
+#skinList .icon-mobile-phone {font-size:21px; margin-right:10px}
+
+#skinList > li .popupWrapper {position:absolute; top:5px; right:5px; display:none}
+#skinList > li:hover .popupWrapper, #skinList .popupWrapper.active {display:block; opacity:1}
+
+#skinList .preview {color:#bbb; display:block; font-size:140%; width:250px; height:160px; margin-bottom:10px; overflow:hidden; text-align:center; border-radius:2px}
+#skinList .preview span {display:block; margin:65px 0 0; font-size:13px}
+#skinList .preview img {width:250px; height:160px}
+
+
+/* Languages */
+#languageList {list-style:none; margin:20px 0 0 0; padding:0}
+#languageList > li {margin-bottom:10px; padding:10px 12px}
+#languageList > li img {vertical-align:-1px; margin-right:10px}
+
+#languageList > li .popupWrapper {float:right; display:none; margin:-3px -5px 0}
+#languageList > li:hover .popupWrapper, #languageList .popupWrapper.active {display:inline-block}
+
+#languageList > li > small {margin-left:7px}

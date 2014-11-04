@@ -1,0 +1,646 @@
+/*
+esoTalk Base Styles
+This stylesheet contains all of the styles that lay out the esoTalk interfaces and make them work. This
+allows skin stylesheets to focus mainly on styling the page wrapper (header, footer) and elements like links
+and buttons. Then they can style anything else if need be. Easy!
+
+z-index order reference:
+0 default
+200 sheets
+300 popups
+400 tooltips
+500 loading indicator, go to top, back buttons
+600 messages
+*/
+
+
+/* Clearfix! */
+.clearfix {display:inline-block; display:block}
+.clearfix:after {content:" "; display:block; height:0; clear:both; overflow:hidden; visibility:hidden}
+
+
+/* Links */
+a {text-decoration:none}
+a:hover {text-decoration:underline}
+
+
+/* Reset the margins of some common elements */
+p, ul, ol, pre, h1, h2, h3, h4, h5, h6 {margin:0 0 1em 0}
+fieldset, img {border:0; padding:0; margin:0}
+.bodyHeader h1 {margin:0; display:inline}
+
+
+/* Generic text styles */
+small, .subText {color:#888}
+.disabled {color:#888; cursor:default}
+.disabled:hover {text-decoration:none}
+span.highlight {background:#fdef34; padding:1px 4px; border-radius:3px}
+.hasControls .controls {color:#888}
+.help {color:#888; line-height:1.5em}
+
+
+/* "Actions" - a string of text containing information about something that has happened. For example,
+<span class='action'><span class='name'>Toby</span> posted in <a href=''>a conversation</a>.</span> */
+.action {color:#888}
+.action .avatar {margin-right:3px}
+.action .name, .action a, .action strong {color:#444; font-weight:bold}
+
+
+/* Body */
+.bodyHeader {padding:15px 0 12px; margin-bottom:10px}
+
+
+/* Notifications button */
+#hdr .popupWrapper {margin:-5px 0; display:inline-block}
+#hdr .popupButton:hover {text-decoration:none}
+#hdr #notifications {color:rgba(255, 255, 255, 0.3)}
+#hdr #notifications.new, #hdr .active .popupButton {background-color:#fff; border-bottom-color:transparent}
+#hdr #notifications.new, #hdr .active .popupButton, #hdr .active .popupButton i {color:#444 !important}
+#hdr .item-notifications {margin-right:-10px}
+
+
+/* Loading indicators */
+#loading {padding:5px 12px; position:fixed; top:0; left:50%; margin-left:-35px; text-align:center; width:70px; border-radius:0 0 3px 3px; background:#fff5a0; color:#a06a00; z-index:500}
+.loadingOverlay {background:#fff url(loading.gif) no-repeat center 10px; z-index:250}
+.loading {background:url(loading.gif) center 10px no-repeat; height:40px}
+
+
+/* Generic areas */
+.area, .sheet {border-radius:3px; margin-bottom:30px; margin-top:0}
+.area h3 {font-size:110%}
+
+
+/* "Things" - distinguishable items such as posts, activity items, plugins, and skins. */
+.thing {border:1px solid #ddd; border-radius:3px; background:#fff; padding:1px; position:relative}
+.thing:before {border-color:#ddd}
+.thing:after {border-color:#fff}
+
+
+/* Controls */
+.controls {list-style-type:none; padding:0; font-size:85%; white-space:nowrap}
+.controls > li {display:inline; margin-right:10px}
+
+.hasControls .controls {opacity:0; float:right; transition:opacity 0.1s linear}
+.hasControls:hover .controls, .edit .controls, .showControls .controls {opacity:1}
+@media only screen and (max-device-width: 1024px) {
+	.hasControls .controls {opacity: 1}
+}
+
+
+/* Controls (icons with hover/click effects) */
+[class*=control-] {opacity:0.4; transition:opacity 0.05s linear; width:12px; height:12px; padding:6px; margin:-6px -1px; font-size:14px; text-decoration:none !important; color:#444 !important}
+[class*=control-]:hover {opacity:0.7}
+[class*=control-]:active {opacity:1}
+
+
+/* Stars */
+.starButton {}
+.starButton:hover {text-decoration:none}
+.star {color:#fc0 !important; font-size:14px}
+.star.icon-star-empty {color:#ccc !important}
+.starButton:hover .star {color:#fc0 !important; text-decoration:none}
+.starButton:active .star {color:#da0 !important; text-decoration:none}
+.gambit-starred {color:#efcb00 !important}
+
+
+/* Conversation labels */
+.label {font-size:70%; font-weight:bold; white-space:nowrap; text-transform:uppercase}
+.label-locked, .gambit-locked {color:#555 !important}
+.label-muted, .gambit-muted {color:#aaa !important}
+.label-private, .gambit-private {color:#a43fe7 !important}
+.label-sticky, .gambit-sticky {color:#f90 !important}
+.label-draft, .gambit-draft {color:#0b2 !important}
+.labels .label {margin-right:3px}
+.label i {font-size:14px}
+
+
+/* Member online icon */
+.online {width:9px; height:9px; font-size:9px !important; color:#81cb37 !important}
+
+
+/* Avatars */
+.avatar {width:64px; height:64px; border-radius:3px; background:#eee; text-align:center; font-size:30px; line-height:64px; color:#bbb; display:inline-block}
+.avatar.thumb {width:20px; height:20px; font-size:12px; line-height:20px; vertical-align:middle}
+
+
+/* Messages */
+#messages {position:fixed; bottom:20px; left:20px; z-index:600}
+.message {max-width:700px; background:#eee; padding:10px 13px; line-height:1.5em; display:inline-block; margin-top:10px; border-radius:3px}
+.message .control-delete {float:right; margin-left:6px; margin-right:-6px; margin-top:-6px}
+.message a {color:#000}
+.message.hasIcon img {float:left; margin:-2px 8px -2px -3px}
+.message code {background:none}
+
+.message.warning {background-color:#fde; border:1px solid #ebb; color:#c00}
+.message.success {background-color:#cfd; border:1px solid #aeb; color:#050}
+
+
+/* Class that can be applied to an <a> in a message to make the full message clickable. */
+.messageLink {display:block; float:left; padding:8px 13px; margin:-7px 0 -7px -12px}
+.messageLink:hover {text-decoration:none; background:rgba(0, 0, 0, 0.1)}
+
+
+/* Popups */
+.popup {text-shadow:none; background:#fff; color:#000; border:1px solid #666; border-bottom-width:2px; border-radius:2px; z-index:300}
+.popup h3 {margin:0; padding:10px}
+.withArrow.popup:before {border-color:#666}
+.withArrow.popup:after {border-color:#fff}
+.popupWrapper .popup {min-width:99%}
+
+.popup.right {border-radius:2px 0 2px 2px}
+.popup.left {border-radius:0 2px 2px 2px}
+
+
+/* Popup menus */
+.popupMenu {list-style-type:none; padding:6px 0; margin:0}
+.popupMenu li > a, .popupMenu li > span {display:block; padding:3px 25px 3px 35px; overflow:hidden; white-space:nowrap}
+.popupMenu li > a {color:#444}
+.popupMenu li > span {color:#888 !important}
+.popupMenu li > a:hover, ul.popupMenu li.selected > a {text-decoration:none; background:#364159; color:#fff !important}
+.popupMenu li > a:hover *, ul.popupMenu li.selected > a * {color:#fff}
+.popupMenu li.sep {border-top:1px solid #ccc; margin:5px}
+.popupMenu li > a i, .popupMenu li > span i {margin-left:-23px; float:left; width:15px; text-align:right; line-height:20px; font-size:14px}
+
+
+/* Popup buttons */
+.popupButton {border:solid transparent; border-width:1px 1px 0}
+.popupWrapper.active .popupButton {border:1px solid #666; border-bottom-color:#fff !important; position:relative; z-index:301; border-radius:2px 2px 0 0 !important; background:#fff !important}
+.popupWrapper {display:inline-block}
+
+
+/* Tooltips */
+.tooltip {color:#fff; background:#111; background:rgba(0, 0, 0, 0.9); padding:6px 10px 4px; display:block; border-radius:3px; font-size:85%; max-width:400px; line-height:1.5em; cursor:default; z-index:400; font-weight:normal}
+.withArrow.tooltip:before {display:none}
+.withArrow.tooltip:after {border-color:rgba(0, 0, 0, 0.9)}
+
+
+/* Items with little arrows sticking out of them. */
+.withArrow {overflow:visible !important}
+.withArrow:before, .withArrow:after {content:" "; border:6px solid transparent; height:0; width:0; position:absolute}
+
+.withArrowTop {margin-top:4px}
+.withArrowTop:before, .withArrowTop:after {border-top:0; border-left-color:transparent !important; border-right-color:transparent !important; left:8px; top:-6px}
+.withArrowTop:after {top:-5px}
+
+.withArrowTopRight:before, .withArrowTopRight:after {left:auto; right:8px}
+
+.withArrowBottom {margin:-4px 0 0 0}
+.withArrowBottom:before, .withArrowBottom:after {border-bottom:0; border-left-color:transparent !important; border-right-color:transparent !important; left:8px; bottom:-6px}
+.withArrowBottom:after {bottom:-5px}
+
+
+/* Sheets */
+.sheet {margin:30px auto; width:600px; padding:1px; border:1px solid #d5d5d5}
+.sheet.active {background:#fff; border-radius:3px; box-shadow:0 5px 20px rgba(0, 0, 0, 0.2); top:80px; margin:0; z-index:200}
+.sheetOverlay {background:rgba(255, 255, 255, 0.9); z-index:150; position:fixed; top:0; left:0; bottom:0; right:0}
+
+.sheet h3 {font-weight:normal; font-size:120%; margin-bottom:-1px !important; position:relative}
+.sheet .close {float:right; margin:5px 12px 0 0; position:relative; z-index:1}
+.sheet .section, .sheet h3, .sheet .buttons {padding:10px 15px; margin:0}
+.sheet .section {padding:15px}
+.sheet .buttons {overflow:hidden; margin-top:-1px; position:relative}
+.sheet .buttons .button {margin-left:10px; float:right}
+.sheet .buttons small {float:left; font-size:100%; margin:5px 0}
+.sheet .sheetBody {max-height:500px; overflow:auto}
+
+.scrollShadowTop {box-shadow:0 3px 3px rgba(0, 0, 0, 0.05)}
+.scrollShadowBottom {box-shadow:0 -3px 3px rgba(0, 0, 0, 0.05)}
+
+
+/* Generic lists */
+.list {margin:0; border-bottom:1px solid #e1e1e1; line-height:1.5em; padding:0; list-style-type:none}
+.list > li {border:solid #e1e1e1; border-width:1px 0; padding:12px 0; margin:-1px 0}
+.list > li:hover {background-color:#f6f6f6}
+.list .controls {visibility:hidden}
+.list > li:hover .controls {visibility:visible}
+.popup .list > li:last-child {border-bottom:0}
+@media only screen and (max-device-width: 1024px) {
+	.list .controls {visibility:visible}
+}
+
+
+/* Tabs */
+.tabs {margin:0; padding:1px; line-height:1em; overflow:hidden}
+.tabs li {float:left; list-style-type:none; margin:4px 7px 4px 0}
+.tabs li > a, .tabs li > span {padding:5px 7px; white-space:nowrap; font-size:85%; display:block}
+.tabs li > a {color:#666; cursor:pointer; border-radius:3px}
+.tabs li > span {color:#888}
+.tabs li a:hover {border:1px solid #eee; margin:-1px; text-decoration:none}
+.tabs li.selected a {background-color:#fff; border:1px solid #d5d5d5; margin:-1px; color:#666}
+.tabs li > a i, .tabs li > span i {margin-right:5px; font-size:14px; width:14px; display:inline-block}
+
+.tabs.big {font-size:120%; border-bottom:1px solid #ddd; padding-bottom:5px}
+.tabs.big li a {padding:10px 13px}
+
+
+/* The channel breadcrumb tab */
+.tabs .pathItem {margin-right:20px}
+.tabs .pathItem a {position:relative; float:left; padding-left:20px; margin-left:1px !important}
+.tabs .pathItem.selected a {border-radius:0}
+.tabs .pathItem a:first-child {padding-left:7px; border-radius:3px 0 0 3px}
+.tabs .pathItem.selected a:before, .tabs .pathItem.selected a:after {z-index:1; content:" "; border:13px solid transparent; height:0; width:0; right:-27px; top:-1px; position:absolute; border-left-color:#d5d5d5}
+.tabs .pathItem.selected a:after {float:left; border-left-color:#fff; right:-24px; border-width:12px; top:0}
+.tabs .pathEnd.selected a:last-child {border-radius:0 3px 3px 0}
+.tabs .pathEnd.selected a:only-child {border-radius:3px}
+.tabs .pathEnd.selected a:last-child:before, .tabs .pathEnd.selected a:last-child:after {display:none}
+
+/* Channels */
+.channel {background:#fff; text-decoration:none; color:#666; text-shadow:none; border-radius:3px; font-size:85%; border:1px solid #ddd; white-space:nowrap; padding:2px 5px}
+a.channel:hover {text-decoration:none; border-color:#aaa}
+
+
+/* Badges */
+.badge {background:#666; color:#fff; border-radius:10px; font-size:10px; padding:0 4px}
+.tabs li .badge {float:right}
+.tabs li.selected .badge {background:#000}
+
+
+/* Search boxes */
+.search {float:right}
+.search .icon-search {float:left; width:18px; padding-left:7px; margin:7px 0 0; position:relative; color:#ddd; pointer-events:none}
+.search input.text {width:250px; padding-right:25px; padding-left:25px; margin-left:-25px; float:left; font-size:100%}
+.search .control-reset {float:left; margin-top:-1px; margin-left:-27px; margin-right:0}
+.search .popupButton {margin-left:10px; vertical-align:2px}
+
+
+/* Notifications popup + list */
+#notificationsPopup {width:450px; font-size:100%}
+#notificationsPopup ul {padding:0}
+#notificationsPopup .help {padding:10px}
+.notificationsList li {padding:0 !important; line-height:1.75em;}
+.notificationsList li > a {display:block; padding:7px 10px 7px 60px !important; white-space:normal}
+.notificationsList li > a:hover {text-decoration:none}
+.notificationsList li a .avatar {float:left; margin-left:-50px; width:40px; height:40px; line-height:40px; font-size:30px}
+.notificationsList li .star {vertical-align:-2px}
+.notificationsList li.unread {background-color:#ebf5fa}
+#memberContent .notificationsList li {padding:0}
+#memberContent .notificationsList li a:hover {text-decoration:none}
+
+
+/* Channel list icon */
+.channel-list i {font-size:14px;  margin:0 !important}
+
+#conversationsFilter .channels {padding-left:130px}
+#conversationsFilter .channelListItem {margin-left:-129px}
+#conversationsFilter .pathItem {margin-left:-95px}
+
+
+/* Channel list */
+#channelList {margin-top:-11px}
+.channelList {background:#f5f5f5}
+.channelList > li {padding:10px; background:#fff}
+.channelList .channel {padding:3px 6px; font-size:85%; font-weight:bold;}
+.channelList .description {font-size:85%; margin-top:10px; color:#888; margin-bottom:0}
+.channelList .stats {font-size:85%; margin-left:10px; color:#888}
+.channelList .channelControls {float:right; margin:-3px 0}
+.channelList .unsubscribed {background:#f5f5f5}
+.channelList .unsubscribed .channel {opacity:0.75}
+.channelList .unsubscribed .description {color:#bbb}
+.channelList .button .text {display:none}
+.channelList .button {margin-left:5px}
+
+.channelList .depth0 {padding:15px 10px}
+.channelList .depth0 .channel, .channelList .depth0 .description {font-size:100%}
+
+.depth1 {margin-left:25px !important}
+.depth2 {margin-left:50px !important}
+.depth3 {margin-left:75px !important}
+.depth4 {margin-left:100px !important}
+.depth5 {margin-left:125px !important}
+.depth6 {margin-left:150px !important}
+
+
+/* Change channel sheet */
+#changeChannelSheet {width:700px}
+#changeChannelSheet .section {padding:0}
+.changeChannelList {margin:-1px 0}
+.changeChannelList li {padding:5px 10px !important}
+.changeChannelList label {display:block; padding:10px}
+.changeChannelList .disabled {opacity:0.5}
+.changeChannelList .description {display:block}
+
+
+/* Conversations list view */
+#conversationsFilter {padding-bottom:25px}
+#conversationsFilter .search {margin-top:3px}
+
+
+/* Gambits */
+#gambits {display:none}
+#gambits.popup {width:300px; max-height:280px; overflow:auto !important; margin:0}
+
+
+/* Conversation list */
+#conversations {margin-top:-11px}
+.conversationList li {overflow:hidden; padding-right:27em; padding-left:13em}
+.conversationList .title {font-weight:normal}
+.conversationList .title a {color:#000}
+.conversationList .unread .title a {font-weight:bold; color:#000}
+.conversationList .excerpt {color:#888; font-size:85%}
+.conversationList .justVisited {border-color:#aaa; border-style:dotted; position:relative}
+.conversationList .controls {margin-left:10px}
+.conversationList .controls a {margin-right:5px}
+.conversationList .action * {font-weight:normal !important}
+.conversationList .viewMore {padding:0}
+.conversationList .viewMore a {text-align:center; display:block; padding:8px}
+
+
+/* Conversation list column layout. The conversation column is almost 100% width, then the others have
+negative margins so they overlap the padding of the <li>. */
+.conversationList .col-conversation {width:95%; display:inline-block}
+.conversationList .col-star {float:left; width:1em; margin-left:-13em; padding-left:0.7em}
+.conversationList .col-channel {float:left; width:10em; margin-left:-11em; text-align:right}
+.conversationList .col-lastPost {float:right; width:23em; margin-right:-27em; font-size:85%; overflow:hidden; white-space:nowrap}
+.conversationList .col-replies {float:right; margin-right:-31em; width:4em; text-align:center; margin-bottom:-2px}
+.conversationList .col-replies span {font-size:20px; font-weight:300}
+.list .col-replies {color:#888; font-size:85%}
+.list .col-replies span i {font-size:14px; color:#ddd; margin-right:5px}
+
+/* Show/hide stars on hover */
+.conversationList .col-star {visibility:hidden}
+.conversationList .starred .col-star, .conversationList li:hover .col-star {visibility:visible}
+@media only screen and (max-device-width: 1024px) {
+	.conversationList .col-star {visibility:visible}
+}
+
+
+/* Unread indicators */
+.unreadIndicator {font-size:12px; font-weight:bold; color:#fff; padding:0 5px; border-radius:3px; margin-right:5px}
+
+
+/* Conversation header */
+#conversationHeader {margin-bottom:0}
+#conversationHeader .star {vertical-align:-2px; margin-left:10px}
+#conversationHeader .channels {margin-left:15px; display:inline-block; margin-bottom:-13px}
+#conversationHeader > #control-changeChannel {font-size:85%}
+
+#conversationTitle {margin:0; line-height:1.4em}
+#conversationTitle input.text {font-weight:300}
+#conversationTitle a {cursor:text; padding:1px; color:#000; text-decoration:none}
+#conversationTitle a.editing, #conversationTitle a.editing:hover {padding:0; border:0}
+#conversationTitle a:hover {border:1px dotted #ccc; padding:0px}
+
+
+/* Conversation controls */
+#conversationControls.controls {margin:10px 0; float:right}
+#conversationHeader .popupWrapper {float:right; margin:0 0 0 10px}
+
+
+/* Conversation privacy */
+#conversationPrivacy {margin:10px 0 40px; clear:both}
+#control-changeMembersAllowed {font-size:85%; margin-left:5px}
+
+
+/* Members allowed list */
+.allowedList {line-height:1em; font-size:100%; overflow:hidden}
+.allowedList .avatar {margin-right:0}
+.allowedList .avatars {margin:0 5px 5px 0}
+.allowedList .name img {margin-right:5px}
+.allowedList.editing .name, .allowedList.popup .name {display:block; margin-bottom:5px}
+.allowedList.editing .name {float:left; width:33%; overflow:hidden; white-space:nowrap}
+a.deleteLink:hover {color:#f00 !important; text-decoration:line-through}
+#addMemberForm .help {margin-left:10px}
+#addMemberForm .button {margin-left:5px}
+.allowedList.popup {padding:10px 40px 5px 10px}
+
+
+/* Conversation body */
+#conversationBody {margin-top:20px; clear:both}
+#conversationReply {margin:60px 0 30px; clear:left}
+
+
+/* Scrubber */
+.hasScrubber {margin-right:190px}
+.scrubberColumn {width:150px; float:right; margin-right:-190px; margin-top:15px;}
+.scrubberContent {width:150px; position:fixed; z-index:2}
+
+.scrubberContent .button {text-align:center; margin-bottom:10px; display:block}
+.scrubberContent .popupWrapper {display:block; margin-bottom:10px}
+.scrubberContent .popupWrapper .button {margin-bottom:0}
+.scrubberContent .search {float:none; margin-bottom:10px}
+.scrubberContent .search input {width:100%; box-sizing:border-box}
+
+.scrubber {margin:30px 0; padding:0; list-style-type:none}
+.scrubber > li {border-left:5px solid #eee; margin-bottom:2px}
+.scrubber > li:hover {border-left-color:#ddd}
+.scrubber > li a {color:#888}
+.scrubber > li > a {display:block; padding:5px 10px}
+.scrubber > li.selected {border-left-color:#ccc}
+.scrubber li.selected > a {font-weight:bold; color:#000}
+.scrubber > li i {color:#ddd; margin-left:-4px; margin-right:3px}
+.scrubber > li:hover i {color:#bbb}
+
+.scrubber li ul {display:none}
+.scrubber li.selected ul {display:block}
+.scrubber li ul {list-style-type:none; padding:0 0 0 15px; margin:0; font-size:85%}
+.scrubber li ul li.selected a {color:#000}
+
+.scrubber .scrubber-nav {border-left:0}
+.scrubber .scrubber-nav a {padding-left:0}
+
+
+/* Scrubber "load more items" areas */
+.scrubberMore {text-align:center; background:#f7f7f7; border:dotted #fff; border-width:2px 0; height:56px; line-height:56px; margin:35px 0}
+.scrubberMore a {display:block; color:#bbb; font-size:18px;}
+.scrubberMore.loading a {background:url(loading.gif) no-repeat center center; text-indent:-9999px}
+.list .scrubberMore {border:0; padding:0}
+.list .scrubberMore:hover {background-color:transparent}
+
+
+/* Posts */
+.postList, .activityList {list-style-type:none; margin:0; padding:0; position:relative}
+
+.timeMarker {padding:7px 13px; text-transform:uppercase; font-size:85%; letter-spacing:1px; background:#f7f7f7; color:#aaa; display:inline-block; clear:both; border-radius:3px; margin-bottom:15px}
+
+.post {margin-bottom:20px; padding-left:79px; padding-bottom:2px; position:relative}
+.post div.avatar {float:left; margin-left:-79px}
+.postContent:before, .postContent:after {content:" "; border-top-color:transparent !important; border-bottom-color:transparent !important; border-left-color:transparent !important; border-style:solid; border-width:8px; height:0; width:0; left:-16px; top:12px; position:absolute}
+.postContent:after {float:left; left:-15px}
+
+.highlight .postContent {box-shadow:0 0 0 4px #fe9}
+
+.postHeader {margin-bottom:2px; padding:10px 10px 10px 15px; overflow:hidden; color:#888}
+.postHeader h3 {display:inline; font-size:110%; margin:0}
+.postHeader h3, .postHeader h3 a {color:#000}
+.postHeader .info {display:inline}
+.postHeader .info > span, .postHeader .info > a {font-size:85%; margin-left:7px; color:#888}
+.postHeader .controls {float:right; margin-top:3px}
+
+.postBody {line-height:1.5em; overflow:auto; padding:0px 15px}
+.postBody img {vertical-align:bottom; max-width:100%}
+.postBody ul {list-style-type:disc}
+
+.deleted .postHeader {margin:0; padding:6px 5px 6px 12px}
+.deleted .postHeader * {color:#888}
+.deleted .controls {margin-top:1px}
+.deleted .thing {background:#f2f2f2; border:0}
+.deleted .thing:before, .deleted .thing:after {display:none}
+
+
+/* Post content (code, quotes, headers) */
+.postBody h4 {margin:1.2em 0 0.8em; font-size:130%; font-weight:normal}
+
+blockquote {background:#f2f2f2; background:rgba(0, 0, 0, 0.05); margin:0 -15px 1em; padding:5px 7px 1px 36px; color:#555; position:relative}
+blockquote cite {display:inline; font-style:normal; font-weight:bold; margin-right:5px}
+blockquote cite a {color:#555}
+blockquote p {margin-bottom:0.5em}
+blockquote .postRef {float:left; margin:-3px 0 0 -30px; visibility:hidden}
+blockquote:hover .postRef {visibility:visible}
+blockquote:hover:before {display:none}
+blockquote.collapsed {max-height:100px; overflow:hidden; position:relative}
+blockquote.collapsed:after {content:" "; position:absolute; left:0; right:0; bottom:0; height:4px; background:rgba(0, 0, 0, 0.1)}
+blockquote a.expand {position:absolute; bottom:0; left:50%; margin-left:-13px; background:#ddd; padding:4px 10px; color:#888; border-radius:3px 3px 0 0; width:16px; text-align:center; font-size:14px; text-decoration:none; line-height:1em; z-index:2}
+blockquote a.expand:active {background:#ccc}
+
+pre, code, .fixed {font-family:monospace; font-size:80%; overflow-x:auto; white-space:pre-wrap; white-space:-moz-pre-wrap !important; white-space:-pre-wrap; white-space:-o-pre-wrap; word-wrap:break-word}
+pre {border:1px dashed #ccc; padding:7px}
+code {background:#eee}
+
+.link-external .icon-external-link {font-size:14px}
+
+
+/* Edit post */
+.post.edit .postBody {padding:0}
+.post.edit .controls {margin-top:0}
+.post .postBody textarea {height:25em; width:100%; border-style:dashed; border-width:1px 0; border-radius:0; resize:none; padding:12px; line-height:1.5em; outline:0; box-sizing:border-box; display:block}
+.post .postBody .preview {padding:0 12px}
+.post .editButtons {padding:7px; text-align:right; overflow:hidden; clear:both}
+.post .editButtons > .button {float:right; margin-left:7px}
+.post .editButtons .draftButtons {float:left}
+.post .previewCheckbox {margin:0 5px; white-space:nowrap}
+
+
+/* "Log in to reply" and "Write a reply" boxes */
+.logInToReply .postContent {height:62px}
+.logInToReply .postHeader {display:none}
+.logInToReply .postBody {padding-top:8px; color:#888}
+.replyPlaceholder .postContent {height:62px; cursor:text}
+.replyPlaceholder .postBody, .replyPlaceholder .postHeader .controls, .replyPlaceholder .postFooter {display:none}
+.replyPlaceholder .postHeader h3 {color:#888; font-style:italic; font-weight:normal; font-size:100%}
+
+
+/* Member List */
+#memberListFilter {overflow:hidden; margin-bottom:0}
+#memberListBody {margin-top:30px; min-height:550px}
+#memberListFilter h1 {float:left; margin-top:4px}
+#memberListFilter #memberListOrderBy {float:left; margin-left:20px}
+
+.letterScrubber > li > a {padding:0 8px; line-height:18px;}
+
+.memberList {border-bottom:0}
+.memberList strong a {color:#000}
+.memberList li div {display:inline-block}
+.memberList .col-member {width:55%}
+.memberList .col-member .group {font-size:85%}
+.memberList .col-lastActive {width:25%; font-size:85%}
+.memberList .col-replies {width:10%; padding:0}
+.memberList .avatar {margin-right:5px}
+.memberList .group, .memberList .controls, .memberList .online {margin-left:5px}
+
+
+/* Member profile */
+#memberProfile .avatar {float:left; margin-right:15px}
+#memberProfile .online {margin-left:5px; vertical-align:0}
+#memberInfo {float:left}
+#memberInfo h1 {margin:0 0 5px 0}
+#memberInfo p {margin:5px 0 0 0}
+#memberProfile .popupWrapper {float:right; margin:0 0 10px}
+#memberActions {clear:right; float:right; text-align:right; list-style-type:none; margin:0; padding:0}
+#memberActions li {margin-bottom:7px}
+#memberControls.controls {margin:10px 0 0}
+#memberPanes {margin:20px 0}
+
+
+/* Member activity */
+.activity {margin-bottom:30px}
+.activity .action {margin-bottom:5px}
+.activityBody {padding:10px 15px 1px; overflow:auto; max-height:100px; margin-left:26px}
+.activityBody p {margin-bottom:9px}
+
+
+/* Member statistics */
+#memberStatistics label {width:200px}
+#memberStatistics div {font-size:14px}
+
+
+/* Permissions tables */
+.permissionsGrid {border-spacing:0; border:1px solid #ddd; border-radius:3px; border-bottom:0}
+.permissionsGrid th, .permissionsGrid td {border-bottom:1px solid #ddd; padding:7px 10px}
+.permissionsGrid th {text-align:left}
+.permissionsGrid td.yes {color:green}
+.permissionsGrid td.no {color:red}
+.permissionsGrid tbody td, .permissionsGrid thead th {width:3em; text-align:center}
+.permissionsGrid .group th {font-weight:normal; padding-left:30px}
+.sheet .permissionsGrid {width:100%}
+
+
+/* User settings */
+#settings-general .label, #settings-general .star {margin-right:5px}
+.avatarChooser {padding-left:74px}
+.avatarChooser .avatar {float:left; margin-left:-74px}
+.avatarChooser small {display:block}
+
+
+/* Login */
+#loginSheet {width:470px}
+#loginSheet .link-forgot {margin-left:5px}
+
+
+/* Sign up */
+#joinSheet {width:500px}
+
+
+/* Forgot password */
+#forgotPasswordSheet {width:450px}
+
+
+/* Members online */
+#onlineSheet {width:500px}
+#onlineSheet #onlineList {padding:0}
+#onlineList ul {margin-top:-1px}
+#onlineList li {padding:7px 10px}
+#onlineList strong a {color:#000}
+
+
+/* Form elements */
+form {margin:0}
+
+input[type=checkbox], input[type=radio] {padding:0; margin:4px 2px 0 0; cursor:pointer; font-size:11px}
+.radio, .checkbox {padding-left:23px; display:block}
+.radio, .radio label, .checkbox, .checkbox label {cursor:pointer}
+.radio input[type=radio], .checkbox input[type=checkbox] {float:left; margin-left:-20px}
+.radio.inline, .checkbox.inline {margin-right:10px; display:inline-block; vertical-align:middle}
+
+input.error, input.error:focus {border-color:#f59e79 !important}
+.form div.error {color:#db3000; font-size:85%}
+.indent {margin-left:20px}
+
+
+/* Structured forms */
+.form {margin:0; padding:0}
+.form > li {display:block; list-style:none; margin-bottom:7px; padding-left:150px; overflow:hidden}
+.form > li > label {line-height:1.8em; margin:0 10px 1px 0; width:140px; margin-left:-150px; float:left}
+.form > li > small {font-size:85%; margin:0 0 5px 0; padding:5px 10px; display:block; padding:0; background:none; border:0}
+.form > li.sep {border-top:1px solid #e5e5e5; border-bottom:1px solid #fff; margin:15px 0}
+.fieldGroup, .checkboxGroup {line-height:1.7em}
+.colorSwatch {display:inline-block; height:21px; width:21px; border-radius:3px; margin-right:5px; vertical-align:-8px; border:1px solid rgba(0, 0, 0, 0.2)}
+
+.form input[type=text], .form input[type=password], .form input[type=number], .form input[type=email], .form select, .form textarea, .form .input {margin:0 3px 3px 0; width:260px; font-size:110%; padding:5px}
+.form input.color {font-size:100%; padding:3px; width:60px}
+
+
+/* Buttons */
+.button {height:23px; cursor:pointer; padding:1px 10px 3px; border:1px solid #bbb; border-radius:3px; line-height:19px; margin:0}
+.button.big {height:26px; font-size:100%; padding:0 10px 2px; line-height:26px}
+
+.button i {margin:0 2px; font-size:14px; color:#666; line-height:12px}
+
+a.button {padding:5px 8px; height:auto; line-height:1em; display:inline-block}
+a.button:hover {text-decoration:none}
+
+.buttonGroup {padding-right:5px}
+.buttonGroup .button {margin-right:-5px; position:relative}
+.buttonGroup .button.disabled {position:static}
+.buttonGroup .button:not(:only-child) {border-radius:0}
+.buttonGroup .button:not(:only-child):first-child {border-radius:3px 0 0 3px}
+.buttonGroup .button:not(:only-child):last-child {border-radius:0 3px 3px 0}
