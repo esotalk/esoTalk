@@ -1,0 +1,89 @@
+/*
+Proto Skin Styles
+This stylesheet contains styles that define Proto-specific fonts, sizes, and colors, and the layout of the
+wrapper (header + footer). Interface-specific styles are included in skins/base/base.css and can be overridden
+here if necessary.
+*/
+
+
+/* Global */
+body {font-size:12px; margin:0; overflow-y:scroll; background:#f4f4f4}
+body, input, textarea, select {font-family:lucida grande,lucida sans unicode,helvetica,arial,sans-serif}
+input, textarea, select {font-size:100%}
+
+
+/* Links */
+a {text-decoration:none; color:#1260ee}
+a:hover {text-decoration:underline}
+a:active {color:#1a3e6d}
+
+
+/* Inline styles */
+small {font-size:85%}
+
+
+/* Block styles */
+h2 {font-size:160%; font-weight:normal}
+h3 {font-size:115%; font-weight:bold}
+p, ul, pre {line-height:1.5em}
+.bodyHeader h1 {line-height:1.5em; font-size:140%; font-weight:bold}
+
+
+/* Layout */
+#hdr-content, #body-content, #ftr-content {margin:0 auto; min-width:760px; max-width:1100px; padding:0 20px}
+#body, #body-content {background:url(shadow.png) repeat-x}
+#body-content {background-color:#fff}
+#body-content {padding-bottom:20px; padding-top:1px; border:solid #ddd; border-width:0 1px 2px; border-radius:0 0 3px 3px}
+#hdr-content, #ftr-content {max-width:1140px}
+
+
+/* Menus (inline lists) */
+.menu {font-size:120%; list-style-type:none; margin-top:0; margin-bottom:0; padding:0; line-height:1}
+.menu > li {display:inline-block}
+
+
+/* Header */
+#hdr {background:#333 url(header.png) repeat-x bottom; color:#fff; text-shadow:rgba(0, 0, 0, 0.5) 0 -1px; padding:20px 0 14px}
+#hdr h1 {display:inline; font-size:120%; font-weight:bold; margin:0}
+#hdr h1 img {margin:-20px 0 -14px; display:inline; border:0}
+#hdr a {color:#fff}
+
+#mainMenu {margin-left:30px; display:inline}
+#userMenu {text-align:right; margin-top:-20px !important; margin-left:350px}
+#userMenu .item-user {font-weight:bold}
+#userMenu .item-user .avatar {vertical-align:middle; margin:-5px 8px -5px 0}
+#userMenu.menu > li {margin-left:18px; text-align:left}
+
+#hdr .button {border:1px solid #333; border-color:rgba(0, 0, 0, 0.5); border-radius:3px; color:#fff; text-shadow:0 -1px rgba(0, 0, 0, 0.5); font-size:100%; padding:7px 10px; -webkit-box-shadow:0 1px 0 rgba(255, 255, 255, 0.08); box-shadow:0 1px 0 rgba(255, 255, 255, 0.08); background:url(hdr-button.png) repeat-x; margin:-5px 0}
+#hdr .button:active {background-position:0 -30px}
+
+
+/* If a light header color is chosen, make the header text dark. */
+.lightHdr #hdr, .lightHdr #hdr .button {text-shadow:rgba(255, 255, 255, 0.3) 0 1px}
+.lightHdr #hdr .button {border-color:rgba(0, 0, 0, 0.3)}
+.lightHdr #hdr, .lightHdr #hdr a {color:rgba(0, 0, 0, 0.7)}
+.lightHdr #hdr .popupButton {background-color:rgba(0, 0, 0, 0.1); color:rgba(0, 0, 0, 0.3); border-bottom:1px solid rgba(0, 0, 0, 0.1)}
+
+
+/* Footer */
+#ftr {font-size:90%; color:#888; color:rgba(0, 0, 0, 0.5)}
+#ftr-content {padding:20px 10px 35px}
+#ftr li {margin-right:10px}
+#ftr a {color:#444; color:rgba(0, 0, 0, 0.75);}
+#ftr .item-copyright {float:right; margin:0}
+#ftr .item-copyright a {color:#bbb; color:rgba(0, 0, 0, 0.3)}
+
+.darkBody #ftr {color:#ccc; color:rgba(255, 255, 255, 0.7)}
+.darkBody #ftr a {color:#bbb; color:rgba(255, 255, 255, 0.5)}
+
+
+/* Text inputs */
+input.text, textarea {background:#fff; border:#bbb 1px solid; padding:3px; border-radius:3px; vertical-align:-1px; margin:0}
+input.text:focus, textarea:focus {border-color:#999; outline:0; -webkit-box-shadow:inset 0 1px 2px rgba(0, 0, 0, 0.15); box-shadow:inset 0 1px 2px rgba(0, 0, 0, 0.15)}
+
+
+/* Buttons */
+.button {background:#e0e0e0 url(button.png) repeat-x; text-shadow:#fff 0 1px; color:#333; font-weight:bold; border:1px solid #bbb; -webkit-box-shadow:0 1px 0 rgba(0, 0, 0, 0.06); box-shadow:0 1px 0 rgba(0, 0, 0, 0.06); margin-bottom:1px}
+.button:hover, .button:active {border-color:#bbb}
+.button:active {background-color:#d3d3d3; background-position:0 -40px; color:#333}
+.button.disabled {border-color:#ccc !important; background:#f2f2f2 !important; color:#999 !important; -webkit-box-shadow:none !important; box-shadow:none !important}
