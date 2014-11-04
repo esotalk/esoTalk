@@ -1,0 +1,123 @@
+/*
+Default Skin Styles
+This stylesheet contains styles that define Default-specific fonts, sizes, and colors, and the layout of the
+wrapper (header + footer). Interface-specific styles are included in skins/base/base.css and can be overridden
+here if necessary.
+*/
+
+/* Global */
+body {font-size:14px; font-weight:300; margin:0; overflow-y:scroll; background:#fff; color:#666}
+body, input, textarea, select {font-family:open sans,lucida grande,lucida sans unicode,helvetica,arial,sans-serif}
+input, textarea, select {font-size:100%}
+strong {font-weight:600}
+
+
+/* Links */
+a {text-decoration:none}
+a:hover {text-decoration:none; color:#000}
+
+
+/* Inline styles */
+small {font-size:85%}
+
+
+/* Block styles */
+h1 {font-size:150%; font-weight:300}
+h2 {font-size:160%; font-weight:300}
+h3 {font-size:115%; font-weight:600}
+h4 {font-weight:600}
+p, ul, pre {line-height:1.6em}
+.bodyHeader h1 {line-height:1.5em}
+
+
+/* Sheets */
+.sheet h3 {font-weight:300}
+.sheet, .area {background:#fff}
+
+
+/* Conversation list: adjust the typography. */
+.conversationList .title {font-weight:300; font-size:16px}
+.conversationList .unread .title a {font-weight:600}
+.conversationList .action * {font-weight:300}
+
+
+/* Channel list */
+.channelList .channel {font-weight:600}
+
+
+/* Posts */
+.postHeader h3 {font-size:120%; font-weight:600}
+.postBody h4 {font-weight:300}
+.replyPlaceholder .postHeader h3 {font-weight:300}
+.postBody {line-height:1.75em; font-size:16px}
+.postBody a {font-weight:600}
+
+
+/* Tabs */
+.tabs.big li.selected a {color:#fff; border:0; padding:11px 14px}
+
+
+/* Miscellaneous */
+.permissionsGrid .group th {font-weight:300}
+.action .name, .action a, .action strong {font-weight:600}
+.avatar {border-radius:32px}
+.scrubber li.selected > a {font-weight:600}
+
+
+/* Layout */
+#hdr-content, #body-content, #ftr-content {margin:0 auto; min-width:760px; max-width:1100px; padding:0 30px}
+#body-content, #ftr-content {background-color:#fff}
+#body-content {padding-bottom:20px; padding-top:10px}
+#body {padding-top:60px}
+
+
+/* Menus (inline lists) */
+.menu {font-size:95%; list-style-type:none; margin-top:0; margin-bottom:0; padding:0; line-height:1}
+.menu > li {display:inline-block}
+
+
+/* Header */
+#hdr {background:#fff; position:fixed; width:100%; z-index:100; border-bottom:1px solid}
+#hdr-inner {padding-right:580px; white-space:nowrap}
+#hdr h1 {display:inline-block; max-width:100%; font-size:20px; padding:14px 0; margin:0; font-weight:300; overflow:hidden; white-space:nowrap; text-overflow:ellipsis}
+#hdr h1 img {display:inline; vertical-align:-5px; margin-right:5px; border:0}
+#hdr h1 span {margin-left:10px}
+#backButton {float:left; margin-right:10px; margin-left:-30px; font-size:20px; line-height:20px; margin-top:17px; text-decoration:none}
+
+#mainMenu {margin-left:30px; display:inline; padding:18px 0}
+#userMenu {float:right; padding:18px 0; margin-right:-580px; margin-left:-18px;}
+#userMenu .item-user {font-weight:600}
+#userMenu .item-user .avatar {vertical-align:middle; margin:-5px 8px -5px 0}
+#userMenu.menu > li {margin-left:18px; text-align:left}
+
+#hdr .button {border-radius:4px; font-size:100%; padding:9px 12px; margin:-7px 0}
+#hdr #notifications {color:#ccc}
+#hdr #notifications.new {color:#fff !important}
+
+
+/* Footer */
+#ftr {font-size:90%}
+#ftr-content {padding-top:20px; padding-bottom:20px}
+#ftr li {margin-right:10px}
+#ftr .item-copyright {float:right; margin:0}
+
+
+/* Text inputs */
+input[type=text], input[type=password], input[type=number], input[type=email], textarea, .input {font-weight:300; background:#fff; border:1px solid; padding:5px; border-radius:3px; vertical-align:-1px; margin:0; -webkit-appearance:none}
+input[type=text]:focus, input[type=password]:focus, textarea:focus, input[type=number]:focus, input[type=email]:focus, .input:focus {outline:0}
+
+
+/* Buttons */
+.button {background:#f6f6f6; font-weight:600; border:1px solid transparent; margin-bottom:1px; white-space:nowrap; height:30px; font-size:90%; padding:0 10px 2px; line-height:30px; -webkit-appearance:none}
+.button.big {height:34px; font-size:90%; padding:0 10px 0; line-height:28px}
+.button:hover, .button:active {border-color:#ddd}
+.button:active {background-color:#ddd}
+.button.disabled {opacity:0.25; cursor:default; border-color:transparent !important}
+
+a.button {padding:8px 10px; height:auto; line-height:1em; display:inline-block}
+a.button.big {padding:10px; height:auto; line-height:1em}
+
+.button.submit {color:#fff}
+.button.submit:hover {border-color:#000; color:#fff}
+
+.buttonGroup .button {margin-right:-3px}

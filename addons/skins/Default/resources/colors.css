@@ -1,0 +1,81 @@
+/* Primary color */
+.conversationList .title a,
+.conversationList .unread .title a,
+.action .name, .action a, .action strong,
+.postHeader h3, .postHeader h3 a,
+.button, .button i, .button:hover,
+#hdr-inner > a, #hdr-inner > h1 a, #hdr-inner > ul > li > a,
+#hdr,
+.tabs li.selected a,
+.channelList .channel,
+#conversationTitle a,
+#pluginList > li,
+#skinList > li,
+#languageList > li,
+.memberList strong a,
+.scrubber li.selected > a,
+.scrubber li ul li.selected a,
+a
+{
+	color:{primary}
+}
+
+.tabs.big li.selected a,
+#hdr .active .popupButton,
+#hdr #notifications.new,
+.button.submit,
+.popupMenu li > a:hover, ul.popupMenu li.selected > a,
+.unreadIndicator
+{
+	background-color:{primary}
+}
+
+.sheet.active,
+.popup,
+.popupWrapper.active .popupButton,
+input[type=text]:focus, input[type=password]:focus, input[type=number]:focus, input[type=email]:focus, textarea:focus, .input:focus,
+#hdr,
+.withArrow.popup:before,
+.scrubber > li.selected
+{
+	border-color:{primary}
+}
+
+
+/* Secondary color (light text) */
+.tabs li > a,
+.channel,
+.list .col-replies, .list .col-replies a,
+.action,
+.timeMarker,
+.conversationList .excerpt,
+.postHeader .info > span, .postHeader .info > a,
+#ftr,
+#hdr h1 span,
+.channel
+{
+	color:{secondary}
+}
+
+
+/* Tertiary color (light lines) */
+.channel,
+.list > li,
+.thing,
+.sheet, .sheet h3, .sheet .section, .sheet .buttons,
+input[type=text], input[type=password], input[type=number], input[type=email], textarea, .input,
+.tabs li.selected a,
+.tabs li a:hover,
+.tabs.big,
+#adminMenu li.separator
+{
+	border-color:{tertiary}
+}
+.tabs .pathItem.selected a:before
+{
+	border-left-color:{tertiary}
+}
+.button
+{
+	background-color:{tertiary}
+}
