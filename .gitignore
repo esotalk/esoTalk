@@ -1,13 +1,59 @@
-.DS_Store
 .buildpath
 .project
 .settings
 .htaccess
-!cache/index.html
+sitemap*
 cache/*
 config/*
-robots.txt
-config.defaults.php
-
-#For Toby's own repo (should really clean these up on my comp):
 uploads/*
+robots.txt
+addons/plugins/*
+addons/languages/*
+addons/skins/*
+addons/libraries/*
+!addons/plugins/BBCode
+!addons/plugins/Debug
+!addons/plugins/Emoticons
+!addons/plugins/SMTP
+!addons/plugins/index.html
+!addons/languages/English/definitions.php
+!addons/languages/English/definitions.BBCode.php
+!addons/languages/English/definitions.Debug.php
+!addons/languages/English/definitions.Emoticons.php
+!addons/languages/English/definitions.SMTP.php
+!addons/languages/index.html
+!addons/skins/Default
+!addons/skins/index.html
+
+# Compiled source
+*.com
+*.class
+*.dll
+*.exe
+*.o
+*.so
+ 
+# Packages
+*.7z
+*.dmg
+*.gz
+*.iso
+*.jar
+*.rar
+*.tar
+*.zip
+ 
+# Logs and databases
+*.log
+*.sql
+*.sqlite
+ 
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+*~
