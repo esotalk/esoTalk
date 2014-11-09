@@ -363,7 +363,7 @@ public function input($name, $type = "text", $attributes = array())
 
 	// If this is a textarea, make some custom HTML.
 	if ($type == "textarea") {
-		$value = $attributes["value"];
+		$value = htmlentities($attributes["value"], ENT_NOQUOTES, "UTF-8");
 		unset($attributes["value"]);
 		$input = "<textarea".$this->getAttributes($attributes).">$value</textarea>";
 	}
