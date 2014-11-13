@@ -20,6 +20,7 @@ $definitions["date.full"] = "%c";
 
 $definitions["%d day ago"] = "yesterday";
 $definitions["%d days ago"] = "%d days ago";
+$definitions["%d hidden"]  = "%d hidden";
 $definitions["%d hour ago"] = "1 hour ago";
 $definitions["%d hours ago"] = "%d hours ago";
 $definitions["%d minute ago"] = "1 minute ago";
@@ -201,6 +202,7 @@ $definitions["Guests can view the:"] = "Guests can view the:";
 $definitions["Header"] = "Header";
 $definitions["Header color"] = "Header color";
 $definitions["Heads Up!"] = "Heads Up!";
+$definitions["hidden"] = "hidden";
 $definitions["Hide"] = "Hide";
 $definitions["Home page"] = "Home page";
 $definitions["HTML is allowed."] = "HTML is allowed.";
@@ -287,6 +289,7 @@ $definitions["Notifications"] = "Notifications";
 $definitions["Now"] = "Now";
 
 $definitions["OK"] = "OK";
+$definitions["Older"] = "Older";
 $definitions["Online"] = "Online";
 $definitions["online"] = "online";
 $definitions["Only allow members of this group to see who else is in it"] = "Only allow members of this group to see who else is in it";
@@ -400,6 +403,7 @@ $definitions["View more"] = "View more";
 $definitions["View your profile"] = "View your profile";
 $definitions["View"] = "View";
 $definitions["Viewing: %s"] = "Viewing: %s";
+$definitions["Viewing %s"] = "Viewing %s";
 $definitions["viewingPosts"] = "<b>%s-%s</b> of %s posts";
 
 $definitions["Warning"] = "Warning";
