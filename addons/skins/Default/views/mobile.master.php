@@ -54,7 +54,7 @@ $(function() {
 <?php endif; ?>
 
 <ul id='userMenu' class='menu'>
-<li><a href='<?php echo URL("conversation/start"); ?>' class='link-newConversation'><?php echo T("New conversation"); ?></a></li>
+<li><a href='<?php echo URL("conversation/start"); ?>' class='link-newConversation'><?php echo T("New Conversation"); ?></a></li>
 <li class='sep'></li>
 <?php echo $data["userMenuItems"]; ?>
 </ul>
