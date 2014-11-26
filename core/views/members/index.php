@@ -71,7 +71,7 @@ foreach ($letters as $letter) {
 
 <ul id='memberListOrderBy' class='tabs'>
 <?php foreach ($data["orders"] as $k => $v): ?>
-<li<?php if ($data["orderBy"] == $k): ?> class='selected'<?php endif; ?>><a href='<?php echo URL("members/$k/".($data["searchString"] ? "?search=".$data["searchString"] : "")); ?>'><?php echo T($v[0]); ?></a></li>
+<li<?php if ($data["orderBy"] == $k): ?> class='selected'<?php endif; ?>><a href='<?php echo URL("members/$k/".(sanitizeHTML($data["searchString"]) ? "?search=".sanitizeHTML($data["searchString"]) : "")); ?>'><?php echo T($v[0]); ?></a></li>
 <?php endforeach; ?>
 </ul>
 
