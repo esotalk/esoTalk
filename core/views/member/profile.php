@@ -35,7 +35,7 @@ if (ET::$session->isAdmin()): ?><p class='subText'><?php echo sanitizeHTML($memb
 
 <p id='memberGroup' class='subText'><?php echo memberGroup($member["account"], $member["groups"], true); ?></p>
 <p id='memberLastActive' class='subText'><?php printf(T("Last active %s"), empty($member["preferences"]["hideOnline"])
-	? "<span title='".date(T("date.full"), $member["lastActionTime"])."'>".relativeTime($member["lastActionTime"], true)."</span>"
+	? "<span title='".strftime(T("date.full"), $member["lastActionTime"])."'>".relativeTime($member["lastActionTime"], true)."</span>"
 	: "[".T("hidden")."]"); ?></p>
 
 </div>
