@@ -855,31 +855,31 @@ function relativeTime($then, $precise = false)
 
 	// If this happened over a year ago, return "x years ago".
 	if ($ago >= ($period = 60 * 60 * 24 * 365.25)) {
-		$years = floor($ago / $period);
+		$years = round($ago / $period);
 		return Ts("%d year ago", "%d years ago", $years);
 	}
 
 	// If this happened over two months ago, return "x months ago".
 	elseif ($ago >= ($period = 60 * 60 * 24 * (365.25 / 12)) * 2) {
-		$months = floor($ago / $period);
+		$months = round($ago / $period);
 		return Ts("%d month ago", "%d months ago", $months);
 	}
 
 	// If this happend over a week ago, return "x weeks ago".
 	elseif ($ago >= ($period = 60 * 60 * 24 * 7)) {
-		$weeks = floor($ago / $period);
+		$weeks = round($ago / $period);
 		return Ts("%d week ago", "%d weeks ago", $weeks);
 	}
 
 	// If this happened over a day ago, return "x days ago".
 	elseif ($ago >= ($period = 60 * 60 * 24)) {
-		$days = floor($ago / $period);
+		$days = round($ago / $period);
 		return Ts("%d day ago", "%d days ago", $days);
 	}
 
 	// If this happened over an hour ago, return "x hours ago".
 	elseif ($ago >= ($period = 60 * 60)) {
-		$hours = floor($ago / $period);
+		$hours = round($ago / $period);
 		return Ts("%d hour ago", "%d hours ago", $hours);
 	}
 
@@ -888,7 +888,7 @@ function relativeTime($then, $precise = false)
 
 		// If this happened over a minute ago, return "x minutes ago".
 		if ($ago >= ($period = 60)) {
-			$minutes = floor($ago / $period);
+			$minutes = round($ago / $period);
 			return Ts("%d minute ago", "%d minutes ago", $minutes);
 		}
 
