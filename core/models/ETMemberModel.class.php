@@ -46,6 +46,9 @@ public function __construct()
  */
 public function create(&$values)
 {
+	// Trim the username.
+	$values["username"] = trim($values["username"]);
+
 	// Validate the username, email, and password.
 	$this->validate("username", $values["username"], array($this, "validateUsername"));
 	$this->validate("email", $values["email"], array($this, "validateEmail"));
@@ -57,7 +60,7 @@ public function create(&$values)
 
 	// Set default preferences.
 	if (empty($values["preferences"])) {
-		$preferences = array("email.privateAdd", "email.post", "starOnReply");
+		$preferences = array("email.privateAdd", "email.post", "starOnReply", "email.mention");
 		foreach ($preferences as $p) {
 			$values["preferences"][$p] = C("esoTalk.preferences.".$p);
 		}
@@ -101,8 +104,10 @@ public function create(&$values)
  */
 public function update($values, $wheres = array())
 {
-	if (isset($values["username"]))
+	if (isset($values["username"])) {
+		$values["username"] = trim($values["username"]);
 		$this->validate("username", $values["username"], array($this, "validateUsername"));
+	}
 
 	if (isset($values["email"]))
 		$this->validate("email", $values["email"], array($this, "validateEmail"));
@@ -244,7 +249,8 @@ public function validateUsername($username, $checkForDuplicate = true)
 	if (in_array(strtolower($username), self::$reservedNames)) return "nameTaken";
 
 	// Make sure the username is not too small or large.
-	if (strlen($username) < 3 or strlen($username) > 20) return "invalidUsername";
+	$length = mb_strlen($username, "UTF-8");
+	if ($length < 3 or $length > 20) return "invalidUsername";
 
 	// Make sure there's no other member with the same username.
 	if ($checkForDuplicate and ET::SQL()->select("1")->from("member")->where("username=:username")->bind(":username", $username)->exec()->numRows())

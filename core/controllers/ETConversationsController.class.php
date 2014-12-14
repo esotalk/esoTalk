@@ -141,6 +141,9 @@ public function action_index($channelSlug = false)
 				T("gambit.has >10 replies") => array("gambit-replies", "icon-comments"),
 				T("gambit.order by replies") => array("gambit-orderByReplies", "icon-list-ol"),
 			),
+			"text" => array(
+				T("gambit.title:")." ?" => array("gambit-title", "icon-font")
+			),
 			"misc" => array(
 				T("gambit.random") => array("gambit-random", "icon-random"),
 				T("gambit.reverse") => array("gambit-reverse", "icon-exchange"),
@@ -183,7 +186,7 @@ public function action_index($channelSlug = false)
 
 		// Add meta tags to the header.
 		$this->addToHead("<meta name='keywords' content='".sanitizeHTML(($k = C("esoTalk.meta.keywords")) ? $k : implode(",", $keywords))."'>");
-		list($lastKeyword) = array_splice($keywords, count($keywords) - 1, 1);
+		$lastKeyword = reset(array_splice($keywords, count($keywords) - 1, 1));
 		$this->addToHead("<meta name='description' content='".sanitizeHTML(($d = C("esoTalk.meta.description")) ? $d
 			: sprintf(T("forumDescription"), C("esoTalk.forumTitle"), implode(", ", $keywords), $lastKeyword))."'>");
 
@@ -332,7 +335,7 @@ public function action_markAllAsRead()
 	if ($this->responseType === RESPONSE_TYPE_DEFAULT) $this->redirect(URL("conversations"));
 
 	// For an ajax response, just pretend this is a normal search response.
-	$this->index();
+	$this->action_index();
 }
 
 

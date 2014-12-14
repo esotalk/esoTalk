@@ -256,16 +256,14 @@ public function lists()
 	// Convert ordered lists - 1. list item\n 2. list item.
 	// We do this by matching against 2 or more lines which begin with a number, passing them together to a
 	// callback function, and then wrapping each line with <li> tags.
-	$orderedList = create_function('$list',
-		'$list = preg_replace("/^[0-9]+[.)]\s+([^\n]*)(?:\n|$)/m", "<li>$1</li>", trim($list));
-		return $list;');
-	$this->content = preg_replace("/(?:^[0-9]+[.)]\s+([^\n]*)(?:\n|$)){2,}/me", "'</p><ol>'.\$orderedList('$0').'</ol><p>'", $this->content);
+	$this->content = preg_replace_callback("/(?:^[0-9]+[.)]\s+([^\n]*)(?:\n|$)){2,}/m", function ($matches) {
+		return '</p><ol>'.preg_replace("/^[0-9]+[.)]\s+([^\n]*)(?:\n|$)/m", "<li>$1</li>", trim($matches[0])).'</ol><p>';
+	}, $this->content);
 
 	// Same goes for unordered lists, but with a - or a * instead of a number.
-	$unorderedList = create_function('$list',
-		'$list = preg_replace("/^ *[-*]\s*([^\n]*)(?:\n|$)/m", "<li>$1</li>", trim($list));
-		return "$list";');
-	$this->content = preg_replace("/(?:^ *[-*]\s*([^\n]*)(?:\n|$)){2,}/me", "'</p><ul>'.\$unorderedList('$0').'</ul><p>'", $this->content);
+	$this->content = preg_replace_callback("/(?:^ *[-*]\s*([^\n]*)(?:\n|$)){2,}/m", function ($matches) {
+		return '</p><ul>'.preg_replace("/^ *[-*]\s*([^\n]*)(?:\n|$)/m", "<li>$1</li>", trim($matches[0])).'</ul><p>';
+	}, $this->content);
 
 	return $this;
 }
@@ -278,11 +276,15 @@ public function lists()
  */
 public function quotes()
 {
+	$self = $this;
+
 	// Starting from the innermost quote, work our way to the outermost, replacing them one-by-one using a
 	// callback function. This is the only simple way to do nested quotes without a lexer.
-	$regexp = "/(.*?)\n?\[quote(?:=(.*?)(]?))?\]\n?(.*?)\n?\[\/quote\]\n{0,2}/ise";
+	$regexp = "/(.*?)\n?\[quote(?:=(.*?)(]?))?\]\n?(.*?)\n?\[\/quote\]\n{0,2}/is";
 	while (preg_match($regexp, $this->content)) {
-		$this->content = preg_replace($regexp, "'$1</p>'.\$this->makeQuote('$4', '$2$3').'<p>'", $this->content);
+		$this->content = preg_replace_callback($regexp, function ($matches) use ($self) {
+			return $matches[1].'</p>'.$self->makeQuote($matches[4], $matches[2].$matches[3]).'<p>';
+		}, $this->content);
 	}
 
 	return $this;
@@ -338,9 +340,11 @@ public function removeQuotes()
  */
 public function mentions()
 {
-	$this->content = preg_replace(
-		'/(^|[\s,\.:\]])@([^\s[\]]{2,20})\b/ieu',
-		"'$1<a href=\''.URL('member/name/'.urlencode(str_replace('&nbsp;', ' ', '$2')), true).'\' class=\'link-member\'>@$2</a>'",
+	$this->content = preg_replace_callback(
+		'/(^|[\s,\.:\]])@([^\s[\]]{2,20})\b/iu',
+		function ($matches) {
+			return $matches[1]."<a href='".URL('member/name/'.urlencode(str_replace('&nbsp;', ' ', $matches[2])), true)."' class='link-member'>@".$matches[2]."</a>";
+		},
 		$this->content
 	);
 

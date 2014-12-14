@@ -71,17 +71,26 @@ foreach ($letters as $letter) {
 
 <ul id='memberListOrderBy' class='tabs'>
 <?php foreach ($data["orders"] as $k => $v): ?>
-<li<?php if ($data["orderBy"] == $k): ?> class='selected'<?php endif; ?>><a href='<?php echo URL("members/$k/".($data["searchString"] ? "?search=".$data["searchString"] : "")); ?>'><?php echo T($v[0]); ?></a></li>
+<li<?php if ($data["orderBy"] == $k): ?> class='selected'<?php endif; ?>><a href='<?php echo URL("members/$k/".(sanitizeHTML($data["searchString"]) ? "?search=".sanitizeHTML($data["searchString"]) : "")); ?>'><?php echo T($v[0]); ?></a></li>
 <?php endforeach; ?>
 </ul>
 
 <form class='search big' id='memberSearch' action='<?php echo URL(makeURL()); ?>' method='get'>
 <fieldset>
 <i class='icon-search'></i>
-<input name='search' type='text' class='text' value='<?php echo $data["searchString"]; ?>' spellcheck='false' placeholder='<?php echo T("Filter by name or group..."); ?>'/>
+<input name='search' type='text' class='text' value='<?php echo sanitizeHTML($data["searchString"]); ?>' spellcheck='false' placeholder='<?php echo T("Filter by name or group..."); ?>'/>
 <?php if ($data["searchString"]): ?><a class='control-reset' href='<?php echo URL(makeURL()); ?>'><i class='icon-remove'></i></a><?php endif; ?>
 </fieldset>
 </form>
+
+<?php
+// Gambits
+if ($data["gambitsMenu"]->count()): ?>
+<div id='gambits'>
+<ul class='popupMenu'>
+<?php echo $data["gambitsMenu"]->getContents(); ?>
+</ul></div>
+<?php endif; ?>
 
 </div>
 

@@ -82,6 +82,9 @@ span.highlight {background:#fdef34; padding:1px 4px; border-radius:3px}
 
 .hasControls .controls {opacity:0; float:right; transition:opacity 0.1s linear}
 .hasControls:hover .controls, .edit .controls, .showControls .controls {opacity:1}
+@media only screen and (max-device-width: 1024px) {
+	.hasControls .controls {opacity: 1}
+}
 
 
 /* Controls (icons with hover/click effects) */
@@ -211,6 +214,9 @@ span.highlight {background:#fdef34; padding:1px 4px; border-radius:3px}
 .list .controls {visibility:hidden}
 .list > li:hover .controls {visibility:visible}
 .popup .list > li:last-child {border-bottom:0}
+@media only screen and (max-device-width: 1024px) {
+	.list .controls {visibility:visible}
+}
 
 
 /* Tabs */
@@ -321,7 +327,7 @@ a.channel:hover {text-decoration:none; border-color:#aaa}
 
 /* Gambits */
 #gambits {display:none}
-#gambits.popup {width:300px; height:280px; overflow:auto !important; margin:0}
+#gambits.popup {width:300px; max-height:280px; overflow:auto !important; margin:0}
 
 
 /* Conversation list */
@@ -334,7 +340,7 @@ a.channel:hover {text-decoration:none; border-color:#aaa}
 .conversationList .justVisited {border-color:#aaa; border-style:dotted; position:relative}
 .conversationList .controls {margin-left:10px}
 .conversationList .controls a {margin-right:5px}
-.conversationList .action * {font-weight:normal}
+.conversationList .action * {font-weight:normal !important}
 .conversationList .viewMore {padding:0}
 .conversationList .viewMore a {text-align:center; display:block; padding:8px}
 
@@ -353,12 +359,13 @@ negative margins so they overlap the padding of the <li>. */
 /* Show/hide stars on hover */
 .conversationList .col-star {visibility:hidden}
 .conversationList .starred .col-star, .conversationList li:hover .col-star {visibility:visible}
+@media only screen and (max-device-width: 1024px) {
+	.conversationList .col-star {visibility:visible}
+}
 
 
 /* Unread indicators */
-.unreadIndicator {display:none; font-size:14px}
-.conversationList li.unread:hover .col-star .starButton {display:none}
-.conversationList li.unread:hover .unreadIndicator {display:block}
+.unreadIndicator {font-size:12px; font-weight:bold; color:#fff; padding:0 5px; border-radius:3px; margin-right:5px}
 
 
 /* Conversation header */
@@ -450,7 +457,7 @@ a.deleteLink:hover {color:#f00 !important; text-decoration:line-through}
 .postContent:before, .postContent:after {content:" "; border-top-color:transparent !important; border-bottom-color:transparent !important; border-left-color:transparent !important; border-style:solid; border-width:8px; height:0; width:0; left:-16px; top:12px; position:absolute}
 .postContent:after {float:left; left:-15px}
 
-.highlight .postContent {box-shadow:0 0 0 2px #fe9}
+.highlight .postContent {box-shadow:0 0 0 4px #fe9}
 
 .postHeader {margin-bottom:2px; padding:10px 10px 10px 15px; overflow:hidden; color:#888}
 .postHeader h3 {display:inline; font-size:110%; margin:0}
@@ -602,6 +609,7 @@ input[type=checkbox], input[type=radio] {padding:0; margin:4px 2px 0 0; cursor:p
 .radio, .checkbox {padding-left:23px; display:block}
 .radio, .radio label, .checkbox, .checkbox label {cursor:pointer}
 .radio input[type=radio], .checkbox input[type=checkbox] {float:left; margin-left:-20px}
+.radio.inline, .checkbox.inline {margin-right:10px; display:inline-block; vertical-align:middle}
 
 input.error, input.error:focus {border-color:#f59e79 !important}
 .form div.error {color:#db3000; font-size:85%}

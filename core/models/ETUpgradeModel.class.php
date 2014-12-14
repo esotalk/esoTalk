@@ -122,6 +122,7 @@ protected function structure($drop = false)
 		->key("private") // for the private gambit
 		->key("startMemberId") // for the author gambit
 		->key("channelId") // for filtering by channel
+		->key("title") // for the title gambit
 		->exec($drop);
 
 	// Group table.
@@ -144,6 +145,7 @@ protected function structure($drop = false)
 		->column("confirmed", "tinyint(1)", 0)
 		->column("password", "char(64)", "")
 		->column("resetPassword", "char(32)")
+		->column("rememberToken", "char(32)")
 		->column("joinTime", "int(11) unsigned", false)
 		->column("lastActionTime", "int(11) unsigned")
 		->column("lastActionDetail", "tinyblob")
@@ -158,6 +160,7 @@ protected function structure($drop = false)
 		->key("account")
 		->key("countPosts")
 		->key("resetPassword")
+		->key("rememberToken")
 		->exec($drop);
 
 	// Member-channel table.
@@ -227,15 +230,6 @@ protected function structure($drop = false)
 		->column("ip", "int(11) unsigned", false)
 		->column("time", "int(11) unsigned", false)
 		->key(array("type", "ip"))
-		->exec($drop);
-
-	// Cookie table.
-	$structure
-		->table("cookie")
-		->column("memberId", "int(11) unsigned", false)
-		->column("series", "char(32)", false)
-		->column("token", "char(32)", false)
-		->key(array("memberId", "series"), "primary")
 		->exec($drop);
 }
 
@@ -321,6 +315,17 @@ public function install($info)
  */
 public function upgrade($currentVersion = "")
 {
+	// 1.0.0g5:
+	// - Drop the cookie table
+	// - Write config to enable persistence cookies. These are disabled by
+	//   default in g5 because otherwise the ETSession class will encounter
+	//   a fatal error (rememberToken column doesn't exist) before reaching
+	//   the upgrade script.
+	if (version_compare($currentVersion, "1.0.0g5", "<")) {
+		ET::$database->structure()->table("cookie")->drop();
+		ET::writeConfig(array("esoTalk.enablePersistenceCookies" => true));
+	}
+
 	// 1.0.0g4:
 	// - Rename the 'confirmedEmail' column on the members table to 'confirmed'
 	// - Rename the 'muted' column on the member_conversation table to 'ignored'

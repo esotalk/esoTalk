@@ -231,7 +231,7 @@ RewriteRule ^(.*)$ index.php/$1 [QSA,L]
 Crawl-delay: 10
 Disallow: /conversations/*?search=*
 Disallow: /members/
-Disallow: /user/
+Disallow: /member/
 Disallow: /conversation/start/");
 
 	// Clear the session of install data.

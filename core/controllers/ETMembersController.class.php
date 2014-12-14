@@ -32,8 +32,8 @@ public function action_index($orderBy = false, $start = 0)
 	// If we've limited results by a search string...
 	if ($searchString = R("search")) {
 
-		// Explode separate terms by the comma character.
-		$terms = explode(",", $searchString);
+		// Explode separate terms by the plus character.
+		$terms = explode("+", $searchString);
 
 		// Get an array of all groups which we can possibly filter by.
 		$groups = ET::groupModel()->getAll();
@@ -47,13 +47,18 @@ public function action_index($orderBy = false, $start = 0)
 
 		foreach ($terms as $k => $term) {
 
-			$term = strtolower(trim($term));
+			$term = mb_strtolower(trim($term), "UTF-8");
+
+			if (!$term) continue;
+
+			$thisCondition = array();
 
 			// If the search string matches the start of any group names, then we'll filter members by their account/group.
 			$group = false;
 			foreach ($groups as $id => $g) {
 				$name = $g["name"];
-				if (strpos(strtolower(T("group.$name", $name)), $term) === 0 or strpos(strtolower(T("group.$name.plural", $name)), $term) === 0) {
+					if (strpos(mb_strtolower(T("group.$name", $name), "UTF-8"), $term) === 0
+					or strpos(mb_strtolower(T("group.$name.plural", $name), "UTF-8"), $term) === 0) {
 					$group = $id;
 					break;
 				}
@@ -62,23 +67,25 @@ public function action_index($orderBy = false, $start = 0)
 			// Did we find any matching groups just before? If so, add a WHERE condition to the query to filter by group.
 			if ($group !== false) {
 				if ($group < 0) {
-					$conditions[] = "account=:account$k";
+					$thisCondition[] = "account=:account$k";
 					$sql->bind(":account$k", $groups[$group]["name"]);
 				}
 				elseif (!$groups[$group]["private"] or ET::groupModel()->groupIdsAllowedInGroupIds(ET::$session->getGroupIds(), $group, true)) {
 					$sql->from("member_group mg", "mg.memberId=m.memberId", "left");
-					$conditions[] = "mg.groupId=:group$k";
+					$thisCondition[] = "mg.groupId=:group$k";
 					$sql->bind(":group$k", $group);
 				}
 			}
 
 			// Also perform a normal LIKE search.
-			$conditions[] = "username LIKE :search$k";
+			$thisCondition[] = "username LIKE :search$k";
 			$sql->bind(":search$k", "%".$term."%");
+
+			$conditions[] = "(".implode(" OR ", $thisCondition).")";
 
 		}
 
-		$sql->where(implode(" OR ", $conditions));
+		$sql->where(implode(" AND ", $conditions));
 	}
 
 	// Create a query to get the total number of results. Clone the results one to retain the same WHERE conditions.
@@ -176,7 +183,39 @@ public function action_index($orderBy = false, $start = 0)
 		$this->addJSVar("startFrom", $start);
 		$this->addJSVar("searchString", $searchString);
 		$this->addJSVar("orderBy", $orderBy);
-                $this->addJSLanguage("Sort By");
+		$this->addJSLanguage("Sort By");
+
+		// Add the default gambits to the gambit cloud: gambit text => css class to apply.
+		$gambits = array(
+			"groups" => array(
+				T("group.administrator.plural") => array("gambit-group-administrator", "icon-wrench"),
+				T("group.member.plural") => array("gambit-group-member", "icon-user"),
+				T("group.suspended") => array("gambit-group-suspended", "icon-shield")
+			)
+		);
+
+		$groups = ET::groupModel()->getAll();
+		foreach ($groups as $group) {
+			if ($group["private"]) continue;
+			$name = $group["name"];
+			addToArrayString($gambits["groups"], T("group.$name.plural", ucfirst($name)), array("gambit-group-$name", "icon-tag"), 1);
+		}
+
+		$this->trigger("constructGambitsMenu", array(&$gambits));
+
+		// Construct the gambits menu based on the above arrays.
+		$gambitsMenu = ETFactory::make("menu");
+		$linkPrefix = "members/".$orderBy."/?search=";
+
+		foreach ($gambits as $section => $items) {
+			foreach ($items as $gambit => $classes) {
+				$gambitsMenu->add($classes[0], "<a href='".URL($linkPrefix.urlencode($gambit))."' class='{$classes[0]}' data-gambit='$gambit'>".(!empty($classes[1]) ? "<i class='{$classes[1]}'></i> " : "")."$gambit</a>");
+			}
+			end($gambits);
+			if ($section !== key($gambits)) $gambitsMenu->separator();
+		}
+
+		$this->data("gambitsMenu", $gambitsMenu);
 	}
 
 	// Pass data to the view.
@@ -328,7 +367,7 @@ public function action_autocomplete($input = "")
 		unset($results[$k]["email"]);
 
 		// Convert spaces in the member name to non-breaking spaces.
-		$results[$k]["name"] = str_replace(" ", "\xc2\xa0", $results[$k]["name"]);
+		$results[$k]["name"] = str_replace(" ", "\xc2\xa0", name($results[$k]["name"], false));
 	}
 
 	$this->json("results", $results);

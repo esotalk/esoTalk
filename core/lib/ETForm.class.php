@@ -185,7 +185,7 @@ public function open()
 	foreach ($this->hiddenInputs as $field)
 		$hidden .= "<input type='hidden' name='$field' value='".htmlentities($this->getValue($field), ENT_QUOTES, "UTF-8")."'/>\n";
 
-	return "<form action='$this->action' method='post' enctype='multipart/form-data'>\n".$hidden;
+	return "<form action='".sanitizeHTML($this->action)."' method='post' enctype='multipart/form-data'>\n".$hidden;
 }
 
 
@@ -363,7 +363,7 @@ public function input($name, $type = "text", $attributes = array())
 
 	// If this is a textarea, make some custom HTML.
 	if ($type == "textarea") {
-		$value = $attributes["value"];
+		$value = htmlentities($attributes["value"], ENT_NOQUOTES, "UTF-8");
 		unset($attributes["value"]);
 		$input = "<textarea".$this->getAttributes($attributes).">$value</textarea>";
 	}

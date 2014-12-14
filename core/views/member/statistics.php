@@ -21,12 +21,12 @@ $member = $data["member"];
 
 <li><label><?php echo T("Conversations started"); ?></label> <div>
 <?php echo number_format($statistics["conversationsStarted"]); ?>
-<a href='<?php echo URL(searchURL("#".T("gambit.author:").$member["username"])); ?>' class='control-search'><i class='icon-search'></i></a>
+<a href='<?php echo URL(searchURL("#".T("gambit.author:").$member["memberId"])); ?>' class='control-search'><i class='icon-search'></i></a>
 </div></li>
 
 <li><label><?php echo T("Conversations participated in"); ?></label> <div>
 <?php echo number_format($statistics["conversationsParticipated"]); ?>
-<a href='<?php echo URL(searchURL("#".T("gambit.contributor:").$member["username"])); ?>' class='control-search'><i class='icon-search'></i></a>
+<a href='<?php echo URL(searchURL("#".T("gambit.contributor:").$member["memberId"])); ?>' class='control-search'><i class='icon-search'></i></a>
 </div></li>
 
 <li><label><?php echo T("First posted"); ?></label> <div><?php echo ucfirst(relativeTime($statistics["firstPosted"])); ?></div></li>

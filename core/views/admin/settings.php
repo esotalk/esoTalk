@@ -11,7 +11,6 @@ if (!defined("IN_ESOTALK")) exit;
  */
 
 $form = $data["form"];
-$groups = $data["groups"];
 ?>
 <script>
 $(function() {
@@ -21,7 +20,7 @@ $(function() {
 
 <div class='area' id='adminSettings'>
 
-<?php echo $form->open(); ?>
+<?php echo $form->open(); echo $form->input("forumHeaderOld", "hidden", array("value" => $form->values['forumHeader'])); ?>
 
 <ul class='form'>
 
@@ -82,16 +81,6 @@ $(function() {
 <label class='radio indent'><?php echo $form->radio("requireConfirmation", "email"); ?> <?php echo T("Require users to confirm their email address"); ?></label>
 <label class='radio indent'><?php echo $form->radio("requireConfirmation", "approval"); ?> <?php echo T("Require administrator approval"); ?></label>
 </div>
-</li>
-
-<li class='sep'></li>
-
-<li>
-<label><?php echo T("Member groups"); ?></label>
-<div class='subText'><?php echo T("Groups can be used to categorize members and give them certain privileges."); ?></div>
-<?php foreach ($groups as $k => $v) $groups[$k] = "<strong class='group-{$v["name"]}'>".groupName($v["name"])."</strong>";
-echo implode(", ", $groups); ?><br/>
-<a href='<?php echo URL("admin/groups"); ?>' id='manageGroupsLink'><?php echo T("Manage Groups"); ?></a>
 </li>
 
 <li class='sep'></li>

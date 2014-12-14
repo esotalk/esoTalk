@@ -18,14 +18,13 @@ $(function() {
 });
 </script>
 
-<div class='sheet' id='groupsSheet'>
-<div class='sheetContent' id='adminGroups'>
+<div class='area' id='adminGroups'>
 
 <h3><?php echo T("Manage Groups"); ?></h3>
 
-<div class='sheetBody'>
+<p class='help'><?php echo T("message.groupsHelp"); ?></p>
 
-<div class='section'>
+<p><a href='<?php echo URL("admin/groups/create"); ?>' class='button' id='addGroupButton'><i class='icon-plus'></i> <?php echo T("Create Group"); ?></a></p>
 
 <ul class='list'>
 <?php foreach ($groups as $id => $group): ?>
@@ -36,11 +35,4 @@ $(function() {
 <?php endforeach; ?>
 </ul>
 
-<a href='<?php echo URL("admin/groups/create"); ?>' class='button' id='addGroupButton'><i class='icon-plus'></i> <?php echo T("Create Group"); ?></a>
-
-</div>
-
-</div>
-
-</div>
 </div>

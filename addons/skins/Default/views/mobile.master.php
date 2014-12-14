@@ -20,6 +20,7 @@ if (!defined("IN_ESOTALK")) exit;
 // Turn off JS effects and fixed positions, and disable tooltips.
 jQuery.fx.off = true;
 ET.disableFixedPositions = true;
+ET.mobile = true;
 $.fn.tooltip = function() { return this; };
 // Make the user menu into a popup, and take notifications out of the user menu.
 $(function() {
@@ -53,7 +54,7 @@ $(function() {
 <?php endif; ?>
 
 <ul id='userMenu' class='menu'>
-<li><a href='<?php echo URL("conversation/start"); ?>' class='link-newConversation'>New conversation</a></li>
+<li><a href='<?php echo URL("conversation/start"); ?>' class='link-newConversation'><?php echo T("New Conversation"); ?></a></li>
 <li class='sep'></li>
 <?php echo $data["userMenuItems"]; ?>
 </ul>

@@ -64,7 +64,7 @@ public function action_index($conversationId = false, $year = false, $month = fa
 	if ($year) {
 
 		// Redirect to the user's oldest unread post.
-		if ($year == "unread") {
+		if ($year == "unread" and ET::$session->user) {
 
 			// Fetch the post ID of the user's oldest unread post (according to $conversation["lastRead"].)
 			$id = ET::SQL()
@@ -137,7 +137,7 @@ public function action_index($conversationId = false, $year = false, $month = fa
 
 	// Make sure the startFrom number is within range.
 	$startFrom = max(0, $startFrom);
-	if ($this->responseType === RESPONSE_TYPE_DEFAULT) $startFrom = min($startFrom, $conversation["countPosts"] - 1);
+	if ($this->responseType === RESPONSE_TYPE_DEFAULT) $startFrom = min($startFrom, max(0, $conversation["countPosts"] - 1));
 
 	if (ET::$session->userId) {
 
@@ -203,12 +203,9 @@ public function action_index($conversationId = false, $year = false, $month = fa
 		if ($conversation["canModerate"]) {
 			$this->addJSLanguage("Lock", "Unlock", "Sticky", "Unsticky");
 		}
-		if ($conversation["canDeleteConversation"]) {
-			$this->addJSLanguage("message.confirmDelete");
-		}
 		if (ET::$session->user) {
 			$this->addJSLanguage("Starred", "Unstarred", "message.confirmLeave", "message.confirmDiscardPost",
-				"Ignore conversation", "Unignore conversation", "Controls", "Follow", "Following");
+				"message.confirmDelete", "Ignore conversation", "Unignore conversation", "Controls", "Follow", "Following");
 		}
 
 		$this->addJSVar("postsPerPage", C("esoTalk.conversation.postsPerPage"));
@@ -379,7 +376,7 @@ public function action_start($member = false)
 		$this->addJSFile("core/js/autocomplete.js");
 		$this->addJSFile("core/js/conversation.js");
 		$this->addJSVar("mentions", C("esoTalk.format.mentions"));
-		$this->addJSLanguage("message.confirmLeave", "message.confirmDiscardPost");
+		$this->addJSLanguage("message.confirmLeave", "message.confirmDiscardPost", "message.confirmDelete");
 
 		// If there's a member name in the querystring, make the conversation that we're starting private
 		// with them and redirect.
@@ -1166,24 +1163,31 @@ public function action_editPost($postId = false)
 	// Are we saving the post?
 	if ($form->validPostBack("save")) {
 
-		ET::postModel()->editPost($post, $form->getValue("content"));
+		$model = ET::postModel();
+		$model->editPost($post, $form->getValue("content"));
 
-		$this->trigger("editPostAfter", array(&$post));
+		if ($model->errorCount()) {
+			$this->messages($model->errors(), "warning");
+		} else {
 
-		// Normally, redirect back to the conversation.
-		if ($this->responseType === RESPONSE_TYPE_DEFAULT) {
-			redirect(URL(R("return", postURL($postId))));
-		}
+			$this->trigger("editPostAfter", array(&$post));
 
-		// For an AJAX request, render the post view.
-		elseif ($this->responseType === RESPONSE_TYPE_AJAX) {
-			$this->data("post", $this->formatPostForTemplate($post, $post["conversation"]));
-			$this->render("conversation/post");
-			return;
-		}
+			// Normally, redirect back to the conversation.
+			if ($this->responseType === RESPONSE_TYPE_DEFAULT) {
+				redirect(URL(R("return", postURL($postId))));
+			}
 
-		else {
-			// JSON?
+			// For an AJAX request, render the post view.
+			elseif ($this->responseType === RESPONSE_TYPE_AJAX) {
+				$this->data("post", $this->formatPostForTemplate($post, $post["conversation"]));
+				$this->render("conversation/post");
+				return;
+			}
+
+			else {
+				// JSON?
+			}
+
 		}
 
 	}
@@ -1299,7 +1303,7 @@ protected function formatPostForTemplate($post, $conversation)
 		}
 
 		// If the post has been edited, show the time and by whom next to the controls.
-		if ($post["editMemberId"]) $formatted["controls"][] = "<span class='editedBy'>".sprintf(T("Edited %s by %s"), "<span title='".strftime(T("date.full"), $post["editTime"])."'>".relativeTime($post["editTime"], true)."</span>", name($post["editMemberName"]))."</span>";
+		if ($post["editMemberId"]) $formatted["controls"][] = "<span class='editedBy'>".sprintf(T("Edited %s by %s"), "<span title='".strftime(T("date.full"), $post["editTime"])."'>".relativeTime($post["editTime"], true)."</span>", memberLink($post["editMemberId"], $post["editMemberName"]))."</span>";
 
 		// If the user can reply, add a quote control.
 		if ($conversation["canReply"])
@@ -1317,7 +1321,7 @@ protected function formatPostForTemplate($post, $conversation)
 	else {
 
 		// Add the "deleted by" information.
-		if ($post["deleteMemberId"]) $formatted["controls"][] = "<span>".sprintf(T("Deleted %s by %s"), "<span title='".strftime(T("date.full"), $post["deleteTime"])."'>".relativeTime($post["deleteTime"], true)."</span>", name($post["deleteMemberName"]))."</span>";
+		if ($post["deleteMemberId"]) $formatted["controls"][] = "<span>".sprintf(T("Deleted %s by %s"), "<span title='".strftime(T("date.full"), $post["deleteTime"])."'>".relativeTime($post["deleteTime"], true)."</span>", memberLink($post["deleteMemberId"], $post["deleteMemberName"]))."</span>";
 
 		// If the user can edit the post, add a restore control.
 		if ($canEdit)

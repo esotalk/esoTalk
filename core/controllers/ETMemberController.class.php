@@ -45,7 +45,8 @@ public function action_name($name = "")
 	$result = ET::SQL()
 		->select("memberId, username")
 		->from("member")
-		->where("username", $name)
+		->where("username LIKE :name")
+		->bind(":name", $name."%")
 		->exec();
 
 	if ($row = $result->firstRow())

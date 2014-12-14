@@ -10,6 +10,7 @@ robots.txt
 addons/plugins/*
 addons/languages/*
 addons/skins/*
+addons/libraries/*
 !addons/plugins/BBCode
 !addons/plugins/Debug
 !addons/plugins/Emoticons

@@ -74,11 +74,13 @@ public function action_login()
 	});
 
 	// Add the "remember me" field to the form structure.
-	$form->addSection("remember");
-	$form->addField("remember", "remember", function($form)
-	{
-		return "<label class='checkbox'>".$form->checkbox("remember")." ".T("Keep me logged in")."</label>";
-	});
+	if (C("esoTalk.enablePersistenceCookies")) {
+		$form->addSection("remember");
+		$form->addField("remember", "remember", function($form)
+		{
+			return "<label class='checkbox'>".$form->checkbox("remember")." ".T("Keep me logged in")."</label>";
+		});
+	}
 
 	$this->trigger("initLogin", array($form));
 
@@ -234,7 +236,7 @@ public function action_join()
 				}
 
 				else {
-					ET::$session->login($form->getValue("username"), $form->getValue("password"));
+					ET::$session->login($data["username"], $form->getValue("password"));
 					$this->redirect(URL(""));
 				}
 

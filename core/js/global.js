@@ -245,12 +245,12 @@ $(function() {
 	// iOS Safari doesn't update position:fixed elements when the keyboard is up.
 	// So, whenever we focus on an input or textarea, change the header's position to absolute,
 	// and revert it when we lose focus.
-	var iOS = (navigator.userAgent.match(/(iPad|iPhone|iPod)/g) ? true : false);
-	if (iOS) {
-		$("input, textarea").live('focus', function(){
+	ET.iOS = /(iPad|iPhone|iPod)/g.test( navigator.userAgent );
+	if (ET.iOS) {
+		$(document).on('focus', "input, textarea", function(){
 			$("#hdr").css({position:'absolute'});
 		});
-		$("input, textarea").live('blur', function(){
+		$(document).on('blur', "input, textarea", function(){
 			$("#hdr").css({position:''});
 		});
 		// Also hide tooltips.
@@ -624,10 +624,10 @@ $.fn.popup = function(options) {
 
 $.fn.tooltip = function(options) {
 
-	// If we're doing a tooltip on a distinct element, bind the handlers. But if we're using a selector, use live so they always apply.
-	var func = this.selector ? "live" : "bind";
+	var listener = $(this.selector ? document : this);
+	var selector = this.selector ? this.selector : null;
 
-	return this.unbind("mouseenter.tooltip").die("mouseenter.tooltip")[func]("mouseenter.tooltip", function() {
+	listener.off("mouseenter.tooltip", selector).on("mouseenter.tooltip", selector, function() {
 
 		var elm = $(this);
 		options = options || {};
@@ -686,13 +686,15 @@ $.fn.tooltip = function(options) {
 	})
 
 	// Bind a mouseleave handler to hide the tooltip.
-	.unbind("mouseleave.tooltip").die("mouseleave.tooltip")[func]("mouseleave.tooltip", function() {
+	.off("mouseleave.tooltip", selector).on("mouseleave.tooltip", selector, function() {
 
 		// If the tooltip is hoverable, don't hide it instantly. Give it a chance to run the mouseenter event.
 		$("#tooltip").hasClass("hoverable")
 			? $.tooltipParent.data("hideTimeout", setTimeout($.hideToolTip, 1))
 			: $.hideToolTip();
 	});
+
+	return this;
 
 };
 
@@ -802,18 +804,18 @@ $(function() {
 	$.history.init();
 
 	// Add click handlers to some links.
-	$(".link-forgot").live("click", function(e) {
+	$(document).on("click", ".link-forgot", function(e) {
 		e.preventDefault();
 		showForgotSheet();
 	});
 
-	$(".link-membersOnline").live("click", function(e) {
+	$(document).on("click", ".link-membersOnline", function(e) {
 		e.preventDefault();
 		showOnlineSheet();
 	});
 
 	// Add click handlers to stars.
-	$(".starButton").live("click", function(e) {
+	$(document).on("click", ".starButton", function(e) {
 		toggleStar($(this).data("id"));
 		e.preventDefault();
 	});

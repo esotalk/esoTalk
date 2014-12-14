@@ -20,6 +20,7 @@ $definitions["date.full"] = "%c";
 
 $definitions["%d day ago"] = "yesterday";
 $definitions["%d days ago"] = "%d days ago";
+$definitions["%d hidden"]  = "%d hidden";
 $definitions["%d hour ago"] = "1 hour ago";
 $definitions["%d hours ago"] = "%d hours ago";
 $definitions["%d minute ago"] = "1 minute ago";
@@ -205,6 +206,7 @@ $definitions["Guests can view the:"] = "Guests can view the:";
 $definitions["Header"] = "Header";
 $definitions["Header color"] = "Header color";
 $definitions["Heads Up!"] = "Heads Up!";
+$definitions["hidden"] = "hidden";
 $definitions["Hide"] = "Hide";
 $definitions["Home page"] = "Home page";
 $definitions["HTML is allowed."] = "HTML is allowed.";
@@ -296,6 +298,7 @@ $definitions["Notifications"] = "Notifications";
 $definitions["Now"] = "Now";
 
 $definitions["OK"] = "OK";
+$definitions["Older"] = "Older";
 $definitions["Online"] = "Online";
 $definitions["online"] = "online";
 $definitions["%s Members"] = "%s Members";
@@ -411,6 +414,7 @@ $definitions["View more"] = "View more";
 $definitions["View your profile"] = "View your profile";
 $definitions["View"] = "View";
 $definitions["Viewing: %s"] = "Viewing: %s";
+$definitions["Viewing %s"] = "Viewing %s";
 $definitions["viewingPosts"] = "<b>%s-%s</b> of %s posts";
 
 $definitions["Warning"] = "Warning";
@@ -466,6 +470,7 @@ $definitions["message.gambitsHelp"] = "Gambits are phrases that describe what yo
 $definitions["message.gdNotEnabledWarning"] = "<strong>The GD extension is not enabled.</strong> This is required to resize and save avatars. Get your host or administrator to install/enable it.";
 $definitions["message.greaterMySQLVersionRequired"] = "<strong>You must have MySQL 4 or greater installed and the <a href='http://php.net/manual/en/mysql.installation.php' target='_blank'>MySQL extension enabled in PHP</a>.</strong> Please install/upgrade both of these requirements or request that your host or administrator install them.";
 $definitions["message.greaterPHPVersionRequired"] = "<strong>Your server must have PHP %s or greater installed to run esoTalk.</strong> Please upgrade your PHP installation or request that your host or administrator upgrade the server.";
+$definitions["message.groupsHelp"] = "Groups are used to categorize members on your forum. You can create as many groups as needed.";
 $definitions["message.incorrectLogin"] = "Your login details were incorrect.";
 $definitions["message.incorrectPassword"] = "Your current password is incorrect.";
 $definitions["message.installerAdminHelp"] = "esoTalk will use the following information to set up your administrator account on your forum.";
@@ -572,6 +577,7 @@ $definitions["gambit.ignored"] = "ignored";
 $definitions["gambit.sticky"] = "sticky";
 $definitions["gambit.unread"] = "unread";
 $definitions["gambit.limit:"] = "limit:";
+$definitions["gambit.title:"] = "title:";
 
 // Aliases
 // These are gambits which tell the gambit system to use another gambit.
