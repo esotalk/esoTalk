@@ -318,9 +318,6 @@ public function init()
 		$this->addJSLanguage("message.ajaxRequestPending", "message.ajaxDisconnected", "Loading...", "Notifications");
 		$this->addJSVar("notificationCheckInterval", C("esoTalk.notificationCheckInterval"));
 
-		// If config/custom.css contains something, add it to be included in the page.
-		if (file_exists($file = PATH_CONFIG."/custom.css") and filesize($file) > 0) $this->addCSSFile("config/custom.css", true);
-
 	}
 
 	$this->trigger("init");
@@ -457,6 +454,11 @@ public function render($view = "")
 
 			// Fetch the content of the view, passing the data collected in the controller.
 			if ($view) $data["content"] = $this->getViewContents($view, $this->data);
+
+			// If config/custom.css contains something, add it to be included in the page.
+			if (file_exists($file = PATH_CONFIG."/custom.css") and filesize($file) > 0) {
+				$this->addCSSFile("config/custom.css", true);
+			}
 
 			// Add the <head> contents and the page title.
 			$data["head"] = $this->head();
