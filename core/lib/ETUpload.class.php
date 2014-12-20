@@ -185,7 +185,7 @@ public function saveAsImage($source, $destination, $width, $height, $sizeMode = 
 			break;
 
 		default:
-			imagejpeg($newImage, $outputFile = "$destination.jpg");
+			imagejpeg($newImage, $outputFile = "$destination.jpg", 90);
 	}
 
 	// Clean up.
