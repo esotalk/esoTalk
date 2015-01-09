@@ -26,7 +26,7 @@ class ETConversationController extends ETController {
 public function action_index($conversationId = false, $year = false, $month = false)
 {
 	if (!$this->allowed()) return;
-	
+
 	// Get the conversation.
 	$conversation = ET::conversationModel()->getById((int)$conversationId);
 
@@ -112,7 +112,7 @@ public function action_index($conversationId = false, $year = false, $month = fa
 
 			// Make a timestamp out of this date.
 			else $timestamp = mktime(0, 0, 0, min($month, 12), 1, min($year, 2038));
-			
+
 			// Find the closest post that's after this timestamp, and find its position within the conversation.
 			$position = ET::SQL()
 				->select("COUNT(postId)", "position")
@@ -243,7 +243,7 @@ public function action_index($conversationId = false, $year = false, $month = fa
 
 		// If the user has permission to moderate this conversation...
 		if ($conversation["canModerate"]) {
-			
+
 			// Add the sticky/unsticky control.
 			$controls->add("sticky", "<a href='".URL("conversation/sticky/".$conversation["conversationId"]."/?token=".ET::$session->token."&return=".urlencode($this->selfURL))."' id='control-sticky'><i class='icon-pushpin'></i> <span>".T($conversation["sticky"] ? "Unsticky" : "Sticky")."</span></a>");
 
@@ -352,6 +352,13 @@ public function action_start($member = false)
 
 	// Get a list of channels so that we can check to make sure a valid channel is selected.
 	$channels = ET::channelModel()->get("start");
+
+	// The user not permission to star conversation.
+	if (!$channels){
+		$this->renderMessage("Error!", T("message.noPermission"));
+		return;
+	}
+
 	$channelId = $form->validPostBack("content") ? ET::$session->get("channelId") : ET::$session->get("searchChannelId");
 	ET::$session->store("channelId", isset($channels[$channelId]) ? $channelId : reset(array_keys($channels)));
 
@@ -1393,7 +1400,7 @@ protected function getPostForQuoting($postId, $conversationId)
 	$result = $result->firstRow();
 
 	// Convert spaces in the member name to non-breaking spaces.
-	// (Spaces aren't usually allowed in esoTalk usernames, so this is a bit of a "hack" for 
+	// (Spaces aren't usually allowed in esoTalk usernames, so this is a bit of a "hack" for
 	// certain esoTalk installations that do allow them.)
 	$result["username"] = str_replace(" ", "\xc2\xa0", $result["username"]);
 
