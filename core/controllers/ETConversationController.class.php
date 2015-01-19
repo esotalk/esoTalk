@@ -805,7 +805,7 @@ public function action_membersAllowed($conversationId = false)
 	elseif (!($conversation = $this->getConversation($conversationId))) return;
 
 	// Do we have permission to do this?
-	if (!$conversation["canModerate"] and ET::$session->userId != $conversation["startMemberId"]) {
+	if (!$conversation["canEditMembersAllowed"]) {
 		$this->renderMessage(T("Error"), T("message.noPermission"));
 		return;
 	}
@@ -861,6 +861,12 @@ public function action_addMember($conversationId = false)
 	if (!$conversationId) $conversation = $model->getEmptyConversation();
 	elseif (!($conversation = $this->getConversation($conversationId))) return;
 
+	// Do we have permission to do this?
+	if (!$conversation["canEditMembersAllowed"]) {
+		$this->renderMessage(T("Error"), T("message.noPermission"));
+		return;
+	}
+
 	if ($name = str_replace("\xc2\xa0", " ", R("member"))) {
 
 		// Get an entity's details by parsing the member name.
@@ -915,6 +921,12 @@ public function action_removeMember($conversationId = false)
 	$model = ET::conversationModel();
 	if (!$conversationId) $conversation = $model->getEmptyConversation();
 	elseif (!($conversation = $this->getConversation($conversationId))) return;
+
+	// Do we have permission to do this?
+	if (!$conversation["canEditMembersAllowed"]) {
+		$this->renderMessage(T("Error"), T("message.noPermission"));
+		return;
+	}
 
 	// Get the members allowed in the conversation.
 	$conversation["membersAllowed"] = $model->getMembersAllowed($conversation);

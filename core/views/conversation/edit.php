@@ -68,7 +68,7 @@ $this->renderView("conversation/reply", array(
 
 <?php
 // Members allowed list (only if conversation is private or editable)
-if ($conversation["startMemberId"] == ET::$session->userId or $conversation["canModerate"]): ?>
+if ($conversation["canEditMembersAllowed"]): ?>
 <?php echo $data["membersAllowedForm"]->open(); ?>
 <?php $this->renderView("conversation/editMembersAllowed", array("form" => $data["membersAllowedForm"], "conversation" => $conversation)); ?>
 <?php echo $data["membersAllowedForm"]->close(); ?>

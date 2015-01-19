@@ -189,6 +189,7 @@ public function get($wheres = array())
 			->select("1", "canDeleteConversation");
 	}
 
+
 	// Execute the query.
 	$result = $sql->exec();
 	if (!$result->numRows()) return false;
@@ -204,6 +205,9 @@ public function get($wheres = array())
 
 	// If the conversation is locked and the user can't moderate, then they can't reply.
 	if ($conversation["locked"] and !$conversation["canModerate"]) $conversation["canReply"] = false;
+
+	// The user can edit members allowed if they are the author AND no one else has posted in this conversation.
+	$conversation["canEditMembersAllowed"] = ET::$session->userId == $conversation["startMemberId"] && $conversation["countPosts"] <= 1;
 
 	// If the current user owns this conversation, and it's a draft, or they're the only poster,
 	// then allow them to delete it. We can only know that they're the only poster if there is only
@@ -280,7 +284,8 @@ public function getEmptyConversation()
 		"channelPermissionView" => array(),
 		"labels" => array(),
 		"canModerate" => true,
-		"canReply" => true
+		"canReply" => true,
+		"canEditMembersAllowed" => true
 	);
 	// Add the private label if there are entities in the membersAllowed session store.
 	if (ET::$session->get("membersAllowed")) {
