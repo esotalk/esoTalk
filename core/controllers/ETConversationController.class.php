@@ -1325,6 +1325,9 @@ protected function formatPostForTemplate($post, $conversation)
 		if ($canEdit) {
 			$formatted["controls"][] = "<a href='".URL("conversation/editPost/".$post["postId"])."' title='".T("Edit")."' class='control-edit'><i class='icon-edit'></i></a>";
 			$formatted["controls"][] = "<a href='".URL("conversation/deletePost/".$post["postId"]."?token=".ET::$session->token)."' title='".T("Delete")."' class='control-delete'><i class='icon-remove'></i></a>";
+		} elseif (C("esoTalk.conversation.editPostTimeLimit") == "reply") {
+			$formatted["controls"][] = "<span title='".sanitizeHTML(T("message.cannotEditSinceReply"))."' class='control-edit disabled'><i class='icon-edit'></i></span>";
+			$formatted["controls"][] = "<span title='".sanitizeHTML(T("message.cannotEditSinceReply"))."' class='control-delete disabled'><i class='icon-remove'></i></span>";
 		}
 
 	}
