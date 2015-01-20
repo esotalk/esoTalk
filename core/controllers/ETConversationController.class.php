@@ -1295,7 +1295,7 @@ protected function formatPostForTemplate($post, $conversation)
 	$date = smartTime($post["time"], true);
 
 	// Add the date/time to the post info as a permalink.
-	$formatted["info"][] = "<a href='".URL(postURL($post["postId"]))."' class='time' title='".strftime(T("date.full"), $post["time"])."'>".(!empty($conversation["searching"]) ? T("Show in context") : $date)."</a>";
+	$formatted["info"][] = "<a href='".URL(postURL($post["postId"]))."' class='time' title='".strftime(T("date.full"), $post["time"])."' data-timestamp='".$post["time"]."'>".(!empty($conversation["searching"]) ? T("Show in context") : $date)."</a>";
 
 	// If the post isn't deleted, add a lot of stuff!
 	if (!$post["deleteMemberId"]) {
@@ -1315,7 +1315,7 @@ protected function formatPostForTemplate($post, $conversation)
 		}
 
 		// If the post has been edited, show the time and by whom next to the controls.
-		if ($post["editMemberId"]) $formatted["controls"][] = "<span class='editedBy'>".sprintf(T("Edited %s by %s"), "<span title='".strftime(T("date.full"), $post["editTime"])."'>".relativeTime($post["editTime"], true)."</span>", memberLink($post["editMemberId"], $post["editMemberName"]))."</span>";
+		if ($post["editMemberId"]) $formatted["controls"][] = "<span class='editedBy'>".sprintf(T("Edited %s by %s"), "<span title='".strftime(T("date.full"), $post["editTime"])."' data-timestamp='".$post["editTime"]."'>".relativeTime($post["editTime"], true)."</span>", memberLink($post["editMemberId"], $post["editMemberName"]))."</span>";
 
 		// If the user can reply, add a quote control.
 		if ($conversation["canReply"])

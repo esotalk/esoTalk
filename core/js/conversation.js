@@ -569,6 +569,12 @@ initPosts: function() {
 
 initPost: function(post) {
 	ETConversation.collapseQuotes(post);
+
+	$(post).find('[data-timestamp]').each(function() {
+		$this = $(this);
+		var date = new Date(parseInt($this.data('timestamp')) * 1000);
+		$this.attr('title', date.toString());
+	})
 },
 
 // Collapse quotes and add expand buttons.
