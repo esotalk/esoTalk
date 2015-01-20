@@ -260,9 +260,9 @@ public function lists()
 		return '</p><ol>'.preg_replace("/^[0-9]+[.)]\s+([^\n]*)(?:\n|$)/m", "<li>$1</li>", trim($matches[0])).'</ol><p>';
 	}, $this->content);
 
-	// Same goes for unordered lists, but with a - or a * instead of a number.
-	$this->content = preg_replace_callback("/(?:^ *[-*]\s*([^\n]*)(?:\n|$)){2,}/m", function ($matches) {
-		return '</p><ul>'.preg_replace("/^ *[-*]\s*([^\n]*)(?:\n|$)/m", "<li>$1</li>", trim($matches[0])).'</ul><p>';
+	// Same goes for unordered lists, but with a -, *, or &bull; instead of a number.
+	$this->content = preg_replace_callback("/(?:^ *(?:[-*]|&bull;)\s*([^\n]*)(?:\n|$)){2,}/m", function ($matches) {
+		return '</p><ul>'.preg_replace("/^ *(?:[-*]|&bull;)\s*([^\n]*)(?:\n|$)/m", "<li>$1</li>", trim($matches[0])).'</ul><p>';
 	}, $this->content);
 
 	return $this;
