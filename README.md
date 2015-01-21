@@ -41,3 +41,16 @@ To upgrade esoTalk from an older version, simply:
 ### Troubleshooting
 
 If you are having problems installing esoTalk, view the [Troubleshooting](http://esotalk.org/docs/debug) documentation.
+
+### How to fix the SMTP Server Error
+
+If it can't send a mail, or SMTP Error, try use postfix. 
+yum remove sendmail
+yum install postfix
+then, Edit /etc/postfix/main.cf
+inet_protocols=all
+to
+inet_protocols=ipv4
+then
+service postfix restart
+systemctl enable postfix.service
