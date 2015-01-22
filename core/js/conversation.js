@@ -636,7 +636,7 @@ deletePost: function(postId) {
 			hideLoadingOverlay("p" + postId, true);
 		},
 		success: function(data) {
-			if (data.messages) return;
+			if (data.messages || data.modalMessage) return;
 			$("#p"+postId).replaceWith(data.view);
 			ETConversation.redisplayAvatars();
 		}
@@ -658,7 +658,7 @@ restorePost: function(postId) {
 			hideLoadingOverlay("p" + postId, true);
 		},
 		success: function(data) {
-			if (data.messages) return;
+			if (data.messages || data.modalMessage) return;
 			$("#p"+postId).replaceWith(data.view);
 			ETConversation.redisplayAvatars();
 			ETConversation.collapseQuotes($("#p"+postId));
