@@ -1270,7 +1270,7 @@ public function action_restorePost($postId = false)
  * @param array $conversation The details of the conversation which the post is in.
  * @return array A formatted array which can be used in the post template view.
  */
-protected function formatPostForTemplate($post, $conversation)
+public function formatPostForTemplate($post, $conversation)
 {
 	$canEdit = ET::postModel()->canEditPost($post, $conversation);
 	$avatar = avatar($post);
@@ -1279,11 +1279,11 @@ protected function formatPostForTemplate($post, $conversation)
 	$formatted = array(
 		"id" => "p".$post["postId"],
 		"title" => memberLink($post["memberId"], $post["username"]),
-		"avatar" => (!$post["deleteMemberId"] and $avatar) ? "<a href='".URL(memberURL($post["memberId"], $post["username"]))."'>$avatar</a>" : false,
-		"class" => $post["deleteMemberId"] ? array("deleted") : array(),
+		"avatar" => (!$post["deleteTime"] and $avatar) ? "<a href='".URL(memberURL($post["memberId"], $post["username"]))."'>$avatar</a>" : false,
+		"class" => $post["deleteTime"] ? array("deleted") : array(),
 		"info" => array(),
 		"controls" => array(),
-		"body" => !$post["deleteMemberId"] ? $this->displayPost($post["content"]) : false,
+		"body" => !$post["deleteTime"] ? $this->displayPost($post["content"]) : false,
 		"footer" => array(),
 
 		"data" => array(
@@ -1298,7 +1298,7 @@ protected function formatPostForTemplate($post, $conversation)
 	$formatted["info"][] = "<a href='".URL(postURL($post["postId"]))."' class='time' title='".strftime(T("date.full"), $post["time"])."' data-timestamp='".$post["time"]."'>".(!empty($conversation["searching"]) ? T("Show in context") : $date)."</a>";
 
 	// If the post isn't deleted, add a lot of stuff!
-	if (!$post["deleteMemberId"]) {
+	if (!$post["deleteTime"]) {
 
 		// Add the user's online status / last action next to their name.
 		if (empty($post["preferences"]["hideOnline"])) {
@@ -1325,7 +1325,13 @@ protected function formatPostForTemplate($post, $conversation)
 		if ($canEdit) {
 			$formatted["controls"][] = "<a href='".URL("conversation/editPost/".$post["postId"])."' title='".T("Edit")."' class='control-edit'><i class='icon-edit'></i></a>";
 			$formatted["controls"][] = "<a href='".URL("conversation/deletePost/".$post["postId"]."?token=".ET::$session->token)."' title='".T("Delete")."' class='control-delete'><i class='icon-remove'></i></a>";
-		} elseif (C("esoTalk.conversation.editPostTimeLimit") == "reply") {
+		}
+		// If the reason the user cannot edit the post is because someone else has replied, then inform them with a tooltip.
+		elseif (!$conversation["locked"]
+			&& !ET::$session->isSuspended()
+			&& $post["memberId"] == ET::$session->userId
+			&& (!$post["deleteMemberId"] || $post["deleteMemberId"] == ET::$session->userId)
+			&& C("esoTalk.conversation.editPostTimeLimit") == "reply") {
 			$formatted["controls"][] = "<span title='".sanitizeHTML(T("message.cannotEditSinceReply"))."' class='control-edit disabled'><i class='icon-edit'></i></span>";
 			$formatted["controls"][] = "<span title='".sanitizeHTML(T("message.cannotEditSinceReply"))."' class='control-delete disabled'><i class='icon-remove'></i></span>";
 		}
