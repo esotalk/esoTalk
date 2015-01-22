@@ -241,6 +241,8 @@ public function getActivity($member, $offset = 0, $limit = 11)
 		->limit($offset + $limit);
 	ET::channelModel()->addPermissionPredicate($posts);
 
+	$this->trigger("getActivityBefore", array($member, $activity, $posts));
+
 	// Marry these two queries so we get their activity AND their posts in one resultset.
 	$result = ET::SQL()
 		->union($activity)
