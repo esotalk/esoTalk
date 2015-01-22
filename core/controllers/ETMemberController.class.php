@@ -76,7 +76,7 @@ public function action_index($member = "")
  * @param string $member The member's ID.
  * @return array An array of the member's details, or false if they weren't found.
  */
-protected function getMember($memberId)
+public function getMember($memberId)
 {
 	if (!$memberId or !($member = ET::memberModel()->getById((int)$memberId))) {
 		$this->render404(T("message.memberNotFound"));
