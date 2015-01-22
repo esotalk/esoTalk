@@ -211,22 +211,26 @@ function minifyJS($js)
  */
 function sendEmail($to, $subject, $body)
 {
-	$phpmailer = PATH_LIBRARY.'/vendor/class.phpmailer.php';
-	require_once($phpmailer);
-	$mail = new PHPMailer(true);
+	try {
+		$phpmailer = PATH_LIBRARY.'/vendor/class.phpmailer.php';
+		require_once($phpmailer);
+		$mail = new PHPMailer(true);
 
-	if ($return = ET::first("sendEmailBefore", array($mail, &$to, &$subject, &$body))) return $return;
+		if ($return = ET::first("sendEmailBefore", array($mail, &$to, &$subject, &$body))) return $return;
 
-	$mail->CharSet = 'UTF-8';
-	$mail->IsHTML(true);
-	$mail->AddAddress($to);
-	$mail->SetFrom(C("esoTalk.emailFrom"), sanitizeForHTTP(C("esoTalk.forumTitle")));
-	$mail->Subject = sanitizeForHTTP($subject);
-	$mail->AltBody = strip_tags($body);
-	$mail->Body = $body;
-	$mail->Encoding = 'quoted-printable';
+		$mail->CharSet = 'UTF-8';
+		$mail->IsHTML(true);
+		$mail->AddAddress($to);
+		$mail->SetFrom(C("esoTalk.emailFrom"), sanitizeForHTTP(C("esoTalk.forumTitle")));
+		$mail->Subject = sanitizeForHTTP($subject);
+		$mail->AltBody = strip_tags($body);
+		$mail->Body = $body;
+		$mail->Encoding = 'quoted-printable';
 
-	return $mail->Send();
+		return $mail->Send();
+	} catch (Exception $e) {
+		return false;
+	}
 }
 
 
