@@ -223,7 +223,7 @@ public function linksCallback($matches)
 		$id = $youtube[1];
 		$width = 400;
 		$height = 225;
-		return "<div class='video'><object width='$width' height='$height'><param name='movie' value='//www.youtube.com/v/$id'></param><param name='allowFullScreen' value='true'></param><param name='allowscriptaccess' value='always'></param><embed src='//www.youtube.com/v/$id' type='application/x-shockwave-flash' allowscriptaccess='always' allowfullscreen='true' width='$width' height='$height'></embed></object></div>";
+		return "<iframe class='video' type='text/html' width='$width' height='$height' src='http://www.youtube.com/embed/$id' allowfullscreen frameborder='0'></iframe>";
 	}
 
 	return $this->formatLink($matches[1].$matches[2], $matches[0]);
