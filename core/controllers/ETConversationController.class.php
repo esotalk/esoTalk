@@ -342,7 +342,7 @@ public function action_start($member = false)
 
 	// If the user is suspended, show an error.
 	if (ET::$session->isSuspended()) {
-		$this->renderMessage("Error!", T("message.suspended"));
+		$this->renderMessage(T("Error"), T("message.suspended"));
 		return;
 	}
 
@@ -355,7 +355,7 @@ public function action_start($member = false)
 
 	// The user not permission to star conversation.
 	if (!$channels){
-		$this->renderMessage("Error!", T("message.noPermission"));
+		$this->renderMessage(T("Error"), T("message.noPermission"));
 		return;
 	}
 
