@@ -573,7 +573,7 @@ initPost: function(post) {
 	$(post).find('[data-timestamp]').each(function() {
 		$this = $(this);
 		var date = new Date(parseInt($this.data('timestamp')) * 1000);
-		$this.attr('title', date.toString());
+		$this.attr('title', date.toLocaleString());
 	})
 },
 
