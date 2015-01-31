@@ -307,7 +307,7 @@ public static function loadLanguage($language = "")
 
 	// Re-define runtime definitions.
 	foreach (self::$runtimeDefinitions as $k => $v)
-		ET::define($k, $v);
+		ET::define($k, $v, true);
 }
 
 
@@ -358,10 +358,10 @@ public static function revertLanguageState()
  */
 public static function define($key, $value, $override = false)
 {
-	self::$runtimeDefinitions[$key] = $value;
-
 	if (isset(self::$definitions[$key]) and !$override) return false;
 	self::$definitions[$key] = $value;
+
+	self::$runtimeDefinitions[$key] = $value;
 }
 
 
