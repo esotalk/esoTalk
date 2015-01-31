@@ -740,7 +740,7 @@ public function addReply(&$conversation, $content)
 	// Commit our changes to the database!
 	$this->updateById($conversation["conversationId"], $update);
 	if (count($updateStatus)) {
-		$this->setStatus($conversation["conversationId"], ET::$session->userId, $update);
+		$this->setStatus($conversation["conversationId"], ET::$session->userId, $updateStatus);
 	}
 
 	// Update the conversation details.
