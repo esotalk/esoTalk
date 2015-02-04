@@ -1349,7 +1349,7 @@ public function formatPostForTemplate($post, $conversation)
 	else {
 
 		// Add the "deleted by" information.
-		if ($post["deleteMemberId"]) $formatted["controls"][] = "<span>".sprintf(T("Deleted %s by %s"), "<span title='".strftime(T("date.full"), $post["deleteTime"])."'>".relativeTime($post["deleteTime"], true)."</span>", memberLink($post["deleteMemberId"], $post["deleteMemberName"]))."</span>";
+		if ($post["deleteMemberId"]) $formatted["controls"][] = "<span>".sprintf(T("Deleted %s by %s"), "<span title='".strftime(T("date.full"), $post["deleteTime"])."' data-timestamp='".$post["deleteTime"]."'>".relativeTime($post["deleteTime"], true)."</span>", memberLink($post["deleteMemberId"], $post["deleteMemberName"]))."</span>";
 
 		// If the user can edit the post, add a restore control.
 		if ($canEdit)
