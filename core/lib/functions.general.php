@@ -431,20 +431,6 @@ function slug($string)
 			$string = transliterator_transliterate("Any-Latin; NFD; [:Nonspacing Mark:] Remove; NFC; [:Punctuation:] Remove; Lower();", $string);
 
 		} 
-		elseif (function_exists('iconv')) {
-
-			// IConv won't deal nicely with the following, hence we have to deal with them
-			// manually. Note: even though “scharfes s” is commonly transliterated as “sz”,
-			// in this context “ss” is preferred, as it's the most popular method among German
-			// speakers.
-			$src = array('đ', 'ø', 'ß',  'Đ', 'Ø');
-			$dst = array('d', 'o', 'ss', 'D', 'O');
-			$string = str_replace($src, $dst, $string);
-
-			// Using IConv to get rid of accents. Non-Latin letters are unaffected
-			$string = iconv('UTF-8', 'ASCII//TRANSLIT//IGNORE', $string);
-
-		}
 		else {
 
 			// A fallback to old method.
@@ -462,7 +448,7 @@ function slug($string)
 	ET::trigger("slug", array(&$string));
 
 	// Now replace non-alphanumeric characters with a hyphen, and remove multiple hyphens.
-	$slug = mb_strtolower(trim(preg_replace(array("/[^0-9a-z]/i", "/-+/"), "-", $string), "-"), "UTF-8");
+	$slug = str_replace(' ','-',trim(preg_replace('~[^\\pL\d]+~u',' ',mb_strtolower($string, "UTF-8"))));
 
 	return mb_substr($slug, 0, 63, "UTF-8");
 }
