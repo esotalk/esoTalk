@@ -16,6 +16,8 @@ $members = $data["members"];
 <div class='sheet' id='unapprovedSheet'>
 <div class='sheetContent' id='adminUnapproved'>
 
+<a href='<?php echo URL("admin/unapproved/denyall?token=".ET::$session->token); ?>' class='button denyAll'><?php echo T("Deny All"); ?></a>
+
 <h3><?php echo T("Members Awaiting Approval"); ?></h3>
 
 <div class='sheetBody'>

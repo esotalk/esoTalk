@@ -68,6 +68,8 @@ public function action_approve($memberId)
  */
 public function action_deny($memberId)
 {
+	if (!$this->validateToken()) return;
+
 	// Get this member's details. If it doesn't exist or is already approved, show an error.
 	if (!($member = ET::memberModel()->getById((int)$memberId)) or $member["confirmed"]) {
 		$this->redirect(URL("admin/unapproved"));
@@ -75,6 +77,22 @@ public function action_deny($memberId)
 	}
 
 	ET::memberModel()->deleteById($memberId);
+
+	$this->message(T("message.changesSaved"), "success autoDismiss");
+	$this->redirect(URL("admin/unapproved"));
+}
+
+
+/**
+ * Deny all members.
+ *
+ * @return void
+ */
+public function action_denyAll()
+{
+	if (!$this->validateToken()) return;
+
+	ET::memberModel()->delete(array("confirmed" => 0));
 
 	$this->message(T("message.changesSaved"), "success autoDismiss");
 	$this->redirect(URL("admin/unapproved"));

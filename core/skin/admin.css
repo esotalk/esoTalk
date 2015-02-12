@@ -54,6 +54,7 @@
 
 
 /* Unapproved members */
+#adminUnapproved .denyAll {float:right; margin:10px 15px 0 0; position:relative; z-index:1}
 #adminUnapproved .list .controls {margin:-3px 0; float:right; font-size:100%}
 #adminUnapproved .list small {margin-left:10px}
 
