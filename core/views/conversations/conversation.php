@@ -44,7 +44,7 @@ if (ET::$session->get("highlight"))
 	echo "<span class='controls'><a href='".URL($conversationURL."/?search=".urlencode($data["fulltextString"]))."' class='showMatchingPosts'>".T("Show matching posts")."</a></span>";
 
 // If this conversation is stickied, output an excerpt from its first post.
-if ($conversation["sticky"])
+if ($conversation["firstPost"])
 	echo "<div class='excerpt'>".ET::formatter()->init($conversation["firstPost"])->inline(true)->firstLine()->clip(200)->format()->get()."</div>";
 
 ?></div>
