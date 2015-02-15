@@ -148,6 +148,7 @@ public function action_join()
 	// Construct a form.
 	$form = ETFactory::make("form");
 	$form->action = URL("user/join");
+	$form->addHidden("return", R("return"));
 
 	// Add the username field to the form structure.
 	$form->addSection("username", T("Username"));
