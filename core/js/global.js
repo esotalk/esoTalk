@@ -583,10 +583,10 @@ $.fn.popup = function(options) {
 
 	options = options || {};
 	options.content = options.content || "<i class='icon-cog'></i> <i class='icon-caret-down'></i>";
-    options.class = options.class || "";
+    options.className = options.className || "";
 
     // Add space before the class.
-    if (options.class) options.class = " " + options.class
+    if (options.className) options.className = " " + options.className
 
 
 	// Get the element to use as the popup contents.
@@ -594,7 +594,7 @@ $.fn.popup = function(options) {
 	if (!popup.length) return;
 
 	// Construct the popup wrapper and button.
-	var wrapper = $("<div class='popupWrapper"+options.class+"'></div>");
+	var wrapper = $("<div class='popupWrapper"+options.className+"'></div>");
 	var button = $("<a href='#' class='popupButton button' id='"+popup.attr("id")+"-button'>"+options.content+"</a>");
 	wrapper.append(button).append(popup);
 
