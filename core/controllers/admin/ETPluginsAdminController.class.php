@@ -101,7 +101,7 @@ public function action_toggle($plugin = "")
 
 				// Check the dependency is met, whether it be a plugin or a version of esoTalk.
 				if (($name == "esoTalk" and !version_compare(ESOTALK_VERSION, $minVersion, ">="))
-					or ($name != "esoTalk" and (!isset(ET::$plugins[$name]) or !version_compare(ET::$pluginInfo[$name], $minVersion, ">=")))
+					or ($name != "esoTalk" and (!isset(ET::$plugins[$name]) or !version_compare(ET::$pluginInfo[$name]["version"], $minVersion, ">=")))
 					) {
 						$this->message(sprintf(T("message.pluginDependencyNotMet"), $name, $minVersion), "warning");
 						$dependencyFailure = true;
