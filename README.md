@@ -55,9 +55,13 @@ If you would like to connect via SSL, you can recompile PHP by adding this funct
 Solution: Use pear to install the missing extensions.
 
 ./pear install Mail
+
 ./pear install Net_Socket-1.0.10
+
 ./pear install Net_SMTP
+
 ./pear install Auth_SASL
+
 ./pear install Mail_Mime
 
 3: sendmail_path isn't correct.
