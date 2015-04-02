@@ -42,15 +42,23 @@ To upgrade esoTalk from an older version, simply:
 
 If you are having problems installing esoTalk, view the [Troubleshooting](http://esotalk.org/docs/debug) documentation.
 
-### How to fix the SMTP Server Error
+### SMTP Troubleshooting
 
-If it can't send a mail, or SMTP Error, try use postfix. 
-yum remove sendmail
-yum install postfix
-then, Edit /etc/postfix/main.cf
-inet_protocols=all
-to
-inet_protocols=ipv4
-then
-service postfix restart
-systemctl enable postfix.service
+If you have problems with SMTP extension, you can consider the situations below:
+
+1. Your PHP dosen't have OpenSSL Support, but you use SSL/TLS to connect the SMTP Server.
+Solution: Use Normal port instead of SSL port(like 994, for more you can visit your mail provider's help page).
+If you would like to connect via SSL, you can recompile PHP by adding this function:
+--with-openssl
+
+2. Your PHP dosen't have necessary mail extensions.
+Solution: Use pear to install the missing extensions.
+
+./pear install Mail
+./pear install Net_Socket-1.0.10
+./pear install Net_SMTP
+./pear install Auth_SASL
+./pear install Mail_Mime
+
+3: sendmail_path isn't correct.
+Solution: Correct it in php.ini.
