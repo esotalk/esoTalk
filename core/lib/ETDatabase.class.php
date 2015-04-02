@@ -295,12 +295,6 @@ public function query($query)
 	// Execute the query.
 	$statement = $connection->query($query);
 
-	// Was there an error?
-	if (!$statement) {
-		$error = $connection->errorInfo();
-		throw new Exception("SQL Error (".$error[0].", ".$error[1]."): ".$error[2]."<br><br><pre>".$this->highlightQueryErrors($query, $error[2])."</pre>");
-	}
-
 	// Set up a new ETSQLResult object with the result statement.
 	$result = ETFactory::make("sqlResult", $statement);
 
