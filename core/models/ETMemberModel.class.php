@@ -60,7 +60,7 @@ public function create(&$values)
 
 	// Set default preferences.
 	if (empty($values["preferences"])) {
-		$preferences = array("email.privateAdd", "email.post", "starOnReply", "email.mention", "starPrivate");
+		$preferences = array("email.privateAdd", "email.post", "email.mention", "starOnReply", "starPrivate");
 		foreach ($preferences as $p) {
 			$values["preferences"][$p] = C("esoTalk.preferences.".$p);
 		}
