@@ -1,5 +1,5 @@
 ## esoTalk – Fat-free forum software
-
+==========================================
 **Help develop *Flarum*, esoTalk's successor. [Flarum on GitHub &raquo;](https://github.com/flarum/core)**
 
 esoTalk is a free, open-source forum software package built with PHP and MySQL. It is designed to be:
