@@ -150,6 +150,8 @@ public function create($type, $member, $fromMember = null, $data = null, $emailD
 
 	}
 
+	$this->trigger("sendNotification", array($activity, $member));
+
 	return $activity["activityId"];
 }
 
