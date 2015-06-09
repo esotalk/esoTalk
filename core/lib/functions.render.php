@@ -234,7 +234,7 @@ if (!function_exists("groupName")) {
  */
 function groupName($group, $plural = false)
 {
-	return sanitizeHTML(T("group.$group".($plural ? ".plural" : ""), ucfirst($group)));
+	return T("group.$group".($plural ? ".plural" : ""), sanitizeHTML(ucfirst($group)));
 }
 
 }
