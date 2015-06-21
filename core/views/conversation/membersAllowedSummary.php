@@ -52,7 +52,17 @@ if (count($names)) {
 			$lastName = array_pop($names);
 		}
 
-		printf(T("%s ".($conversation["countPosts"] > 0 ? "can" : "will be able to")." view this conversation."), sprintf(T("%s and %s"), implode(", ", $names), $lastName));
+		// If there's at least 2 names left, construct the list so that it has one or more commas it.
+		// Thanks to Chris Williams for this fix!
+		if (count($names) > 1) {
+			$firstName = array_shift($names);
+			$translatedNames = sprintf(T("%s, %s and %s"), $firstName, implode(T(", "), $names), $lastName);
+		// Otherwise return 2 names separated by the word "and" as originally planned.
+		} else {
+			$translatedNames = sprintf(T("%s and %s"), $names[0], $lastName);
+		}
+
+		printf(T("%s ".($conversation["countPosts"] > 0 ? "can" : "will be able to")." view this conversation."), $translatedNames);
 	}
 
 	// If there's only one name, we don't need to do anything gramatically fancy.

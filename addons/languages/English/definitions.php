@@ -35,6 +35,7 @@ $definitions["%d year ago"] = "last year";
 $definitions["%d years ago"] = "%d years ago";
 
 $definitions["%s and %s"] = "%s and %s";
+$definitions["%s, %s and %s"] = "%s, %s and %s";
 $definitions["%s can view this conversation."] = "%s can view this conversation.";
 $definitions["%s changed %s's group to %s."] = "%s changed %s's group to %s.";
 $definitions["%s changed your group to %s."] = "%s changed your group to %s.";
