@@ -53,7 +53,7 @@ if (count($names)) {
 		}
 
 		// If there's at least 2 names left, construct the list so that it has one or more commas it.
-		// Thanks to Chris Williams for this fix!
+		// Thanks to Dominion for this fix!
 		if (count($names) > 1) {
 			$firstName = array_shift($names);
 			$translatedNames = sprintf(T("%s, %s and %s"), $firstName, implode(T(", "), $names), $lastName);
