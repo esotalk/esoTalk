@@ -1062,3 +1062,12 @@ function addToArrayString(&$array, $key, $value, $position = false)
 	// Combine the new keys/values!
 	$array = array_combine($keys, $values);
 }
+
+
+function ensureUtf8($text) {
+    return iconv(mb_detect_encoding($text, mb_detect_order(), true), "UTF-8", $text);
+}
+
+function _strftime($format, $time = null) {
+    return ensureUtf8(strftime($format, $time));
+}

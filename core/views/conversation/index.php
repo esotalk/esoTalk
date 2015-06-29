@@ -124,7 +124,7 @@ foreach ($scrubber as $year => $months) {
 		echo "<ul>";
 		foreach ($months as $month) {
 			$selected = ($startFromYear == $year and $startFromMonth == $month) ? " selected" : "";
-			$name = strftime("%B", mktime(0, 0, 0, $month, 1));
+			$name = _strftime("%B", mktime(0, 0, 0, $month, 1));
 			$index = $year.str_pad($month, 2, "0", STR_PAD_LEFT);
 			echo "<li class='scrubber-$index$selected' data-index='$index'><a href='".URL(makeURL("$year/$month"))."'>$name</a></li>";
 		}
@@ -137,7 +137,7 @@ foreach ($scrubber as $year => $months) {
 // Now, with the last 5 months we pulled out before, output a scrubber item for each of them.
 foreach ($recentMonths as $month) {
 	$selected = ($startFromYear == $currentYear and $startFromMonth == $month) ? " selected" : "";
-	$name = strftime("%B", mktime(0, 0, 0, $month, 1));
+	$name = _strftime("%B", mktime(0, 0, 0, $month, 1));
 	$index = $currentYear.str_pad($month, 2, "0", STR_PAD_LEFT);
 	echo "<li class='scrubber-$index$selected' data-index='$index'><a href='".URL(makeURL("$currentYear/$month"))."'>$name</a>";
 	echo "</li>";
