@@ -219,11 +219,12 @@ public function linksCallback($matches)
 {
 	// If we're not doing inline formatting, YouTube embedding is enabled, and this is a YouTube video link,
 	// then return an embed tag.
-	if (!$this->inline and C("esoTalk.format.youtube") and preg_match('%(?:youtube(?:-nocookie)?\.com/(?:[^/]+/.+/|(?:v|e(?:mbed)?)/|.*[?&]v=)|youtu\.be/)([^"&?/ ]{11})%i', $matches[2], $youtube)) {
+	if (!$this->inline and C("esoTalk.format.youtube") and preg_match('%(?:youtube(?:-nocookie)?\.com/(?:[^/]+/.+/|(?:v|e(?:mbed)?)/|.*(?:\?|&amp;)v=)|youtu\.be/)([^"&?/ ]{11})(?:(?:\?|&amp;)(.*))?%i', $matches[2], $youtube)) {
 		$id = $youtube[1];
+		$options = $youtube[2];
 		$width = 400;
 		$height = 225;
-		return "<iframe class='video' type='text/html' width='$width' height='$height' src='http://www.youtube.com/embed/$id' allowfullscreen frameborder='0'></iframe>";
+		return "<iframe class='video' type='text/html' width='$width' height='$height' src='https://www.youtube.com/embed/$id?$options' allowfullscreen frameborder='0'></iframe>";
 	}
 
 	return $this->formatLink($matches[1].$matches[2], $matches[0]);
