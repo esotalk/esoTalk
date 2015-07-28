@@ -77,7 +77,7 @@ public function handler_format_beforeFormat($sender)
 		} else {
 			$sender->content = preg_replace_callback($regexp, function ($matches) use ($self) {
 				$self->blockFixedContents[] = $matches[2];
-				return $matches[1].'</p><pre></pre></p>';
+				return $matches[1].'</p><pre></pre><p>';
 			}, $sender->content);
 		}
 	}
