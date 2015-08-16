@@ -32,7 +32,7 @@ endif;
 
 <div class='col-lastActive'>
 <span class='subText'><?php printf(T("Last active %s"), empty($member["preferences"]["hideOnline"])
-	? "<span title='".strftime(T("date.full"), $member["lastActionTime"])."'>".relativeTime($member["lastActionTime"], true)."</span>"
+	? "<span title='"._strftime(T("date.full"), $member["lastActionTime"])."'>".relativeTime($member["lastActionTime"], true)."</span>"
 	: "[".T("hidden")."]"); ?></span>
 </div>
 
