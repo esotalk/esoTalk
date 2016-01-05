@@ -549,8 +549,8 @@ public static function lastActionViewingConversation($data)
 {
 	if (empty($data["conversationId"])) return array(sprintf(T("Viewing %s"), T("a private conversation")));
 	return array(
-		sprintf(T("Viewing: %s"), $data["title"]),
-		URL(conversationURL($data["conversationId"], $data["title"]))
+		sprintf(T("Viewing: %s"), sanitizeHTML($data["title"])),
+		URL(conversationURL($data["conversationId"], sanitizeHTML($data["title"])))
 	);
 }
 
