@@ -49,7 +49,7 @@ if (!defined("IN_ESOTALK")) exit;
 
 <ul id='userMenu' class='menu'>
 <?php echo $data["userMenuItems"]; ?>
-<li><a href='<?php echo URL("conversation/start"); ?>' class='link-newConversation button'><?php echo T("New Conversation"); ?></a></li>
+<li><a href='<?php echo URL("conversation/start"); ?>' class='link-newConversation button'><i class="icon-plus"></i> <?php echo T("New Conversation"); ?></a></li>
 </ul>
 
 </div>
