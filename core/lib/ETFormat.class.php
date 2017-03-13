@@ -224,7 +224,7 @@ public function linksCallback($matches)
 		$options = $youtube[2];
 		$width = 400;
 		$height = 225;
-		return "<iframe class='video' type='text/html' width='$width' height='$height' src='https://www.youtube.com/embed/$id?$options' allowfullscreen frameborder='0'></iframe>";
+		return "<iframe class='video' type='text/html' width='$width' height='$height' src='https://www.youtube-nocookie.com/embed/$id?$options' allowfullscreen frameborder='0'></iframe>";
 	}
 	if (!$this->inline and C("esoTalk.format.vimeo") and preg_match('%(?:vimeo\.com/)([0-9]+)%i', $matches[2], $vimeo)) {
 		$id = $vimeo[1];
