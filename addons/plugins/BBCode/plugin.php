@@ -103,12 +103,12 @@ public function handler_format_format($sender)
 	//$sender->content = preg_replace('/[\x00-\x09\x0B\x0C\x0E-\x1F\x7F]/', '', $sender->content);
 	// \[ (i|b|color|url|somethingelse) \=? ([^]]+)? \] (?: ([^]]*) \[\/\1\] )
 
-	// Images: [img]url[/img]
-	$replacement = $sender->inline ? "[image]" : "<img src='$1' alt='-image-'/>";
-	$sender->content = preg_replace("/\[img\](https?.*?)\[\/img\]/i", $replacement, $sender->content);
-
 	// Links with display text: [url=http://url]text[/url]
 	$sender->content = preg_replace_callback("/\[url=(?!\s+)(\w{2,6}:\/\/)?([^\]]*?)\](.*?)\[\/url\]/i", array($this, "linksCallback"), $sender->content);
+
+	// Images: [img]url[/img]
+	$replacement = $sender->inline ? "[image]" : "<img src='$1' alt='-image-'/>";
+	$sender->content = preg_replace("/\[img\](.*?)\[\/img\]/i", $replacement, $sender->content);
 
 	// Bold: [b]bold text[/b]
 	$sender->content = preg_replace("/\[b\](.*?)\[\/b\]/si", "<b>$1</b>", $sender->content);
