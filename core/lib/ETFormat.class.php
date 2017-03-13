@@ -224,7 +224,7 @@ public function linksCallback($matches)
 		$options = $youtube[2];
 		$width = 400;
 		$height = 225;
-		return "<iframe class='video' type='text/html' width='$width' height='$height' src='https://www.youtube.com/embed/$id?$options' allowfullscreen frameborder='0'></iframe>";
+		return "<iframe class='video' type='text/html' width='$width' height='$height' src='https://www.youtube-nocookie.com/embed/$id?$options' allowfullscreen frameborder='0'></iframe>";
 	}
 
 	return $this->formatLink($matches[1].$matches[2], $matches[0]);
