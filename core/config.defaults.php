@@ -124,6 +124,7 @@ $config["esoTalk.members.membersPerPage"] = 30;
 
 // Post formatting settings.
 $config["esoTalk.format.youtube"] = true; // Automatically convert YouTube links to embeds?
+$config["esoTalk.format.vimeo"] = true; // Automatically convert Vimeo links to embeds?
 $config["esoTalk.format.mentions"] = true; // Allow @mentioning of members?
 
 // Misc. settings.
