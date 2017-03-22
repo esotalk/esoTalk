@@ -249,6 +249,7 @@ $definitions["Mark as read"] = "Mark as read";
 $definitions["Mark as unread"] = "Mark as unread";
 $definitions["Mark all as read"] = "Mark all as read";
 $definitions["Mark listed as read"] = "Mark listed as read";
+$definitions["Mark as unread"] = "Mark as unread";
 $definitions["Maximum size of %s. %s."] = "Maximum size of %s. %s.";
 $definitions["Member groups"] = "Member groups";
 $definitions["Member list"] = "Member list";
