@@ -338,9 +338,10 @@ addReply: function() {
 		data: {conversationId: ETConversation.id, content: content},
 		success: function(data) {
 
-			// If there are messages, enable the reply/draft buttons and don't continue.
+			// If there are messages, re-enable the reply button after
+			// 10 seconds and don't continue. and don't continue.
 			if (!data.postId) {
-				$("#reply .postReply, #reply .saveDraft").enable();
+				setTimeout(function(){$("#reply .postReply").enable()}, 10000);
 				return;
 			}
 
@@ -468,9 +469,12 @@ discardDraft: function() {
 		},
 		success: function(data) {
 
-			// Hide the draft label and collapse the reply area.
+			// Hide the draft label, collapse the reply area,
+			// disable the draft and post reply buttons again.
 			$("#conversationHeader .labels").html(data.labels);
 			ETConversation.resetReply();
+			$("#reply .saveDraft").disable();
+			$("#reply .postReply").disable();
 
 			$(window).bind("beforeunload.conversation", ETConversation.beforeUnload);
 
