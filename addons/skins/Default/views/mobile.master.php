@@ -37,7 +37,7 @@ $(function() {
 <div id='messages'>
 <?php foreach ($data["messages"] as $message): ?>
 <div class='messageWrapper'>
-<div class='message <?php echo $message["className"]; ?>' data-id='<?php echo @$message["id"]; ?>'><?php echo $message["message"]; ?></div>
+<div class='message <?php echo $message["className"]; ?>' data-id='<?php echo isset($message["id"]) ? $message["id"] : ""; ?>'><?php echo $message["message"]; ?></div>
 </div>
 <?php endforeach; ?>
 </div>

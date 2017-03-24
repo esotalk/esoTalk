@@ -324,7 +324,7 @@ public function action_sendConfirmation($username = "")
 	if (C("esoTalk.registration.requireConfirmation") != "email") return;
 
 	// Get the requested member.
-	$member = reset(ET::memberModel()->get(array("m.username" => $username, "m.confirmed" => false)));
+	$member = ET::memberModel()->get(array("m.username" => $username, "m.confirmed" => false))[0];
 	if ($member) {
 		$this->sendConfirmationEmail($member["email"], $member["username"], $member["memberId"].$member["resetPassword"]);
 		$this->renderMessage(T("Success!"), T("message.confirmEmail"));
@@ -359,7 +359,7 @@ public function action_forgot()
 	if ($form->validPostBack("submit")) {
 
 		// Find the member with this email.
-		$member = reset(ET::memberModel()->get(array("email" => $form->getValue("email"))));
+		$member = ET::memberModel()->get(array("email" => $form->getValue("email")))[0];
 		if (!$member)
 			$form->error("email", T("message.emailDoesntExist"));
 
@@ -402,7 +402,7 @@ public function action_reset($hashString = "")
 	$hash = substr($hashString, -32);
 
 	// Find the member with this password reset token. If it's an invalid token, take them back to the email form.
-	$member = reset(ET::memberModel()->get(array("m.memberId" => $memberId, "resetPassword" => $hash)));
+	$member = ET::memberModel()->get(array("m.memberId" => $memberId, "resetPassword" => $hash))[0];
 	if (!$member) return;
 
 	// Construct a form.

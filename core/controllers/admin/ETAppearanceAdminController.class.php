@@ -141,8 +141,8 @@ public function action_uninstall($skin = "")
 
 	// If one of the skin config options is set to this skin, change it.
 	$config = array();
-	if (C("esoTalk.skin") == $skin) $config["esoTalk.skin"] = reset(array_keys($skins));
-	if (C("esoTalk.mobileSkin") == $skin) $config["esoTalk.mobileSkin"] = reset(array_keys($skins));
+	if (C("esoTalk.skin") == $skin) $config["esoTalk.skin"] = array_keys($skins)[0];
+	if (C("esoTalk.mobileSkin") == $skin) $config["esoTalk.mobileSkin"] = array_keys($skins)[0];
 	if (count($config)) ET::writeConfig($config);
 
 	$this->redirect(URL("admin/appearance"));
