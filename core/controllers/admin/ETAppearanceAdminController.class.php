@@ -43,7 +43,7 @@ protected function getSkins()
 	    while (false !== ($file = readdir($handle))) {
 
 			// Make sure the skin is valid, and include its skin.php file.
-	        if ($file[0] != "." and file_exists($skinFile = PATH_SKINS."/$file/skin.php") and (include_once $skinFile)) {
+	        if ($file[0] != "." and $file != "index.html" and file_exists($skinFile = PATH_SKINS."/$file/skin.php") and (include_once $skinFile)) {
 
 	        	// Add the skin's information and status to the array.
 				$skins[$file] = array(

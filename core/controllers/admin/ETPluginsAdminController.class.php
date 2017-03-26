@@ -39,7 +39,7 @@ protected function getPlugins()
 	    while (false !== ($file = readdir($handle))) {
 
 			// Make sure the plugin is valid, and include its plugin.php file.
-	        if ($file[0] != "." and file_exists($pluginFile = PATH_PLUGINS."/$file/plugin.php") and (include_once $pluginFile)) {
+	        if ($file[0] != "." and $file != "index.html" and file_exists($pluginFile = PATH_PLUGINS."/$file/plugin.php") and (include_once $pluginFile)) {
 
 				// Add the plugin's information and status to the array.
 				$plugins[$file] = array(
