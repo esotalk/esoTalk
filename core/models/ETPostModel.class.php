@@ -100,7 +100,7 @@ public function get($wheres = array())
  */
 public function getById($postId)
 {
-	return reset($this->get(array("p.postId" => $postId)));
+	return $this->get(array("p.postId" => $postId))[0];
 }
 
 

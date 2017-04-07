@@ -126,9 +126,10 @@ function rrmdir($dir)
  * @package esoTalk
  */
 function file_force_contents($file, $contents){
+	$file = str_replace(PATH_ROOT, '', $file);
 	$parts = explode("/", $file);
 	$file = array_pop($parts);
-	$dir = "";
+	$dir = PATH_ROOT;
 	foreach($parts as $part)
 		if (!is_dir($dir .= "$part/")) mkdir($dir);
 	return file_put_contents("$dir$file", $contents);

@@ -180,7 +180,7 @@ public function get($wheres = array())
  */
 public function getById($id)
 {
-	return reset($this->get(array($this->primaryKey => $id)));
+	return $this->get(array($this->primaryKey => $id))[0];
 }
 
 

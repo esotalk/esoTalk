@@ -43,7 +43,7 @@ protected function getSkins()
 	    while (false !== ($file = readdir($handle))) {
 
 			// Make sure the skin is valid, and include its skin.php file.
-	        if ($file[0] != "." and file_exists($skinFile = PATH_SKINS."/$file/skin.php") and (include_once $skinFile)) {
+	        if ($file[0] != "." and $file != "index.html" and file_exists($skinFile = PATH_SKINS."/$file/skin.php") and (include_once $skinFile)) {
 
 	        	// Add the skin's information and status to the array.
 				$skins[$file] = array(
@@ -141,8 +141,8 @@ public function action_uninstall($skin = "")
 
 	// If one of the skin config options is set to this skin, change it.
 	$config = array();
-	if (C("esoTalk.skin") == $skin) $config["esoTalk.skin"] = reset(array_keys($skins));
-	if (C("esoTalk.mobileSkin") == $skin) $config["esoTalk.mobileSkin"] = reset(array_keys($skins));
+	if (C("esoTalk.skin") == $skin) $config["esoTalk.skin"] = array_keys($skins)[0];
+	if (C("esoTalk.mobileSkin") == $skin) $config["esoTalk.mobileSkin"] = array_keys($skins)[0];
 	if (count($config)) ET::writeConfig($config);
 
 	$this->redirect(URL("admin/appearance"));

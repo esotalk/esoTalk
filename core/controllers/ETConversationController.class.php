@@ -360,7 +360,7 @@ public function action_start($member = false)
 	}
 
 	$channelId = $form->validPostBack("content") ? ET::$session->get("channelId") : ET::$session->get("searchChannelId");
-	ET::$session->store("channelId", isset($channels[$channelId]) ? $channelId : reset(array_keys($channels)));
+	ET::$session->store("channelId", isset($channels[$channelId]) ? $channelId : array_keys($channels)[0]);
 
 	// Get an empty conversation.
 	$model = ET::conversationModel();

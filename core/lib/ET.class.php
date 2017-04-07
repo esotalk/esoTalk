@@ -390,7 +390,7 @@ public static function getLanguages()
 	if ($handle = opendir(PATH_LANGUAGES)) {
 	    while (false !== ($file = readdir($handle))) {
 
-	        if ($file[0] != "." and file_exists($defs = PATH_LANGUAGES."/$file/definitions.php")) {
+	        if ($file[0] != "." and $file != "index.html" and file_exists($defs = PATH_LANGUAGES."/$file/definitions.php")) {
 
 	        	// Include the file so we get the language information in ET::$languageInfo.
 	        	include_once $defs;

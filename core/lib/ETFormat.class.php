@@ -221,10 +221,10 @@ public function linksCallback($matches)
 	// then return an embed tag.
 	if (!$this->inline and C("esoTalk.format.youtube") and preg_match('%(?:youtube(?:-nocookie)?\.com/(?:[^/]+/.+/|(?:v|e(?:mbed)?)/|.*(?:\?|&amp;)v=)|youtu\.be/)([^"&?/ ]{11})(?:(?:\?|&amp;)(.*))?%i', $matches[2], $youtube)) {
 		$id = $youtube[1];
-		$options = $youtube[2];
+		$options = isset($youtube[2]) ? "?" . $youtube[2] : "";
 		$width = 400;
 		$height = 225;
-		return "<iframe class='video' type='text/html' width='$width' height='$height' src='https://www.youtube-nocookie.com/embed/$id?$options' allowfullscreen frameborder='0'></iframe>";
+		return "<iframe class='video' type='text/html' width='$width' height='$height' src='https://www.youtube-nocookie.com/embed/$id$options' allowfullscreen frameborder='0'></iframe>";
 	}
 	if (!$this->inline and C("esoTalk.format.vimeo") and preg_match('%(?:vimeo\.com/)([0-9]+)%i', $matches[2], $vimeo)) {
 		$id = $vimeo[1];

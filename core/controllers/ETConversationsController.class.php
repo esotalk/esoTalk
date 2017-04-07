@@ -41,7 +41,10 @@ public function action_index($channelSlug = false)
 	// If the currently selected channel has no children, or if we're not including descendants, use
 	// its parent as the parent channel.
 	if (($curChannel and $curChannel["lft"] >= $curChannel["rgt"] - 1) or !$includeDescendants)
-		$curChannel = @$channelInfo[$curChannel["parentId"]];
+		if (isset($curChannel["parentId"]))
+			$curChannel = $channelInfo[$curChannel["parentId"]];
+		else
+			$curChannel = false;
 
 	// If no channel is selected, make a faux parent channel.
 	if (!$curChannel) $curChannel = array("lft" => 0, "rgt" => PHP_INT_MAX, "depth" => -1);
@@ -186,7 +189,7 @@ public function action_index($channelSlug = false)
 
 		// Add meta tags to the header.
 		$this->addToHead("<meta name='keywords' content='".sanitizeHTML(($k = C("esoTalk.meta.keywords")) ? $k : implode(",", $keywords))."'>");
-		$lastKeyword = reset(array_splice($keywords, count($keywords) - 1, 1));
+		$lastKeyword = array_splice($keywords, count($keywords) - 1, 1)[0];
 		$this->addToHead("<meta name='description' content='".sanitizeHTML(($d = C("esoTalk.meta.description")) ? $d
 			: sprintf(T("forumDescription"), C("esoTalk.forumTitle"), implode(", ", $keywords), $lastKeyword))."'>");
 
