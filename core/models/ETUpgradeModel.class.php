@@ -221,6 +221,7 @@ protected function structure($drop = false)
 		->key("memberId")
 		->key(array("conversationId", "time"))
 		->key(array("title", "content"), "fulltext")
+		->key(array("content"), "fulltext")
 		->exec($drop);
 
 	// Search table.
