@@ -60,7 +60,7 @@ public function create(&$values)
 
 	// Set default preferences.
 	if (empty($values["preferences"])) {
-		$preferences = array("email.privateAdd", "email.post", "starOnReply", "email.mention");
+		$preferences = array("email.privateAdd", "email.post", "email.mention", "starOnReply", "starPrivate", "hideOnline");
 		foreach ($preferences as $p) {
 			$values["preferences"][$p] = C("esoTalk.preferences.".$p);
 		}
@@ -549,8 +549,8 @@ public static function lastActionViewingConversation($data)
 {
 	if (empty($data["conversationId"])) return array(sprintf(T("Viewing %s"), T("a private conversation")));
 	return array(
-		sprintf(T("Viewing: %s"), $data["title"]),
-		URL(conversationURL($data["conversationId"], $data["title"]))
+		sprintf(T("Viewing: %s"), sanitizeHTML($data["title"])),
+		URL(conversationURL($data["conversationId"], sanitizeHTML($data["title"])))
 	);
 }
 

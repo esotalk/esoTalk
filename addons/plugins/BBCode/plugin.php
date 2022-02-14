@@ -77,7 +77,7 @@ public function handler_format_beforeFormat($sender)
 		} else {
 			$sender->content = preg_replace_callback($regexp, function ($matches) use ($self) {
 				$self->blockFixedContents[] = $matches[2];
-				return $matches[1].'</p><pre></pre></p>';
+				return $matches[1].'</p><pre></pre><p>';
 			}, $sender->content);
 		}
 	}
@@ -111,7 +111,7 @@ public function handler_format_format($sender)
 	$sender->content = preg_replace_callback("/\[url=(?!\s+)(\w{2,6}:\/\/)?([^\]]*?)\](.*?)\[\/url\]/i", array($this, "linksCallback"), $sender->content);
 
 	// Bold: [b]bold text[/b]
-	$sender->content = preg_replace("|\[b\](.*?)\[/b\]|si", "<b>$1</b>", $sender->content);
+	$sender->content = preg_replace("/\[b\](.*?)\[\/b\]/si", "<b>$1</b>", $sender->content);
 
 	// Italics: [i]italic text[/i]
 	$sender->content = preg_replace("/\[i\](.*?)\[\/i\]/si", "<i>$1</i>", $sender->content);

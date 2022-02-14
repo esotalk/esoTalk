@@ -116,7 +116,7 @@ public function action_index($channelSlug = false)
 		// Mark as read controls
 		if (ET::$session->user) {
 			$controls->add("markAllAsRead", "<a href='".URL("conversations/markAllAsRead/?token=".ET::$session->token."' id='control-markAllAsRead'><i class='icon-check'></i> ".T("Mark all as read")."</a>"));
-			$controls->add("markListedAsRead", "<a href='".URL("conversations/$channelSlug/?search=".urlencode($searchString)."&markAsRead=1&token=".ET::$session->token."' id='control-markListedAsRead'><i class='icon-list'></i> ".T("Mark listed as read")."</a>"));
+			$controls->add("markListedAsRead", "<a href='".URL("conversations/".sanitizeHTML($channelSlug)."/?search=".urlencode($searchString)."&markAsRead=1&token=".ET::$session->token."' id='control-markListedAsRead'><i class='icon-list'></i> ".T("Mark listed as read")."</a>"));
 		}
 
 		// Add the default gambits to the gambit cloud: gambit text => css class to apply.
@@ -165,7 +165,7 @@ public function action_index($channelSlug = false)
 
 		// Construct the gambits menu based on the above arrays.
 		$gambitsMenu = ETFactory::make("menu");
-		$linkPrefix = "conversations/".$channelSlug."/?search=".urlencode(((!empty($searchString) ? $searchString." + " : "")));
+		$linkPrefix = "conversations/".sanitizeHTML($channelSlug)."/?search=".urlencode(((!empty($searchString) ? $searchString." + " : "")));
 
 		foreach ($gambits as $section => $items) {
 			foreach ($items as $gambit => $classes) {
