@@ -13,7 +13,7 @@ body {font-size:12px}
 /* Header - center the title and float the buttons. */
 #hdr-content {padding:0 5px}
 #hdr-inner {padding:0}
-#hdr #forumTitle {font-size:14px; padding:11px 0; text-align:center; display:block; width:160px; margin:0 auto; white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
+#hdr #forumTitle {font-size:14px; padding:11px 0; text-align:center; display:block; width:46%; margin:0 auto; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;position: absolute;left: 26%;}
 #hdr .button {margin:6px 0}
 #hdr .popupWrapper {float:right; margin:0 0 0 7px}
 #hdr #backButton {float:left; margin:13px 5px 0 5px}
